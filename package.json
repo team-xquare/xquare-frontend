@@ -1,11 +1,17 @@
 {
   "name": "xquare-frontend",
   "packageManager": "yarn@3.0.1",
+  "scripts": {
+    "new-service": "xnew -S"
+  },
   "devDependencies": {
     "typescript": "^4.3.5"
   },
+  "resolutions": {
+    "typescript": "4.3.5"
+  },
   "workspaces": [
-    "packages/services/*",
-    "packages/libraries/*"
+    "services/*",
+    "libraries/*"
   ]
 }
