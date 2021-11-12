@@ -3,6 +3,8 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
+  "editor.tabSize": 4,
+  "editor.detectIndentation": false,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }

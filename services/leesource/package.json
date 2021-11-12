@@ -9,6 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@semicolondsm/react-emotion-theme": "^1.0.6",
+    "@semicolondsm/ui": "^1.1.8",
+    "@svgr/webpack": "^5.5.0",
+    "emotion-reset": "^3.0.1",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
