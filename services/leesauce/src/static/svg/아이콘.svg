@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="아이콘" transform="translate(-32 -1043)">
+    <g id="배경" transform="translate(32 1043)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="20" height="20" stroke="none"/>
+      <rect x="0.5" y="0.5" width="19" height="19" fill="none"/>
+    </g>
+    <g id="아이콘-2" data-name="아이콘">
+      <circle id="타원_150" data-name="타원 150" cx="8" cy="8" r="8" transform="translate(34 1045)" fill="#bdbdbd"/>
+      <circle id="타원_151" data-name="타원 151" cx="6" cy="6" r="6" transform="translate(40 1045)" fill="#2d2d2d"/>
+    </g>
+  </g>
+</svg>
