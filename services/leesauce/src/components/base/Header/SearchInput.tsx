@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import React from '@emotion/react';
 import styled from '@emotion/styled';
 import { MagnifierIco } from '../../../static/svg';
+import useInput from '../../../hooks/useInput';
 
 interface Props {}
 const SearchInput: FC<Props> = () => {
-    const [name, setName] = useState<string>('');
+    const [name, onChange] = useInput();
     const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -19,7 +20,7 @@ const SearchInput: FC<Props> = () => {
             <LeftBlock>
                 <MagnifierIco />
             </LeftBlock>
-            <Input onChange={(e) => setName(e.target.value)} name="name" placeholder="Search" />
+            <Input onChange={onChange} name="name" placeholder="Search" />
         </SearchBlock>
     );
 };

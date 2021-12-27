@@ -1,21 +1,22 @@
 import { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import { Body2 } from '@semicolondsm/ui';
-import OpacityButton from '../common/Button/OpacityButton/BaseOpacityButton';
 import CopyButton from '../common/Button/OpacityButton/CopyButton';
-import { ResourceData } from '../../services/resource';
+import { ResourceData } from '../../models';
+import { useMemo } from 'react';
+import DonwloadButton from '../common/Button/OpacityButton/DownloadButton';
 
-const SourceItem: FC<ResourceData> = ({ name, url }) => {
+const SourceItem = ({ name, url }: ResourceData) => {
     const [isHover, setIsHover] = useState<boolean>(false);
 
-    const SourceMenu = () => {
+    const SourceMenu = useMemo(() => {
         return (
             <SourceMenuBlock>
                 <CopyButton url={url} />
-                <OpacityButton style={{ marginTop: '8px' }}>Download</OpacityButton>
+                <DonwloadButton name={name} url={url} />
             </SourceMenuBlock>
         );
-    };
+    }, []);
 
     return (
         <SourceItemBlock
@@ -25,7 +26,7 @@ const SourceItem: FC<ResourceData> = ({ name, url }) => {
             <Body2 className="source-title" textAlign="center" color="gray600">
                 {name}
             </Body2>
-            {isHover && <SourceMenu />}
+            {isHover && SourceMenu}
         </SourceItemBlock>
     );
 };
@@ -60,6 +61,7 @@ const SourceMenuBlock = styled.div`
     height: 100%;
     background-color: rgba(33, 33, 33, 0.4);
     display: flex;
+    gap: 8px;
     flex-direction: column;
     align-items: center;
     justify-content: center;

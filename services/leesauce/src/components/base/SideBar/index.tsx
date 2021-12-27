@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 
 import ThemeSelector from './ThemeSelector';
 
-const SideBar: FC = () => {
+const SideBar = () => {
     return (
         <SideBarBlock>
             <Navigation

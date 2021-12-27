@@ -1,21 +1,24 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { HYDRATE } from 'next-redux-wrapper';
 import { BASE_URL } from '../configs';
+import { ResourceData, ResourceFormData, ResourceResponse, ResourceType } from '../models';
 
-export interface ResourceData {
-    name: string;
-    url: string;
-    type: string;
-}
-
-export interface GetResourceResponse {
-    leeSauces: ResourceData[];
+interface CreateResource {
+    resource: FormData;
+    type: ResourceType;
 }
 
 export const resourceAPI = createApi({
     reducerPath: 'resourceAPI',
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+    tagTypes: ['Post'],
+    extractRehydrationInfo(action, { reducerPath }) {
+        if (action.type === HYDRATE) {
+            return action.payload[reducerPath];
+        }
+    },
     endpoints: (builder) => ({
-        getResource: builder.query<GetResourceResponse, string | null>({
+        getResource: builder.query<ResourceResponse, string | null>({
             query: (name) => ({
                 url: '/leesauce',
                 params: name
@@ -24,15 +27,25 @@ export const resourceAPI = createApi({
                       }
                     : {},
             }),
+            providesTags: ['Post'],
         }),
-        createResource: builder.mutation<ResourceData, ResourceData>({
-            query: (resource) => ({
-                url: '/leesauce',
+        createResource: builder.mutation<ResourceData, CreateResource>({
+            query: (form) => ({
+                url: `/${form.type}`,
                 method: 'POST',
-                body: resource,
+                headers: {
+                    Authorization: localStorage.getItem('accessToken') || '',
+                },
+                body: form.resource,
             }),
+            invalidatesTags: ['Post'],
         }),
     }),
 });
 
-export const { useGetResourceQuery } = resourceAPI;
+export const {
+    useGetResourceQuery,
+    useCreateResourceMutation,
+    util: { getRunningOperationPromises },
+} = resourceAPI;
+export const { getResource, createResource } = resourceAPI.endpoints;

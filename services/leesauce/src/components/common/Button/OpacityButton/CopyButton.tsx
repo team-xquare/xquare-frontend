@@ -1,14 +1,15 @@
+import { useCallback } from 'react';
 import { FC, MouseEvent, useState } from 'react';
-import OpacityButton from './BaseOpacityButton';
+import BaseOpacityButton from './BaseOpacityButton';
 
-interface Props {
+interface CopyButtonProps {
     url: string;
 }
 
-const CopyButton: FC<Props> = ({ url }) => {
+const CopyButton = ({ url }: CopyButtonProps) => {
     const [isCopy, setIsCopy] = useState<boolean>(false);
 
-    const copyToClibboard = () => {
+    const copyToClibboard = useCallback(() => {
         const textArea = document.createElement('textarea');
         textArea.value = url;
         document.body.appendChild(textArea);
@@ -17,9 +18,12 @@ const CopyButton: FC<Props> = ({ url }) => {
         document.execCommand('copy');
         document.body.removeChild(textArea);
         setIsCopy(true);
-    };
+    }, [setIsCopy]);
+
     return (
-        <OpacityButton onClick={copyToClibboard}>{isCopy ? 'Copeid' : 'Copy URL'}</OpacityButton>
+        <BaseOpacityButton onClick={copyToClibboard}>
+            {isCopy ? 'Copeid' : 'Copy URL'}
+        </BaseOpacityButton>
     );
 };
 

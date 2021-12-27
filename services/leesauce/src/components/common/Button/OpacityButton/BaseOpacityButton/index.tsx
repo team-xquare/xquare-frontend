@@ -2,11 +2,11 @@ import { CSSProperties, FC, MouseEvent } from 'react';
 import styled from '@emotion/styled';
 import { Body1 } from '@semicolondsm/ui';
 
-interface Props {
+interface BaseOpacityButtonProps {
     style?: CSSProperties;
     onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
-const BaseOpacityButton: FC<Props> = ({ children, style, onClick }) => {
+const BaseOpacityButton: FC<BaseOpacityButtonProps> = ({ children, style, onClick }) => {
     return (
         <OpacityButtonBlock onClick={onClick} style={style}>
             <Body1 color="white">{children}</Body1>

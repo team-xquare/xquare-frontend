@@ -2,11 +2,11 @@ import { useRouter } from 'next/dist/client/router';
 import Link, { LinkProps } from 'next/link';
 import React, { Children, CSSProperties, FC } from 'react';
 
-interface Props extends LinkProps {
+interface ActiveLinkProps extends LinkProps {
     children: any;
     activeClassName: string;
 }
-const ActiveLink: FC<Props> = ({ children, activeClassName, ...props }) => {
+const ActiveLink: FC<ActiveLinkProps> = ({ children, activeClassName, ...props }) => {
     const { asPath } = useRouter();
     const child = Children.only(children);
     const childClassName = children.props.className || '';

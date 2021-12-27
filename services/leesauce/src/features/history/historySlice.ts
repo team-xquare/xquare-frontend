@@ -5,5 +5,7 @@ const initialState = {};
 const historySlice = createSlice({
     name: 'history',
     initialState,
-    reducers: {},
+    reducers: {
+        getDate() {},
+    },
 });

@@ -10,12 +10,12 @@ interface NavigationItem {
     onClick?: () => void;
 }
 
-interface Props {
+interface NavigationProps {
     title: string;
     items: NavigationItem[];
 }
 
-const Navigation: FC<Props> = ({ title, items }) => {
+const Navigation = ({ title, items }: NavigationProps) => {
     const renderItem = (item: NavigationItem, index: number) => {
         const Element = (
             <>

@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import React, { FC } from 'react';
 
-interface Props<T> {
+interface FlexListProps<T> {
     items: ReadonlyArray<T>;
     renderItem: (item: T) => React.ReactNode;
     column?: number;
 }
-const FlexList = <T extends unknown>(props: Props<T>) => {
+const FlexList = <T extends unknown>(props: FlexListProps<T>) => {
     const { items, renderItem, column = 6 } = props;
     return (
         <FlexListBlock>

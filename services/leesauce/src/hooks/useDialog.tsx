@@ -1,12 +1,12 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 export interface UseDialogReturnType {
     isOpen: boolean;
     openModal: () => void;
     closeModal: () => void;
 }
-const useDialog = (): UseDialogReturnType => {
-    const [isOpen, setIsopen] = useState<boolean>(false);
+const useDialog = (defaultValue: boolean | undefined = false): UseDialogReturnType => {
+    const [isOpen, setIsopen] = useState<boolean>(defaultValue);
+
     const openModal = () => setIsopen(true);
     const closeModal = () => setIsopen(false);
 

@@ -4,8 +4,8 @@ import SearchInput from './SearchInput';
 import Test from '../../../static/svg/magnifier_ico.svg';
 import { DetailIco, LogoIco } from '../../../static/svg';
 
-interface Props {}
-const Header: FC<Props> = () => {
+interface HeaderProps {}
+const Header = (props: HeaderProps) => {
     return (
         <HeaderBlock>
             <Left>
