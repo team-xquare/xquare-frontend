@@ -37,7 +37,7 @@ const ResourceUploadDialog = ({ name: defaultName, file, onClose }: ResourceUplo
         const fd = new FormData();
         fd.append('name', name);
         fd.append('file', file);
-        createResource({ resource: fd, type: 'logo' });
+        createResource({ resource: fd, type: category || 'logo' });
     };
 
     useEffect(() => {
