@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.207" height="20.207" viewBox="0 0 20.207 20.207">
+  <g id="돋보기" transform="translate(-92 -20)">
+    <rect id="배경" width="20" height="20" transform="translate(92 20)" fill="none"/>
+    <g id="돋보기-2" data-name="돋보기">
+      <g id="타원_146" data-name="타원 146" transform="translate(92 20)" fill="none" stroke="#bdbdbd" stroke-width="2">
+        <circle cx="8" cy="8" r="8" stroke="none"/>
+        <circle cx="8" cy="8" r="7" fill="none"/>
+      </g>
+      <line id="선_217" data-name="선 217" x2="6" y2="6" transform="translate(105.5 33.5)" fill="none" stroke="#bdbdbd" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
