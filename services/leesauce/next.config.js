@@ -3,6 +3,7 @@ const fs = require('fs');
 
 module.exports = {
     reactStrictMode: true,
+    basePath: '/leesauce',
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
