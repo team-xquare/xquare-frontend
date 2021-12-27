@@ -1,6 +1,6 @@
 {
   "name": "xquare-frontend",
-  "packageManager": "yarn@3.0.1",
+  "packageManager": "yarn@3.1.1",
   "scripts": {
     "new-service": "xnew -S"
   },
