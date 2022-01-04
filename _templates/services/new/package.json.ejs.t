@@ -4,7 +4,7 @@ to: services/<%= name %>/package.json
 {
     "name": "@service/<%= name %>",
     "description": "<%= description %>",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
