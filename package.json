@@ -2,9 +2,10 @@
   "name": "xquare-frontend",
   "packageManager": "yarn@3.1.1",
   "scripts": {
-    "new-service": "xnew -S"
+    "new-service": "hygen services new"
   },
   "devDependencies": {
+    "hygen": "^6.1.0",
     "typescript": "^4.3.5"
   },
   "resolutions": {
@@ -12,6 +13,7 @@
   },
   "workspaces": [
     "services/*",
-    "libraries/*"
+    "libraries/*",
+    "shared/*"
   ]
 }
