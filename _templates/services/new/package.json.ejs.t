@@ -13,15 +13,16 @@ to: services/<%= name %>/package.json
         "lint": "next lint"
     },
     "dependencies": {
-        "next": "11.1.2",
-        "react": "17.0.2",
-        "react-dom": "17.0.2"
+        "next": "12.1.5",
+        "react": "18.0.0",
+        "react-dom": "18.0.0"
     },
     "devDependencies": {
-        "@types/node": "^16.7.10",
-        "@types/react": "17.0.19",
-        "eslint": "7.32.0",
-        "eslint-config-next": "11.1.2",
-        "typescript": "4.3.5"
+        "@types/node": "17.0.24",
+        "@types/react": "18.0.5",
+        "@types/react-dom": "18.0.1",
+        "eslint": "8.13.0",
+        "eslint-config-next": "12.1.5",
+        "typescript": "4.6.3"
     }
 }
