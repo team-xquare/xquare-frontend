@@ -15,7 +15,8 @@ to: services/<%= name %>/package.json
     "dependencies": {
         "next": "12.1.5",
         "react": "18.0.0",
-        "react-dom": "18.0.0"
+        "react-dom": "18.0.0",
+        "@xquare/utils": "1.0.8"
     },
     "devDependencies": {
         "@types/node": "17.0.24",
