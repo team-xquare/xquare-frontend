@@ -5407,6 +5407,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@service/dormitory-admin", "workspace:services/dormitory-admin"],\
             ["@emotion/react", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:11.9.0"],\
             ["@emotion/styled", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:11.3.0"],\
+            ["@semicolondsm/design-token", "npm:1.0.6"],\
             ["@semicolondsm/react-emotion-theme", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:1.0.8"],\
             ["@semicolondsm/ui", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:1.3.5"],\
             ["@svgr/webpack", "npm:6.2.1"],\
