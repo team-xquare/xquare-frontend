@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { colors } from '@semicolondsm/design-token';
+import { Body1 } from '@semicolondsm/ui';
 
 interface PropsType {
     isActive: boolean;
@@ -16,14 +17,15 @@ const NavigationItem = ({
 }: PropsType) => {
     return (
         <Link href={uri}>
-            <Item isActive={isActive}>{title}</Item>
+            <Item isActive={isActive}>
+                <Body1>{title}</Body1>
+            </Item>
         </Link>
     );
 }
 
 const Item = styled.a<{ isActive: boolean; }>`
     width: 100%;
-    font-size: 18px;
     color: ${colors.light.scheme.black};
     text-decoration: none;
     border-radius: 10px;
