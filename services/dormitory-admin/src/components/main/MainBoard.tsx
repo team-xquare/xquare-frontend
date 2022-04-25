@@ -1,7 +1,6 @@
-import { colors } from '@semicolondsm/design-token';
-import { Body1 } from '@semicolondsm/ui';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import { Body1 } from '@semicolondsm/ui';
 import MainSectionTitle from './MainSectionTitle';
 
 const MainBoard = () => {
@@ -34,7 +33,7 @@ const MainBlock = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: ${colors.light.scheme.gray200};
+    background: ${props => props.theme.colors.gray200};
 `;
 
 const MainLine = styled.div`
@@ -51,7 +50,7 @@ const Circle = styled.div`
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: ${colors.light.scheme.gray400};
+    background: ${props => props.theme.colors.gray400};
 `;
 
 export default MainBoard;

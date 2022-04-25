@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { colors } from '@semicolondsm/design-token';
-import MainSectionTitle from './MainSectionTitle';
+import styled from '@emotion/styled';
 import { Body1, Subtitle4 } from '@semicolondsm/ui';
+import MainSectionTitle from './MainSectionTitle';
 
 const MainTotal = () => {
     return (
@@ -39,7 +38,7 @@ const MainBlock = styled.div`
     height: 100px;
     padding: 16px 20px 16px 40px;
     display: flex;
-    background: ${colors.light.scheme.gray200};
+    background: ${props => props.theme.colors.gray200};
 `;
 
 const MainColumn = styled.div`

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import MainBoard from './MainBoard';
 import MainList from './MainList';
 import MainSchedule from './MainSchedule';

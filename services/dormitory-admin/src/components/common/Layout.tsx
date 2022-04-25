@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Sidebar from '../base/Sidebar';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

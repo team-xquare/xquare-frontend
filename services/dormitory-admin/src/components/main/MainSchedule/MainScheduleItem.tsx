@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Body1, Subtitle3 } from '@semicolondsm/ui';
-import { colors } from '@semicolondsm/design-token';
 
 interface PropsType {
 
@@ -34,13 +33,13 @@ const MainContainer = styled.div`
     grid-template-rows: 1fr;
     grid-gap: 30px;
     align-items: center;
-    background: ${colors.light.scheme.gray200};
+    background: ${props => props.theme.colors.gray200};
 `;
 
 const MainHead = styled.div`
     width: 10px;
     height: 100%;
-    background: ${colors.light.scheme.gray500};
+    background: ${props => props.theme.colors.gray500};
 `;
 
 const MainColumn = styled.div`

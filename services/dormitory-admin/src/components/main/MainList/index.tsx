@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { colors } from '@semicolondsm/design-token';
+import styled from '@emotion/styled';
 import MainSectionTitle from '../MainSectionTitle';
-import MainListItem from './MainItem';
+import MainListItem from './MainListItem';
 
 const MainList = () => {
     return (
@@ -34,7 +33,7 @@ const MainBlock = styled.div`
     grid-template-columns: repeat(9, auto);
     align-items: center;
     justify-items: center;
-    background: ${colors.light.scheme.gray200};
+    background: ${props => props.theme.colors.gray200};
 `;
 
 export default MainList;

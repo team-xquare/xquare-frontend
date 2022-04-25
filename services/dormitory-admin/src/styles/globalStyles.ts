@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { css } from '@emotion/react';
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = css`
     html, body {
         width: 100%;
         height: 100%;

@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
-import { colors } from '@semicolondsm/design-token';
+import styled from '@emotion/styled';
 import { Body1 } from '@semicolondsm/ui';
 
 interface PropsType {
@@ -26,17 +25,17 @@ const NavigationItem = ({
 
 const Item = styled.a<{ isActive: boolean; }>`
     width: 100%;
-    color: ${colors.light.scheme.black};
+    color: ${props => props.theme.colors.black};
     text-decoration: none;
     border-radius: 10px;
     padding: 10px 12px;
-    background: ${({ isActive }) => isActive ? colors.light.scheme.gray400 : "transparent"};
+    background: ${({ isActive, theme }) => isActive ? theme.colors.gray400 : "transparent"};
     transition: background .07s linear;
     cursor: pointer;
     user-select: none;
 
     &:hover {
-        background: ${colors.light.scheme.gray400};
+        background: ${props => props.theme.colors.gray400};
     }
 `;
 
