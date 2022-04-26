@@ -22,7 +22,7 @@ const MainContainer = styled.section`
     padding: 74px 60px 0 60px;
     display: grid;
     grid-template-columns: 1000px 1fr;
-    grid-auto-rows: min-content 1fr;
+    grid-auto-rows: min-content minmax(0, 1fr);
     grid-gap: 44px;
 `;
 
