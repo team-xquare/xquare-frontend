@@ -1,6 +1,6 @@
-import React from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import React from 'react';
+import styled from '@emotion/styled';
 import NavigationItem from './NavigationItem';
 
 interface Item {
@@ -22,6 +22,7 @@ const Navigation = ({
             {
                 items.map(item => (
                     <NavigationItem
+                        key={item.title}
                         isActive={router.asPath === item.uri}
                         {...item} 
                     />

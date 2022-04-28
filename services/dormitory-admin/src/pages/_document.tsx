@@ -1,10 +1,8 @@
-import { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
-import { ReactNode } from 'react';
-import { ServerStyleSheet } from 'styled-components';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 const styleServerURL = 'https://assets-fe.xquare.app/style.css';
 
-const Document = ({ styleTags }: { styleTags: ReturnType<ServerStyleSheet["getStyleElement"]> }) => {
+const Document = () => {
     return (
         <Html>
             <Head>
@@ -15,7 +13,6 @@ const Document = ({ styleTags }: { styleTags: ReturnType<ServerStyleSheet["getSt
                     href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
                     rel="stylesheet"
                 />
-                {styleTags as ReactNode[]}
             </Head>
             <body>
                 <Main />
@@ -23,14 +20,6 @@ const Document = ({ styleTags }: { styleTags: ReturnType<ServerStyleSheet["getSt
             </body>
         </Html>
     );
-}
-
-Document.getInitialProps = (context: DocumentContext) => {
-    const sheet = new ServerStyleSheet();
-    const page = context.renderPage(App => props => sheet.collectStyles(<App {...props} />));
-    const styleTags = sheet.getStyleElement();
-    
-    return { ...page, styleTags };
 }
 
 export default Document;

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Logo as LogoSvg } from '../../static/svg';
-import { colors } from '@semicolondsm/design-token';
+
 import Link from 'next/link';
+import React from 'react';
+import styled from '@emotion/styled';
+import { Logo as LogoSvg } from '../../static/svg';
 
 const Logo = () => {
     return (

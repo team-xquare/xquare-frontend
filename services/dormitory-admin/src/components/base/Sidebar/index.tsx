@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { colors } from '@semicolondsm/design-token';
-import Logo from '../../common/Logo';
+import styled from '@emotion/styled';
 import Navigation from './Navigation';
+import Logo from '../../common/Logo';
 
 const SidebarItems = [
     {
@@ -40,7 +39,7 @@ const SidebarContainer = styled.nav`
     width: 260px;
     height: 100%;
     padding: 30px;
-    background: ${colors.light.scheme.gray300};
+    background: ${props => props.theme.colors.gray300};
     display: flex;
     flex-direction: column;
     align-items: flex-start;
