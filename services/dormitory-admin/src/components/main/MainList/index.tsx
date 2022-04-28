@@ -12,18 +12,22 @@ const MainList = () => {
         <MainContainer>
             <MainSectionTitle>학생 목록</MainSectionTitle>
             <MainBlock>
-                <Body1>호실</Body1>
-                <Body1>학번</Body1>
-                <Body1>이름</Body1>
-                <Body1>상점</Body1>
-                <Body1>벌점</Body1>
-                <Body1>봉사단계</Body1>
-                <Body1>잔류여부</Body1>
-                <Body1>주말급식</Body1>
-                <Body1>상벌점 부여</Body1>
-                {
-                    data?.data.students.map(student => <MainListItem {...student} />)
-                }
+                <div>
+                    
+                </div>
+                <MainListWrapper>
+                    <MainListHaeder>호실</MainListHaeder>
+                    <MainListHaeder>학번</MainListHaeder>
+                    <MainListHaeder>이름</MainListHaeder>
+                    <MainListHaeder>상점</MainListHaeder>
+                    <MainListHaeder>벌점</MainListHaeder>
+                    <MainListHaeder>봉사단계</MainListHaeder>
+                    <MainListHaeder>잔류여부</MainListHaeder>
+                    <MainListHaeder>주말급식</MainListHaeder>
+                    {
+                        data?.data.students.map(student => <MainListItem {...student} />)
+                    }
+                </MainListWrapper>
             </MainBlock>
         </MainContainer>
     );
@@ -40,15 +44,36 @@ const MainContainer = styled.div`
 const MainBlock = styled.div`
     width: 100%;
     height: 100%;
+    min-height: 0;
     padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    background: ${props => props.theme.colors.gray200};
+`;
+
+const MainListWrapper = styled.div`
+    position: relative;
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: 50px;
-    grid-template-columns: repeat(9, auto);
+    grid-template-columns: repeat(8, auto);
     align-items: center;
     justify-items: center;
-    background: ${props => props.theme.colors.gray200};
     overflow-y: scroll;
+
+    & p {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+`;
+
+const MainListHaeder = styled(Body1)`
+    top: 0;
+    position: sticky;
+    background: ${props => props.theme.colors.gray200};
 `;
 
 export default MainList;

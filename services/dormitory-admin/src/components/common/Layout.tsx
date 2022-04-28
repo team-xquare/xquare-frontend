@@ -15,7 +15,7 @@ const GridLayout = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: min-content minmax(0, 1fr);
     grid-template-rows: 100%;
 `;
 

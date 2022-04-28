@@ -20,7 +20,6 @@ const MainListItem = ({
             <Body1>{penalty_level}단계</Body1>
             <Body1>잔류</Body1>
             <Body1>신청</Body1>
-            <Body1>버튼</Body1>
         </>
     );
 }
