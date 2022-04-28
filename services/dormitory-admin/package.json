@@ -14,7 +14,7 @@
         "@emotion/styled": "^11.8.1",
         "@semicolondsm/design-token": "^1.0.6",
         "@semicolondsm/react-emotion-theme": "^1.0.8",
-        "@semicolondsm/ui": "^1.3.5",
+        "@semicolondsm/ui": "^1.3.7",
         "@svgr/webpack": "^6.2.1",
         "@xquare/utils": "1.0.8",
         "axios": "^0.26.1",

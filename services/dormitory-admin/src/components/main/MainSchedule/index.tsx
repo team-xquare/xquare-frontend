@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import MainSectionTitle from '../MainSectionTitle';
+import MainSectionTitle from '../../common/MainSectionTitle';
 import MainScheduleItem from './MainScheduleItem';
 
 const MainSchedule = () => {

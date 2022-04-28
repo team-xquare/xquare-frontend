@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import MainLayout from "../components/main/MainLayout";
 import { ModalProvider } from '../contexts/modal';
 
-const Home: NextPage = () => {
+const Main: NextPage = () => {
     return (
         <ModalProvider>
             <MainLayout />
@@ -10,4 +10,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default Main;
