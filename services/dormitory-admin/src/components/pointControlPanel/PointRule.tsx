@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ToggleButton, Body1, Button } from '@semicolondsm/ui';
 import MainSectionTitle from '../common/MainSectionTitle';
 import { useAddPointQuery, useRuleQuery } from '../../apis/points';
-import { Rule, SelectedUserIds } from '../../apis/types';
+import { SelectedUserIds } from '../../apis/types';
+import { useModal } from '../../contexts/modal';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -15,6 +16,12 @@ const PointRule = ({
     const [type, setType] = useState<boolean>(true);
     const { data, isLoading, error } = useRuleQuery();
     const pointsMutation = useAddPointQuery(id);
+    const { openModal, closeModal } = useModal();
+
+    useEffect(() => {
+        if(pointsMutation.isLoading) openModal();
+        else closeModal();
+    }, [pointsMutation.isLoading]);
 
     return (
         <MainContainer>

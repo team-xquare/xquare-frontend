@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import PointList from './PointList';
 import PointHistory from './PointHistory';
@@ -6,6 +6,8 @@ import PointRule from './PointRule';
 import { SortProvider } from '../../contexts/sort';
 import { SelectedUserIds, Student } from '../../apis/types';
 import { useKeydown } from '../../hooks/useKeydown';
+import ModalContainer from '../common/ModalContainer';
+import { useModal } from '../../contexts/modal';
 
 const PointLayout = () => {
     const [selectedUserIds, setSUI] = useState<SelectedUserIds>({});
@@ -54,6 +56,9 @@ const PointLayout = () => {
 
     return (
         <SortProvider>
+            <ModalContainer>
+                helloworld
+            </ModalContainer>
             <PointContainer>
                 <PointList setId={setSUI} id={selectedUserIds} onClick={pointItemOnClick} />
                 <PointHistory id={selectedUserIds} />

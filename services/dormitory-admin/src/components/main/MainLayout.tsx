@@ -9,12 +9,10 @@ import ModalContainer from '../common/ModalContainer';
 import { SortProvider } from '../../contexts/sort';
 
 const MainLayout = () => {
-    const { modalRef } = useModal();
-
     return (
         <SortProvider>
             <MainContainer>
-                <ModalContainer ref={modalRef}>
+                <ModalContainer>
                     
                 </ModalContainer>
                 <MainTotal />
