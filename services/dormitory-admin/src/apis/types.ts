@@ -34,3 +34,5 @@ export enum SortingEnum {
 }
 
 export type SelectedUserIds = { [key: string]: boolean };
+
+export type MutateMethod = "POST" | "DELETE" | "PUT";

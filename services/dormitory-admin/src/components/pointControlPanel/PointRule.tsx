@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { ToggleButton, Body1 } from '@semicolondsm/ui';
+import { ToggleButton, Body1, Button } from '@semicolondsm/ui';
 import MainSectionTitle from '../common/MainSectionTitle';
-import { useRuleQuery } from '../../apis/points';
+import { useAddPointQuery, useRuleQuery } from '../../apis/points';
+import { Rule, SelectedUserIds } from '../../apis/types';
 
-const PointRule = () => {
+interface PropsType {
+    id: SelectedUserIds;
+}
+
+const PointRule = ({
+    id,
+}: PropsType) => {
     const [type, setType] = useState<boolean>(true);
-    const { data, isLoading, error } = useRuleQuery();
+    // const { data, isLoading, error } = useRuleQuery();
+    const pointsMutation = useAddPointQuery(id);
+    const data: Rule[] = [
+        { id: 123, point: 10, reason: "asasrbvaleirvbalbfalshdbfalhsdbasdfasdfd", type: true },
+        { id: 123, point: 10, reason: "aqweqwe", type: false },
+    ];
 
     return (
         <MainContainer>
@@ -24,7 +36,18 @@ const PointRule = () => {
                 ]} />
                 <MainListWrapper>
                     {
-                        data?.map(rule => type === rule.type && <Body1 key={rule.id}>{rule.reason}</Body1>)
+                        data?.map(rule => type === rule.type && (
+                            <MainListItem key={rule.id}>
+                                <div title={rule.reason}>
+                                    <Body1>{rule.reason}</Body1>
+                                </div>
+                                <Button 
+                                    disabled={Object.values(id).indexOf(true) === -1} 
+                                    size="sm" 
+                                    onClick={() => pointsMutation.mutate(rule.id)}
+                                >부여하기</Button>
+                            </MainListItem>
+                        ))
                     }
                 </MainListWrapper>
             </MainBlock>
@@ -62,6 +85,29 @@ const MainListWrapper = styled.div`
     align-items: center;
     justify-items: center;
     overflow-y: scroll;
+`;
+
+const MainListItem = styled.div`
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-rows: 1fr;
+    grid-gap: 14px;
+    align-items: center;
+    justify-items: left;
+    padding: 10px 4px;
+
+    & div {
+        width: 100%;
+        min-width: 0;
+    }
+
+    & p {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 export default PointRule;

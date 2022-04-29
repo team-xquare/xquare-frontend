@@ -27,15 +27,19 @@ const PointLayout = () => {
                 ...Object.fromEntries(prevSlicedStudents.map(student => [student.id, false])), 
                 ...Object.fromEntries(slicedStudents.map(student => [student.id, true])) 
             }));
-            return prevMultiSelectedUserId.current = id;
+            prevMultiSelectedUserId.current = id;
+            return;
         } else if(selectedUserIds[id]) {
             console.log(prevMultiSelectedUserId.current);
             if(prevMultiSelectedUserId.current) {
                 setSUI(prev => ({ ...Object.fromEntries(Object.keys(prev).map(key => [key, false])), [id]: true }));
-                return prevClickedUserId.current = id;
+                prevMultiSelectedUserId.current = null;
+                prevClickedUserId.current = id;
+                return;
             } else {
                 setSUI(prev => ({ ...prev, [id]: false }));
-                return prevClickedUserId.current = null;
+                prevClickedUserId.current = null;
+                return;
             }
         } else if(secondParam === true || isCtrlKeydown) {
             setSUI(prev => ({ ...prev, [id]: true }));
@@ -53,7 +57,7 @@ const PointLayout = () => {
             <PointContainer>
                 <PointList setId={setSUI} id={selectedUserIds} onClick={pointItemOnClick} />
                 <PointHistory id={selectedUserIds} />
-                <PointRule />
+                <PointRule id={selectedUserIds} />
             </PointContainer>
         </SortProvider>
     );

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
 import { instance } from "."
 import { Rule, SelectedUserIds, Student, StudentHistory } from "./types";
 
@@ -9,15 +9,30 @@ export const usePointQuery = () => {
         });
         return students;
     }
-    const result = useQuery("/points/students", fetcher);
+    return useQuery("/points/students", fetcher);
+}
 
-    return result;
+export const useAddPointQuery = (id: SelectedUserIds) => {
+    const trueStudentIds = Object.keys(id).filter(key => id[key] && key);
+    const queryClient = useQueryClient();
+    const fetcher = async (pointId: number) => {
+        return Promise.all(trueStudentIds.map(id => instance(`/points/students/${id}`, {
+            method: "POST",
+            data: {
+                point_id: pointId
+            },
+        })));
+    };
+    return useMutation(fetcher, { onSuccess: () => 
+        queryClient.invalidateQueries({ 
+            predicate: ({ queryKey }) => queryKey[0] === "/points/students" && trueStudentIds.indexOf(queryKey[1] as string) !== -1
+        }) 
+    });
 }
 
 export const useHistoryByIdQuery = (id: SelectedUserIds) => {
-    const trueStudents = Object.keys(id).map(key => id[key] === true && id[key]);
-    
-    const pathname = `/points/student/${trueStudents[0]}/history`;
+    const trueStudentIds = Object.keys(id).filter(key => id[key] && key);
+    const pathname = `/points/student/${trueStudentIds.length ? trueStudentIds[0] : ""}/history`;
 
     const fetcher = async (): Promise<StudentHistory[]> => {
         const { data: { point_histories } } = await instance(pathname, {
@@ -25,10 +40,7 @@ export const useHistoryByIdQuery = (id: SelectedUserIds) => {
         });
         return point_histories;
     }
-
-    const result = useQuery(["/points/student", id], fetcher, { enabled: trueStudents.length > 1 });
-
-    return result;
+    return useQuery(["/points/student", id], fetcher, { enabled: trueStudentIds.length === 1 });
 }
 
 export const useRuleQuery = () => {
@@ -38,7 +50,5 @@ export const useRuleQuery = () => {
         });
         return rules;
     }
-    const result = useQuery("/points/rules", fetcher);
-
-    return result;
+    return useQuery("/points/rules", fetcher);
 }
