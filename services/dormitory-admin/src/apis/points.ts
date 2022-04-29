@@ -13,20 +13,22 @@ export const usePointQuery = () => {
 }
 
 export const useAddPointQuery = (id: SelectedUserIds) => {
-    const trueStudentIds = Object.keys(id).filter(key => id[key] && key);
+    const trueStudentIds = Object.keys(id).filter(key => id[key]);
     const queryClient = useQueryClient();
     const fetcher = async (pointId: number) => {
-        return Promise.all(trueStudentIds.map(id => instance(`/points/students/${id}`, {
+        return Promise.all(trueStudentIds.map(id => instance(`/points/student/${id}`, {
             method: "POST",
             data: {
                 point_id: pointId
             },
         })));
     };
-    return useMutation(fetcher, { onSuccess: () => 
-        queryClient.invalidateQueries({ 
-            predicate: ({ queryKey }) => queryKey[0] === "/points/students" && trueStudentIds.indexOf(queryKey[1] as string) !== -1
-        }) 
+    return useMutation(fetcher, { onSuccess: () => {
+            queryClient.invalidateQueries("/points/students", { 
+                predicate: ({ queryKey }) => queryKey[0] === "/points/students" && trueStudentIds.indexOf(queryKey[1] as string) !== -1
+            });
+            queryClient.invalidateQueries("/points/students");
+        }
     });
 }
 
@@ -40,7 +42,7 @@ export const useHistoryByIdQuery = (id: SelectedUserIds) => {
         });
         return point_histories;
     }
-    return useQuery(["/points/student", id], fetcher, { enabled: trueStudentIds.length === 1 });
+    return useQuery(["/points/students", id], fetcher, { enabled: trueStudentIds.length === 1 });
 }
 
 export const useRuleQuery = () => {

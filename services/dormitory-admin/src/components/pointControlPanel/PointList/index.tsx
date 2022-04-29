@@ -6,13 +6,7 @@ import StudentList from '../../common/StudentList';
 import { usePointQuery } from '../../../apis/points';
 import { useSort } from '../../../contexts/sort';
 import { sortedStudents } from '../../../libs/utils';
-import { SelectedUserIds, SortingEnum, Student } from '../../../apis/types';
-const data: Student[] = [
-    { id: "helo", bad_point: 10, good_point: 10, name: "Asd", num: "1233", penalty_level: 3, penalty_training_status: false },
-    { id: "asd", bad_point: 10, good_point: 10, name: "zxc", num: "1232", penalty_level: 4, penalty_training_status: false },
-    { id: "zxc", bad_point: 10, good_point: 10, name: "qwe", num: "1234", penalty_level: 5, penalty_training_status: true },
-];
-
+import { SelectedUserIds, Student } from '../../../apis/types';
 interface PropsType {
     onClick: (id: string, secondParam: boolean | Student[]) => void;
     id: SelectedUserIds;
@@ -24,22 +18,24 @@ const PointList = ({
     id,
     setId,
 }: PropsType) => {
-    // const { data, isLoading, error } = usePointQuery();
+    const { data, isLoading, error } = usePointQuery();
+    const nonUndefinedData = data ?? [];
     const { sortType } = useSort();
 
     useEffect(() => {
-        setId(Object.fromEntries(data.map(student => [student.id, false])));
+        setId(Object.fromEntries(nonUndefinedData.map(student => [student.id, false])));
     }, [sortType]);
     
     const toggleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.currentTarget.checked) setId(Object.fromEntries(data.map(student => [student.id, true])));
-        else setId(Object.fromEntries(data.map(student => [student.id, false])));
+        const sortedStudentsList = sortedStudents(sortType, nonUndefinedData);
+        if(e.currentTarget.checked) setId(Object.fromEntries(sortedStudentsList.map(student => [student.id, true])));
+        else setId(Object.fromEntries(sortedStudentsList.map(student => [student.id, false])));
     }
 
     const columns = [
         <input 
             type="checkbox" 
-            checked={Object.values(id).indexOf(false) === -1} 
+            checked={Object.values(id).length !== 0 && Object.values(id).indexOf(false) === -1} 
             onChange={toggleSelectAll} 
         />, 
         "호실", "학번", "이름", "상점", "벌점", "1단계", "2단계", "3단계", "1Out", "2Out"
@@ -50,9 +46,9 @@ const PointList = ({
             <MainSectionTitle>학생 리스트</MainSectionTitle>
             <StudentList columns={columns}>
                 {
-                    sortedStudents(sortType, data).map(student => <PointListItem 
+                    sortedStudents(sortType, nonUndefinedData).map(student => <PointListItem 
                         key={student.id} 
-                        onClick={(id: string, isCheckbox?: boolean) => onClick(id, isCheckbox ?? data)} 
+                        onClick={(id: string, isCheckbox?: boolean) => onClick(id, isCheckbox ?? nonUndefinedData)} 
                         isActive={id[student.id]} 
                         {...student} 
                     />)

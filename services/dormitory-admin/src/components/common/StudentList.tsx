@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Body1, Button, Select } from '@semicolondsm/ui';
 import { SortingEnum } from '../../apis/types';
 import { useSort } from '../../contexts/sort';
+import { download, getDateString } from '../../libs/utils';
 
 interface PropsType {
     children: React.ReactNode;
@@ -19,7 +20,7 @@ const StudentList = ({
         <MainBlock>
             <MainBlockHeader>
                 <Select items={Object.values(SortingEnum)} onChange={setSortType} value={SortingEnum.a} placeholder="" />
-                <Button fill="border" size="sm">CSV 내보내기</Button>
+                <Button onClick={() => download(`${process.env.NEXT_PUBLIC_API_BASE_URL}/excel/point`, `${getDateString()}-상벌점현황`)} fill="border" size="sm">CSV 내보내기</Button>
             </MainBlockHeader>
             <MainListWrapper length={columns.length}>
                 {

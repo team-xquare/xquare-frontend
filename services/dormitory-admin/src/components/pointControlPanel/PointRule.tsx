@@ -13,12 +13,8 @@ const PointRule = ({
     id,
 }: PropsType) => {
     const [type, setType] = useState<boolean>(true);
-    // const { data, isLoading, error } = useRuleQuery();
+    const { data, isLoading, error } = useRuleQuery();
     const pointsMutation = useAddPointQuery(id);
-    const data: Rule[] = [
-        { id: 123, point: 10, reason: "asasrbvaleirvbalbfalshdbfalhsdbasdfasdfd", type: true },
-        { id: 123, point: 10, reason: "aqweqwe", type: false },
-    ];
 
     return (
         <MainContainer>
@@ -38,6 +34,7 @@ const PointRule = ({
                     {
                         data?.map(rule => type === rule.type && (
                             <MainListItem key={rule.id}>
+                                <Body1>{rule.point}점</Body1>
                                 <div title={rule.reason}>
                                     <Body1>{rule.reason}</Body1>
                                 </div>
@@ -91,7 +88,7 @@ const MainListItem = styled.div`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
     grid-template-rows: 1fr;
     grid-gap: 14px;
     align-items: center;
@@ -107,6 +104,7 @@ const MainListItem = styled.div`
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
 `;
 

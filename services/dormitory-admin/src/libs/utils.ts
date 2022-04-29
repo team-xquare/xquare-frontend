@@ -1,6 +1,6 @@
-import { SortingEnum, StudentType } from "../apis/types";
+import { SortingEnum, Student } from "../apis/types";
 
-export const sortedStudents = (sortType: SortingEnum, data?: StudentType[]) => {
+export const sortedStudents = (sortType: SortingEnum, data?: Student[]) => {
     let students = data ?? [];
     switch(sortType) {
         case SortingEnum.a:
@@ -18,4 +18,17 @@ export const sortedStudents = (sortType: SortingEnum, data?: StudentType[]) => {
             break;
     }
     return students;
+}
+
+export const download = (downloadURL: string, name: string) => {
+    const a = document.createElement("a");
+    a.href = downloadURL;
+    a.download = name;
+    a.click();
+    a.remove();
+};
+
+export const getDateString = () => {
+    const now = new Date();
+    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDay()}`;
 }
