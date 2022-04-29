@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Body1 } from '@semicolondsm/ui';
 import MainSectionTitle from '../common/MainSectionTitle';
+import { Body1 } from '@semicolondsm/ui';
 import { useHistoryByIdQuery } from '../../apis/points';
-import { HistoryType } from '../../apis/types';
+import { SelectedUserIds } from '../../apis/types';
 
 interface PropsType {
-    id?: string;
+    id: SelectedUserIds;
 }
-
-type HistoryApiResponseType = HistoryType[];
 
 const PointHistory = ({
     id,
@@ -24,7 +22,7 @@ const PointHistory = ({
                     {
                         data ?
                             data.length ?  
-                                data.map(history => <Body1>{history.reason}</Body1>)
+                                data.map(history => <Body1 key={history.id}>{history.reason}</Body1>)
                                 : <Body1>상벌점 기록이 없습니다.</Body1>
                         : isLoading ? <>로딩중</>
                             : <Body1>학생을 선택해주세요 !</Body1>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Body1 } from '@semicolondsm/ui';
-import { StudentType } from '../../../apis/types';
+import { Student } from '../../../apis/types';
 
 const MainListItem = ({
     num,
@@ -9,7 +9,7 @@ const MainListItem = ({
     bad_point,
     penalty_level,
     penalty_training_status,
-}: StudentType) => {
+}: Student) => {
     return (
         <>
             <Body1>306</Body1>

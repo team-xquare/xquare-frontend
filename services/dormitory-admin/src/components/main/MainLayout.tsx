@@ -6,20 +6,23 @@ import MainList from './MainList';
 import MainSchedule from './MainSchedule';
 import MainTotal from './MainTotal';
 import ModalContainer from '../common/ModalContainer';
+import { SortProvider } from '../../contexts/sort';
 
 const MainLayout = () => {
     const { modalRef } = useModal();
 
     return (
-        <MainContainer>
-            <ModalContainer ref={modalRef}>
-                
-            </ModalContainer>
-            <MainTotal />
-            <MainBoard />
-            <MainList />
-            <MainSchedule />
-        </MainContainer>
+        <SortProvider>
+            <MainContainer>
+                <ModalContainer ref={modalRef}>
+                    
+                </ModalContainer>
+                <MainTotal />
+                <MainBoard />
+                <MainList />
+                <MainSchedule />
+            </MainContainer>
+        </SortProvider>
     );
 }
 

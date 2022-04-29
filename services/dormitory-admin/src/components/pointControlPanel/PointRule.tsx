@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { ToggleButton, Body1 } from '@semicolondsm/ui';
 import MainSectionTitle from '../common/MainSectionTitle';
-import { useRules } from '../../apis/points';
+import { useRuleQuery } from '../../apis/points';
 
 const PointRule = () => {
     const [type, setType] = useState<boolean>(true);
-    const { data, isLoading, error } = useRules();
+    const { data, isLoading, error } = useRuleQuery();
 
     return (
         <MainContainer>
@@ -24,7 +24,7 @@ const PointRule = () => {
                 ]} />
                 <MainListWrapper>
                     {
-                        data?.data.rules.map(rule => type === rule.type && <Body1>{rule.reason}</Body1>)
+                        data?.map(rule => type === rule.type && <Body1 key={rule.id}>{rule.reason}</Body1>)
                     }
                 </MainListWrapper>
             </MainBlock>

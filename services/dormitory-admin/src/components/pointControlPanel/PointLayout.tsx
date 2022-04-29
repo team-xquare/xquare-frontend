@@ -1,18 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import PointList from './PointList';
 import PointHistory from './PointHistory';
 import PointRule from './PointRule';
+import { SortProvider } from '../../contexts/sort';
+import { SelectedUserIds, Student } from '../../apis/types';
+import { useKeydown } from '../../hooks/useKeydown';
 
 const PointLayout = () => {
-    const [selectedUserId, setSUI] = useState<string | undefined>(undefined);
+    const [selectedUserIds, setSUI] = useState<SelectedUserIds>({});
+    const prevClickedUserId = useRef<string | null>(null);
+    const prevMultiSelectedUserId = useRef<string | null>(null);
+    const isCtrlKeydown = useKeydown("Control");
+    const isShiftKeydown = useKeydown("Shift");
+
+    const pointItemOnClick = (id: string, secondParam: boolean | Student[]) => {
+        if(isShiftKeydown && prevClickedUserId.current && Array.isArray(secondParam)) {
+            const firstIndex = secondParam.findIndex(student => student.id === prevClickedUserId.current);
+            let secondIndex: number = -1;
+            if(prevMultiSelectedUserId.current && prevMultiSelectedUserId.current !== "") secondIndex = secondParam.findIndex(student => student.id === prevMultiSelectedUserId.current);
+            const prevSlicedStudents = secondParam.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
+            secondIndex = secondParam.findIndex(student => student.id === id);
+            const slicedStudents = secondParam.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
+            setSUI(prev => ({ 
+                ...prev, 
+                ...Object.fromEntries(prevSlicedStudents.map(student => [student.id, false])), 
+                ...Object.fromEntries(slicedStudents.map(student => [student.id, true])) 
+            }));
+            return prevMultiSelectedUserId.current = id;
+        } else if(selectedUserIds[id]) {
+            console.log(prevMultiSelectedUserId.current);
+            if(prevMultiSelectedUserId.current) {
+                setSUI(prev => ({ ...Object.fromEntries(Object.keys(prev).map(key => [key, false])), [id]: true }));
+                return prevClickedUserId.current = id;
+            } else {
+                setSUI(prev => ({ ...prev, [id]: false }));
+                return prevClickedUserId.current = null;
+            }
+        } else if(secondParam === true || isCtrlKeydown) {
+            setSUI(prev => ({ ...prev, [id]: true }));
+            prevMultiSelectedUserId.current = id;
+        } else {
+            setSUI(prev => ({ ...Object.fromEntries(Object.keys(prev).map(key => [key, false])), [id]: true }));
+            prevMultiSelectedUserId.current = null;
+        }
+
+        prevClickedUserId.current = id;
+    }
 
     return (
-        <PointContainer>
-            <PointList id={selectedUserId} onClick={(id: string) => setSUI(id)} />
-            <PointHistory id={selectedUserId} />
-            <PointRule />
-        </PointContainer>
+        <SortProvider>
+            <PointContainer>
+                <PointList setId={setSUI} id={selectedUserIds} onClick={pointItemOnClick} />
+                <PointHistory id={selectedUserIds} />
+                <PointRule />
+            </PointContainer>
+        </SortProvider>
     );
 }
 

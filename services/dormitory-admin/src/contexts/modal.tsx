@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useState, useRef } from 'react';
 
 interface StateType {
     modalRef?: React.RefObject<HTMLDivElement>;
