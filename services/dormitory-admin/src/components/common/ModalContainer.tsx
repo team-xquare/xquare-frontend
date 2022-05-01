@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { useModal } from '../../contexts/modal';
 
@@ -11,16 +12,23 @@ const ModalContainer = ({
     children,
     isCanClose,
 }: PropsType) => {
-    const { closeModal, modalRef } = useModal();
+    const { closeModal, isOpen } = useModal();
 
-    return (
-        <ModalWrapper onClick={() => isCanClose && closeModal()} ref={modalRef}>
-            <ModalBox onClick={e => e.stopPropagation()}>
-                {isCanClose && <CloseButton onClick={() => isCanClose && closeModal()}>✖</CloseButton>}
-                {children}
-            </ModalBox>
-        </ModalWrapper>
-    );
+    if(typeof window !== "object" || !isOpen) return null;
+    return ReactDOM.createPortal((
+        <>
+            {
+                isOpen && (
+                    <ModalWrapper onClick={() => isCanClose && closeModal()}>
+                        <ModalBox onClick={e => e.stopPropagation()}>
+                            {isCanClose && <CloseButton onClick={() => isCanClose && closeModal()}>✖</CloseButton>}
+                            {children}
+                        </ModalBox>
+                    </ModalWrapper>
+                )
+            }
+        </>
+    ), document.getElementById("__next") as HTMLElement);
 };
 
 const ModalWrapper = styled.div`
@@ -29,7 +37,7 @@ const ModalWrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, .3);

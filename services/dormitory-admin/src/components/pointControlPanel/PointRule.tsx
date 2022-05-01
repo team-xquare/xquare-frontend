@@ -19,8 +19,8 @@ const PointRule = ({
     const { openModal, closeModal } = useModal();
 
     useEffect(() => {
-        if(pointsMutation.isLoading) openModal();
-        else closeModal();
+        // if(pointsMutation.isLoading) openModal();
+        // else closeModal();
     }, [pointsMutation.isLoading]);
 
     return (

@@ -8,6 +8,7 @@ import { SelectedUserIds, Student } from '../../apis/types';
 import { useKeydown } from '../../hooks/useKeydown';
 import ModalContainer from '../common/ModalContainer';
 import { useModal } from '../../contexts/modal';
+import Spinner from '../common/Spinner';
 
 const PointLayout = () => {
     const [selectedUserIds, setSUI] = useState<SelectedUserIds>({});
@@ -57,10 +58,11 @@ const PointLayout = () => {
     return (
         <SortProvider>
             <ModalContainer>
-                helloworld
+                상벌점 부여중 입니다...
+                <Spinner />
             </ModalContainer>
             <PointContainer>
-                <PointList setId={setSUI} id={selectedUserIds} onClick={pointItemOnClick} />
+                <PointList id={selectedUserIds} setId={setSUI} onClick={pointItemOnClick} />
                 <PointHistory id={selectedUserIds} />
                 <PointRule id={selectedUserIds} />
             </PointContainer>
