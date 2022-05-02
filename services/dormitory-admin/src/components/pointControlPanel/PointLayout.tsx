@@ -1,59 +1,70 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import PointList from './PointList';
 import PointHistory from './PointHistory';
 import PointRule from './PointRule';
 import { SortProvider } from '../../contexts/sort';
-import { SelectedUserIds, Student } from '../../apis/types';
+import { SelectedUserIds } from '../../apis/types';
 import { useKeydown } from '../../hooks/useKeydown';
+import { usePointQuery } from '../../apis/points';
 import ModalContainer from '../common/ModalContainer';
-import { useModal } from '../../contexts/modal';
 import Spinner from '../common/Spinner';
 
 const PointLayout = () => {
+    const { data, isLoading, error } = usePointQuery();
     const [selectedUserIds, setSUI] = useState<SelectedUserIds>({});
+    const [clickedId, setCI] = useState<{ id: string; }>();
+    const isCheckboxRef = useRef<boolean>(false);
     const prevClickedUserId = useRef<string | null>(null);
     const prevMultiSelectedUserId = useRef<string | null>(null);
     const isCtrlKeydown = useKeydown("Control");
     const isShiftKeydown = useKeydown("Shift");
 
-    const pointItemOnClick = (id: string, secondParam: boolean | Student[]) => {
-        if(isShiftKeydown && prevClickedUserId.current && Array.isArray(secondParam)) {
-            const firstIndex = secondParam.findIndex(student => student.id === prevClickedUserId.current);
+    useEffect(() => {
+        if(clickedId) pointItemOnClick(clickedId.id, isCheckboxRef.current);
+        isCheckboxRef.current = false;
+    }, [clickedId]);
+
+    const pointItemOnClick = (id: string, isCheckbox: boolean) => {
+        const nonUndefinedData = data ?? [];
+
+        if(isShiftKeydown && prevClickedUserId.current) {
+            const firstIndex = nonUndefinedData.findIndex(student => student.id === prevClickedUserId.current);
             let secondIndex: number = -1;
-            if(prevMultiSelectedUserId.current && prevMultiSelectedUserId.current !== "") secondIndex = secondParam.findIndex(student => student.id === prevMultiSelectedUserId.current);
-            const prevSlicedStudents = secondParam.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
-            secondIndex = secondParam.findIndex(student => student.id === id);
-            const slicedStudents = secondParam.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
+            if(prevMultiSelectedUserId.current && prevMultiSelectedUserId.current !== null) secondIndex = nonUndefinedData.findIndex(student => student.id === prevMultiSelectedUserId.current);
+            const prevSlicedStudents = nonUndefinedData.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
+            secondIndex = nonUndefinedData.findIndex(student => student.id === id);
+            const slicedStudents = nonUndefinedData.slice(Math.min(firstIndex, secondIndex), Math.max(firstIndex, secondIndex) + 1);
             setSUI(prev => ({ 
                 ...prev, 
                 ...Object.fromEntries(prevSlicedStudents.map(student => [student.id, false])), 
                 ...Object.fromEntries(slicedStudents.map(student => [student.id, true])) 
             }));
             prevMultiSelectedUserId.current = id;
-            return;
+        } else if(isCtrlKeydown || isCheckbox) {
+            setSUI(prev => ({ ...prev, [id]: !prev[id] }));
+            prevMultiSelectedUserId.current = id;
+            prevClickedUserId.current = id;
         } else if(selectedUserIds[id]) {
-            console.log(prevMultiSelectedUserId.current);
             if(prevMultiSelectedUserId.current) {
                 setSUI(prev => ({ ...Object.fromEntries(Object.keys(prev).map(key => [key, false])), [id]: true }));
                 prevMultiSelectedUserId.current = null;
                 prevClickedUserId.current = id;
-                return;
             } else {
                 setSUI(prev => ({ ...prev, [id]: false }));
                 prevClickedUserId.current = null;
-                return;
             }
-        } else if(secondParam === true || isCtrlKeydown) {
-            setSUI(prev => ({ ...prev, [id]: true }));
-            prevMultiSelectedUserId.current = id;
         } else {
             setSUI(prev => ({ ...Object.fromEntries(Object.keys(prev).map(key => [key, false])), [id]: true }));
             prevMultiSelectedUserId.current = null;
+            prevClickedUserId.current = id;
         }
-
-        prevClickedUserId.current = id;
     }
+
+    const onClick = useCallback((id: string, isCheckbox?: boolean) => {
+        isCheckboxRef.current = isCheckbox ?? false;
+        setCI({ id });
+    }, []);
 
     return (
         <SortProvider>
@@ -62,7 +73,12 @@ const PointLayout = () => {
                 <Spinner />
             </ModalContainer>
             <PointContainer>
-                <PointList id={selectedUserIds} setId={setSUI} onClick={pointItemOnClick} />
+                <PointList 
+                    id={selectedUserIds} 
+                    setId={setSUI} 
+                    onClick={onClick} 
+                    students={data ?? []}
+                />
                 <PointHistory id={selectedUserIds} />
                 <PointRule id={selectedUserIds} />
             </PointContainer>

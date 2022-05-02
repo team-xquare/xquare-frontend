@@ -57,4 +57,4 @@ const BodyWrapper = styled.div<{ isActive: boolean; }>`
     cursor: pointer;
 `;
 
-export default PointListItem;
+export default React.memo(PointListItem);
