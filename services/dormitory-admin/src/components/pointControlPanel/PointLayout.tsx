@@ -91,7 +91,7 @@ const PointContainer = styled.section`
     height: 100%;
     padding: 74px 60px 0 60px;
     display: grid;
-    grid-template-columns: 800px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 800px minmax(300px, 1fr) minmax(300px, 1fr);
     grid-template-rows: 100%;
     grid-gap: 20px;
 `;
