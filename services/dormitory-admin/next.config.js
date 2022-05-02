@@ -2,6 +2,9 @@
 module.exports = {
     reactStrictMode: true,
     basePath: '/dormitory-admin',
+    experimental: {
+        outputStandalone: true,
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
