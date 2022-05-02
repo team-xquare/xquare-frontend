@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Body1, Subtitle4 } from '@semicolondsm/ui';
-import MainSectionTitle from './MainSectionTitle';
+import MainSectionTitle from '../common/MainSectionTitle';
 
 const MainTotal = () => {
     return (
