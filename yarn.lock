@@ -2060,6 +2060,7 @@ __metadata:
     "@emotion/styled": ^11.8.1
     "@semicolondsm/react-emotion-theme": ^1.0.8
     "@semicolondsm/ui": 1.3.9
+    "@shared/xbridge": "workspace:*"
     "@types/node": 17.0.24
     "@types/react": 18.0.5
     "@types/react-dom": 18.0.1
@@ -2099,6 +2100,15 @@ __metadata:
     react-redux: ^7.2.6
     redux-logger: ^3.0.6
     typescript: 4.3.5
+  languageName: unknown
+  linkType: soft
+
+"@shared/xbridge@workspace:*, @shared/xbridge@workspace:shared/xbridge":
+  version: 0.0.0-use.local
+  resolution: "@shared/xbridge@workspace:shared/xbridge"
+  dependencies:
+    "@xquare/utils": ^1.1.0
+    typescript: ^4.7.2
   languageName: unknown
   linkType: soft
 
@@ -2483,6 +2493,15 @@ __metadata:
   dependencies:
     immer: ^9.0.2
   checksum: a318f58c59bf3cf4e9aaaad922bf37e235d2166ab9401ec379799f83a6932a8772ca650fdd1d397d7dc0782972c1f1f35bf0555d94100f901a4139cb5381618f
+  languageName: node
+  linkType: hard
+
+"@xquare/utils@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@xquare/utils@npm:1.1.0"
+  dependencies:
+    immer: ^9.0.2
+  checksum: 6e2c59309adeb8fbeb1bdd385b88a2ecbd4536b497db7fc4a4d8e5754d438c3f8db8fa230d6e419fa4dc95d947f2f5d925fd243361844ba042ca698531367ec0
   languageName: node
   linkType: hard
 
