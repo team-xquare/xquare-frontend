@@ -2037,25 +2037,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semicolondsm/ui@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@semicolondsm/ui@npm:1.3.3"
-  dependencies:
-    "@semicolondsm/design-token": 1.0.6
-    "@types/react-outside-click-handler": ^1.3.0
-    react-outside-click-handler: ^1.3.0
-  peerDependencies:
-    "@emotion/react": ^11.4.1
-    "@emotion/styled": ^11.3.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  checksum: 155cea7de765a16877e9fd63b8850ee5e751a94ce04bd4e65c2ef91d211548f51174965f8b40e481a4b714a8c1a97fb252bd325f7c29be36a5614b4a739390d4
-  languageName: node
-  linkType: hard
-
-"@semicolondsm/ui@npm:^1.3.8":
-  version: 1.3.8
-  resolution: "@semicolondsm/ui@npm:1.3.8"
+"@semicolondsm/ui@npm:1.3.9, @semicolondsm/ui@npm:^1.3.9":
+  version: 1.3.9
+  resolution: "@semicolondsm/ui@npm:1.3.9"
   dependencies:
     "@semicolondsm/design-token": 1.0.6
     react-outside-click-handler: ^1.3.0
@@ -2064,18 +2048,18 @@ __metadata:
     "@emotion/styled": ^11.3.0
     react: 18.0.0
     react-dom: 18.0.0
-  checksum: a64aac6bfd55c2f7009f3a48e92e084a0163a668e7ef46f8a729bc383f3d1ae19b4aed7550924ce633fc763443bad3a0d42a88683a6220e93db8b162b0fe5e4a
+  checksum: d1b8427282613e5988324db2a3a6ba8383278d239a915bbfc64acc092d562bc6c09c4c038138c87f46856a248bb9d5bbfef0c71b0fa740f230e681bdc980d149
   languageName: node
   linkType: hard
 
-"@service/dormitory-study-apply@workspace:services/dormitory-study-apply":
+"@service/apply@workspace:services/apply":
   version: 0.0.0-use.local
-  resolution: "@service/dormitory-study-apply@workspace:services/dormitory-study-apply"
+  resolution: "@service/apply@workspace:services/apply"
   dependencies:
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
     "@semicolondsm/react-emotion-theme": ^1.0.8
-    "@semicolondsm/ui": ^1.3.8
+    "@semicolondsm/ui": 1.3.9
     "@types/node": 17.0.24
     "@types/react": 18.0.5
     "@types/react-dom": 18.0.1
@@ -2098,7 +2082,7 @@ __metadata:
     "@emotion/styled": ^11.3.0
     "@reduxjs/toolkit": ^1.7.1
     "@semicolondsm/react-emotion-theme": ^1.0.8
-    "@semicolondsm/ui": ^1.3.3
+    "@semicolondsm/ui": ^1.3.9
     "@svgr/webpack": ^5.5.0
     "@types/node": ^16.7.10
     "@types/react": 17.0.19
@@ -2115,23 +2099,6 @@ __metadata:
     react-redux: ^7.2.6
     redux-logger: ^3.0.6
     typescript: 4.3.5
-  languageName: unknown
-  linkType: soft
-
-"@service/testing@workspace:services/testing":
-  version: 0.0.0-use.local
-  resolution: "@service/testing@workspace:services/testing"
-  dependencies:
-    "@types/node": 17.0.24
-    "@types/react": 18.0.5
-    "@types/react-dom": 18.0.1
-    "@xquare/utils": 1.0.8
-    eslint: 8.13.0
-    eslint-config-next: 12.1.5
-    next: 12.1.5
-    react: 18.0.0
-    react-dom: 18.0.0
-    typescript: 4.6.3
   languageName: unknown
   linkType: soft
 
@@ -2331,15 +2298,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 6c183e2e50240b77ed767cd968fe061ef4f2b47f84da5ec9e412a767d68c9a004d1f6ccca4295a5aa2c3ee723377e59006a2031f3767c00d8ac9e240a51bb142
-  languageName: node
-  linkType: hard
-
-"@types/react-outside-click-handler@npm:^1.3.0":
-  version: 1.3.1
-  resolution: "@types/react-outside-click-handler@npm:1.3.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: 514e5fe09adfee12dc790dc4bee008c8e44a814c6631e2374f08c0e77868ca77783396cc9c868406f952e48a5164a487a487e960d4ed3d77924b419cec5252c7
   languageName: node
   linkType: hard
 
