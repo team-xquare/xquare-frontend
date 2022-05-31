@@ -5,7 +5,8 @@ import { Subtitle3, Subtitle4, Body2, Button } from '@semicolondsm/ui';
 import ApplyCard from '../components/base/ApplyCard';
 import { useState } from 'react';
 import MainPageTemplate from '../components/templates/MainPageTemplate';
-const Home: NextPage = () => {
+import ButtomFixedButton from '../components/templates/ButtomFixedButton';
+const DormitoryStudy: NextPage = () => {
     const [select, setSelect] = useState<boolean>(false);
     return (
         <MainPageTemplate
@@ -23,30 +24,10 @@ const Home: NextPage = () => {
                 <ApplyCard></ApplyCard>
                 <ApplyCard></ApplyCard>
             </ApplyCardList>
-            <ApplyButton fill="purple" size="lg" fullWidth>
-                신청하기
-            </ApplyButton>
+            <ButtomFixedButton />
         </MainPageTemplate>
     );
 };
-
-const Wrapper = styled.div`
-    position: absolute;
-    width: 100%;
-    padding: 0 16px 16px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const SectionTitle = styled(Subtitle3)`
-    width: 100%;
-    padding: 10px 0;
-`;
-
-const SectionDescription = styled(Body2)`
-    padding-bottom: 16px;
-`;
 
 const ApplyCardList = styled.section`
     flex-direction: column;
@@ -54,14 +35,9 @@ const ApplyCardList = styled.section`
     overflow: auto;
     overflow-y: scroll;
     -ms-overflow-style: none;
-
     &::-webkit-scrollbar {
         display: none;
     }
 `;
 
-const ApplyButton = styled(Button)`
-    border-radius: 12px;
-`;
-
-export default Home;
+export default DormitoryStudy;

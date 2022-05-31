@@ -5,8 +5,9 @@ import { FlexCol, FlexRow } from '../components/Flexbox';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-const Home: NextPage = () => {
+const Apply: NextPage = () => {
     const [residualApply, setResidualApply] = useState<string>('잔류');
     const [weekendApply, setWeekendApply] = useState<string>('신청');
     const router = useRouter();
@@ -50,17 +51,19 @@ const Home: NextPage = () => {
                 <FlexCol gap={12}>
                     <Subtitle4>추가 신청</Subtitle4>
                     <FlexRow>
-                        <AdditionalApplyCardContainer onClick={() => router.push('/dormitory')}>
-                            <FlexCol gap={12}>
-                                <FlexCol>
-                                    <Caption color="gray700">오늘</Caption>
-                                    <Botton>자습실 신청</Botton>
+                        <Link href="/dormitory-study">
+                            <AdditionalApplyCardContainer>
+                                <FlexCol gap={12}>
+                                    <FlexCol>
+                                        <Caption color="gray700">오늘</Caption>
+                                        <Botton>자습실 신청</Botton>
+                                    </FlexCol>
+                                    <FlexRow justify="flex-end" fullWidth>
+                                        <IconWrapper></IconWrapper>
+                                    </FlexRow>
                                 </FlexCol>
-                                <FlexRow justify="flex-end" fullWidth>
-                                    <IconWrapper></IconWrapper>
-                                </FlexRow>
-                            </FlexCol>
-                        </AdditionalApplyCardContainer>
+                            </AdditionalApplyCardContainer>
+                        </Link>
                     </FlexRow>
                 </FlexCol>
             </FlexCol>
@@ -68,9 +71,9 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default Apply;
 
-const AdditionalApplyCardContainer = styled.div`
+const AdditionalApplyCardContainer = styled.a`
     background-color: ${({ theme }) => theme.colors.gray50};
     padding: 16px;
     width: 136px;
