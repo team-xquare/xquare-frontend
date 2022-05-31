@@ -1,6 +1,6 @@
 {
     "name": "@service/apply",
-    "description": "기숙사 자습실 연장신청을 위한 웹뷰.",
+    "description": "신청을 위한 웹뷰.",
     "version": "0.0.0",
     "private": true,
     "scripts": {
