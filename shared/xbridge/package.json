@@ -1,0 +1,11 @@
+{
+    "name": "@shared/xbridge",
+    "description": "Xquare App Bridge",
+    "main": "src/index.ts",
+    "devDependencies": {
+        "typescript": "^4.7.2"
+    },
+    "dependencies": {
+        "@xquare/utils": "^1.1.0"
+    }
+}

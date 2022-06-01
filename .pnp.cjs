@@ -29,6 +29,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {
         "name": "@service/leesauce",
         "reference": "workspace:services/leesauce"
+      },
+      {
+        "name": "@shared/xbridge",
+        "reference": "workspace:shared/xbridge"
       }
     ],
     "enableTopLevelFallback": true,
@@ -36,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackExclusionList": [
       ["@service/apply", ["workspace:services/apply"]],
       ["@service/leesauce", ["workspace:services/leesauce"]],
+      ["@shared/xbridge", ["workspace:shared/xbridge"]],
       ["xquare-frontend", ["workspace:."]]
     ],
     "fallbackPool": [
@@ -3320,6 +3325,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
             ["@semicolondsm/react-emotion-theme", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.0.8"],
             ["@semicolondsm/ui", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.3.9"],
+            ["@shared/xbridge", "workspace:shared/xbridge"],
             ["@types/node", "npm:17.0.24"],
             ["@types/react", "npm:18.0.5"],
             ["@types/react-dom", "npm:18.0.1"],
@@ -3360,6 +3366,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dropzone", "virtual:295f6bae3b9037557d43e3ae74719f04b11c62db5c7dab2cd77e2a2a9311a6e0914759471688023550e756623151b2f0a3cfa07c8f0db4c5662366cb9272f8ea#npm:11.4.2"],
             ["react-redux", "virtual:295f6bae3b9037557d43e3ae74719f04b11c62db5c7dab2cd77e2a2a9311a6e0914759471688023550e756623151b2f0a3cfa07c8f0db4c5662366cb9272f8ea#npm:7.2.6"],
             ["redux-logger", "npm:3.0.6"],
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@shared/xbridge", [
+        ["workspace:shared/xbridge", {
+          "packageLocation": "./shared/xbridge/",
+          "packageDependencies": [
+            ["@shared/xbridge", "workspace:shared/xbridge"],
+            ["@xquare/utils", "npm:1.1.0"],
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
           ],
           "linkType": "SOFT",
@@ -3829,6 +3846,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@xquare-utils-npm-1.0.8-05231e0146-a318f58c59.zip/node_modules/@xquare/utils/",
           "packageDependencies": [
             ["@xquare/utils", "npm:1.0.8"],
+            ["immer", "npm:9.0.12"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/@xquare-utils-npm-1.1.0-0c761bc0b7-6e2c59309a.zip/node_modules/@xquare/utils/",
+          "packageDependencies": [
+            ["@xquare/utils", "npm:1.1.0"],
             ["immer", "npm:9.0.12"]
           ],
           "linkType": "HARD",
