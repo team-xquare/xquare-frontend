@@ -1393,6 +1393,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/babel-plugin@npm:^11.7.1":
+  version: 11.9.2
+  resolution: "@emotion/babel-plugin@npm:11.9.2"
+  dependencies:
+    "@babel/helper-module-imports": ^7.12.13
+    "@babel/plugin-syntax-jsx": ^7.12.13
+    "@babel/runtime": ^7.13.10
+    "@emotion/hash": ^0.8.0
+    "@emotion/memoize": ^0.7.5
+    "@emotion/serialize": ^1.0.2
+    babel-plugin-macros: ^2.6.1
+    convert-source-map: ^1.5.0
+    escape-string-regexp: ^4.0.0
+    find-root: ^1.1.0
+    source-map: ^0.5.7
+    stylis: 4.0.13
+  peerDependencies:
+    "@babel/core": ^7.0.0
+  checksum: 2d2c4fadd389862896bcbc5f42c9b9c1a199810173fcf14e5520506c7179c2ddb991b8832fd273f42104cf0dae98886ad8e767b5e38ad235b652d903c3b8a328
+  languageName: node
+  linkType: hard
+
 "@emotion/cache@npm:^11.5.0":
   version: 11.5.0
   resolution: "@emotion/cache@npm:11.5.0"
@@ -1403,6 +1425,19 @@ __metadata:
     "@emotion/weak-memoize": ^0.2.5
     stylis: ^4.0.10
   checksum: 8b3fac281ea201d617b594d79e4b38903ee538e9aa2117f3f99a4f952b3f93d92659a569b3b934efa31ae450b2ddd9ae435b6c77db70aa99ac8cae4cbd71450b
+  languageName: node
+  linkType: hard
+
+"@emotion/cache@npm:^11.7.1":
+  version: 11.7.1
+  resolution: "@emotion/cache@npm:11.7.1"
+  dependencies:
+    "@emotion/memoize": ^0.7.4
+    "@emotion/sheet": ^1.1.0
+    "@emotion/utils": ^1.0.0
+    "@emotion/weak-memoize": ^0.2.5
+    stylis: 4.0.13
+  checksum: cf7aa8fe3bacfdedcda94b53e76a7635e122043439715fcfbf7f1a81340cfe6099a59134481a03ec3e0437466566d18528577d1e6ea92f5b98c372b8b38a8f35
   languageName: node
   linkType: hard
 
@@ -1419,6 +1454,15 @@ __metadata:
   dependencies:
     "@emotion/memoize": ^0.7.4
   checksum: 87351133ad80612138d9e34e79198635d36b238c7a5fddb4593798ecf8a2db6ac1d84e1e5e282a7fec04fb589e0cd4b1214ad080a9181671dcab2ce24ef22c1b
+  languageName: node
+  linkType: hard
+
+"@emotion/is-prop-valid@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@emotion/is-prop-valid@npm:1.1.2"
+  dependencies:
+    "@emotion/memoize": ^0.7.4
+  checksum: 58b1f2d429a589f8f5bc2c33a8732cbb7bbcb17131a103511ef9a94ac754d7eeb53d627f947da480cd977f9d419fd92e244991680292f3287204159652745707
   languageName: node
   linkType: hard
 
@@ -1452,6 +1496,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/react@npm:^11.9.0":
+  version: 11.9.0
+  resolution: "@emotion/react@npm:11.9.0"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@emotion/babel-plugin": ^11.7.1
+    "@emotion/cache": ^11.7.1
+    "@emotion/serialize": ^1.0.3
+    "@emotion/utils": ^1.1.0
+    "@emotion/weak-memoize": ^0.2.5
+    hoist-non-react-statics: ^3.3.1
+  peerDependencies:
+    "@babel/core": ^7.0.0
+    react: ">=16.8.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 4ceb004f942fb7557a55ea17aad2c48c4cd48ed5a780ccdc2993e4bded2f94d7c1764bd2f4fbe53f5b26059263599cec64ff66d29447e281a58c60b39c72e5cc
+  languageName: node
+  linkType: hard
+
 "@emotion/serialize@npm:^1.0.2":
   version: 1.0.2
   resolution: "@emotion/serialize@npm:1.0.2"
@@ -1465,10 +1532,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/serialize@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@emotion/serialize@npm:1.0.3"
+  dependencies:
+    "@emotion/hash": ^0.8.0
+    "@emotion/memoize": ^0.7.4
+    "@emotion/unitless": ^0.7.5
+    "@emotion/utils": ^1.0.0
+    csstype: ^3.0.2
+  checksum: 99a9053bd98c99d63af542ebee029281eeaf653e3a12e97ee79bad7330c68408104c30be6fc07a528e38bb69aba680655181744b76ec6c6f459c121cb805fac2
+  languageName: node
+  linkType: hard
+
 "@emotion/sheet@npm:^1.0.3":
   version: 1.0.3
   resolution: "@emotion/sheet@npm:1.0.3"
   checksum: 43a9b9a0e4261d40c02907bbea4d19e7c75d102fbd04e55a94e025b26b7a78bb499c2f76c9a0bd94f36bee0b0219006ab26a1ebb9eb4cbb30f2925313de30b61
+  languageName: node
+  linkType: hard
+
+"@emotion/sheet@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@emotion/sheet@npm:1.1.0"
+  checksum: a4b74e16a8fea1157413efe4904f5f679d724323cb605d66d20a0b98744422f5d411fca927ceb52e4de454a0a819c5273ca9496db9f011b4ecd17b9f1b212007
   languageName: node
   linkType: hard
 
@@ -1494,6 +1581,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/styled@npm:^11.8.1":
+  version: 11.8.1
+  resolution: "@emotion/styled@npm:11.8.1"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+    "@emotion/babel-plugin": ^11.7.1
+    "@emotion/is-prop-valid": ^1.1.2
+    "@emotion/serialize": ^1.0.2
+    "@emotion/utils": ^1.1.0
+  peerDependencies:
+    "@babel/core": ^7.0.0
+    "@emotion/react": ^11.0.0-rc.0
+    react: ">=16.8.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 67150fa788785c34e285b90acecc91fe7a63babceaefbeffd053bed0fa31f72a05bfeeb9d15620766e543e007b9ccac2e836812eec2e791f962ec4e52731ae4c
+  languageName: node
+  linkType: hard
+
 "@emotion/unitless@npm:^0.7.5":
   version: 0.7.5
   resolution: "@emotion/unitless@npm:0.7.5"
@@ -1505,6 +1614,13 @@ __metadata:
   version: 1.0.0
   resolution: "@emotion/utils@npm:1.0.0"
   checksum: 3ce8048441a915447d9ef51eb6d1d4cbcce8c8d1647bc7a23333ce2fb2249e74cf9471670d6f49a716e93ff633c9e7a6633517698e17391aebfc40c9d0cabcc0
+  languageName: node
+  linkType: hard
+
+"@emotion/utils@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@emotion/utils@npm:1.1.0"
+  checksum: d3b681ca3a23b07033ac6c6937e71010a5549ac8ccec325eb6c91a7e48d9a73db83fa5dadc58be981bb125d7c00fedca868ea4362b1da9e02866615f96be4df1
   languageName: node
   linkType: hard
 
@@ -1921,21 +2037,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semicolondsm/ui@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@semicolondsm/ui@npm:1.3.3"
+"@semicolondsm/ui@npm:1.3.9, @semicolondsm/ui@npm:^1.3.9":
+  version: 1.3.9
+  resolution: "@semicolondsm/ui@npm:1.3.9"
   dependencies:
     "@semicolondsm/design-token": 1.0.6
-    "@types/react-outside-click-handler": ^1.3.0
     react-outside-click-handler: ^1.3.0
   peerDependencies:
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  checksum: 155cea7de765a16877e9fd63b8850ee5e751a94ce04bd4e65c2ef91d211548f51174965f8b40e481a4b714a8c1a97fb252bd325f7c29be36a5614b4a739390d4
+    react: 18.0.0
+    react-dom: 18.0.0
+  checksum: d1b8427282613e5988324db2a3a6ba8383278d239a915bbfc64acc092d562bc6c09c4c038138c87f46856a248bb9d5bbfef0c71b0fa740f230e681bdc980d149
   languageName: node
   linkType: hard
+
+"@service/apply@workspace:services/apply":
+  version: 0.0.0-use.local
+  resolution: "@service/apply@workspace:services/apply"
+  dependencies:
+    "@emotion/react": ^11.9.0
+    "@emotion/styled": ^11.8.1
+    "@semicolondsm/react-emotion-theme": ^1.0.8
+    "@semicolondsm/ui": 1.3.9
+    "@shared/xbridge": "workspace:*"
+    "@types/node": 17.0.24
+    "@types/react": 18.0.5
+    "@types/react-dom": 18.0.1
+    "@xquare/utils": 1.0.8
+    emotion-reset: ^3.0.1
+    eslint: 8.13.0
+    eslint-config-next: 12.1.5
+    next: 12.1.5
+    react: 18.0.0
+    react-dom: 18.0.0
+    typescript: 4.6.3
+  languageName: unknown
+  linkType: soft
 
 "@service/leesauce@workspace:services/leesauce":
   version: 0.0.0-use.local
@@ -1945,7 +2083,7 @@ __metadata:
     "@emotion/styled": ^11.3.0
     "@reduxjs/toolkit": ^1.7.1
     "@semicolondsm/react-emotion-theme": ^1.0.8
-    "@semicolondsm/ui": ^1.3.3
+    "@semicolondsm/ui": ^1.3.9
     "@svgr/webpack": ^5.5.0
     "@types/node": ^16.7.10
     "@types/react": 17.0.19
@@ -1965,20 +2103,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@service/testing@workspace:services/testing":
+"@shared/xbridge@workspace:*, @shared/xbridge@workspace:shared/xbridge":
   version: 0.0.0-use.local
-  resolution: "@service/testing@workspace:services/testing"
+  resolution: "@shared/xbridge@workspace:shared/xbridge"
   dependencies:
-    "@types/node": 17.0.24
-    "@types/react": 18.0.5
-    "@types/react-dom": 18.0.1
-    "@xquare/utils": 1.0.8
-    eslint: 8.13.0
-    eslint-config-next: 12.1.5
-    next: 12.1.5
-    react: 18.0.0
-    react-dom: 18.0.0
-    typescript: 4.6.3
+    "@xquare/utils": ^1.1.0
+    typescript: ^4.7.2
   languageName: unknown
   linkType: soft
 
@@ -2181,15 +2311,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-outside-click-handler@npm:^1.3.0":
-  version: 1.3.1
-  resolution: "@types/react-outside-click-handler@npm:1.3.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: 514e5fe09adfee12dc790dc4bee008c8e44a814c6631e2374f08c0e77868ca77783396cc9c868406f952e48a5164a487a487e960d4ed3d77924b419cec5252c7
-  languageName: node
-  linkType: hard
-
 "@types/react-redux@npm:^7.1.20":
   version: 7.1.20
   resolution: "@types/react-redux@npm:7.1.20"
@@ -2372,6 +2493,15 @@ __metadata:
   dependencies:
     immer: ^9.0.2
   checksum: a318f58c59bf3cf4e9aaaad922bf37e235d2166ab9401ec379799f83a6932a8772ca650fdd1d397d7dc0782972c1f1f35bf0555d94100f901a4139cb5381618f
+  languageName: node
+  linkType: hard
+
+"@xquare/utils@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@xquare/utils@npm:1.1.0"
+  dependencies:
+    immer: ^9.0.2
+  checksum: 6e2c59309adeb8fbeb1bdd385b88a2ecbd4536b497db7fc4a4d8e5754d438c3f8db8fa230d6e419fa4dc95d947f2f5d925fd243361844ba042ca698531367ec0
   languageName: node
   linkType: hard
 
@@ -8103,6 +8233,13 @@ resolve@^2.0.0-next.3:
   version: 3.5.4
   resolution: "stylis@npm:3.5.4"
   checksum: 3673a748ad236219bd77ca9c0a8730b8726812e612cbc844aa6f029f13666a10cf2825a5f8d41f05e8af02b5987d31b7d3ebe995e4b42e0255366fec23489b77
+  languageName: node
+  linkType: hard
+
+"stylis@npm:4.0.13":
+  version: 4.0.13
+  resolution: "stylis@npm:4.0.13"
+  checksum: 8ea7a87028b6383c6a982231c4b5b6150031ce028e0fdaf7b2ace82253d28a8af50cc5a9da8a421d3c7c4441592f393086e332795add672aa4a825f0fe3713a3
   languageName: node
   linkType: hard
 
