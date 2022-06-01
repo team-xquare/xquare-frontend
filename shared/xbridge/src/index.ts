@@ -1,22 +1,22 @@
 import { Device } from '@xquare/utils';
 
-interface BridgeEvent<T> {
-    type: string;
+export interface BrowserActionParameters<T> {
+    bridge: string;
     data: T;
 }
-
 export const sendBridgeEvent = <T extends unknown>(
-    event: BridgeEvent<T>,
-    browserAction: Function,
+    bridge: string,
+    data: T,
+    browserAction?: (params: BrowserActionParameters<T>) => any,
 ) => {
     const globalThis = window as any;
     if (Device.isMobileWeb()) {
         if (Device.getOSByUserAgent() === 'ios')
-            globalThis.webkit.messageHandlers[event.type].postMessage(JSON.stringify(event));
+            globalThis.webkit.messageHandlers[bridge].postMessage(JSON.stringify(data));
         else {
-            globalThis.webview.postMessage(JSON.stringify(event));
+            globalThis.webview.postMessage(JSON.stringify(data));
         }
     } else {
-        browserAction();
+        browserAction && browserAction({ bridge, data });
     }
 };
