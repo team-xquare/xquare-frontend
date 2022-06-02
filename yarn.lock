@@ -1977,9 +1977,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semicolondsm/ui@npm:^1.3.3, @semicolondsm/ui@npm:^1.3.8":
-  version: 1.3.8
-  resolution: "@semicolondsm/ui@npm:1.3.8"
+"@semicolondsm/ui@npm:^1.3.3, @semicolondsm/ui@npm:^1.3.9":
+  version: 1.3.9
+  resolution: "@semicolondsm/ui@npm:1.3.9"
   dependencies:
     "@semicolondsm/design-token": 1.0.6
     react-outside-click-handler: ^1.3.0
@@ -1988,7 +1988,7 @@ __metadata:
     "@emotion/styled": ^11.3.0
     react: 18.0.0
     react-dom: 18.0.0
-  checksum: a64aac6bfd55c2f7009f3a48e92e084a0163a668e7ef46f8a729bc383f3d1ae19b4aed7550924ce633fc763443bad3a0d42a88683a6220e93db8b162b0fe5e4a
+  checksum: d1b8427282613e5988324db2a3a6ba8383278d239a915bbfc64acc092d562bc6c09c4c038138c87f46856a248bb9d5bbfef0c71b0fa740f230e681bdc980d149
   languageName: node
   linkType: hard
 
@@ -2000,7 +2000,7 @@ __metadata:
     "@emotion/styled": ^11.8.1
     "@semicolondsm/design-token": ^1.0.6
     "@semicolondsm/react-emotion-theme": ^1.0.8
-    "@semicolondsm/ui": ^1.3.8
+    "@semicolondsm/ui": ^1.3.9
     "@svgr/webpack": ^6.2.1
     "@types/node": 17.0.24
     "@types/react": 18.0.5
