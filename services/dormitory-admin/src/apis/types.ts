@@ -8,6 +8,12 @@ export interface Student {
     penalty_training_status: boolean;
 }
 
+export interface Notice {
+    id: string;
+    title: string;
+    
+}
+
 export interface Rule {
     id: number;
     reason: string;
