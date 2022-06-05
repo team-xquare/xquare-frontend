@@ -1,0 +1,52 @@
+nmae: Push Service
+on:
+  push:
+    tags:
+      - 'service/*@*.*.*'
+
+env:
+  SERVICE_TYPE: fe
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Check Out The Repository
+      uses: actions/checkout@v3
+
+    - name: Get Service
+      id: get_service
+      run: echo ::set-output name=SERVICE::$(echo $GITHUB_REF | cut -d / -f 4 | cut -d @ -f 1)
+
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3 | | cut -d @ -f 2)
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        username: ${{secrets.DOCKER_USER}}
+        password: ${{secrets.DOCKER_HUB_TOKEN}}
+
+    - name: Build and push Docker image
+      id: docker_build
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        file: ./services/${{ steps.get_service.outputs.SERVICE }}/Dockerfile
+        push: true
+        tags: ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.get_version.outputs.VERSION }}
+
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.GITOPS_DEPLOY_STAGE_TOKEN }}
+        repository: team-xquare/xquare-gitops-repo-production
+        event-type: update_image
+        client-payload: '{
+                        "ref": "${{ github.ref }}", 
+                        "version":  "${{ steps.get_version.outputs.VERSION }}",
+                        "service_name": "${{steps.get_service.outputs.SERVICE}}",
+                        "service_type": "${{env.SERVICE_TYPE}}"
+                        }'
