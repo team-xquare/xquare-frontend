@@ -1,11 +1,13 @@
 import { Device } from '@xquare/utils';
 
+type BridgeType = 'navigate' | 'back' | 'image-detail';
+
 export interface BrowserActionParameters<T> {
-    bridge: string;
+    bridge: BridgeType;
     data: T;
 }
 export const sendBridgeEvent = <T extends unknown>(
-    bridge: string,
+    bridge: BridgeType,
     data: T,
     browserAction?: (params: BrowserActionParameters<T>) => any,
 ) => {
