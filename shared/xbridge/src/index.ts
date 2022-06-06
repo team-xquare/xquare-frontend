@@ -10,11 +10,14 @@ export const sendBridgeEvent = <T extends unknown>(
     browserAction?: (params: BrowserActionParameters<T>) => any,
 ) => {
     const globalThis = window as any;
+    console.log(data);
     if (Device.isMobileWeb()) {
         if (Device.getOSByUserAgent() === 'ios')
             globalThis.webkit.messageHandlers[bridge].postMessage(JSON.stringify(data));
-        else {
+        else if (Device.getOSByUserAgent() === 'android') {
             globalThis.webview.postMessage(JSON.stringify(data));
+        } else {
+            return false;
         }
     } else {
         browserAction && browserAction({ bridge, data });

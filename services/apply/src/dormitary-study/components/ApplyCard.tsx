@@ -3,37 +3,28 @@ import { keyframes } from '@emotion/react';
 import { Botton } from '@semicolondsm/ui';
 import { SetStateAction, Dispatch } from 'react';
 import { useState } from 'react';
-interface Props {
-    onSelect?: boolean;
-    setSelect?: Dispatch<SetStateAction<boolean>>;
+import StudentProfile from './StudentProfile';
+import { StudyRoom } from '../types';
+
+interface Props extends StudyRoom {
+    isSelect: boolean;
+    setIsSelect: Dispatch<SetStateAction<string>>;
 }
 
-const ApplyCard = () => {
-    const [isSelect, setIsSelect] = useState<boolean>(false);
+const ApplyCard = (props: Props) => {
     return (
-        <Wrapper onClick={() => setIsSelect((state) => !state)} isSelect={isSelect}>
-            <StudyTextInfoBox isSelect={isSelect}>
-                <Botton>나온실</Botton>
-                <Botton>0/20</Botton>
+        <Wrapper
+            onClick={() => props.setIsSelect((state) => (state === props.id ? '' : props.id))}
+            isSelect={props.isSelect}>
+            <StudyTextInfoBox isSelect={props.isSelect}>
+                <Botton>{props.study_room_name}</Botton>
+                <Botton>{props.applicantion_count}/20</Botton>
             </StudyTextInfoBox>
 
             <ImageWrapper>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
-                <ImageBox></ImageBox>
+                {props.students.map((i, idx) => (
+                    <StudentProfile {...i} key={idx} />
+                ))}
             </ImageWrapper>
         </Wrapper>
     );
@@ -45,6 +36,8 @@ const Wrapper = styled.div<{ isSelect: boolean }>`
         isSelect ? theme.colors.purple500 : theme.colors.gray50};
     margin-bottom: 8px;
     border-radius: 12px;
+    gap: 20px;
+    overflow: hidden;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -70,19 +63,12 @@ const ImageWrapper = styled.section`
     overflow-x: auto;
     overflow-y: hidden;
     -ms-overflow-style: none;
-
+    min-height: 60px;
+    flex: 1;
+    gap: 12px;
     &::-webkit-scrollbar {
         display: none;
     }
-`;
-
-const ImageBox = styled.div`
-    height: 64px;
-    width: 40px;
-    background-color: black;
-    margin-top: 10px;
-    margin-right: 10px;
-    flex-shrink: 0;
 `;
 
 export default ApplyCard;

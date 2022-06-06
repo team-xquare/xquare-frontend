@@ -1,10 +1,12 @@
 import { Button } from '@semicolondsm/ui';
 import styled from '@emotion/styled';
-const ButtomFixedButton = () => {
+import { ButtonProps } from '@semicolondsm/ui/dist/components/Button/types';
+interface Props extends ButtonProps {}
+const ButtomFixedButton = (props: Props) => {
     return (
         <>
             <FullSizeButtonWrapper>
-                <ApplyButton fill="purple" fullWidth>
+                <ApplyButton fill="purple" fullWidth {...props}>
                     신청하기
                 </ApplyButton>
             </FullSizeButtonWrapper>
