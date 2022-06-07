@@ -29,14 +29,11 @@ jobs:
           username: ${{secrets.DOCKER_USER}}
           password: ${{secrets.DOCKER_HUB_TOKEN}}
 
-      - name: Build and push Docker image
-        id: docker_build
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          file: ./services/${{ steps.get_service.outputs.SERVICE }}/Dockerfile
-          push: true
-          tags: ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.get_version.outputs.VERSION }}
+      - name: Docker Build 
+        run: yarn docker build @service/${{steps.get_service.outputs.SERVICE}} -t ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.get_version.outputs.VERSION }}
+
+      - name: Docker Push
+        run: docker push ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.get_version.outputs.VERSION }}
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
