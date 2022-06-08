@@ -47,3 +47,17 @@ jobs:
                           "service_name": "${{steps.get_service.outputs.SERVICE}}",
                           "service_type": "${{env.SERVICE_TYPE}}"
                           }'
+
+      - name: Update Package.json Version 
+        run: yarn workspace @service/${{steps.get_service.outputs.SERVICE}} version ${{ steps.get_version.outputs.VERSION }}
+
+      - name: Commit With Versioning
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "release(${{steps.get_service.outputs.SERVICE}}): ${{ steps.get_version.outputs.VERSION }}"
+          branch: main
+          commit_options: '--no-verify --signoff'
+          repository: .
+          commit_user_name: XQUARE Frontend Bot
+          commit_user_email: teamxquare@gmail.com
+          commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
