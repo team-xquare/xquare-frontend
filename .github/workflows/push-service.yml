@@ -57,6 +57,7 @@ jobs:
           commit_message: "release(${{steps.get_service.outputs.SERVICE}}): ${{ steps.get_version.outputs.VERSION }}"
           branch: main
           commit_options: '--no-verify --signoff'
+          push_options: '--force'
           repository: .
           commit_user_name: XQUARE Frontend Bot
           commit_user_email: teamxquare@gmail.com
