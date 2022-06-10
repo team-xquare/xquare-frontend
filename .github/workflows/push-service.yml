@@ -21,11 +21,6 @@ jobs:
           git clone --filter=blob:none $REPO .
           git checkout
 
-      - name: Check Out The Repository
-        uses: actions/checkout@v3
-        with: 
-          token: ${{ secrets.GHP_TOKEN }}
-
       - name: Get Service
         id: get_service
         run: echo ::set-output name=SERVICE::$(echo $GITHUB_REF | cut -d / -f 4 | cut -d @ -f 1)
