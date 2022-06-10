@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Git Clone and Checkout 
         run: |
           REPO="https://${GITHUB_ACTOR}:${{ secrets.GHP_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
