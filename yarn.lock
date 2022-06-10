@@ -2074,24 +2074,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@service/assets-fe@workspace:services/assets-fe":
-  version: 0.0.0-use.local
-  resolution: "@service/assets-fe@workspace:services/assets-fe"
-  dependencies:
-    "@semicolondsm/design-token": ^1.0.6
-    "@types/node": 17.0.24
-    "@types/react": 18.0.5
-    "@types/react-dom": 18.0.1
-    "@xquare/utils": 1.0.8
-    eslint: 8.13.0
-    eslint-config-next: 12.1.5
-    next: 12.1.5
-    react: 18.0.0
-    react-dom: 18.0.0
-    typescript: 4.6.3
-  languageName: unknown
-  linkType: soft
-
 "@service/leesauce@workspace:services/leesauce":
   version: 0.0.0-use.local
   resolution: "@service/leesauce@workspace:services/leesauce"
@@ -2117,6 +2099,24 @@ __metadata:
     react-redux: ^7.2.6
     redux-logger: ^3.0.6
     typescript: 4.3.5
+  languageName: unknown
+  linkType: soft
+
+"@service/style@workspace:services/style":
+  version: 0.0.0-use.local
+  resolution: "@service/style@workspace:services/style"
+  dependencies:
+    "@semicolondsm/design-token": ^1.0.6
+    "@types/node": 17.0.24
+    "@types/react": 18.0.5
+    "@types/react-dom": 18.0.1
+    "@xquare/utils": 1.0.8
+    eslint: 8.13.0
+    eslint-config-next: 12.1.5
+    next: 12.1.5
+    react: 18.0.0
+    react-dom: 18.0.0
+    typescript: 4.6.3
   languageName: unknown
   linkType: soft
 

@@ -27,12 +27,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:services/apply"
       },
       {
-        "name": "@service/assets-fe",
-        "reference": "workspace:services/assets-fe"
-      },
-      {
         "name": "@service/leesauce",
         "reference": "workspace:services/leesauce"
+      },
+      {
+        "name": "@service/style",
+        "reference": "workspace:services/style"
       },
       {
         "name": "@service/xbridge-test",
@@ -47,8 +47,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)|$))$)",
     "fallbackExclusionList": [
       ["@service/apply", ["workspace:services/apply"]],
-      ["@service/assets-fe", ["workspace:services/assets-fe"]],
       ["@service/leesauce", ["workspace:services/leesauce"]],
+      ["@service/style", ["workspace:services/style"]],
       ["@service/xbridge-test", ["workspace:services/xbridge-test"]],
       ["@shared/xbridge", ["workspace:shared/xbridge"]],
       ["xquare-frontend", ["workspace:."]]
@@ -3350,26 +3350,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
-      ["@service/assets-fe", [
-        ["workspace:services/assets-fe", {
-          "packageLocation": "./services/assets-fe/",
-          "packageDependencies": [
-            ["@service/assets-fe", "workspace:services/assets-fe"],
-            ["@semicolondsm/design-token", "npm:1.0.6"],
-            ["@types/node", "npm:17.0.24"],
-            ["@types/react", "npm:18.0.5"],
-            ["@types/react-dom", "npm:18.0.1"],
-            ["@xquare/utils", "npm:1.0.8"],
-            ["eslint", "npm:8.13.0"],
-            ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
-            ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
-            ["react", "npm:18.0.0"],
-            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],
-            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
-          ],
-          "linkType": "SOFT",
-        }]
-      ]],
       ["@service/leesauce", [
         ["workspace:services/leesauce", {
           "packageLocation": "./services/leesauce/",
@@ -3395,6 +3375,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dropzone", "virtual:295f6bae3b9037557d43e3ae74719f04b11c62db5c7dab2cd77e2a2a9311a6e0914759471688023550e756623151b2f0a3cfa07c8f0db4c5662366cb9272f8ea#npm:11.4.2"],
             ["react-redux", "virtual:295f6bae3b9037557d43e3ae74719f04b11c62db5c7dab2cd77e2a2a9311a6e0914759471688023550e756623151b2f0a3cfa07c8f0db4c5662366cb9272f8ea#npm:7.2.6"],
             ["redux-logger", "npm:3.0.6"],
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@service/style", [
+        ["workspace:services/style", {
+          "packageLocation": "./services/style/",
+          "packageDependencies": [
+            ["@service/style", "workspace:services/style"],
+            ["@semicolondsm/design-token", "npm:1.0.6"],
+            ["@types/node", "npm:17.0.24"],
+            ["@types/react", "npm:18.0.5"],
+            ["@types/react-dom", "npm:18.0.1"],
+            ["@xquare/utils", "npm:1.0.8"],
+            ["eslint", "npm:8.13.0"],
+            ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
+            ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
+            ["react", "npm:18.0.0"],
+            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
           ],
           "linkType": "SOFT",
