@@ -27,6 +27,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:services/apply"
       },
       {
+        "name": "@service/backoffice",
+        "reference": "workspace:services/backoffice"
+      },
+      {
         "name": "@service/leesauce",
         "reference": "workspace:services/leesauce"
       },
@@ -47,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)|$))$)",
     "fallbackExclusionList": [
       ["@service/apply", ["workspace:services/apply"]],
+      ["@service/backoffice", ["workspace:services/backoffice"]],
       ["@service/leesauce", ["workspace:services/leesauce"]],
       ["@service/style", ["workspace:services/style"]],
       ["@service/xbridge-test", ["workspace:services/xbridge-test"]],
@@ -3264,12 +3269,46 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@semicolondsm/ui", [
+        ["npm:1.3.10", {
+          "packageLocation": "./.yarn/cache/@semicolondsm-ui-npm-1.3.10-9a7d3e7bcc-cb1a202f9a.zip/node_modules/@semicolondsm/ui/",
+          "packageDependencies": [
+            ["@semicolondsm/ui", "npm:1.3.10"]
+          ],
+          "linkType": "SOFT",
+        }],
         ["npm:1.3.9", {
           "packageLocation": "./.yarn/cache/@semicolondsm-ui-npm-1.3.9-62ab6bdac6-d1b8427282.zip/node_modules/@semicolondsm/ui/",
           "packageDependencies": [
             ["@semicolondsm/ui", "npm:1.3.9"]
           ],
           "linkType": "SOFT",
+        }],
+        ["virtual:1dbb633d041112758037b432152cea66e456faec9bab304a114733e384c35195bf75373ecd54ecdb438740d7a87c2e3828b04a28fb002af4d8c7daf0cd089551#npm:1.3.10", {
+          "packageLocation": "./.yarn/__virtual__/@semicolondsm-ui-virtual-1c6f486db1/0/cache/@semicolondsm-ui-npm-1.3.10-9a7d3e7bcc-cb1a202f9a.zip/node_modules/@semicolondsm/ui/",
+          "packageDependencies": [
+            ["@semicolondsm/ui", "virtual:1dbb633d041112758037b432152cea66e456faec9bab304a114733e384c35195bf75373ecd54ecdb438740d7a87c2e3828b04a28fb002af4d8c7daf0cd089551#npm:1.3.10"],
+            ["@emotion/react", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.9.0"],
+            ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
+            ["@semicolondsm/design-token", "npm:1.0.6"],
+            ["@types/emotion__react", null],
+            ["@types/emotion__styled", null],
+            ["@types/react", "npm:18.0.5"],
+            ["@types/react-dom", "npm:18.0.1"],
+            ["react", "npm:18.0.0"],
+            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],
+            ["react-outside-click-handler", "virtual:be93c021f06565f062fa5f1c7f8555911fdf51d17acdeef1446cc78dcf4feaa66ad9fd85769519a1301b2b0d27646209cb3c99352c49d2fb854855bce292b147#npm:1.3.0"]
+          ],
+          "packagePeers": [
+            "@emotion/react",
+            "@emotion/styled",
+            "@types/emotion__react",
+            "@types/emotion__styled",
+            "@types/react-dom",
+            "@types/react",
+            "react-dom",
+            "react"
+          ],
+          "linkType": "HARD",
         }],
         ["virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.3.9", {
           "packageLocation": "./.yarn/__virtual__/@semicolondsm-ui-virtual-be93c021f0/0/cache/@semicolondsm-ui-npm-1.3.9-62ab6bdac6-d1b8427282.zip/node_modules/@semicolondsm/ui/",
@@ -3340,6 +3379,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:18.0.1"],
             ["@xquare/utils", "npm:1.0.8"],
             ["emotion-reset", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:3.0.1"],
+            ["eslint", "npm:8.13.0"],
+            ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
+            ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
+            ["react", "npm:18.0.0"],
+            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@service/backoffice", [
+        ["workspace:services/backoffice", {
+          "packageLocation": "./services/backoffice/",
+          "packageDependencies": [
+            ["@service/backoffice", "workspace:services/backoffice"],
+            ["@emotion/react", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.9.0"],
+            ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
+            ["@semicolondsm/react-emotion-theme", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.0.8"],
+            ["@semicolondsm/ui", "virtual:1dbb633d041112758037b432152cea66e456faec9bab304a114733e384c35195bf75373ecd54ecdb438740d7a87c2e3828b04a28fb002af4d8c7daf0cd089551#npm:1.3.10"],
+            ["@types/node", "npm:17.0.24"],
+            ["@types/react", "npm:18.0.5"],
+            ["@types/react-dom", "npm:18.0.1"],
+            ["@xquare/utils", "npm:1.0.8"],
             ["eslint", "npm:8.13.0"],
             ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
             ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],
