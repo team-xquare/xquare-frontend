@@ -1,6 +1,6 @@
 {
-    "name": "@service/assets-fe",
-    "description": "assets server",
+    "name": "@service/style",
+    "description": "style server",
     "version": "1.0.0",
     "private": true,
     "scripts": {

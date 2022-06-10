@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: true,
-    basePath: process.env.NODE_ENV === 'production' ? '/assets-fe' : undefined,
+    basePath: process.env.NODE_ENV === 'production' ? '/style' : undefined,
     experimental: {
         externalDir: true,
     },

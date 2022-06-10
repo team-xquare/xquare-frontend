@@ -9,7 +9,7 @@ RUN yarn install --immutable
 
 COPY packs ./
 
-RUN yarn workspace @service/assets-fe build
+RUN yarn workspace @service/style build
 
 FROM node:16-alpine AS runner
 WORKDIR /app
@@ -27,4 +27,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD yarn workspace @service/assets-fe start
+CMD yarn workspace @service/style start
