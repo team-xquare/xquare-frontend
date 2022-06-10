@@ -14,6 +14,7 @@ const Button: FC<ButtonProps> = (props) => {
 export default Button;
 
 const ButtonContainer = styled.div`
+    width: inherit;
     & button:hover {
         background-color: #2a2a2a !important;
     }

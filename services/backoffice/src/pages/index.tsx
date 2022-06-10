@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
-import { Select, Subtitle4 } from '@semicolondsm/ui';
 import styled from '@emotion/styled';
 import ServiceList from '../service-list';
 import MainPageTemplate from '../main/MainPageTemplate';
 import Link from 'next/link';
 import Button from '../common/Button';
+import Select from '../common/Select';
 
 const Home: NextPage = () => {
     return (
@@ -12,13 +12,7 @@ const Home: NextPage = () => {
             <MainContainer>
                 <div className="search-wrapper">
                     <TextInput placeholder="Search..." />
-                    <div className="select-box">
-                        <Select
-                            items={['frontend', 'backend']}
-                            value="frontend"
-                            placeholder="선택해주세요..."
-                        />
-                    </div>
+                    <Select items={['frontend', 'backend']} placeholder="선택" />
                     <Link href="/create">
                         <Button size="sm">New Service</Button>
                     </Link>
@@ -38,13 +32,6 @@ const MainContainer = styled.div`
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: 8px;
-
-        & .select-box {
-            & div {
-                background-color: #212121;
-                border: 1px solid #212121;
-            }
-        }
     }
 `;
 
