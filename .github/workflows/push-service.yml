@@ -12,6 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Git Clone and Checkout 
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GHP_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global user.email teamxquare@gmail.com
+          git config --global user.name XQUARE Frontend Bot
+          git clone --filter=blob:none $REPO .
+          git checkout
+
       - name: Check Out The Repository
         uses: actions/checkout@v3
         with: 
