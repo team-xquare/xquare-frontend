@@ -1,7 +1,7 @@
 import { Device } from '@xquare/utils';
 
 type BridgeType = 'navigate' | 'back' | 'imageDetail';
-
+// adad
 export interface BrowserActionParameters<T> {
     bridge: BridgeType;
     data: T;
