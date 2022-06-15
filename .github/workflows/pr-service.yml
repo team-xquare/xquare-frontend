@@ -27,7 +27,6 @@ jobs:
       matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
     steps:
       - name: Check Out The Repository
-        needs: get-diff-workspace
         uses: actions/checkout@v3
         with: 
           token: ${{ secrets.GHP_TOKEN }}
