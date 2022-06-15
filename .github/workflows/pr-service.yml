@@ -1,0 +1,39 @@
+name: Pull Request Service
+on: 
+  pull_request:
+    paths:
+      - "services/**"
+
+jobs:
+  get-diff-workspace:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          fetch-depth: '2'
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: diff-workspace
+        id: set-matrix
+        run: echo "::set-output name=matrix::{\"workspaces\":[$(yarn changed list --git-range $(git rev-parse HEAD^) --json --exclude xquare-frontend | tr "\n" ",")]}"
+
+  build: 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
+    steps:
+      - name: Check Out The Repository
+        needs: get-diff-workspace
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: Get Service
+        id: get_service
+        run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
+      
+      - name: Docker Build 
+        run: yarn docker build @service/${{steps.get_service.outputs.SERVICE}} -t ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
