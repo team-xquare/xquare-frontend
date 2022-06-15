@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-
+// ㅅㄷㄴㅅ
 interface FlexProps {
     gap?: number;
     align?: string;
