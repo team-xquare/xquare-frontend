@@ -18,7 +18,9 @@ const ApplyCard = (props: Props) => {
             isSelect={props.isSelect}>
             <StudyTextInfoBox isSelect={props.isSelect}>
                 <Botton>{props.study_room_name}</Botton>
-                <Botton>{props.applicantion_count}/20</Botton>
+                <Botton>
+                    {props.application_count}/{props.max_people_count}
+                </Botton>
             </StudyTextInfoBox>
 
             <ImageWrapper>

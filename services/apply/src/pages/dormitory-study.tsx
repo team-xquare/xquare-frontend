@@ -4,13 +4,20 @@ import ApplyCard from '../dormitary-study/components/ApplyCard';
 import { useState } from 'react';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
 import ButtomFixedButton from '../common/ButtomFixedButton';
-import { QueryClient, dehydrate, useQuery, hydrate } from 'react-query';
-import { getStudyRoom } from '../dormitary-study/apis';
+import { QueryClient, dehydrate, useQuery, useMutation, useQueryClient } from 'react-query';
+import { getStudyRoom, postStudyRoom } from '../dormitary-study/apis';
 import { queryKeys } from '../utils/queryKeys';
 
 const DormitoryStudy: NextPage = () => {
     const key = queryKeys.getStudyRoomList();
-    const { data } = useQuery(key, getStudyRoom);
+    const queryClient = useQueryClient();
+    const { data } = useQuery(key, getStudyRoom, {
+        retry: 0,
+    });
+    const { mutate } = useMutation(postStudyRoom, {
+        onSuccess: () => queryClient.invalidateQueries(key),
+    });
+
     const [selectCard, setSelectCard] = useState<string>('');
     return (
         <MainPageTemplate subTitle="연장학습을 하고싶은 자습실을 선택해 주세요.">
@@ -24,7 +31,10 @@ const DormitoryStudy: NextPage = () => {
                     />
                 ))}
             </ApplyCardList>
-            <ButtomFixedButton />
+            <ButtomFixedButton
+                disabled={!selectCard}
+                onClick={() => mutate({ study_room_id: selectCard })}
+            />
         </MainPageTemplate>
     );
 };

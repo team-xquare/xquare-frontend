@@ -3,9 +3,9 @@ import { Button } from '@semicolondsm/ui';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
 import { FlexCol, FlexRow } from '../common/Flexbox';
 import { useState } from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient, useQueries, useQuery } from 'react-query';
 import { queryKeys } from '../utils/queryKeys';
-import { getStayList, getStayStatus } from '../main/apis';
+import { getStayList, getStayStatus, putStayStatus } from '../main/apis';
 import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
 
@@ -13,8 +13,12 @@ const Apply: NextPage = () => {
     const stayStatusKey = queryKeys.getStayStatus();
     const stayListKey = queryKeys.getStayList();
 
-    const { data: stayList } = useQuery(stayListKey, getStayList);
-    const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus);
+    const { data: stayList } = useQuery(stayListKey, getStayList, {
+        retry: 0,
+    });
+    const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus, {
+        retry: 0,
+    });
 
     const [residualApply, setResidualApply] = useState<string>(stayStatus?.status || 'STAY');
     const [weekendApply, setWeekendApply] = useState<string>('신청');
@@ -26,8 +30,11 @@ const Apply: NextPage = () => {
                     <>
                         {stayList?.codes.map((item, idx) => (
                             <Button
-                                onClick={() => setResidualApply(item.code)}
-                                fill={item.code === residualApply ? 'purple' : 'default'}
+                                onClick={() => {
+                                    setResidualApply(item.name);
+                                    putStayStatus({ status: item.name });
+                                }}
+                                fill={item.name === residualApply ? 'purple' : 'default'}
                                 key={idx}
                                 size="sm">
                                 {item.value}

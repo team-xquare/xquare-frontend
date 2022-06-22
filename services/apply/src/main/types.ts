@@ -1,4 +1,4 @@
-export type StayCode = Record<'code' | 'value', string>;
+export type StayCode = Record<'name' | 'value', string>;
 
 export interface StayCodeList {
     codes: StayCode[];
@@ -8,4 +8,4 @@ export interface StayStatus {
     status: string;
 }
 
-export interface = {"study_room": "e9c776b6-da7c-4f34-ab5c-6060cd4cb828"}
+// export interface = {"study_room": "e9c776b6-da7c-4f34-ab5c-6060cd4cb828"}
