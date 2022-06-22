@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
+
 module.exports = {
     reactStrictMode: true,
-    images: {
-        domains: ['t1.daumcdn.net'],
-    },
+    basePath: process.env.NODE_ENV === 'production' ? '/apply' : undefined,
     experimental: {
         externalDir: true,
     },

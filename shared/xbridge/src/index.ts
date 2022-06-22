@@ -1,11 +1,13 @@
 import { Device } from '@xquare/utils';
 
+type BridgeType = 'navigate' | 'back' | 'imageDetail';
+
 export interface BrowserActionParameters<T> {
-    bridge: string;
+    bridge: BridgeType;
     data: T;
 }
 export const sendBridgeEvent = <T extends unknown>(
-    bridge: string,
+    bridge: BridgeType,
     data: T,
     browserAction?: (params: BrowserActionParameters<T>) => any,
 ) => {
@@ -13,11 +15,9 @@ export const sendBridgeEvent = <T extends unknown>(
     console.log(data);
     if (Device.isMobileWeb()) {
         if (Device.getOSByUserAgent() === 'ios')
-            globalThis.webkit.messageHandlers[bridge].postMessage(JSON.stringify(data));
-        else if (Device.getOSByUserAgent() === 'android') {
-            globalThis.webview.postMessage(JSON.stringify(data));
-        } else {
-            return false;
+            globalThis.webkit.messageHandlers[bridge].postMessage(data);
+        else {
+            globalThis.webview[bridge](data);
         }
     } else {
         browserAction && browserAction({ bridge, data });
