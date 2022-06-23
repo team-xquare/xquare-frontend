@@ -12,6 +12,7 @@ export const sendBridgeEvent = <T extends unknown>(
     browserAction?: (params: BrowserActionParameters<T>) => any,
 ) => {
     const globalThis = window as any;
+    console.log(data);
     if (Device.isMobileWeb()) {
         if (Device.getOSByUserAgent() === 'ios')
             globalThis.webkit.messageHandlers[bridge].postMessage(data);

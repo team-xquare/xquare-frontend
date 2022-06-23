@@ -3,8 +3,12 @@ import { SDSThemeProvider } from '@semicolondsm/react-emotion-theme';
 import { Global } from '@emotion/react';
 import { globalStyles } from '../styles/globalStyle';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const [queryClient] = useState(() => new QueryClient());
     return (
         <>
             <Head>
@@ -20,7 +24,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
             <SDSThemeProvider mode="light-only">
                 <Global styles={globalStyles}></Global>
-                <Component {...pageProps} />
+                <QueryClientProvider client={queryClient}>
+                    <Hydrate state={pageProps.dehydratedState}>
+                        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                        <Component {...pageProps} />
+                    </Hydrate>
+                </QueryClientProvider>
             </SDSThemeProvider>
         </>
     );
