@@ -1,4 +1,7 @@
-export type StayCode = Record<'name' | 'value', string>;
+interface StayCode {
+    name: string;
+    value: string;
+}
 
 export interface StayCodeList {
     codes: StayCode[];

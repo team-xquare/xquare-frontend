@@ -1,4 +1,7 @@
-export type Student = Record<'student_name' | 'profile_image', string>;
+export interface Student {
+    student_name: string;
+    profile_image: string;
+}
 
 export interface StudyRoom {
     id: string;
