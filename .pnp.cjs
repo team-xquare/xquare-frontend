@@ -3377,6 +3377,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
             ["@semicolondsm/react-emotion-theme", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.0.8"],
             ["@semicolondsm/ui", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.3.10"],
+            ["@shared/xbridge", "workspace:shared/xbridge"],
             ["@types/node", "npm:17.0.24"],
             ["@types/react", "npm:18.0.5"],
             ["@types/react-dom", "npm:18.0.1"],
