@@ -5,23 +5,21 @@ import { FlexCol, FlexRow } from '../common/Flexbox';
 import { useState } from 'react';
 import { dehydrate, QueryClient, useQueries, useQuery } from 'react-query';
 import { queryKeys } from '../utils/queryKeys';
-import { getStayList, getStayStatus, putStayStatus } from '../main/apis';
+import { getStayList, getStayStatus, getWeekMealStatus, putStayStatus } from '../main/apis';
 import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
+import styled from '@emotion/styled';
+import MainButton from '../common/MainButton';
+import WeekendMealApplyBox from '../main/components/WeekendMealApplyBox';
 
 const Apply: NextPage = () => {
     const stayStatusKey = queryKeys.getStayStatus();
     const stayListKey = queryKeys.getStayList();
 
-    const { data: stayList } = useQuery(stayListKey, getStayList, {
-        retry: 0,
-    });
-    const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus, {
-        retry: 0,
-    });
+    const { data: stayList } = useQuery(stayListKey, getStayList);
+    const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus);
 
     const [residualApply, setResidualApply] = useState<string>(stayStatus?.status || 'STAY');
-    const [weekendApply, setWeekendApply] = useState<string>('신청');
 
     return (
         <MainPageTemplate>
@@ -45,15 +43,7 @@ const Apply: NextPage = () => {
                 <ApplyBox
                     title="주말급식 신청"
                     subTitle="신청여부는 담임선생님께서 확인 후 전달되요.">
-                    {['신청', '미신청'].map((item, idx) => (
-                        <Button
-                            onClick={() => setWeekendApply(item)}
-                            fill={item === weekendApply ? 'purple' : 'default'}
-                            key={idx}
-                            size="sm">
-                            {item}
-                        </Button>
-                    ))}
+                    <WeekendMealApplyBox />
                 </ApplyBox>
                 <ApplyBox title="추가 신청">
                     <AdditionalApplyItem
@@ -61,6 +51,12 @@ const Apply: NextPage = () => {
                         daliy="오늘"
                         linkTo="/dormitory-study"
                     />
+
+                    {/*TODO: <AdditionalApplyItem
+                        applyKind="주말 외출 신청"
+                        daliy=""
+                        linkTo="/dormitory-study"
+                    /> */}
                 </ApplyBox>
             </FlexCol>
         </MainPageTemplate>
@@ -71,9 +67,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
     const stayStatusKey = queryKeys.getStayStatus();
     const stayListKey = queryKeys.getStayList();
+    const weekendMealKey = queryKeys.getWeekMeal();
     await Promise.all([
         queryClient.prefetchQuery(stayStatusKey, getStayStatus),
         queryClient.prefetchQuery(stayListKey, getStayList),
+        queryClient.prefetchQuery(weekendMealKey, getWeekMealStatus),
     ]);
     return {
         props: {
