@@ -3,9 +3,14 @@
     "description": "Xquare App Bridge",
     "main": "src/index.ts",
     "devDependencies": {
+        "@types/react": "18.0.5",
         "typescript": "^4.7.2"
     },
     "dependencies": {
-        "@xquare/utils": "^1.1.0"
+        "@xquare/utils": "^1.1.0",
+        "react": "18.0.0"
+    },
+    "peerDependencies": {
+        "react": "*"
     }
 }
