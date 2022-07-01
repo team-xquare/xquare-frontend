@@ -50,7 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@service/leesauce", ["workspace:services/leesauce"]],
       ["@service/style", ["workspace:services/style"]],
       ["@service/xbridge-test", ["workspace:services/xbridge-test"]],
-      ["@shared/xbridge", ["workspace:shared/xbridge"]],
+      ["@shared/xbridge", ["virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#workspace:shared/xbridge", "workspace:shared/xbridge"]],
       ["xquare-frontend", ["workspace:."]]
     ],
     "fallbackPool": [
@@ -3377,7 +3377,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
             ["@semicolondsm/react-emotion-theme", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.0.8"],
             ["@semicolondsm/ui", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.3.10"],
-            ["@shared/xbridge", "workspace:shared/xbridge"],
+            ["@shared/xbridge", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#workspace:shared/xbridge"],
             ["@types/node", "npm:17.0.24"],
             ["@types/react", "npm:18.0.5"],
             ["@types/react-dom", "npm:18.0.1"],
@@ -3454,7 +3454,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:11.8.1"],
             ["@semicolondsm/react-emotion-theme", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:1.0.8"],
             ["@semicolondsm/ui", "virtual:42783c75ea39c150f58e47cf4efc5e9e36b0027083882baffeeca5353f8e733c93725cfe51ceb236d2a685833a32bc4f3994658589a68b761fe9abdbebbc0f70#npm:1.3.9"],
-            ["@shared/xbridge", "workspace:shared/xbridge"],
+            ["@shared/xbridge", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#workspace:shared/xbridge"],
             ["@types/node", "npm:17.0.24"],
             ["@types/react", "npm:18.0.5"],
             ["@types/react-dom", "npm:18.0.1"],
@@ -3470,11 +3470,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@shared/xbridge", [
+        ["virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#workspace:shared/xbridge", {
+          "packageLocation": "./.yarn/__virtual__/@shared-xbridge-virtual-f5390b5fa3/1/shared/xbridge/",
+          "packageDependencies": [
+            ["@shared/xbridge", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#workspace:shared/xbridge"],
+            ["@types/react", "npm:18.0.5"],
+            ["@xquare/utils", "npm:1.1.0"],
+            ["react", "npm:18.0.0"],
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
+          ],
+          "packagePeers": [
+            "@types/react",
+            "react"
+          ],
+          "linkType": "SOFT",
+        }],
         ["workspace:shared/xbridge", {
           "packageLocation": "./shared/xbridge/",
           "packageDependencies": [
             ["@shared/xbridge", "workspace:shared/xbridge"],
+            ["@types/react", "npm:18.0.5"],
             ["@xquare/utils", "npm:1.1.0"],
+            ["react", "npm:18.0.0"],
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
           ],
           "linkType": "SOFT",
