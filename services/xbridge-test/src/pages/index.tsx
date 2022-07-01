@@ -1,10 +1,15 @@
 import type { NextPage } from 'next';
 import { Button } from '@semicolondsm/ui';
-import { sendBridgeEvent } from '@shared/xbridge';
+import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import XbridgeImage from '../../common/XbridgeImage';
 const Home: NextPage = () => {
     const router = useRouter();
+
+    useBridgeHandler('confirm', (event) => {
+        alert(event.detail.success);
+    });
+
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -22,7 +27,7 @@ const Home: NextPage = () => {
                         ({ data }) => confirm(data.message),
                     );
 
-                    console.log(data);
+                    alert(data);
                 }}>
                 모달
             </Button>
