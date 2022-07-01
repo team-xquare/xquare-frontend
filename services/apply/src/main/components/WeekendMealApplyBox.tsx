@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 import { Botton, Button } from '@semicolondsm/ui';
-import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import MainButton from '../../common/MainButton';
 import { queryKeys } from '../../utils/queryKeys';
 import { getWeekMealStatus, postWeekendMeal } from '../apis';
-import { WeekendMealStatus } from '../types';
-import { sendBridgeEvent } from '@shared/xbridge';
+import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 const WeekendMealApplyBox = () => {
     const queryClient = useQueryClient();
     const weekendmealKey = queryKeys.getWeekMeal();
@@ -15,8 +12,23 @@ const WeekendMealApplyBox = () => {
         onSuccess: () => queryClient.invalidateQueries(weekendmealKey),
     });
 
+    useBridgeHandler('confirm', ({ detail }) => {
+        detail.success && mutate({ apply: !weekendMealStatus?.applied });
+    });
+
     const onMealApply = () => {
-        mutate({ apply: !weekendMealStatus?.applied });
+        const result = sendBridgeEvent(
+            'confirm',
+            {
+                message: '주말급식은 신청해야\n먹을 수 있어요',
+                confirmText: '신청하기',
+                cacelText: '다음에 하기',
+            },
+            ({ data }) => {
+                confirm(data.message);
+            },
+        );
+        result && mutate({ apply: !weekendMealStatus?.applied });
     };
 
     return (
