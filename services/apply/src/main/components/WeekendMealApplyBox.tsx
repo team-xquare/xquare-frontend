@@ -43,6 +43,7 @@ const MealApplyWrapper = styled.div`
     padding: 16px;
     display: flex;
     justify-content: space-between;
+    border-radius: 12px;
     align-items: center;
     background-color: ${({ theme }) => theme.colors.gray50};
 `;

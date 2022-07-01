@@ -2026,6 +2026,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@semicolondsm/design-token@npm:1.0.8":
+  version: 1.0.8
+  resolution: "@semicolondsm/design-token@npm:1.0.8"
+  checksum: d839e7c7398237f7233beab859d801795520b8781eecc14edd1d759ea9bca446599a459477f3e2939f9e8f5f47e93123be69172ab9d4eaf32c9dcab24371b359
+  languageName: node
+  linkType: hard
+
+"@semicolondsm/react-emotion-theme@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@semicolondsm/react-emotion-theme@npm:1.0.10"
+  dependencies:
+    "@semicolondsm/design-token": 1.0.8
+    "@semicolondsm/react-theming": 1.0.4
+  peerDependencies:
+    "@emotion/react": ^11.4.0
+    react: ^17.0.2
+  checksum: bd1f5aac2f847a8fd9a9ba9a07438db946819e25d6361198bceed57dff284f32ed16767a6c3a692bb782124b999b85ccfb167ccd4a1baf577148c729a8a9945d
+  languageName: node
+  linkType: hard
+
 "@semicolondsm/react-emotion-theme@npm:^1.0.8":
   version: 1.0.8
   resolution: "@semicolondsm/react-emotion-theme@npm:1.0.8"
@@ -2046,18 +2066,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semicolondsm/ui@npm:1.3.10":
-  version: 1.3.10
-  resolution: "@semicolondsm/ui@npm:1.3.10"
+"@semicolondsm/ui@npm:1.3.12":
+  version: 1.3.12
+  resolution: "@semicolondsm/ui@npm:1.3.12"
   dependencies:
-    "@semicolondsm/design-token": 1.0.6
+    "@semicolondsm/design-token": 1.0.8
     react-outside-click-handler: ^1.3.0
   peerDependencies:
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
     react: 18.0.0
     react-dom: 18.0.0
-  checksum: cb1a202f9aea17248c3cf51da055ed5ddc39a03f352aea510761021333da7f35ff2c7cffd8dd320c88b34a9c39eaa8c98641ac4ddc74069ab7a0c2f131480abb
+  checksum: 198953a3e1abd371d7e8d1f700cdf6fffda7ceeb74ff15e1701b5574f3faeadcb96c316421b7cdae3c1ae3c5deca3f5bf4385a1c66849574b6a4d5ab526488ae
   languageName: node
   linkType: hard
 
@@ -2082,8 +2102,8 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
-    "@semicolondsm/react-emotion-theme": ^1.0.8
-    "@semicolondsm/ui": 1.3.10
+    "@semicolondsm/react-emotion-theme": ^1.0.10
+    "@semicolondsm/ui": 1.3.12
     "@shared/xbridge": "workspace:*"
     "@types/node": 17.0.24
     "@types/react": 18.0.5

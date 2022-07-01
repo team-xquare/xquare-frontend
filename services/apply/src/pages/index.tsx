@@ -1,25 +1,27 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { Button } from '@semicolondsm/ui';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
-import { FlexCol, FlexRow } from '../common/Flexbox';
-import { useState } from 'react';
-import { dehydrate, QueryClient, useQueries, useQuery } from 'react-query';
+import { FlexCol } from '../common/Flexbox';
+import { dehydrate, QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 import { queryKeys } from '../utils/queryKeys';
 import { getStayList, getStayStatus, getWeekMealStatus, putStayStatus } from '../main/apis';
 import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
-import styled from '@emotion/styled';
-import MainButton from '../common/MainButton';
 import WeekendMealApplyBox from '../main/components/WeekendMealApplyBox';
 
 const Apply: NextPage = () => {
+    const queryClient = useQueryClient();
     const stayStatusKey = queryKeys.getStayStatus();
     const stayListKey = queryKeys.getStayList();
 
     const { data: stayList } = useQuery(stayListKey, getStayList);
     const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus);
 
-    const [residualApply, setResidualApply] = useState<string>(stayStatus?.status || 'STAY');
+    const { mutate: putStayStatusMutate } = useMutation(putStayStatus, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(stayStatusKey);
+        },
+    });
 
     return (
         <MainPageTemplate>
@@ -29,10 +31,9 @@ const Apply: NextPage = () => {
                         {stayList?.codes.map((item, idx) => (
                             <Button
                                 onClick={() => {
-                                    setResidualApply(item.name);
-                                    putStayStatus({ status: item.name });
+                                    putStayStatusMutate({ status: item.name });
                                 }}
-                                fill={item.name === residualApply ? 'purple' : 'default'}
+                                fill={item.name === stayStatus?.status ? 'purple' : 'default'}
                                 key={idx}
                                 size="sm">
                                 {item.value}
