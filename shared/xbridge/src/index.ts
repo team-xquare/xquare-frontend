@@ -30,11 +30,14 @@ export const sendBridgeEvent = <T extends BridgeType>(
     browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => any,
 ) => {
     const globalThis = window as any;
+
+    const stringData = typeof data === 'object' ? JSON.stringify(data) : String(data);
+
     if (Device.isMobileWeb()) {
         if (Device.getOSByUserAgent() === 'ios')
-            globalThis.webkit.messageHandlers[bridge].postMessage(data);
+            globalThis.webkit.messageHandlers[bridge].postMessage(stringData);
         else {
-            globalThis.webview[bridge](data);
+            globalThis.webview[bridge](stringData);
         }
     } else {
         return browserAction?.({ bridge, data });

@@ -3,6 +3,8 @@ import { Button } from '@semicolondsm/ui';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import XbridgeImage from '../../common/XbridgeImage';
+
+// 최종 수정일: 7월 2일
 const Home: NextPage = () => {
     const router = useRouter();
 
