@@ -19,17 +19,18 @@ const Home: NextPage = () => {
 
             <Button
                 onClick={() => {
-                    const data = sendBridgeEvent(
+                    sendBridgeEvent(
                         'confirm',
                         {
                             message: '브릿지를 테스트 하시겠습니까?',
                             confirmText: 'ㅇㅇ',
                             cacelText: 'ㄴㄴ',
                         },
-                        ({ data }) => confirm(data.message),
+                        ({ data }) => {
+                            const result = confirm(data.message);
+                            alert(result);
+                        },
                     );
-
-                    alert(data);
                 }}>
                 모달
             </Button>
