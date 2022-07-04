@@ -63,11 +63,16 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
     steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@master
         with:
-          username: ${{secrets.DOCKER_USER}}
-          password: ${{secrets.DOCKER_HUB_TOKEN}}
+          access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Docker
+        run: docker login -u ${{ steps.ecr.outputs.username }} -p ${{ steps.ecr.outputs.password }} https://${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
       - name: Check Out The Repository
         uses: actions/checkout@v3
@@ -86,14 +91,13 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ${{ matrix.workspaces.location }}
-      
 
       - name: Docker Build 
-        run: yarn docker build @service/${{steps.get_service.outputs.SERVICE}} -t ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
+        run: yarn docker build @service/${{steps.get_service.outputs.SERVICE}} -t ${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
       
       - name: Docker Push
-        run: docker push ${{secrets.DOCKER_USER}}/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
-    
+        run: docker push ${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
+
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
