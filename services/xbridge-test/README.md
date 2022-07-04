@@ -1,2 +1,2 @@
 # @service/xbridge-test
-bridge test를 위한 웹뷰
+bridge test를 위한 웹뷰!
