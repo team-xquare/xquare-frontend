@@ -8,7 +8,14 @@ import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const [queryClient] = useState(() => new QueryClient());
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: { retry: 0, refetchInterval: 0, refetchOnWindowFocus: false },
+                },
+            }),
+    );
     return (
         <>
             <Head>
