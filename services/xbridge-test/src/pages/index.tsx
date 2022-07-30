@@ -24,7 +24,7 @@ const Home: NextPage = () => {
                         {
                             message: '브릿지를 테스트 하시겠습니까?',
                             confirmText: 'ㅇㅇ',
-                            cacelText: 'ㄴㄴ',
+                            cancelText: 'ㄴㄴ',
                         },
                         ({ data }) => {
                             const result = confirm(data.message);

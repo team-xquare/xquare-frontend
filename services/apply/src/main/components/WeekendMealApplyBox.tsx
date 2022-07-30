@@ -22,7 +22,7 @@ const WeekendMealApplyBox = () => {
             {
                 message: '주말급식은 신청해야\n먹을 수 있어요',
                 confirmText: '신청하기',
-                cacelText: '다음에 하기',
+                cancelText: '다음에 하기',
             },
             ({ data }) => {
                 confirm(data.message);
