@@ -10,7 +10,7 @@ interface XBridgeSendData extends Record<BridgeType, unknown> {
     confirm: {
         message: string;
         confirmText: string;
-        cacelText: string;
+        cancelText: string;
     };
 }
 
