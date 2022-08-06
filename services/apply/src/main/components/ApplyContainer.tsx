@@ -1,5 +1,4 @@
 import { Caption, Subtitle4 } from '@semicolondsm/ui';
-import { NextPage } from 'next';
 import { FC, PropsWithChildren } from 'react';
 import { FlexCol, FlexRow } from '../../common/Flexbox';
 

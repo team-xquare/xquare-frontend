@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { Button } from '@semicolondsm/ui';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
-import { FlexCol } from '../common/Flexbox';
+import { FlexCol, FlexRow } from '../common/Flexbox';
 import { dehydrate, QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 import { queryKeys } from '../utils/queryKeys';
 import { getStayList, getStayStatus, getWeekMealStatus, putStayStatus } from '../main/apis';
@@ -27,7 +27,12 @@ const Apply: NextPage = () => {
         <MainPageTemplate>
             <FlexCol gap={16}>
                 <ApplyBox title="잔류 신청" subTitle="목요일 10시까지는 잔류 신청을 완료해주세요.">
-                    <>
+                    <FlexRow
+                        gap={8}
+                        style={{
+                            whiteSpace: 'nowrap',
+                            overflowX: 'scroll',
+                        }}>
                         {stayList?.codes.map((item, idx) => (
                             <Button
                                 onClick={() => {
@@ -39,7 +44,7 @@ const Apply: NextPage = () => {
                                 {item.value}
                             </Button>
                         ))}
-                    </>
+                    </FlexRow>
                 </ApplyBox>
                 <ApplyBox
                     title="주말급식 신청"
