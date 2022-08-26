@@ -1,24 +1,41 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import MainSectionTitle from '../../common/MainSectionTitle';
-import { Body1 } from '@semicolondsm/ui';
+import { Body1, Button } from '@semicolondsm/ui';
+import { useNoticeQuery } from '../../../apis/notices';
+import NoticeListItem from './NoticeListItem';
+import { useModal } from '../../../contexts/modal';
 
-interface PropsType {
+interface Props {
+    setActiveId: (id: number) => void;
+    activeId: number | null;
 }
 
 const NoticeList = ({
-
-}: PropsType) => {
+    setActiveId,
+    activeId,
+}: Props) => {
+    const { data: notices } = useNoticeQuery();
+    const { openModal } = useModal();
 
     return (
         <MainContainer>
             <MainSectionTitle>공지사항 목록</MainSectionTitle>
             <MainBlock>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div></div>
+                    <Button size="sm" onClick={openModal}>새 공지사항 작성하기</Button>
+                </div>
                 <MainListWrapper>
                     <MainListHeader>제목</MainListHeader>
                     <MainListHeader>날짜</MainListHeader>
                     <MainListHeader>좋아요</MainListHeader>
                     <MainListHeader>댓글</MainListHeader>
+                    {
+                        notices && notices.map(notice => (
+                            <NoticeListItem key={notice.id} {...notice} isActive={notice.id === `${activeId}`} onClick={setActiveId} />
+                        ))
+                    }
                 </MainListWrapper>
             </MainBlock>
         </MainContainer>
@@ -42,6 +59,8 @@ const MainBlock = styled.div`
     padding: 16px 20px;
     display: flex;
     background: ${props => props.theme.colors.gray200};
+    display: flex;
+    flex-direction: column;
 `;
 
 const MainListWrapper = styled.div`

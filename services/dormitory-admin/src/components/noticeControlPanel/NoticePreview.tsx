@@ -1,28 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import MainSectionTitle from '../common/MainSectionTitle';
-import { Title3, Body1, Button } from '@semicolondsm/ui';
+import { Subtitle1, Body1, Button, Subtitle3 } from '@semicolondsm/ui';
+import { useDeleteNoticeMutation, useNoticeQuery, useUpdateNoticeMutation } from '../../apis/notices';
 
-interface PropsType {
+interface Props {
+    activeId: number | null;
 }
 
 const NoticePreview = ({
+    activeId,
+}: Props) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const { data: notices } = useNoticeQuery();
+    const { mutate: deleteNotice } = useDeleteNoticeMutation();
+    const { mutate: updateNotice } = useUpdateNoticeMutation();
+    const { id, content, title } = (notices ?? []).filter(({ id }) => id === `${activeId}`)[0] ?? {};
+    const contentRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLDivElement>(null);
 
-}: PropsType) => {
+    const onUpdate = () => {
+        updateNotice({
+            id,
+            title: titleRef.current?.innerText,
+            content: contentRef.current?.innerText,
+        });
+        return false;
+    }
+
+    const onDelete = () => {
+        deleteNotice(id);
+    }
 
     return (
         <MainContainer>
             <MainSectionTitle>미리보기</MainSectionTitle>
             <MainBlock>
                 <PreviewFlexBox>
-                    <PreviewTitle>제목입니다.</PreviewTitle>
+                    <PreviewTitle>
+                        <div ref={titleRef} contentEditable={isEditing}>{title}</div>
+                    </PreviewTitle>
                     <PreviewFlexBox>
-                        <Button size="sm">수정하기</Button>
-                        <Button size="sm">삭제하기</Button>
+                        <Button onClick={() => setIsEditing(prev => prev ? onUpdate() : !prev)} size="sm">{isEditing ? "수정완료" : "수정하기"}</Button>
+                        <Button onClick={onDelete} size="sm">삭제하기</Button>
                     </PreviewFlexBox>
                 </PreviewFlexBox>
                 <PreviewContent>
-                    내용입니다.
+                    <div ref={contentRef} contentEditable={isEditing}>
+                        {content}
+                    </div>
                 </PreviewContent>
             </MainBlock>
         </MainContainer>
@@ -55,14 +81,17 @@ const PreviewFlexBox = styled.div`
     gap: 10px;
 `;
 
-const PreviewTitle = styled(Title3)`
-    max-width: 50%;
+const PreviewTitle = styled(Subtitle3)`
+    max-width: 65%;
     overflow: hidden;
     text-overflow: ellipsis;
 `;
 
 const PreviewContent = styled(Body1)`
     margin-top: 20px;
+    height: 100%;
+    overflow-y: auto;
+    white-space: pre-wrap;
 `;
 
 export default NoticePreview;
