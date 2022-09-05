@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
-        <SDSThemeProvider>
+        <SDSThemeProvider mode={'light-only'}>
             <Global styles={GlobalStyles} />
             <QueryClientProvider client={queryClient}>
                 <Hydrate state={pageProps.dehydratedState}>

@@ -20,11 +20,11 @@ const StudentList = ({
         <MainBlock>
             <MainBlockHeader>
                 <Select items={Object.values(SortingEnum)} onChange={setSortType} value={SortingEnum.a} placeholder="" />
-                <Button onClick={() => download(`${process.env.NEXT_PUBLIC_API_BASE_URL}/excel/point`, `${getDateString()}-상벌점현황`)} fill="border" size="sm">CSV 내보내기</Button>
+                <Button onClick={() => download(`${process.env.NEXT_PUBLIC_API_BASE_URL}/excel/point`, `${getDateString()}-상벌점현황`)} fill="border" size="sm">엑셀 다운로드</Button>
             </MainBlockHeader>
             <MainListWrapper length={columns.length}>
                 {
-                    columns.map((column, i) => <MainListHaeder key={i}>{column}</MainListHaeder>)
+                    columns.map((column, i) => <MainListHeader key={i}>{column}</MainListHeader>)
                 }
                 {children}
             </MainListWrapper>
@@ -71,7 +71,7 @@ const MainListWrapper = styled.div<{ length: number; }>`
     }
 `;
 
-const MainListHaeder = styled(Body1)`
+const MainListHeader = styled(Body1)`
     top: 0;
     position: sticky;
     background: ${props => props.theme.colors.gray200};
