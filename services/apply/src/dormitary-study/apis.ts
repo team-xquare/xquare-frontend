@@ -9,9 +9,5 @@ export const getStudyRoom = async () => {
 };
 
 export const postStudyRoom = async (props: StudyRoomId) => {
-    await instance.post('/study-room', props, {
-        headers: {
-            userId: '19d1e9b7-0d51-4405-bd1d-042cab403398',
-        },
-    });
+    await instance.post('/study-room', props);
 };
