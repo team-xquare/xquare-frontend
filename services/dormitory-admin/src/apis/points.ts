@@ -32,6 +32,20 @@ export const useAddPointQuery = (id: SelectedUserIds) => {
     });
 }
 
+export const useTrainingMutation = () => {
+    const queryClient = useQueryClient();
+    const fetcher = ({
+        id,
+        penalty_level,
+    }: Pick<Student, "id" | "penalty_level">) => instance.post(`/points/student/${id}/training?penalty_level=${penalty_level}`);
+
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("/points/students");
+        }
+    });
+}
+
 export const useHistoryByIdQuery = (id: SelectedUserIds) => {
     const trueStudentIds = Object.keys(id).filter(key => id[key] && key);
     const pathname = `/points/student/${trueStudentIds.length ? trueStudentIds[0] : ""}/history`;

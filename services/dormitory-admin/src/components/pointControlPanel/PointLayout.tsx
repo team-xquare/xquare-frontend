@@ -12,6 +12,7 @@ import Spinner from '../common/Spinner';
 
 const PointLayout = () => {
     const { data, isLoading, error } = usePointQuery();
+
     const [selectedUserIds, setSUI] = useState<SelectedUserIds>({});
     const [clickedId, setCI] = useState<{ id: string; }>();
     const isCheckboxRef = useRef<boolean>(false);

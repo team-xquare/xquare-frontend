@@ -40,7 +40,7 @@ const PointList = ({
             checked={Object.values(id).length !== 0 && Object.values(id).indexOf(false) === -1} 
             onChange={toggleSelectAll} 
         />, 
-        "호실", "학번", "이름", "상점", "벌점", "1단계", "2단계", "3단계", "1Out", "2Out"
+        "학번", "이름", "상점", "벌점", "1단계", "2단계", "3단계", "1Out", "2Out"
     ];
 
     return (

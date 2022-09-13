@@ -4,8 +4,17 @@ export interface Student {
     num: string;
     good_point: number;
     bad_point: number;
+    stay_apply: string; // "잔류" | "금요귀가" | ""
+    meal_apply: string;
     penalty_level: number;
-    penalty_training_status: boolean;
+    is_penalty_required: boolean;
+}
+
+export interface Notice {
+    id: string;
+    title: string;
+    content: string;
+    created_at: string;
 }
 
 export interface Notice {

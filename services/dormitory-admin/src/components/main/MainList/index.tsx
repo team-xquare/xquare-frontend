@@ -8,7 +8,7 @@ import { useSort } from '../../../contexts/sort';
 import { sortedStudents } from '../../../libs/utils';
 import { useSearch } from '../../../contexts/search';
 
-const columns = ["호실", "학번", "이름", "상점", "벌점", "봉사단계", "잔류여부", "주말급식"];
+const columns = ["학번", "이름", "상점", "벌점", "봉사단계", "잔류여부", "주말급식"];
 
 const MainList = () => {
     const { data, isLoading, error } = usePointQuery();
