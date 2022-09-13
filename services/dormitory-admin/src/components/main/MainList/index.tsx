@@ -6,18 +6,24 @@ import { usePointQuery } from '../../../apis/points';
 import StudentList from '../../common/StudentList';
 import { useSort } from '../../../contexts/sort';
 import { sortedStudents } from '../../../libs/utils';
+import { useSearch } from '../../../contexts/search';
 
 const columns = ["호실", "학번", "이름", "상점", "벌점", "봉사단계", "잔류여부", "주말급식"];
 
 const MainList = () => {
     const { data, isLoading, error } = usePointQuery();
+    const { pattern } = useSearch();
     const { sortType } = useSort();
 
     return (
         <MainContainer>
             <MainSectionTitle>학생 목록</MainSectionTitle>
             <StudentList columns={columns}>
-                {sortedStudents(sortType, data).map(student => <MainListItem key={student.id} {...student} />)}
+                {
+                    sortedStudents(sortType, data)
+                    .filter(({ name }) => pattern.test(name))
+                    .map(student => <MainListItem key={student.id} {...student} />)
+                }
             </StudentList>
         </MainContainer>
     );

@@ -7,6 +7,7 @@ import { usePointQuery } from '../../../apis/points';
 import { useSort } from '../../../contexts/sort';
 import { sortedStudents } from '../../../libs/utils';
 import { SelectedUserIds, Student } from '../../../apis/types';
+import { useSearch } from '../../../contexts/search';
 interface PropsType {
     onClick: (id: string, isCheckbox?: boolean) => void;
     students: Student[];
@@ -21,6 +22,7 @@ const PointList = ({
     setId,
 }: PropsType) => {
     const { sortType } = useSort();
+    const { pattern } = useSearch();
 
     useEffect(() => {
         setId(Object.fromEntries(students.map(student => [student.id, false])));
@@ -46,7 +48,9 @@ const PointList = ({
             <MainSectionTitle>학생 리스트</MainSectionTitle>
             <StudentList columns={columns}>
                 {
-                    sortedStudents(sortType, students).map(student => <PointListItem 
+                    sortedStudents(sortType, students)
+                    .filter(({ name }) => pattern.test(name))
+                    .map(student => <PointListItem 
                         key={student.id} 
                         onClick={onClick} 
                         isActive={id[student.id]} 
