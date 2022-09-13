@@ -29,9 +29,10 @@ const MainContainer = styled.section`
     height: 100%;
     padding: 74px 60px 0 60px;
     display: grid;
-    grid-template-columns: 1000px minmax(400px, 1fr);
+    grid-template-columns: minmax(700px, 1000px) minmax(400px, 1fr);
     grid-auto-rows: min-content minmax(600px, 1fr);
     grid-gap: 44px;
+    overflow-x: auto;
 `;
 
 export default MainLayout;

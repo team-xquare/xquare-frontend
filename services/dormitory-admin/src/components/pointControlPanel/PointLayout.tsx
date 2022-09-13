@@ -79,8 +79,8 @@ const PointLayout = () => {
                     onClick={onClick} 
                     students={data ?? []}
                 />
-                <PointHistory id={selectedUserIds} />
                 <PointRule id={selectedUserIds} />
+                <PointHistory id={selectedUserIds} />
             </PointContainer>
         </SortProvider>
     );
@@ -91,9 +91,10 @@ const PointContainer = styled.section`
     height: 100%;
     padding: 74px 60px 0 60px;
     display: grid;
-    grid-template-columns: 800px minmax(300px, 1fr) minmax(300px, 1fr);
-    grid-template-rows: 100%;
-    grid-gap: 20px;
+    grid-template-columns: 800px minmax(400px, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 40px;
+    overflow-x: auto;
 `;
 
 export default PointLayout;

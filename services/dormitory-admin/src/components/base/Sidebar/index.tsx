@@ -12,18 +12,6 @@ const SidebarItems = [
         title: "공지사항",
         uri: "/notice",
     },
-    {
-        title: "잔류신청",
-        uri: "/stay",
-    },
-    {
-        title: "주말급식",
-        uri: "/weekend",
-    },
-    {
-        title: "다벌점봉사",
-        uri: "/penalty",
-    },
 ];
 
 const Sidebar = () => {

@@ -68,6 +68,7 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    grid-row: 1 / 3;
 `;
 
 export default PointList;

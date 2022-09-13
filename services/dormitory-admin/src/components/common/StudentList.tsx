@@ -46,7 +46,7 @@ const StudentList = ({
             </MainBlockHeader>
             <MainListWrapper length={columns.length}>
                 {
-                    columns.map((column, i) => <MainListHaeder key={i}>{column}</MainListHaeder>)
+                    columns.map((column, i) => <MainListHeader key={i}>{column}</MainListHeader>)
                 }
                 {children}
             </MainListWrapper>
@@ -108,7 +108,7 @@ const MainListWrapper = styled.div<{ length: number; }>`
     }
 `;
 
-const MainListHaeder = styled(Body1)`
+const MainListHeader = styled(Body1)`
     top: 0;
     position: sticky;
     background: ${props => props.theme.colors.gray200};
