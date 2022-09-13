@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { Button } from '@semicolondsm/ui';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { useRouter } from 'next/router';
@@ -6,7 +6,7 @@ import XbridgeImage from '../../common/XbridgeImage';
 import { useState } from 'react';
 
 // 최종 수정일: 7월 2일
-const Home: NextPage = () => {
+const Home: NextPage<{ token: string }> = ({ token }) => {
     const router = useRouter();
     const [isConfirmSucces, setIsConfirmSuccess] = useState(false);
 
@@ -43,8 +43,17 @@ const Home: NextPage = () => {
                 }>
                 내비게이션
             </Button>
+            <div>내 토큰: {token}</div>
         </div>
     );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    return {
+        props: {
+            token: ctx.req.headers.authorization ?? '',
+        },
+    };
+};
