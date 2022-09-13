@@ -1,7 +1,7 @@
 {
     "name": "@service/xbridge-test",
     "description": "bridge test를 위한 웹뷰",
-    "version": "1.1.10",
+    "version": "1.1.11",
     "private": true,
     "scripts": {
         "dev": "next dev",
