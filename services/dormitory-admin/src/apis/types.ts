@@ -17,6 +17,13 @@ export interface Notice {
     created_at: string;
 }
 
+export interface Notice {
+    id: string;
+    title: string;
+    content: string;
+    created_at: string;
+}
+
 export interface Rule {
     id: number;
     reason: string;
