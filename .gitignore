@@ -14,3 +14,5 @@ node_modules
 
 # etc
 .DS_Store
+
+.next

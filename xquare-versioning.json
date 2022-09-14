@@ -1,0 +1,12 @@
+{
+    "commit": {
+        "fix": "patch",
+        "feat": "minor",
+        "refactor": "patch",
+        "docs": "patch",
+        "chore": "patch",
+        "style": "patch"
+    },
+
+    "breaking_change": "[BREAKING_CHANGE]"
+}
