@@ -10,6 +10,8 @@
 #/.pnp.*
 node_modules
 
+**/.next
+
 # etc
 .DS_Store
 
