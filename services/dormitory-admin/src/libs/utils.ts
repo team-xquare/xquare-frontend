@@ -28,9 +28,8 @@ export const download = (downloadURL: string, name: string) => {
     a.remove();
 };
 
-export const getDateString = () => {
-    const now = new Date();
-    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDay()}`;
+export const getDateString = (date = new Date()) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`;
 }
 
 const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
