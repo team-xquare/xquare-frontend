@@ -8,6 +8,7 @@ import { getStayList, getStayStatus, getWeekMealStatus, putStayStatus } from '..
 import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
 import WeekendMealApplyBox from '../main/components/WeekendMealApplyBox';
+import { StayStatus } from '../main/types';
 
 const Apply: NextPage = () => {
     const queryClient = useQueryClient();
@@ -18,7 +19,17 @@ const Apply: NextPage = () => {
     const { data: stayStatus } = useQuery(stayStatusKey, getStayStatus);
 
     const { mutate: putStayStatusMutate } = useMutation(putStayStatus, {
-        onSuccess: () => {
+        onMutate: async (newStatus) => {
+            await queryClient.cancelQueries(stayStatusKey);
+            const previousStatus = queryClient.getQueryData(stayStatusKey);
+            queryClient.setQueryData(stayStatusKey, newStatus);
+            return { previousStatus };
+        },
+        onError: (error, _, context) => {
+            alert(error);
+            queryClient.setQueryData(stayStatusKey, context as StayStatus);
+        },
+        onSettled: () => {
             queryClient.invalidateQueries(stayStatusKey);
         },
     });
