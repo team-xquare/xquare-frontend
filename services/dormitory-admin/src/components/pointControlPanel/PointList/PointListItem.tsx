@@ -18,7 +18,7 @@ const PointListItem = ({
     stay_apply,
     meal_apply,
     penalty_level,
-    penalty_training_status,
+    is_penalty_required,
     isActive,
     onClick,
 }: Student & PropsType) => {
@@ -44,7 +44,7 @@ const PointListItem = ({
                 [...Array(5)].map((_v, i) => {
                     if(i < penalty_level - 1) return createText("완료", i);
                     else if(i === penalty_level - 1) {
-                        if(penalty_training_status) return (
+                        if(is_penalty_required) return (
                             <BodyWrapper isActive={isActive} onClick={() => onClick(id)}>
                                 <Button size="sm" onClick={() => mutate({ id, penalty_level })}>봉사완료</Button>
                             </BodyWrapper>
