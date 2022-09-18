@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { createFuzzyPattern } from '../libs/utils';
 
@@ -18,6 +19,11 @@ const SearchContext = createContext<StateType>(initialState);
 export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     const [query, setQuery] = useState<string>("");
     const [pattern, setPattern] = useState<RegExp>(createFuzzyPattern(""));
+    const router = useRouter();
+
+    useEffect(() => {
+        setQuery("");
+    }, [router.asPath]);
 
     useEffect(() => {
         setPattern(createFuzzyPattern(query));

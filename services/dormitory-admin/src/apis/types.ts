@@ -7,7 +7,7 @@ export interface Student {
     stay_apply: string; // "잔류" | "금요귀가" | ""
     meal_apply: string;
     penalty_level: number;
-    penalty_training_status: boolean;
+    is_penalty_required: boolean;
 }
 
 export interface Notice {

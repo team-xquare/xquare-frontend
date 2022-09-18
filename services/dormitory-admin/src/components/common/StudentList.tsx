@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Body1, Button, Select } from '@semicolondsm/ui';
 import { SortingEnum } from '../../apis/types';
 import { useSort } from '../../contexts/sort';
 import { download, getDateString } from '../../libs/utils';
 import { useSearch } from '../../contexts/search';
+import { useRouter } from 'next/router';
 
 interface PropsType {
     children: React.ReactNode;
@@ -25,7 +26,7 @@ const StudentList = ({
     columns,
 }: PropsType) => {
     const { setSortType } = useSort();
-    const { setQuery } = useSearch();
+    const { setQuery, query } = useSearch();
     const [excelType, setExcelType] = useState<ExcelType>("상벌점현황");
 
     return (
@@ -33,7 +34,7 @@ const StudentList = ({
             <MainBlockHeader>
                 <FlexBox>
                     <Select items={Object.values(SortingEnum)} onChange={setSortType} value={SortingEnum.a} placeholder="" />
-                    <Input type="text" placeholder="학생 이름을 검색하세요" onChange={e => setQuery(e.target.value)} />
+                    <Input type="text" placeholder="학생 이름을 검색하세요" value={query} onChange={e => setQuery(e.target.value)} />
                 </FlexBox>
                 <FlexBox>
                     <Select items={excelTypes} onChange={v => setExcelType(v as ExcelType)} value={excelType} placeholder="" />
