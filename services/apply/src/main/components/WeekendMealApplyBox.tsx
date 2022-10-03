@@ -4,12 +4,31 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { queryKeys } from '../../utils/queryKeys';
 import { getWeekMealStatus, postWeekendMeal } from '../apis';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
+import { WeekendMealStatus } from '../types';
+
 const WeekendMealApplyBox = () => {
     const queryClient = useQueryClient();
     const weekendmealKey = queryKeys.getWeekMeal();
     const { data: weekendMealStatus } = useQuery(weekendmealKey, getWeekMealStatus);
     const { mutate, isLoading } = useMutation(postWeekendMeal, {
-        onSuccess: () => queryClient.invalidateQueries(weekendmealKey),
+        onMutate: async (data) => {
+            await queryClient.cancelQueries(weekendmealKey);
+            const previousStatus = queryClient.getQueryData<WeekendMealStatus>(weekendmealKey);
+            if (previousStatus) {
+                queryClient.setQueryData<WeekendMealStatus>(weekendmealKey, {
+                    ...previousStatus,
+                    applied: data.apply,
+                });
+            }
+            return { previousStatus };
+        },
+        onError: (error, _, context) => {
+            alert(error);
+            queryClient.setQueryData(weekendmealKey, context as boolean);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(weekendmealKey);
+        },
     });
 
     useBridgeHandler('confirm', ({ detail }) => {
@@ -25,7 +44,7 @@ const WeekendMealApplyBox = () => {
                 cancelText: '다음에 하기',
             },
             ({ data }) => {
-                confirm(data.message);
+                return confirm(data.message);
             },
         );
         result && mutate({ apply: !weekendMealStatus?.applied });
