@@ -1,7 +1,7 @@
 import { Device } from '@xquare/utils';
 import { useEffect } from 'react';
 
-type BridgeType = 'navigate' | 'back' | 'imageDetail' | 'confirm';
+type BridgeType = 'navigate' | 'back' | 'imageDetail' | 'confirm' | 'error';
 
 interface XBridgeSendData extends Record<BridgeType, unknown> {
     navigate: string;
@@ -11,6 +11,9 @@ interface XBridgeSendData extends Record<BridgeType, unknown> {
         message: string;
         confirmText: string;
         cancelText: string;
+    };
+    error: {
+        message: string;
     };
 }
 

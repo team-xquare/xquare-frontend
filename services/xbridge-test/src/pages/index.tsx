@@ -43,6 +43,18 @@ const Home: NextPage<{ token: string }> = ({ token }) => {
                 }>
                 내비게이션
             </Button>
+            <Button
+                onClick={() =>
+                    sendBridgeEvent(
+                        'error',
+                        {
+                            message: '에러가 발생했습니다.',
+                        },
+                        ({ data }) => alert(data.message),
+                    )
+                }>
+                에러 발생
+            </Button>
             <div>내 토큰: {token}</div>
         </div>
     );
