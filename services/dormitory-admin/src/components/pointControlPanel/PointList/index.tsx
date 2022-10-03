@@ -44,7 +44,7 @@ const PointList = ({
     const columns = [
         <input 
             type="checkbox" 
-            checked={filteredStudent.every(({ id: studentId }) => id[studentId])} 
+            checked={filteredStudent.length > 0 && filteredStudent.every(({ id: studentId }) => id[studentId])} 
             onChange={toggleSelectAll} 
         />, 
         "학번", "이름", "상점", "벌점", "1단계", "2단계", "3단계", "1Out", "2Out"
