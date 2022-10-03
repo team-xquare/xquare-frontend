@@ -6,7 +6,7 @@ export const sortedStudents = (sortType: SortingEnum, data?: Student[]) => {
         case SortingEnum.a:
             break;
         case SortingEnum.b:
-            students = students.filter(student => student.penalty_training_status);
+            students = students.filter(student => student.is_penalty_required);
             break;
         case SortingEnum.c:
         case SortingEnum.d:
@@ -28,9 +28,8 @@ export const download = (downloadURL: string, name: string) => {
     a.remove();
 };
 
-export const getDateString = () => {
-    const now = new Date();
-    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDay()}`;
+export const getDateString = (date = new Date()) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
