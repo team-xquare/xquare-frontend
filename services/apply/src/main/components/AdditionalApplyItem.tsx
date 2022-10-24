@@ -17,7 +17,9 @@ const AdditionalApplyItem = ({ daliy, applyKind, linkTo }: AdditionalApplyItemPr
         <AdditionalApplyCardContainer
             onClick={(e) => {
                 e.preventDefault();
-                sendBridgeEvent('navigate', linkTo, ({ data }) => router.push(data));
+                sendBridgeEvent('navigate', { title: applyKind, url: linkTo }, ({ data }) =>
+                    router.push(data.url),
+                );
             }}
             href={linkTo}>
             <FlexCol gap={12}>
