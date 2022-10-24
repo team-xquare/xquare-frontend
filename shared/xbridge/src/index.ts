@@ -4,7 +4,10 @@ import { useEffect } from 'react';
 type BridgeType = 'navigate' | 'back' | 'imageDetail' | 'confirm' | 'error';
 
 interface XBridgeSendData extends Record<BridgeType, unknown> {
-    navigate: string;
+    navigate: {
+        url: string;
+        title: string;
+    };
     imageDetail: string[];
     back: boolean;
     confirm: {

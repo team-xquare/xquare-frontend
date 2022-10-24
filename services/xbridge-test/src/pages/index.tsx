@@ -39,7 +39,9 @@ const Home: NextPage<{ token: string }> = ({ token }) => {
             </Button>
             <Button
                 onClick={() =>
-                    sendBridgeEvent('navigate', '/back', ({ data }) => router.push(data))
+                    sendBridgeEvent('navigate', { url: '/back', title: '테스트' }, ({ data }) =>
+                        router.push(data.url),
+                    )
                 }>
                 내비게이션
             </Button>
