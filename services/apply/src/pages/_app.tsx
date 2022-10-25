@@ -3,7 +3,7 @@ import { SDSThemeProvider } from '@semicolondsm/react-emotion-theme';
 import { Global } from '@emotion/react';
 import { globalStyles } from '../styles/globalStyle';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -12,7 +12,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         () =>
             new QueryClient({
                 defaultOptions: {
-                    queries: { retry: 0, refetchInterval: 0, refetchOnWindowFocus: false },
+                    queries: {
+                        retry: 0,
+                        staleTime: 1000 * 10,
+                        refetchInterval: 0,
+                        refetchOnWindowFocus: false,
+                    },
                 },
             }),
     );
