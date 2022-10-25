@@ -25,6 +25,7 @@ const ProfileContainer = styled.div`
 const ProfileImage = styled.img`
     border-radius: 50%;
     width: 40px;
+    object-fit: cover;
     height: 40px;
 `;
 

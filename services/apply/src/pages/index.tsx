@@ -9,6 +9,8 @@ import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
 import WeekendMealApplyBox from '../main/components/WeekendMealApplyBox';
 import { StayStatus } from '../main/types';
+import styled from '@emotion/styled';
+import dormitoryStudyIcon from '../assets/dormitaryStudy.png';
 
 const Apply: NextPage = () => {
     const queryClient = useQueryClient();
@@ -38,12 +40,7 @@ const Apply: NextPage = () => {
         <MainPageTemplate>
             <FlexCol gap={16}>
                 <ApplyBox title="잔류 신청" subTitle="목요일 10시까지는 잔류 신청을 완료해주세요.">
-                    <FlexRow
-                        gap={8}
-                        style={{
-                            whiteSpace: 'nowrap',
-                            overflowX: 'scroll',
-                        }}>
+                    <WeekendStayWrapper gap={8}>
                         {stayList?.codes.map((item, idx) => (
                             <Button
                                 onClick={() => {
@@ -55,7 +52,7 @@ const Apply: NextPage = () => {
                                 {item.value}
                             </Button>
                         ))}
-                    </FlexRow>
+                    </WeekendStayWrapper>
                 </ApplyBox>
                 <ApplyBox
                     title="주말급식 신청"
@@ -67,6 +64,7 @@ const Apply: NextPage = () => {
                         applyKind="자습실 신청"
                         daliy="오늘"
                         linkTo="/dormitory-study"
+                        icon={dormitoryStudyIcon.src}
                     />
 
                     {/*TODO: <AdditionalApplyItem
@@ -96,5 +94,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
         },
     };
 };
+
+const WeekendStayWrapper = styled(FlexRow)`
+    white-space: nowrap;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+`;
 
 export default Apply;

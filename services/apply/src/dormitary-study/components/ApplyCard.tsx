@@ -24,7 +24,7 @@ const ApplyCard = (props: Props) => {
             </StudyTextInfoBox>
 
             <ImageWrapper>
-                {props.students.map((i, idx) => (
+                {props.students?.map((i, idx) => (
                     <StudentProfile {...i} key={idx} />
                 ))}
             </ImageWrapper>

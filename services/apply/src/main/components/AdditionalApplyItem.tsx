@@ -4,14 +4,15 @@ import { FlexCol, FlexRow } from '../../common/Flexbox';
 import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
-
+import Image from 'next/image';
 interface AdditionalApplyItemProps {
     daliy: string;
     applyKind: string;
     linkTo: string;
+    icon: string;
 }
 
-const AdditionalApplyItem = ({ daliy, applyKind, linkTo }: AdditionalApplyItemProps) => {
+const AdditionalApplyItem = ({ daliy, applyKind, linkTo, icon }: AdditionalApplyItemProps) => {
     const router = useRouter();
     return (
         <AdditionalApplyCardContainer
@@ -28,7 +29,7 @@ const AdditionalApplyItem = ({ daliy, applyKind, linkTo }: AdditionalApplyItemPr
                     <Botton>{applyKind}</Botton>
                 </FlexCol>
                 <FlexRow justify="flex-end" fullWidth>
-                    <IconWrapper></IconWrapper>
+                    <IconWrapper src={icon} width={40} height={40} priority />
                 </FlexRow>
             </FlexCol>
         </AdditionalApplyCardContainer>
@@ -50,11 +51,13 @@ const AdditionalApplyCardContainer = styled.a`
     }
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled(Image)<{ src: string }>`
     background-color: ${({ theme }) => theme.colors.white};
     width: 40px;
     border-radius: 50%;
     height: 40px;
     display: flex;
     align-items: center;
+    /* background-image: url(${({ src }) => src}); */
+    background-size: 40px 40px;
 `;
