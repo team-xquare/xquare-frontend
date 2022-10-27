@@ -4,9 +4,13 @@ import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import XbridgeImage from '../../common/XbridgeImage';
 import { useState } from 'react';
+import cookies from 'next-cookies';
 
 // 최종 수정일: 7월 2일
-const Home: NextPage<{ token: string }> = ({ token }) => {
+const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
+    accessToken,
+    refreshToken,
+}) => {
     const router = useRouter();
     const [isConfirmSucces, setIsConfirmSuccess] = useState(false);
 
@@ -57,7 +61,8 @@ const Home: NextPage<{ token: string }> = ({ token }) => {
                 }>
                 에러 발생
             </Button>
-            <div>내 토큰: {token}</div>
+            <div>내 accessToken: {accessToken}</div>
+            <div>내 refreshToken: {refreshToken}</div>
         </div>
     );
 };
@@ -65,9 +70,12 @@ const Home: NextPage<{ token: string }> = ({ token }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const allCookies = cookies(ctx);
+
     return {
         props: {
-            token: ctx.req.headers.authorization ?? '',
+            accessToken: allCookies['accessToken'],
+            refreshToken: allCookies['refreshToken'],
         },
     };
 };
