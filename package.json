@@ -1,19 +1,19 @@
 {
-  "name": "xquare-frontend",
-  "packageManager": "yarn@3.2.3",
-  "scripts": {
-    "new-service": "hygen services new"
-  },
-  "devDependencies": {
-    "hygen": "^6.1.0",
-    "typescript": "^4.3.5"
-  },
-  "resolutions": {
-    "typescript": "4.3.5"
-  },
-  "workspaces": [
-    "services/*",
-    "libraries/*",
-    "shared/*"
-  ]
+    "name": "xquare-frontend",
+    "packageManager": "yarn@3.2.3",
+    "scripts": {
+        "new-service": "hygen services new"
+    },
+    "devDependencies": {
+        "hygen": "^6.1.0",
+        "typescript": "^4.3.5"
+    },
+    "resolutions": {
+        "typescript": "4.3.5"
+    },
+    "workspaces": [
+        "services/*",
+        "libraries/*",
+        "shared/*"
+    ]
 }

@@ -1,30 +1,34 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import styled from '@emotion/styled';
 import ApplyCard from '../dormitary-study/components/ApplyCard';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
 import ButtomFixedButton from '../common/ButtomFixedButton';
-import { QueryClient, dehydrate, useQuery, useMutation, useQueryClient } from 'react-query';
-import { getStudyRoom, postStudyRoom } from '../dormitary-study/apis';
-import { queryKeys } from '../utils/queryKeys';
+import { QueryClient, dehydrate } from 'react-query';
+import useStudyRoom, { prefetchStudyRoom } from '../dormitary-study/hooks/useStudyRoom';
+import useMyStudyRoom, { prefetchMyStudyRoom } from '../dormitary-study/hooks/useMyStudyRoom';
+import useSetStudyRoom from '../dormitary-study/hooks/useSetStudyRoom';
+import uesCancelStudyRoom from '../dormitary-study/hooks/uesCancelStudyRoom';
 
 const DormitoryStudy: NextPage = () => {
-    const key = queryKeys.getStudyRoomList();
-    const queryClient = useQueryClient();
-    const { data } = useQuery(key, getStudyRoom, {
-        retry: 0,
-    });
-    const { mutate } = useMutation(postStudyRoom, {
-        onSuccess: () => queryClient.invalidateQueries(key),
-    });
+    const { data: studyRoom } = useStudyRoom();
+    const { data: myStudyRoom } = useMyStudyRoom();
+    const { mutate: setStudyRoom } = useSetStudyRoom();
+    const { mutate: cancelStudyRoom } = uesCancelStudyRoom();
+    const [selectCard, setSelectCard] = useState<string>(myStudyRoom?.study_room_id || '');
 
-    const [selectCard, setSelectCard] = useState<string>('');
+    const isDisableButton = useMemo(() => {
+        const disableCard = studyRoom?.study_rooms.find((i) => i.id === selectCard);
+        return !selectCard || disableCard?.max_people_count === disableCard?.application_count;
+    }, [selectCard, studyRoom]);
+
     return (
         <MainPageTemplate subTitle="연장학습을 하고싶은 자습실을 선택해 주세요.">
             <ApplyCardList>
-                {data?.study_rooms.map((i, idx) => (
+                {studyRoom?.study_rooms.map((i, idx) => (
                     <ApplyCard
                         isSelect={selectCard === i.id}
+                        isFull={i.application_count === i.max_people_count}
                         key={idx}
                         setIsSelect={setSelectCard}
                         {...i}
@@ -32,17 +36,21 @@ const DormitoryStudy: NextPage = () => {
                 ))}
             </ApplyCardList>
             <ButtomFixedButton
-                disabled={!selectCard}
-                onClick={() => mutate({ study_room_id: selectCard })}
-            />
+                disabled={isDisableButton}
+                onClick={() => {
+                    selectCard === myStudyRoom?.study_room_id
+                        ? cancelStudyRoom({ study_room_id: selectCard })
+                        : setStudyRoom({ study_room_id: selectCard });
+                }}>
+                {myStudyRoom?.study_room_id === selectCard ? '취소하기' : '신청하기'}
+            </ButtomFixedButton>
         </MainPageTemplate>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
-    const studyRoomKey = queryKeys.getStudyRoomList();
-    await queryClient.prefetchQuery(studyRoomKey, getStudyRoom);
+    await Promise.all([prefetchMyStudyRoom(queryClient), prefetchStudyRoom(queryClient)]);
 
     return {
         props: { dehydratedState: dehydrate(queryClient) },

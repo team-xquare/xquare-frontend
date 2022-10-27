@@ -55,6 +55,7 @@ export const useBridgeHandler = <T extends BridgeType>(
     callback: (event: CustomEvent<XBridgeResponseData[T]>) => any,
 ) => {
     useEffect(() => {
+        CustomEvent;
         const onCallback = ((event: CustomEvent<XBridgeResponseData[T]>) => {
             callback(event);
         }) as EventListener;

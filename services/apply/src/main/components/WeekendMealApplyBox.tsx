@@ -1,35 +1,12 @@
 import styled from '@emotion/styled';
 import { Botton, Button } from '@semicolondsm/ui';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { queryKeys } from '../../utils/queryKeys';
-import { getWeekMealStatus, postWeekendMeal } from '../apis';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
-import { WeekendMealStatus } from '../types';
+import useWeekendMeal from '../hooks/useWeekendMeal';
+import useSetWeekendMeal from '../hooks/useSetWeekendMeal';
 
 const WeekendMealApplyBox = () => {
-    const queryClient = useQueryClient();
-    const weekendmealKey = queryKeys.getWeekMeal();
-    const { data: weekendMealStatus } = useQuery(weekendmealKey, getWeekMealStatus);
-    const { mutate, isLoading } = useMutation(postWeekendMeal, {
-        onMutate: async (data) => {
-            await queryClient.cancelQueries(weekendmealKey);
-            const previousStatus = queryClient.getQueryData<WeekendMealStatus>(weekendmealKey);
-            if (previousStatus) {
-                queryClient.setQueryData<WeekendMealStatus>(weekendmealKey, {
-                    ...previousStatus,
-                    applied: data.apply,
-                });
-            }
-            return { previousStatus };
-        },
-        onError: (error, _, context) => {
-            alert(error);
-            queryClient.setQueryData(weekendmealKey, context as boolean);
-        },
-        onSettled: () => {
-            queryClient.invalidateQueries(weekendmealKey);
-        },
-    });
+    const { data: weekendMealStatus } = useWeekendMeal();
+    const { mutate, isLoading } = useSetWeekendMeal();
 
     useBridgeHandler('confirm', ({ detail }) => {
         detail.success && mutate({ apply: !weekendMealStatus?.applied });
