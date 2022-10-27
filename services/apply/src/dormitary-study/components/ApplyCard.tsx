@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 import { Botton } from '@semicolondsm/ui';
 import { SetStateAction, Dispatch } from 'react';
-import { useState } from 'react';
 import StudentProfile from './StudentProfile';
 import { StudyRoom } from '../types';
 
 interface Props extends StudyRoom {
     isSelect: boolean;
+    isFull: boolean;
     setIsSelect: Dispatch<SetStateAction<string>>;
 }
 
@@ -15,27 +14,28 @@ const ApplyCard = (props: Props) => {
     return (
         <Wrapper
             onClick={() => props.setIsSelect((state) => (state === props.id ? '' : props.id))}
-            isSelect={props.isSelect}>
-            <StudyTextInfoBox isSelect={props.isSelect}>
+            isSelect={props.isSelect}
+            isFull={props.isFull}>
+            <StudyTextInfoBox isSelect={props.isSelect} isFull={props.isFull}>
                 <Botton>{props.study_room_name}</Botton>
-                <Botton>
+                <Botton className="count">
                     {props.application_count}/{props.max_people_count}
                 </Botton>
             </StudyTextInfoBox>
 
             <ImageWrapper>
                 {props.students?.map((i, idx) => (
-                    <StudentProfile {...i} key={idx} />
+                    <StudentProfile isFull={props.isFull} {...i} key={idx} />
                 ))}
             </ImageWrapper>
         </Wrapper>
     );
 };
 
-const Wrapper = styled.div<{ isSelect: boolean }>`
+const Wrapper = styled.div<{ isSelect: boolean; isFull: boolean }>`
     width: 100%;
-    background-color: ${({ isSelect, theme }) =>
-        isSelect ? theme.colors.purple500 : theme.colors.gray50};
+    background-color: ${({ isSelect, isFull, theme }) =>
+        isSelect ? (isFull ? theme.colors.gray200 : theme.colors.purple500) : theme.colors.gray50};
     margin-bottom: 8px;
     border-radius: 12px;
     gap: 20px;
@@ -48,14 +48,17 @@ const Wrapper = styled.div<{ isSelect: boolean }>`
     transition: all 0.3s;
 `;
 
-const StudyTextInfoBox = styled.div<{ isSelect: boolean }>`
+const StudyTextInfoBox = styled.div<{ isSelect: boolean; isFull: boolean }>`
     width: 100%;
     display: flex;
     justify-content: space-between;
-
     > div {
         transition: all 0.5s;
-        color: ${({ theme, isSelect }) => (isSelect ? theme.colors.white : theme.colors.gray900)};
+        color: ${({ theme, isSelect, isFull }) =>
+            isSelect ? (isFull ? theme.colors.gray900 : theme.colors.white) : theme.colors.gray900};
+    }
+    .count {
+        color: ${({ theme, isFull }) => isFull && theme.colors.red400};
     }
 `;
 

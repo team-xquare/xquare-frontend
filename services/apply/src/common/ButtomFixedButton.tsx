@@ -1,13 +1,14 @@
 import { Button } from '@semicolondsm/ui';
 import styled from '@emotion/styled';
 import { ButtonProps } from '@semicolondsm/ui/dist/components/Button/types';
+import { PropsWithChildren } from 'react';
 interface Props extends ButtonProps {}
-const ButtomFixedButton = (props: Props) => {
+const ButtomFixedButton = (props: PropsWithChildren<Props>) => {
     return (
         <>
             <FullSizeButtonWrapper>
                 <ApplyButton fill="purple" fullWidth {...props}>
-                    신청하기
+                    {props.children}
                 </ApplyButton>
             </FullSizeButtonWrapper>
             <BackgroundBox />
