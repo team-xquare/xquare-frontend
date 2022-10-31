@@ -7,16 +7,22 @@ import { useState } from 'react';
 import cookies from 'next-cookies';
 
 // 최종 수정일: 7월 2일
-const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
-    accessToken,
-    refreshToken,
-}) => {
+const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
+    {
+        // accessToken,
+        // refreshToken,
+    },
+) => {
     const router = useRouter();
     const [isConfirmSucces, setIsConfirmSuccess] = useState(false);
-
+    const [selectedImage, setSelectedImage] = useState<string[]>([]);
     useBridgeHandler('confirm', (event) => {
         alert(event.detail.success);
         setIsConfirmSuccess(event.detail.success);
+    });
+
+    useBridgeHandler('selectedPhotos', (event) => {
+        setSelectedImage(event.detail);
     });
 
     return (
@@ -61,21 +67,26 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
                 }>
                 에러 발생
             </Button>
-            <div>내 accessToken: {accessToken}</div>
-            <div>내 refreshToken: {refreshToken}</div>
+            {/* <div>내 accessToken: {accessToken}</div>
+            <div>내 refreshToken: {refreshToken}</div> */}
+            {selectedImage.map((image) => (
+                <img src={image}></img>
+            ))}
+            <Button onClick={() => sendBridgeEvent('photoPicker', true)}>이미지 피커</Button>
+            <div>내 image</div>
         </div>
     );
 };
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const allCookies = cookies(ctx);
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//     const allCookies = cookies(ctx);
 
-    return {
-        props: {
-            accessToken: allCookies['accessToken'],
-            refreshToken: allCookies['refreshToken'],
-        },
-    };
-};
+//     return {
+//         props: {
+//             accessToken: allCookies['accessToken'],
+//             refreshToken: allCookies['refreshToken'],
+//         },
+//     };
+// };
