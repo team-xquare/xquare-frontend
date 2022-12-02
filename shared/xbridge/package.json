@@ -7,8 +7,10 @@
         "typescript": "^4.7.2"
     },
     "dependencies": {
+        "@types/uuid": "^9.0.0",
         "@xquare/utils": "^1.1.0",
-        "react": "18.0.0"
+        "react": "18.0.0",
+        "uuid": "^9.0.0"
     },
     "peerDependencies": {
         "react": "*"

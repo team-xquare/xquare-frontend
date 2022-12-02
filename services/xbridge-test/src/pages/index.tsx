@@ -5,8 +5,10 @@ import { useRouter } from 'next/router';
 import XbridgeImage from '../../common/XbridgeImage';
 import { useState } from 'react';
 import cookies from 'next-cookies';
-
+import Image from 'next/image';
+import { start } from 'repl';
 // 최종 수정일: 7월 2일
+
 const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
     {
         // accessToken,
@@ -22,7 +24,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
     });
 
     useBridgeHandler('selectedPhotos', (event) => {
-        setSelectedImage(event.detail);
+        alert(event.detail.photos);
+        setSelectedImage(event.detail.photos || []);
     });
 
     return (
@@ -69,11 +72,18 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
             </Button>
             {/* <div>내 accessToken: {accessToken}</div>
             <div>내 refreshToken: {refreshToken}</div> */}
+            <div>내 image</div>
             {selectedImage.map((image) => (
-                <img src={image}></img>
+                <Image
+                    src={`data:image/png;base64,${image}`}
+                    width={100}
+                    height={100}
+                    // placeholder="blur"
+                    loading="lazy"
+                    // quality={50}
+                />
             ))}
             <Button onClick={() => sendBridgeEvent('photoPicker', true)}>이미지 피커</Button>
-            <div>내 image</div>
         </div>
     );
 };
