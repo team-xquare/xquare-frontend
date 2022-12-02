@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import { Caption } from '@semicolondsm/ui';
 import { Student } from '../types';
-
+import defaultProfileImage from '../../assets/defaultProfileImage.png';
 interface StudentProfileProps extends Student {
     isFull: boolean;
 }
@@ -9,11 +10,7 @@ interface StudentProfileProps extends Student {
 const StudentProfile = (props: StudentProfileProps) => {
     return (
         <ProfileContainer>
-            <ProfileImage
-                src={
-                    props.profile_image || 'https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927'
-                }
-            />
+            <ProfileImage src={props.profile_image || defaultProfileImage} width={40} height={40} />
             <ProfileName isFull={props.isFull}>{props.student_name}</ProfileName>
         </ProfileContainer>
     );
@@ -26,7 +23,7 @@ const ProfileContainer = styled.div`
     gap: 4px;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled(Image)`
     border-radius: 50%;
     width: 40px;
     object-fit: cover;

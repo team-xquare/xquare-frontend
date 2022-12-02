@@ -40,9 +40,10 @@ const axiosErrorTemplate = (
     } else {
         pickErrorMessage = '알 수 없는 오류가 발생하였습니다. 클라이언트 관리자에게 문의하세요.';
     }
-    sendBridgeEvent('error', { message: pickErrorMessage }, ({ data }) => {
-        alert(data.message);
-    });
+    pickErrorMessage &&
+        sendBridgeEvent('error', { message: pickErrorMessage }, ({ data }) => {
+            alert(data.message);
+        });
 };
 
 export default axiosErrorTemplate;

@@ -13,7 +13,7 @@ const WeekendMealApplyBox = () => {
     });
 
     const onMealApply = () => {
-        const result = sendBridgeEvent(
+        sendBridgeEvent(
             'confirm',
             {
                 message: '주말급식은 신청해야\n먹을 수 있어요',
@@ -24,7 +24,6 @@ const WeekendMealApplyBox = () => {
                 return confirm(data.message);
             },
         );
-        result && mutate({ apply: !weekendMealStatus?.applied });
     };
 
     return (
