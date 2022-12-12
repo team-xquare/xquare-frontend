@@ -1,6 +1,6 @@
 import { Device } from '@xquare/utils';
 import { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 type BridgeType =
     | 'navigate'
     | 'back'
@@ -8,7 +8,7 @@ type BridgeType =
     | 'confirm'
     | 'error'
     | 'photoPicker'
-    | 'selectedPhotos';
+    | 'actionSheet';
 
 interface XBridgeSendData extends Record<BridgeType, unknown> {
     navigate: {
@@ -26,14 +26,18 @@ interface XBridgeSendData extends Record<BridgeType, unknown> {
         message: string;
     };
     photoPicker: boolean;
+    actionSheet: string[];
 }
 
 interface XBridgeResponseData extends Record<BridgeType, unknown> {
     confirm: {
         success: boolean;
     };
-    selectedPhotos: {
+    photoPicker: {
         photos: string[];
+    };
+    actionSheet: {
+        index: number;
     };
 }
 

@@ -6,7 +6,6 @@ import XbridgeImage from '../../common/XbridgeImage';
 import { useState } from 'react';
 import cookies from 'next-cookies';
 import Image from 'next/image';
-import { start } from 'repl';
 // 최종 수정일: 7월 2일
 
 const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
@@ -18,16 +17,22 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
     const router = useRouter();
     const [isConfirmSucces, setIsConfirmSuccess] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string[]>([]);
+
+    const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
+    const bottomSheetMenu = ['수정하기', '삭제하기'];
     useBridgeHandler('confirm', (event) => {
         alert(event.detail.success);
         setIsConfirmSuccess(event.detail.success);
     });
 
-    useBridgeHandler('selectedPhotos', (event) => {
+    useBridgeHandler('photoPicker', (event) => {
         alert(event.detail.photos);
         setSelectedImage(event.detail.photos || []);
     });
 
+    useBridgeHandler('actionSheet', (event) => {
+        setSelectedMenu(event.detail.index);
+    });
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -72,7 +77,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
             </Button>
             {/* <div>내 accessToken: {accessToken}</div>
             <div>내 refreshToken: {refreshToken}</div> */}
-            <div>내 image</div>
+            <div>내 image들</div>
             {selectedImage.map((image) => (
                 <Image
                     src={`data:image/png;base64,${image}`}
@@ -84,6 +89,10 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
                 />
             ))}
             <Button onClick={() => sendBridgeEvent('photoPicker', true)}>이미지 피커</Button>
+            <div>선택된 menu: {selectedMenu && bottomSheetMenu[selectedMenu]}</div>
+            <Button onClick={() => sendBridgeEvent('actionSheet', bottomSheetMenu, () => {})}>
+                메뉴선택
+            </Button>
         </div>
     );
 };
