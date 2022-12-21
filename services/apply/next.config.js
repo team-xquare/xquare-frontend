@@ -6,4 +6,7 @@ module.exports = {
     experimental: {
         externalDir: true,
     },
+    images: {
+        domains: ['https://xquare.s3.ap-northeast-2.amazonaws.com/'],
+    },
 };
