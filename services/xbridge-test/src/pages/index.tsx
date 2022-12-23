@@ -89,7 +89,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
                 />
             ))}
             <Button onClick={() => sendBridgeEvent('photoPicker', true)}>이미지 피커</Button>
-            <div>선택된 menu: {selectedMenu && bottomSheetMenu[selectedMenu]}</div>
+            <div>선택된 menu: {bottomSheetMenu[selectedMenu || -1]}</div>
             <Button onClick={() => sendBridgeEvent('actionSheet', bottomSheetMenu, () => {})}>
                 메뉴선택
             </Button>
