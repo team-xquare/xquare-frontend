@@ -6,7 +6,6 @@ import UploadFooter from '../write/UploadFooter';
 import WriteDropdownBox from '../write/WriteDropdownsBox';
 import { useBridgeHandler } from '@shared/xbridge';
 import { useState } from 'react';
-import testImage from '../assets/test/testimage1.jpeg';
 
 const Write = () => {
     const [pickedImage, setPickedImage] = useState<string[]>([]);

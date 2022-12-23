@@ -13,7 +13,6 @@ const Home: NextPage = () => {
     const router = useRouter();
     return (
         <>
-            <p>{selectedTabValueKey}</p>
             <ButtonTabs
                 items={tabMenuKeys}
                 setValue={onChangeTabValue}

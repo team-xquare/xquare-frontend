@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import ImageDeleteWrapper from './ImageDeleteWrapper';
-import test from '../../../../assets/test/testimage1.jpeg';
 
 interface ImageDetailContainerProps {
     images?: string[];
