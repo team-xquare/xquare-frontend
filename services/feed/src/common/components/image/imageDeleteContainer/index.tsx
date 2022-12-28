@@ -11,7 +11,7 @@ const ImageDeleteContainer = ({ images, onDelete }: ImageDetailContainerProps) =
         <ImageContainer>
             <ImageViewContainer>
                 {images?.map((src, idx) => (
-                    <ImageDeleteWrapper src={src} onDelete={() => onDelete?.(idx)} />
+                    <ImageDeleteWrapper src={src} onDelete={() => onDelete?.(idx)} key={idx} />
                 ))}
             </ImageViewContainer>
         </ImageContainer>

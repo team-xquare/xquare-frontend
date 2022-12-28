@@ -20,41 +20,46 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
 
     const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
     const bottomSheetMenu = ['수정하기', '삭제하기'];
-    useBridgeHandler('confirm', (event) => {
-        alert(event.detail.success);
-        setIsConfirmSuccess(event.detail.success);
-    });
+    const testConfirm = useBridgeHandler(
+        'confirm',
+        (event) => {
+            alert(event.detail.success);
+            setIsConfirmSuccess(event.detail.success);
+        },
+        {
+            message: '브릿지를 테스트 하시겠습니까?',
+            confirmText: 'ㅇㅇ',
+            cancelText: 'ㄴㄴ',
+        },
+        ({ data }) => {
+            const result = confirm(data.message);
+            alert(result);
+        },
+    );
 
-    useBridgeHandler('photoPicker', (event) => {
-        alert(event.detail.photos);
-        setSelectedImage(event.detail.photos || []);
-    });
+    const testPhotoPicker = useBridgeHandler(
+        'photoPicker',
+        (event) => {
+            alert(event.detail.photos);
+            setSelectedImage(event.detail.photos || []);
+        },
+        {},
+    );
 
-    useBridgeHandler('actionSheet', (event) => {
-        setSelectedMenu(event.detail.index);
-    });
+    const testActionSheet = useBridgeHandler(
+        'actionSheet',
+        (event) => {
+            setSelectedMenu(event.detail.index);
+        },
+        { menu: bottomSheetMenu },
+        () => {},
+    );
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
             <XbridgeImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKS1BGRjgU289BZuhSFI4V7GBh6Ny_UzgH6A&usqp=CAU" />
             ModalState: {String(isConfirmSucces)}
-            <Button
-                onClick={() => {
-                    sendBridgeEvent(
-                        'confirm',
-                        {
-                            message: '브릿지를 테스트 하시겠습니까?',
-                            confirmText: 'ㅇㅇ',
-                            cancelText: 'ㄴㄴ',
-                        },
-                        ({ data }) => {
-                            const result = confirm(data.message);
-                            alert(result);
-                        },
-                    );
-                }}>
-                모달
-            </Button>
+            <Button onClick={testConfirm}>모달</Button>
             <Button
                 onClick={() =>
                     sendBridgeEvent('navigate', { url: '/back', title: '테스트' }, ({ data }) =>
@@ -80,7 +85,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
             <div>내 image들</div>
             {selectedImage.map((image) => (
                 <Image
-                    src={`data:image/png;base64,${image}`}
+                    src={image}
                     width={100}
                     height={100}
                     // placeholder="blur"
@@ -88,11 +93,9 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
                     // quality={50}
                 />
             ))}
-            <Button onClick={() => sendBridgeEvent('photoPicker', true)}>이미지 피커</Button>
+            <Button onClick={testPhotoPicker}>이미지 피커</Button>
             <div>선택된 menu: {bottomSheetMenu[selectedMenu || -1]}</div>
-            <Button onClick={() => sendBridgeEvent('actionSheet', bottomSheetMenu, () => {})}>
-                메뉴선택
-            </Button>
+            <Button onClick={testActionSheet}>메뉴선택</Button>
         </div>
     );
 };

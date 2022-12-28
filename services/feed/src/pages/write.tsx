@@ -8,8 +8,14 @@ import { useBridgeHandler } from '@shared/xbridge';
 import { useState } from 'react';
 
 const Write = () => {
-    const [pickedImage, setPickedImage] = useState<string[]>([]);
-    useBridgeHandler('photoPicker', (e) => setPickedImage(e.detail.photos));
+    const [pickedImage, setPickedImage] = useState<string[]>([
+        'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+    ]);
+    const onImageSelect = useBridgeHandler(
+        'photoPicker',
+        (e) => setPickedImage([...pickedImage, ...e.detail.photos]),
+        {},
+    );
 
     const onDeleteImage = (imageState: string[], deleteIdx: number) => {
         return imageState.filter((_, idx) => idx !== deleteIdx);
@@ -31,7 +37,7 @@ const Write = () => {
                     }
                 />
             </WriteContainer>
-            <UploadFooter />
+            <UploadFooter onClick={onImageSelect} />
         </>
     );
 };

@@ -15,24 +15,30 @@ interface FeedPostProps extends Partial<ComponentProps<typeof PostProfile>> {
 //@todo props 바꾸기
 const FeedPost = ({ createAt, name, profileSrc, contents, imageSrcs }: FeedPostProps) => {
     const actionSheetMenu = ['수정하기', '삭제하기'];
-    useBridgeHandler('actionSheet', (e) => console.log(actionSheetMenu[e.detail.index]));
+    const onSelectMenu = useBridgeHandler(
+        'actionSheet',
+        (e) => console.log(actionSheetMenu[e.detail.index]),
+        {
+            menu: actionSheetMenu,
+        },
+    );
     return (
         <FlexCol fullWidth>
             <FeedPostContainer>
                 <PostHeaderContainer>
                     <PostProfile createAt="1월 1일" name="김의찬" profileSrc="" />
-                    <KababButton
-                        onClick={() => {
-                            sendBridgeEvent('actionSheet', actionSheetMenu, () => {
-                                console.log('click');
-                            });
-                        }}
-                    />
+                    <KababButton onClick={onSelectMenu} />
                 </PostHeaderContainer>
                 <ContentBox content={contents} limit={!!imageSrcs.length ? 40 : 20} />
             </FeedPostContainer>
             <ImageCountContainer
-                images={[testImage.src, testImage.src, testImage.src, testImage.src, testImage.src]}
+                images={[
+                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
+                ]}
             />
             <PostFooter comments={1} like={1} isMyLike={false} />
         </FlexCol>

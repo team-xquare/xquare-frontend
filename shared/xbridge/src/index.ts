@@ -1,6 +1,6 @@
 import { Device } from '@xquare/utils';
 import { useEffect } from 'react';
-
+import { v4 } from 'uuid';
 type BridgeType =
     | 'navigate'
     | 'back'
@@ -9,6 +9,8 @@ type BridgeType =
     | 'error'
     | 'photoPicker'
     | 'actionSheet';
+
+type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet';
 
 interface XBridgeSendData extends Record<BridgeType, unknown> {
     navigate: {
@@ -25,8 +27,8 @@ interface XBridgeSendData extends Record<BridgeType, unknown> {
     error: {
         message: string;
     };
-    photoPicker: boolean;
-    actionSheet: string[];
+    photoPicker: {};
+    actionSheet: { menu: string[] };
 }
 
 interface XBridgeResponseData extends Record<BridgeType, unknown> {
@@ -65,17 +67,25 @@ export const sendBridgeEvent = <T extends BridgeType>(
     }
 };
 
-export const useBridgeHandler = <T extends BridgeType>(
+export const useBridgeHandler = <T extends OneByOneBridgeType>(
     bridge: T,
     callback: (event: CustomEvent<XBridgeResponseData[T]>) => any,
+    data: XBridgeSendData[T],
+    browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => void,
 ) => {
+    const bridgeUuid = v4();
     useEffect(() => {
-        const onCallback = ((event: CustomEvent<XBridgeResponseData[T]>) => {
-            callback(event);
+        const onCallback = ((event: CustomEvent<XBridgeResponseData[T] & { id: string }>) => {
+            const isMine = event.detail.id === bridgeUuid;
+            if (isMine) {
+                callback(event);
+            }
         }) as EventListener;
 
         window.addEventListener(`${bridge}XBridge`, onCallback);
-
         return () => window.removeEventListener(`${bridge}XBridge`, onCallback);
     }, [callback, bridge]);
+
+    return () =>
+        sendBridgeEvent(bridge, { ...data, id: bridgeUuid } as XBridgeSendData[T], browserAction);
 };

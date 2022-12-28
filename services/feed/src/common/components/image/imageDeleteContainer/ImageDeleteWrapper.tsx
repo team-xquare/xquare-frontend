@@ -8,8 +8,8 @@ interface ImageDeleteWrapperProps {
 
 const ImageDeleteWrapper = ({ onDelete, src }: ImageDeleteWrapperProps) => {
     return (
-        <DeleteImageWrapper src={src} onClick={onDelete}>
-            <DeleteButton>
+        <DeleteImageWrapper src={src}>
+            <DeleteButton onClick={onDelete}>
                 <DeleteIcon src={deleteIcon} width={13} height={13} priority={true} />
             </DeleteButton>
         </DeleteImageWrapper>

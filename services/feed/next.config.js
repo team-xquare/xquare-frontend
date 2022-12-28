@@ -5,4 +5,7 @@ module.exports = {
     experimental: {
         externalDir: true,
     },
+    images: {
+        domains: ['https://t1.daumcdn.net/'],
+    },
 };

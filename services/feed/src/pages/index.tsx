@@ -1,13 +1,12 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { FlexCol } from '../common/components/Flexbox';
 import FeedPost from '../main/components/post';
 import styled from '@emotion/styled';
 import ButtonTabs from '../main/components/ButtonTabs';
-import { useState } from 'react';
 import useTabMenu from '../main/hooks/useTabMenu';
 import WriteButton from '../main/components/WriteButton';
 import { useRouter } from 'next/router';
+import { sendBridgeEvent } from '@shared/xbridge';
 const Home: NextPage = () => {
     const { onChangeTabValue, selectedTabValueKey, tabValue, tabMenuKeys } = useTabMenu();
     const router = useRouter();
@@ -37,7 +36,13 @@ const Home: NextPage = () => {
                     imageSrcs={[]}
                 />
             </FeedContainer>
-            <WriteButton onClick={() => router.push('/write')} />
+            <WriteButton
+                onClick={() =>
+                    sendBridgeEvent('navigate', { url: '/write', title: '글쓰기' }, () =>
+                        router.push('/write'),
+                    )
+                }
+            />
         </>
     );
 };

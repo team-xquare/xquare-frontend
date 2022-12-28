@@ -8,24 +8,35 @@ const WeekendMealApplyBox = () => {
     const { data: weekendMealStatus } = useWeekendMeal();
     const { mutate, isLoading } = useSetWeekendMeal();
 
-    useBridgeHandler('confirm', ({ detail }) => {
-        detail.success && mutate({ apply: !weekendMealStatus?.applied });
-    });
+    const sendApplyConfirm = useBridgeHandler(
+        'confirm',
+        ({ detail }) => {
+            detail.success && mutate({ apply: true });
+        },
+        {
+            message: '주말급식은 신청해야\n먹을 수 있어요',
+            confirmText: '신청하기',
+            cancelText: '다음에 하기',
+        },
+        ({ data }) => {
+            return confirm(data.message);
+        },
+    );
 
-    const onMealApply = () => {
-        const result = sendBridgeEvent(
-            'confirm',
-            {
-                message: '주말급식은 신청해야\n먹을 수 있어요',
-                confirmText: '신청하기',
-                cancelText: '다음에 하기',
-            },
-            ({ data }) => {
-                return confirm(data.message);
-            },
-        );
-        result && mutate({ apply: !weekendMealStatus?.applied });
-    };
+    const sendCancelConfirm = useBridgeHandler(
+        'confirm',
+        ({ detail }) => {
+            detail.success && mutate({ apply: false });
+        },
+        {
+            message: '주말급식 신청을 취소하면\n먹을 수 없어요',
+            confirmText: '취소하기',
+            cancelText: '다음에 하기',
+        },
+        ({ data }) => {
+            return confirm(data.message);
+        },
+    );
 
     return (
         <MealApplyWrapper>
@@ -34,7 +45,7 @@ const WeekendMealApplyBox = () => {
                 loading={isLoading}
                 size="sm"
                 fill={weekendMealStatus?.applied ? 'border' : 'purple'}
-                onClick={onMealApply}>
+                onClick={weekendMealStatus?.applied ? sendApplyConfirm() : sendCancelConfirm()}>
                 {weekendMealStatus?.applied ? '취소하기' : '신청하기'}
             </MealApplyButton>
         </MealApplyWrapper>

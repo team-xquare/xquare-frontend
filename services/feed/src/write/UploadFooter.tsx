@@ -1,19 +1,14 @@
 import styled from '@emotion/styled';
 import { FlexRow } from '../common/components/Flexbox';
-import { sendBridgeEvent } from '@shared/xbridge';
+
 interface UploadFooter {
     onClick: () => void;
 }
 
-const UploadFooter = () => {
+const UploadFooter = ({ onClick }: UploadFooter) => {
     return (
         <>
-            <FooterContainer
-                onClick={() =>
-                    sendBridgeEvent('photoPicker', false, () => {
-                        console.log('image pick start');
-                    })
-                }>
+            <FooterContainer onClick={onClick}>
                 <img></img>
                 <p>사진 업로드</p>
             </FooterContainer>

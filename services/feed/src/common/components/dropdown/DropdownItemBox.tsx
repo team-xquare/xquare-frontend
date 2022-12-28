@@ -39,10 +39,12 @@ const DropdownItemBox = <T extends string, P>({
 
 const DropdownBoxContainer = styled(FlexCol)`
     position: absolute;
+    overflow: hidden;
     left: 0;
     top: 40px;
     padding: 16px;
     gap: 20px;
+    z-index: 999;
     min-width: 120px;
     border-radius: 12px;
     background-color: ${({ theme }) => theme.colors.white};
