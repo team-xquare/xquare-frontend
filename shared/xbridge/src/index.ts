@@ -76,7 +76,6 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
     const bridgeUuid = v4();
     useEffect(() => {
         const onCallback = ((event: CustomEvent<XBridgeResponseData[T] & { id: string }>) => {
-            alert(JSON.stringify(event.detail));
             const isMine = event.detail.id === bridgeUuid;
             if (isMine) {
                 callback(event);

@@ -8,22 +8,20 @@ import cookies from 'next-cookies';
 import Image from 'next/image';
 // 최종 수정일: 7월 2일
 
-const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
-    {
-        // accessToken,
-        // refreshToken,
-    },
-) => {
+const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
+    accessToken,
+    refreshToken,
+}) => {
     const router = useRouter();
     const [isConfirmSucces, setIsConfirmSuccess] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string[]>([]);
-
     const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
+    const [testAlertParam, setTestAlertParam] = useState('');
     const bottomSheetMenu = ['수정하기', '삭제하기'];
     const testConfirm = useBridgeHandler(
         'confirm',
         (event) => {
-            alert(event.detail.success);
+            setTestAlertParam(JSON.stringify(event.detail));
             setIsConfirmSuccess(event.detail.success);
         },
         {
@@ -58,7 +56,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
             <XbridgeImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKS1BGRjgU289BZuhSFI4V7GBh6Ny_UzgH6A&usqp=CAU" />
-            ModalState: {String(isConfirmSucces)}
+            <div>ModalState: {String(isConfirmSucces)}</div>
+            <div>param: {testAlertParam}</div>
             <Button onClick={testConfirm}>모달</Button>
             <Button
                 onClick={() =>
@@ -80,8 +79,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
                 }>
                 에러 발생
             </Button>
-            {/* <div>내 accessToken: {accessToken}</div>
-            <div>내 refreshToken: {refreshToken}</div> */}
+            <div>내 accessToken: {accessToken}</div>
+            <div>내 refreshToken: {refreshToken}</div>
             <div>내 image들</div>
             {selectedImage.map((image) => (
                 <Image
@@ -102,13 +101,13 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = (
 
 export default Home;
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//     const allCookies = cookies(ctx);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const allCookies = cookies(ctx);
 
-//     return {
-//         props: {
-//             accessToken: allCookies['accessToken'],
-//             refreshToken: allCookies['refreshToken'],
-//         },
-//     };
-// };
+    return {
+        props: {
+            accessToken: allCookies['accessToken'],
+            refreshToken: allCookies['refreshToken'],
+        },
+    };
+};
