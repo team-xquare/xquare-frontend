@@ -106,8 +106,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     return {
         props: {
-            accessToken: allCookies['accessToken'],
-            refreshToken: allCookies['refreshToken'],
+            accessToken: allCookies['accessToken'] || '',
+            refreshToken: allCookies['refreshToken'] || '',
         },
     };
 };
