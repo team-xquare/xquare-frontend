@@ -45,7 +45,7 @@ const WeekendMealApplyBox = () => {
                 loading={isLoading}
                 size="sm"
                 fill={weekendMealStatus?.applied ? 'border' : 'purple'}
-                onClick={weekendMealStatus?.applied ? sendApplyConfirm() : sendCancelConfirm()}>
+                onClick={weekendMealStatus?.applied ? sendApplyConfirm : sendCancelConfirm}>
                 {weekendMealStatus?.applied ? '취소하기' : '신청하기'}
             </MealApplyButton>
         </MealApplyWrapper>
