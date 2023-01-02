@@ -32,13 +32,13 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
         ({ data }) => {
             const result = confirm(data.message);
             alert(result);
+            setIsConfirmSuccess(result);
         },
     );
 
     const testPhotoPicker = useBridgeHandler(
         'photoPicker',
         (event) => {
-            alert(event.detail.photos);
             setSelectedImage(event.detail.photos || []);
         },
         {},

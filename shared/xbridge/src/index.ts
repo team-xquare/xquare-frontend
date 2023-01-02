@@ -74,7 +74,6 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
     browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => void,
 ) => {
     const [bridgeUuid] = useState(v4());
-    const bridgeEvent = useRef(() => {});
     useEffect(() => {
         const onCallback = ((event: CustomEvent<XBridgeResponseData[T] & { id: string }>) => {
             const isMine = event.detail.id === bridgeUuid;
@@ -85,14 +84,6 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
         return () => window.removeEventListener(`${bridge}XBridge`, onCallback);
     }, [callback, bridge]);
 
-    useEffect(() => {
-        bridgeEvent.current = () =>
-            sendBridgeEvent(
-                bridge,
-                { ...data, id: bridgeUuid } as XBridgeSendData[T],
-                browserAction,
-            );
-    }, [callback, bridge]);
-
-    return bridgeEvent.current;
+    return () =>
+        sendBridgeEvent(bridge, { ...data, id: bridgeUuid } as XBridgeSendData[T], browserAction);
 };
