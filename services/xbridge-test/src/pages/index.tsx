@@ -82,8 +82,9 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <div>내 accessToken: {accessToken}</div>
             <div>내 refreshToken: {refreshToken}</div>
             <div>내 image들</div>
-            {selectedImage.map((image) => (
+            {selectedImage.map((image, idx) => (
                 <Image
+                    key={idx}
                     src={image}
                     width={100}
                     height={100}
