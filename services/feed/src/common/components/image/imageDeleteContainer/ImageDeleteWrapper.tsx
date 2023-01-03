@@ -25,7 +25,6 @@ const DeleteImageWrapper = styled.div<{ src: string }>`
     background-repeat: no-repeat;
     scroll-snap-align: center;
     flex-shrink: 0;
-    border-left: 1px solid black;
     background-color: ${({ theme }) => theme.colors.gray300};
     background-image: url(${({ src }) => src});
 `;
