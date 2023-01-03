@@ -1,5 +1,5 @@
 import { Device } from '@xquare/utils';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 type BridgeType =
     | 'navigate'
@@ -73,7 +73,7 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
     data: XBridgeSendData[T],
     browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => void,
 ) => {
-    const [bridgeUuid] = useState(v4());
+    const bridgeUuid = useMemo(() => v4(), []);
     useEffect(() => {
         const onCallback = ((event: CustomEvent<XBridgeResponseData[T] & { id: string }>) => {
             const isMine = event.detail.id === bridgeUuid;
