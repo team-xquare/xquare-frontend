@@ -9,9 +9,6 @@ interface ImageCountContainerProps {
 
 const ImageCountContainer = ({ images }: ImageCountContainerProps) => {
     const [currentImage, setCurrentImage] = useState(1);
-    useEffect(() => {
-        console.log(currentImage);
-    }, [currentImage]);
     return (
         <ImageContainer>
             <ImageCounter current={currentImage} maxSize={images?.length || 0} />

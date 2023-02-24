@@ -12,7 +12,7 @@ import useStayStatus, { prefetchStayStatus } from '../main/hooks/useStayStatus';
 import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
-
+import ridingIcon from '../assets/riding.png';
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
@@ -43,17 +43,30 @@ const Apply: NextPage = () => {
                 </ApplyBox>
                 <ApplyBox title="추가 신청">
                     <AdditionalApplyItem
+                        applyKind="교실 이동"
+                        daliy="오늘"
+                        linkTo="/class-move"
+                        icon={ridingIcon.src}
+                    />
+                    <AdditionalApplyItem
+                        applyKind="외출 신청"
+                        daliy="오늘"
+                        linkTo="/today-out"
+                        icon={ridingIcon.src}
+                    />
+                    <AdditionalApplyItem
                         applyKind="자습실 신청"
                         daliy="오늘"
                         linkTo="/dormitory-study"
                         icon={dormitoryStudyIcon.src}
                     />
 
-                    {/*TODO: <AdditionalApplyItem
+                    <AdditionalApplyItem
                         applyKind="주말 외출 신청"
-                        daliy=""
-                        linkTo="/dormitory-study"
-                    /> */}
+                        daliy="이번주 주말"
+                        linkTo="/weekend-out"
+                        icon={ridingIcon.src}
+                    />
                 </ApplyBox>
             </FlexCol>
         </MainPageTemplate>

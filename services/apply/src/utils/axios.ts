@@ -5,7 +5,17 @@ export const instance = axios.create({
     timeout: 10000,
     headers: {
         Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYzY4ZmFkMS00M2ZjLTRmNWUtOTk4OS01ZWZmYTMzYzIzYjAiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjcxNjEzMTUzLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsic3R1ZGVudCJdfQ.W-GPDNwpgwtPR1ATFr3bDE1ZTf7Bv4s0hzrx2W9xS8E',
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzk0YTk1NC0xMzhjLTQ5OTEtOWYwYS00NWFjMzI4MTViNWIiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjc3MTIxMjUyLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiU1RVIl19.o0Vq_dpL_92hWQ6yQWjeMWqcGeagBJ9eDGQ0YoBZBwg',
+    },
+    withCredentials: true,
+});
+
+export const pickInstance = axios.create({
+    baseURL: 'https://stag-api.xquare.app/pick',
+    timeout: 10000,
+    headers: {
+        Authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzk0YTk1NC0xMzhjLTQ5OTEtOWYwYS00NWFjMzI4MTViNWIiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjc3MTYzOTI1LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiU1RVIl19.OhPCcSRylIJoSAP0ZyYDq896MB2JXJkgkKDdzHc2DeM',
     },
     withCredentials: true,
 });

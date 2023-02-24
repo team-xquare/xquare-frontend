@@ -10,5 +10,8 @@ export const globalStyles = css`
         box-sizing: border-box;
     }
 
+    *::-webkit-scrollbar {
+        display: none;
+    }
     ${emotionReset}
 `;

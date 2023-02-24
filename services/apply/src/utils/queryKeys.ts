@@ -5,4 +5,6 @@ export const queryKeys = {
     getStayStatus: () => '/stay',
     getStayList: () => '/stay/codes/status',
     getPicnic: () => '/picnic',
+    getClassroomList: (floor: string, type: string) => `/class-room?floor=${floor}&type=${type}`,
+    getTodayStatus: (date: string) => `/admin?date=${date}`,
 };

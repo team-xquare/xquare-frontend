@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { Caption, Subtitle4 } from '@semicolondsm/ui';
 import { FC, PropsWithChildren } from 'react';
 import { FlexCol, FlexRow } from '../../common/Flexbox';
@@ -18,11 +19,15 @@ const ApplyContainer: FC<PropsWithChildren<ApplyContainerProps>> = ({
                 <Subtitle4>{title}</Subtitle4>
                 {subTitle && <Caption>{subTitle}</Caption>}
             </FlexCol>
-            <FlexRow gap={8} fullWidth>
+            <ScrollFlex gap={8} fullWidth>
                 {children}
-            </FlexRow>
+            </ScrollFlex>
         </FlexCol>
     );
 };
+
+const ScrollFlex = styled(FlexRow)`
+    overflow-x: scroll;
+`;
 
 export default ApplyContainer;
