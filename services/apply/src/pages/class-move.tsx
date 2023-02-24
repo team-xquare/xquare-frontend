@@ -1,9 +1,9 @@
-import Radio from '../common/Radio';
+import Radio from '../class-move/components/Radio';
 import { Button } from '@semicolondsm/ui';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import MainPageTemplate from '../common/templates/MainPageTemplate';
-import TagButton from '../common/TagButton';
+import TagButton from '../class-move/components/TagButton';
 import useClassroom, { prefetchClassroom } from '../class-move/hooks/useClassroom';
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
@@ -45,9 +45,9 @@ const ClassMove = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
-    await Promise.all([prefetchClassroom(queryClient, { floor: '1', type: 'A' })]);
+    await Promise.all([prefetchClassroom(queryClient, { floor: '1', type: 'SELF_STUDY' })]);
     return {
         props: {
             dehydrateState: dehydrate(queryClient),

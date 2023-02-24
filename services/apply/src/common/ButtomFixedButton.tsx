@@ -30,7 +30,7 @@ const ApplyButton = styled(Button)`
 
 const BackgroundBox = styled.div`
     width: 100%;
-    height: 48px;
+    height: 60px;
 `;
 
 export default ButtomFixedButton;

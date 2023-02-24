@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-import { FlexRow } from './Flexbox';
+import { FlexRow } from '../../common/Flexbox';
 
 type ShowComponentProps<T> = { children: T };
 type RadioFlexOption = 'row' | 'wrapper' | 'grid';

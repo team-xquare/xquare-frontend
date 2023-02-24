@@ -12,7 +12,7 @@ const useClassroom = (param: GetClassroomRequestParam) => {
 };
 
 export const prefetchClassroom = (queryClient: QueryClient, param: GetClassroomRequestParam) => {
-    const queryKey = queryKeys.getClassroomList(param.floor, param.type);
+    const queryKey = queryKeys.getClassroomList(param.floor, 'SELF_STUDY');
     return queryClient.prefetchQuery(queryKey, () => getClassroomList(param), {
         staleTime: ONE_DAY,
     });

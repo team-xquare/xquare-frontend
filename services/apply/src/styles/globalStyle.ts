@@ -13,5 +13,9 @@ export const globalStyles = css`
     *::-webkit-scrollbar {
         display: none;
     }
+    input,
+    textarea {
+        outline: none;
+    }
     ${emotionReset}
 `;
