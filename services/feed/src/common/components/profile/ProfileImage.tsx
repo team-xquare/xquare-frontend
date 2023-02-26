@@ -13,6 +13,7 @@ const ProfileImageWrapper = styled.img`
     height: 40px;
     border-radius: 50%;
     background-color: gray;
+    object-fit: cover;
 `;
 
 export default ProfileImage;

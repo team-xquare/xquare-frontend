@@ -8,12 +8,23 @@ import ContentBox from '../../../common/components/ContentBox';
 import testImage from '../../../assets/test/testimage1.jpeg';
 import { ImageCountContainer } from '../../../common/components/image';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
-interface FeedPostProps extends Partial<ComponentProps<typeof PostProfile>> {
-    contents: string;
-    imageSrcs: string[];
-}
+import { FeedType } from '../../types';
+import { timeFormatter } from '../../../utils/timeFormatter';
+interface FeedPostProps extends FeedType {}
 //@todo props 바꾸기
-const FeedPost = ({ createAt, name, profileSrc, contents, imageSrcs }: FeedPostProps) => {
+const FeedPost = ({
+    attachments_url,
+    name,
+    comment_count,
+    content,
+    created_at,
+    feed_id,
+    is_like,
+    is_mine,
+    like_count,
+    profile,
+    type,
+}: FeedPostProps) => {
     const actionSheetMenu = ['수정하기', '삭제하기'];
     const onSelectMenu = useBridgeHandler(
         'actionSheet',
@@ -26,21 +37,22 @@ const FeedPost = ({ createAt, name, profileSrc, contents, imageSrcs }: FeedPostP
         <FlexCol fullWidth>
             <FeedPostContainer>
                 <PostHeaderContainer>
-                    <PostProfile createAt="1월 1일" name="김의찬" profileSrc="" />
+                    <PostProfile
+                        createAt={timeFormatter(created_at)}
+                        name={`${name}-${type}`}
+                        profileSrc={profile}
+                    />
                     <KababButton onClick={onSelectMenu} />
                 </PostHeaderContainer>
-                <ContentBox content={contents} limit={!!imageSrcs.length ? 40 : 20} />
+                <ContentBox content={content} limit={!!attachments_url.length ? 40 : 20} />
             </FeedPostContainer>
-            <ImageCountContainer
-                images={[
-                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-                    'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-                ]}
+            {!!attachments_url.length ? <ImageCountContainer images={attachments_url} /> : <></>}
+            <PostFooter
+                comments={comment_count}
+                like={like_count}
+                isMyLike={is_like}
+                postId={feed_id}
             />
-            <PostFooter comments={1} like={1} isMyLike={false} />
         </FlexCol>
     );
 };

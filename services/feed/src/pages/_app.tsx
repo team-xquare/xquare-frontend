@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Global styles={globalStyles}></Global>
                 <QueryClientProvider client={queryClient}>
                     <Hydrate state={pageProps.dehydratedState}>
-                        {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
+                        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
                         <Component {...pageProps} />
                     </Hydrate>
                 </QueryClientProvider>

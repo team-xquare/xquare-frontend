@@ -45,6 +45,7 @@ const AdditionalApplyCardContainer = styled.a`
     height: 126px;
     border-radius: 12px;
     transition: 0.3s;
+    flex-shrink: 0;
     cursor: pointer;
     &:active {
         background-color: ${({ theme }) => theme.colors.gray100};

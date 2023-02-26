@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 interface FlexProps {
@@ -24,4 +25,10 @@ export const FlexCol = styled.div<FlexProps>`
     gap: ${(props) => (props.gap ? props.gap : 0)}px;
     align-items: ${(props) => (props.align ? props.align : 'flex-start')};
     justify-content: ${(props) => (props.justify ? props.justify : 'center')};
+`;
+
+export const flex = (props: FlexProps) => css`
+    display: flex;
+    width: ${props.fullWidth ? '100%' : 'initial'};
+    gap: ${props.gap}px;
 `;

@@ -1,5 +1,5 @@
 import { Device } from '@xquare/utils';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { v4 } from 'uuid';
 type BridgeType =
     | 'navigate'
@@ -8,11 +8,12 @@ type BridgeType =
     | 'confirm'
     | 'error'
     | 'photoPicker'
-    | 'actionSheet';
+    | 'actionSheet'
+    | 'timePicker';
 
-type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet';
+type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet' | 'timePicker';
 
-interface XBridgeSendData extends Record<BridgeType, unknown> {
+interface XBridgeRequestData extends Record<BridgeType, unknown> {
     navigate: {
         url: string;
         title: string;
@@ -29,6 +30,9 @@ interface XBridgeSendData extends Record<BridgeType, unknown> {
     };
     photoPicker: {};
     actionSheet: { menu: string[] };
+    timePicker: {
+        time: string;
+    };
 }
 
 interface XBridgeResponseData extends Record<BridgeType, unknown> {
@@ -41,6 +45,9 @@ interface XBridgeResponseData extends Record<BridgeType, unknown> {
     actionSheet: {
         index: number;
     };
+    timePicker: {
+        time: string;
+    };
 }
 
 export interface BrowserActionParameters<T> {
@@ -49,8 +56,8 @@ export interface BrowserActionParameters<T> {
 }
 export const sendBridgeEvent = <T extends BridgeType>(
     bridge: T,
-    data: XBridgeSendData[T],
-    browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => any,
+    data: XBridgeRequestData[T],
+    browserAction?: (params: BrowserActionParameters<XBridgeRequestData[T]>) => any,
 ) => {
     const globalThis = window as any;
 
@@ -70,8 +77,8 @@ export const sendBridgeEvent = <T extends BridgeType>(
 export const useBridgeHandler = <T extends OneByOneBridgeType>(
     bridge: T,
     callback: (event: CustomEvent<XBridgeResponseData[T]>) => any,
-    data: XBridgeSendData[T],
-    browserAction?: (params: BrowserActionParameters<XBridgeSendData[T]>) => void,
+    data: XBridgeRequestData[T],
+    browserAction?: (params: BrowserActionParameters<XBridgeRequestData[T]>) => void,
 ) => {
     const bridgeUuid = useMemo(() => v4(), []);
     useEffect(() => {
@@ -85,5 +92,9 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
     }, [callback, bridge]);
 
     return () =>
-        sendBridgeEvent(bridge, { ...data, id: bridgeUuid } as XBridgeSendData[T], browserAction);
+        sendBridgeEvent(
+            bridge,
+            { ...data, id: bridgeUuid } as XBridgeRequestData[T],
+            browserAction,
+        );
 };

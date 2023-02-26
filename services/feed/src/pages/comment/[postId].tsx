@@ -1,18 +1,18 @@
-import CommentBox from '../comment/components/CommentBox';
+import CommentBox from '../../comment/components/CommentBox';
 import styled from '@emotion/styled';
-import { FlexCol } from '../common/components/Flexbox';
-import ContentDetail from '../comment/components/ContentDetail';
+import { FlexCol } from '../../common/components/Flexbox';
+import ContentDetail from '../../comment/components/ContentDetail';
 
 const Comment = () => {
     return (
-        <CommentContainer>
+        <CommentContainer fullWidth>
             <ContentDetail
                 content="fajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdffajhdf"
                 createAt="안녕"
                 name="너말언"
                 profileSrc=""
             />
-            <FlexCol gap={16}>
+            <FlexCol gap={16} fullWidth>
                 <CommentBox
                     comment="ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언ㅇ머ㅏㄹ언"
                     createAt="dkfjak"
