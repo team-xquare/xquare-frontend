@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { FlexCol } from '../common/components/Flexbox';
 import FeedPost from '../main/components/post';
 import styled from '@emotion/styled';
@@ -7,34 +7,24 @@ import useTabMenu from '../main/hooks/useTabMenu';
 import WriteButton from '../main/components/WriteButton';
 import { useRouter } from 'next/router';
 import { sendBridgeEvent } from '@shared/xbridge';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { prefetchCategoryList } from '../common/hooks/useCategoryList';
+import useFeedList, { prefetchFeedList } from '../main/hooks/useFeedList';
 const Home: NextPage = () => {
-    const { onChangeTabValue, selectedTabValueKey, tabValue, tabMenuKeys } = useTabMenu();
+    const { onChangeTabValue, selectedTabValueKey, tabMenuKeys } = useTabMenu();
+    const { data: feedList } = useFeedList(selectedTabValueKey.category_id);
     const router = useRouter();
     return (
         <>
             <ButtonTabs
                 items={tabMenuKeys}
                 setValue={onChangeTabValue}
-                value={tabValue}></ButtonTabs>
+                value={selectedTabValueKey.name}
+            />
             <FeedContainer>
-                <FeedPost contents="ㅁ어ㅏㄹ먼ㅇ라넘아럼" imageSrcs={['']} />
-                <FeedPost
-                    contents={`추혜연 바보 멍청이
-추혜연 멍청이
-멍청이 = 추혜연
-추혜연 그만 먹어
-추혜연 팩폭 당했죠?
-                `}
-                    imageSrcs={['']}
-                />
-                <FeedPost
-                    contents="ㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇ"
-                    imageSrcs={[]}
-                />
-                <FeedPost
-                    contents="ㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇㅁ어ㅏㄹ먼ㅇ라넘아럼나어람너라ㅓㅁ낭러만어람너라ㅓㅁㄴㅇ"
-                    imageSrcs={[]}
-                />
+                {feedList?.feeds.map((feed) => (
+                    <FeedPost {...feed} key={feed.feed_id} />
+                ))}
             </FeedContainer>
             <WriteButton
                 onClick={() =>
@@ -45,6 +35,16 @@ const Home: NextPage = () => {
             />
         </>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const queryClient = new QueryClient();
+    await Promise.all([prefetchFeedList(queryClient), prefetchCategoryList(queryClient)]);
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
 };
 
 const FeedContainer = styled(FlexCol)`

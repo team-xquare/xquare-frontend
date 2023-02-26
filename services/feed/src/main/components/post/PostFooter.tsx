@@ -1,23 +1,30 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import Comment from '../../../assets/Comment';
+import Good from '../../../assets/Good';
 import { FlexRow } from '../../../common/components/Flexbox';
+import useFeedLike from '../../hooks/useFeedLike';
 
 // @todo post footer api 연동
 interface PostFooterProps {
     like: number;
     comments: number;
     isMyLike: boolean;
+    postId: string;
 }
 
-const PostFooter = ({ comments, like }: PostFooterProps) => {
+const PostFooter = ({ comments, like, isMyLike, postId }: PostFooterProps) => {
+    const { mutate: feedLikeMutate } = useFeedLike();
+    const router = useRouter();
     return (
         <PostFooterContainer>
             <FooterInfoContainer>
-                <img></img>
-                <p>좋아요 12</p>
+                <Good isBlack={isMyLike} onClick={() => feedLikeMutate(postId)} />
+                <p>좋아요 {like}</p>
             </FooterInfoContainer>
-            <FooterInfoContainer>
-                <img></img>
-                <p>댓글 12</p>
+            <FooterInfoContainer onClick={() => router.push(`/comment/${postId}`)}>
+                <Comment />
+                <p>댓글 {comments}</p>
             </FooterInfoContainer>
         </PostFooterContainer>
     );

@@ -11,6 +11,7 @@ const WeekendMealApplyBox = () => {
     const sendApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
+            sendBridgeEvent('error', { message: String(detail.success) });
             detail.success && mutate({ apply: true });
         },
         {
@@ -19,13 +20,15 @@ const WeekendMealApplyBox = () => {
             cancelText: '다음에 하기',
         },
         ({ data }) => {
-            return confirm(data.message);
+            const isSuccess = confirm(data.message);
+            isSuccess && mutate({ apply: true });
         },
     );
 
     const sendCancelConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
+            sendBridgeEvent('error', { message: String(detail.success) });
             detail.success && mutate({ apply: false });
         },
         {
@@ -34,7 +37,8 @@ const WeekendMealApplyBox = () => {
             cancelText: '다음에 하기',
         },
         ({ data }) => {
-            return confirm(data.message);
+            const isSuccess = confirm(data.message);
+            isSuccess && mutate({ apply: false });
         },
     );
 

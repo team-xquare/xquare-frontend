@@ -1,33 +1,34 @@
 import { useMemo, useState } from 'react';
+import useCategoryList from '../../common/hooks/useCategoryList';
+import { CategoryType } from '../../common/types';
 import { getKeyFromValue } from '../../utils/getKeyfromValue';
-const tabMenuKeys = ['홈', '공지', '동아리', '대나무숲'] as const;
 
-type TabMenuKeysType = typeof tabMenuKeys[number];
+const initSelectedTabValue: CategoryType = {
+    category_id: '',
+    name: '전체',
+};
 
-const tabMenuKeyToEnglish = {
-    홈: 'home',
-    공지: 'notice',
-    동아리: 'club',
-    대나무숲: 'bamboo',
-} as const;
+const useTabMenu = () => {
+    const { data: categoryListData } = useCategoryList();
+    const [selectedTabValueKey, setSelectedTabValueKey] =
+        useState<CategoryType>(initSelectedTabValue);
 
-type TabMenuValueType = typeof tabMenuKeyToEnglish[TabMenuKeysType];
-
-const useTabMenu = (initValue?: TabMenuValueType) => {
-    const [selectedTabValueKey, setSelectedTabValueKey] = useState<TabMenuValueType>(
-        initValue || 'home',
-    );
-
-    const onChangeTabValue = (tabMenuItem: TabMenuKeysType) => {
-        setSelectedTabValueKey(tabMenuKeyToEnglish[tabMenuItem]);
+    const onChangeTabValue = (tabMenuItem: string) => {
+        if (tabMenuItem === '전체') {
+            setSelectedTabValueKey(initSelectedTabValue);
+        }
+        const changeCategory = categoryListData?.category_list.filter(
+            (category) => category.name === tabMenuItem,
+        )[0];
+        setSelectedTabValueKey((state) => changeCategory || state);
     };
 
-    const tabValue = useMemo(
-        () => getKeyFromValue(tabMenuKeyToEnglish, selectedTabValueKey),
-        [selectedTabValueKey],
+    const tabMenuKeys = useMemo(
+        () => ['전체', ...(categoryListData?.category_list.map((category) => category.name) || [])],
+        [categoryListData],
     );
 
-    return { tabValue, onChangeTabValue, selectedTabValueKey, tabMenuKeys };
+    return { selectedTabValueKey, onChangeTabValue, tabMenuKeys };
 };
 
 export default useTabMenu;

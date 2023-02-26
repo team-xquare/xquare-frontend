@@ -8,7 +8,7 @@ import { QueryClient, dehydrate } from 'react-query';
 import useStudyRoom, { prefetchStudyRoom } from '../dormitary-study/hooks/useStudyRoom';
 import useMyStudyRoom, { prefetchMyStudyRoom } from '../dormitary-study/hooks/useMyStudyRoom';
 import useSetStudyRoom from '../dormitary-study/hooks/useSetStudyRoom';
-import uesCancelStudyRoom from '../dormitary-study/hooks/uesCancelStudyRoom';
+import uesCancelStudyRoom from '../dormitary-study/hooks/useCancelStudyRoom';
 
 const DormitoryStudy: NextPage = () => {
     const { data: studyRoom } = useStudyRoom();
