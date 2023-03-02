@@ -13,7 +13,7 @@ const ImageCountContainer = ({ images }: ImageCountContainerProps) => {
         <ImageContainer>
             <ImageCounter current={currentImage} maxSize={images?.length || 0} />
             <ImageViewContainer
-                onClick={() => sendBridgeEvent('imageDetail', images || [], () => {})}>
+                onClick={() => sendBridgeEvent('imageDetail', { images: images || [] }, () => {})}>
                 {images?.map((src, idx) => (
                     <ImageObserverWrapper
                         callback={() => {
