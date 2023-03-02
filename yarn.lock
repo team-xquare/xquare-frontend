@@ -2267,6 +2267,7 @@ __metadata:
     eslint: 8.13.0
     eslint-config-next: 12.1.5
     next: 12.1.5
+    next-cookies: ^2.0.3
     react: 18.0.0
     react-dom: 18.0.0
     react-query: ^3.39.1
