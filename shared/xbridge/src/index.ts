@@ -114,7 +114,7 @@ export const useBridgeCallback = <T extends keyof XBridgeResponseData>(
         const onCallback = ((
             event: CustomEvent<XBridgeResponseData[T] & { id: string | undefined }>,
         ) => {
-            const isMine = (event.detail.id = bridgeId);
+            const isMine = event.detail.id === bridgeId;
             isMine && callback(event);
         }) as EventListener;
 

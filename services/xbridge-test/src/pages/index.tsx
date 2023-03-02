@@ -100,8 +100,6 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testPhotoPicker}>이미지 피커</Button>
             <div>선택된 menu: {bottomSheetMenu[selectedMenu || -1]}</div>
             <Button onClick={testActionSheet}>메뉴선택</Button>
-            {/* <div>select time: {time}</div>
-            <Button onClick={}>타임피커</Button> */}
         </div>
     );
 };

@@ -8,6 +8,7 @@ const Back: NextPage = () => {
     const router = useRouter();
     const [value, setValue] = useState('');
     const [count, setCount] = useState(0);
+
     useBridgeCallback(
         'rightButtonTaped',
         () => {
@@ -15,6 +16,7 @@ const Back: NextPage = () => {
         },
         undefined,
     );
+
     useEffect(() => {
         sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!value });
     }, [value]);
