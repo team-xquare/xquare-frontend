@@ -18,6 +18,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
     const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
     const [testAlertParam, setTestAlertParam] = useState('');
     const bottomSheetMenu = ['수정하기', '삭제하기'];
+    const [time, setTime] = useState('');
     const testConfirm = useBridgeHandler(
         'confirm',
         (event) => {
@@ -52,6 +53,14 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
         { menu: bottomSheetMenu },
         () => {},
     );
+
+    // const onTimePicker = useBridgeHandler(
+    //     'timePicker',
+    //     (event) => {
+    //         setTime(event.detail.time);
+    //     },
+    //     {},
+    // );
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -61,8 +70,10 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testConfirm}>모달</Button>
             <Button
                 onClick={() =>
-                    sendBridgeEvent('navigate', { url: '/back', title: '테스트' }, ({ data }) =>
-                        router.push(data.url),
+                    sendBridgeEvent(
+                        'navigate',
+                        { url: '/back', title: '테스트', rightButtonText: '완료' },
+                        ({ data }) => router.push(data.url),
                     )
                 }>
                 내비게이션
@@ -96,6 +107,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testPhotoPicker}>이미지 피커</Button>
             <div>선택된 menu: {bottomSheetMenu[selectedMenu || -1]}</div>
             <Button onClick={testActionSheet}>메뉴선택</Button>
+            {/* <div>select time: {time}</div>
+            <Button onClick={}>타임피커</Button> */}
         </div>
     );
 };

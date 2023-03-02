@@ -9,7 +9,8 @@ type BridgeType =
     | 'error'
     | 'photoPicker'
     | 'actionSheet'
-    | 'timePicker';
+    | 'timePicker'
+    | 'isRightButtonEnabled';
 
 type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet' | 'timePicker';
 
@@ -17,6 +18,7 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
     navigate: {
         url: string;
         title: string;
+        rightButtonText?: string;
     };
     imageDetail: string[];
     back: boolean;
@@ -33,6 +35,9 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
     timePicker: {
         time: string;
     };
+    isRightButtonEnabled: {
+        isEnabled: boolean;
+    };
 }
 
 interface XBridgeResponseData extends Record<BridgeType, unknown> {
@@ -48,6 +53,7 @@ interface XBridgeResponseData extends Record<BridgeType, unknown> {
     timePicker: {
         time: string;
     };
+    rightButtonTaped: {};
 }
 
 export interface BrowserActionParameters<T> {
@@ -97,4 +103,22 @@ export const useBridgeHandler = <T extends OneByOneBridgeType>(
             { ...data, id: bridgeUuid } as XBridgeRequestData[T],
             browserAction,
         );
+};
+
+export const useBridgeCallback = <T extends keyof XBridgeResponseData>(
+    bridge: T,
+    callback: (event: CustomEvent<XBridgeResponseData[T]>) => any,
+    bridgeId: string | undefined,
+) => {
+    useEffect(() => {
+        const onCallback = ((
+            event: CustomEvent<XBridgeResponseData[T] & { id: string | undefined }>,
+        ) => {
+            const isMine = (event.detail.id = bridgeId);
+            isMine && callback(event);
+        }) as EventListener;
+
+        window.addEventListener(`${bridge}XBridge`, onCallback);
+        return () => window.removeEventListener(`${bridge}XBridge`, onCallback);
+    }, [callback, bridge]);
 };
