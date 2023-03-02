@@ -9,7 +9,10 @@ const XbridgeImage = ({ src }: Props) => {
     return (
         <img
             src={src}
-            onClick={() => sendBridgeEvent('imageDetail', [src], () => console.log(src))}></img>
+            onClick={() =>
+                sendBridgeEvent('imageDetail', { images: [src] }, () => console.log(src))
+            }
+        />
     );
 };
 

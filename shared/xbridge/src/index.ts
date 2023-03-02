@@ -20,7 +20,7 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
         title: string;
         rightButtonText?: string;
     };
-    imageDetail: string[];
+    imageDetail: { images: string[] };
     back: boolean;
     confirm: {
         message: string;
