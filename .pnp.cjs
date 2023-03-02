@@ -3713,7 +3713,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.13.0"],\
             ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
             ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
-            ["next-cookies", "npm:2.0.3"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
             ["react-query", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:3.39.1"],\
