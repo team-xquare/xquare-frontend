@@ -94,7 +94,6 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
                     height={100}
                     // placeholder="blur"
                     loading="lazy"
-                    // quality={50}
                 />
             ))}
             <Button onClick={testPhotoPicker}>이미지 피커</Button>
