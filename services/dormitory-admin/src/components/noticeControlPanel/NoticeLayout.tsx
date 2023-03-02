@@ -7,39 +7,44 @@ import ModalContainer from '../common/ModalContainer';
 import { useModal } from '../../contexts/modal';
 import { Button } from '@semicolondsm/ui';
 import { useAddNoticeMutation } from '../../apis/notices';
-
 const NoticeLayout = () => {
-    const [activeId, setActiveId] = useState<number | null>(null);
+    const [activeId, setActiveId] = useState<string | null>(null);
     const { mutate: addNotice } = useAddNoticeMutation();
     const { closeModal } = useModal();
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
 
     const onSubmit = () => {
-        addNotice({ title, content });
-        setTitle("");
-        setContent("");
+        // addNotice({ title, content });
+        setTitle('');
+        setContent('');
         closeModal();
-    }
+    };
 
     return (
         <NoticeContainer>
             <ModalContainer>
                 <Box>
-                    <Input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="제목" />
-                    <Textarea value={content} onChange={e => setContent(e.target.value)} placeholder="내용"></Textarea>
+                    <Textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="내용"></Textarea>
                     <ButtonWrapper>
-                        <Button size="sm" fill="border" onClick={closeModal}>닫기</Button>
-                        <Button size="sm" fill='purple' onClick={onSubmit}>만들기</Button>
+                        <Button size="sm" fill="border" onClick={closeModal}>
+                            닫기
+                        </Button>
+                        <Button size="sm" fill="purple" onClick={onSubmit}>
+                            만들기
+                        </Button>
                     </ButtonWrapper>
                 </Box>
             </ModalContainer>
             <NoticeList activeId={activeId} setActiveId={setActiveId} />
             <NoticePreview activeId={activeId} />
-            <NoticeCommentList />
+            <NoticeCommentList activeId={activeId} />
         </NoticeContainer>
     );
-}
+};
 
 const NoticeContainer = styled.section`
     width: 100%;
@@ -47,7 +52,7 @@ const NoticeContainer = styled.section`
     padding: 74px 60px 0 60px;
     display: grid;
     grid-template-columns: 700px minmax(400px, 1fr);
-    grid-template-rows: 3fr 2fr;
+    grid-template-rows: 3fr 2fr 0px;
     grid-gap: 40px;
     overflow-x: auto;
 `;
@@ -83,6 +88,7 @@ const ButtonWrapper = styled.div`
     gap: 10px;
     padding: 16px 0;
     justify-content: center;
+    //BODY 1 추가
 `;
 
 export default NoticeLayout;

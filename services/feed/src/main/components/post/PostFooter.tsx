@@ -4,7 +4,7 @@ import Comment from '../../../assets/Comment';
 import Good from '../../../assets/Good';
 import { FlexRow } from '../../../common/components/Flexbox';
 import useFeedLike from '../../hooks/useFeedLike';
-
+import { sendBridgeEvent } from '@shared/xbridge';
 // @todo post footer api 연동
 interface PostFooterProps {
     like: number;
@@ -22,7 +22,12 @@ const PostFooter = ({ comments, like, isMyLike, postId }: PostFooterProps) => {
                 <Good isBlack={isMyLike} onClick={() => feedLikeMutate(postId)} />
                 <p>좋아요 {like}</p>
             </FooterInfoContainer>
-            <FooterInfoContainer onClick={() => router.push(`/comment/${postId}`)}>
+            <FooterInfoContainer
+                onClick={() =>
+                    sendBridgeEvent('navigate', { url: `/comment/${postId}`, title: '댓글' }, () =>
+                        router.push(`/comment/${postId}`),
+                    )
+                }>
                 <Comment />
                 <p>댓글 {comments}</p>
             </FooterInfoContainer>

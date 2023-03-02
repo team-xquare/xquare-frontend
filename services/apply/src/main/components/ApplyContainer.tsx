@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Caption, Subtitle4 } from '@semicolondsm/ui';
 import { FC, PropsWithChildren } from 'react';
-import { FlexCol, FlexRow } from '../../common/Flexbox';
+import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 
 interface ApplyContainerProps {
     title: string;

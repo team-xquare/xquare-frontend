@@ -11,19 +11,26 @@ export interface Student {
 }
 
 export interface Notice {
-    id: string;
-    title: string;
+    feed_id: string;
     content: string;
     created_at: string;
+    profile: string;
+    name: string;
+    type: string;
+    like_count: number;
+    comment_count: number;
+    is_mine: boolean;
+    is_like: boolean;
+    attachments_url: string[];
 }
 
-export interface Notice {
-    id: string;
-    title: string;
+export interface Comment {
+    comment_id: string;
     content: string;
-    created_at: string;
+    name: string;
+    profile: string;
+    updated_at: string;
 }
-
 export interface Rule {
     id: number;
     reason: string;
@@ -40,15 +47,15 @@ export interface StudentHistory {
 }
 
 export enum SortingEnum {
-    a = "필터링 ✖",
-    b = "벌점 봉사",
-    c = "1단계",
-    d = "2단계",
-    e = "3단계",
-    f = "1Out",
-    g = "2Out",
+    a = '필터링 ✖',
+    b = '벌점 봉사',
+    c = '1단계',
+    d = '2단계',
+    e = '3단계',
+    f = '1Out',
+    g = '2Out',
 }
 
 export type SelectedUserIds = { [key: string]: boolean };
 
-export type MutateMethod = "POST" | "DELETE" | "PUT";
+export type MutateMethod = 'POST' | 'DELETE' | 'PUT';

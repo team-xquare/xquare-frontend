@@ -12,9 +12,7 @@ const MainLayout = () => {
     return (
         <SortProvider>
             <MainContainer>
-                <ModalContainer>
-                    
-                </ModalContainer>
+                <ModalContainer></ModalContainer>
                 <MainTotal />
                 <MainBoard />
                 <MainList />
@@ -22,7 +20,7 @@ const MainLayout = () => {
             </MainContainer>
         </SortProvider>
     );
-}
+};
 
 const MainContainer = styled.section`
     width: 100%;

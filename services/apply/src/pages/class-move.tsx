@@ -2,7 +2,7 @@ import Radio from '../class-move/components/Radio';
 import { Button } from '@semicolondsm/ui';
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import MainPageTemplate from '../common/templates/MainPageTemplate';
+import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import TagButton from '../class-move/components/TagButton';
 import useClassroom, { prefetchClassroom } from '../class-move/hooks/useClassroom';
 import { GetServerSideProps } from 'next';

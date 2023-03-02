@@ -9,9 +9,7 @@ interface PropsType {
     id: SelectedUserIds;
 }
 
-const PointHistory = ({
-    id,
-}: PropsType) => {
+const PointHistory = ({ id }: PropsType) => {
     const { data, isLoading, error } = useHistoryByIdQuery(id);
 
     return (
@@ -19,19 +17,22 @@ const PointHistory = ({
             <MainSectionTitle>내역</MainSectionTitle>
             <MainBlock>
                 <MainListWrapper>
-                    {
-                        data ?
-                            data.length ?  
-                                data.map(history => <Body1 key={history.id}>{history.reason}</Body1>)
-                                : <Body1>상벌점 기록이 없습니다.</Body1>
-                        : isLoading ? <>로딩중</>
-                            : <Body1>학생을 선택해주세요 !</Body1>
-                    }
+                    {data ? (
+                        data.length ? (
+                            data.map((history) => <Body1 key={history.id}>{history.reason}</Body1>)
+                        ) : (
+                            <Body1>상벌점 기록이 없습니다.</Body1>
+                        )
+                    ) : isLoading ? (
+                        <>로딩중</>
+                    ) : (
+                        <Body1>학생을 선택해주세요 !</Body1>
+                    )}
                 </MainListWrapper>
             </MainBlock>
         </MainContainer>
     );
-}
+};
 
 const MainContainer = styled.div`
     width: 100%;
@@ -47,8 +48,9 @@ const MainBlock = styled.div`
     height: 100%;
     min-height: 0;
     padding: 16px 20px;
+    border-radius: 12px;
     display: flex;
-    background: ${props => props.theme.colors.gray200};
+    background: ${(props) => props.theme.colors.gray200};
 `;
 
 const MainListWrapper = styled.div`

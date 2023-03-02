@@ -17,3 +17,8 @@ export interface GetClassroomRequestParam {
     floor: '1' | '2' | '3' | '4' | '5';
     type: string;
 }
+
+export interface PostClassroomRequestParam {
+    classroomId: string;
+    period: string;
+}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { FlexCol, FlexRow } from '../../common/Flexbox';
+import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
@@ -10,16 +10,26 @@ interface AdditionalApplyItemProps {
     applyKind: string;
     linkTo: string;
     icon: string;
+    rightButtonText?: string;
 }
 
-const AdditionalApplyItem = ({ daliy, applyKind, linkTo, icon }: AdditionalApplyItemProps) => {
+const AdditionalApplyItem = ({
+    daliy,
+    applyKind,
+    linkTo,
+    icon,
+    rightButtonText,
+}: AdditionalApplyItemProps) => {
     const router = useRouter();
+
     return (
         <AdditionalApplyCardContainer
             onClick={(e) => {
                 e.preventDefault();
-                sendBridgeEvent('navigate', { title: applyKind, url: linkTo }, ({ data }) =>
-                    router.push(data.url),
+                sendBridgeEvent(
+                    'navigate',
+                    { title: applyKind, url: linkTo, rightButtonText },
+                    ({ data }) => router.push(data.url),
                 );
             }}
             href={linkTo}>

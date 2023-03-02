@@ -38,7 +38,7 @@ const FeedPost = ({
             <FeedPostContainer>
                 <PostHeaderContainer>
                     <PostProfile
-                        createAt={timeFormatter(created_at)}
+                        createAt={created_at}
                         name={`${name}-${type}`}
                         profileSrc={profile}
                     />

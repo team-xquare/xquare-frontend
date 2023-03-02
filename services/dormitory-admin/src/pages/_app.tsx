@@ -8,7 +8,16 @@ import GlobalStyles from '../styles/globalStyles';
 import { SearchProvider } from '../contexts/search';
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const [queryClient] = useState(() => new QueryClient());
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        retry: 0,
+                    },
+                },
+            }),
+    );
 
     return (
         <SDSThemeProvider mode="light-only">
@@ -23,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Hydrate>
             </QueryClientProvider>
         </SDSThemeProvider>
-    )
+    );
 }
 
 export default MyApp;

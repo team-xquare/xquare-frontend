@@ -19,6 +19,7 @@
         "axios": "^0.27.2",
         "emotion-reset": "^3.0.1",
         "next": "12.1.5",
+        "next-cookies": "^2.0.3",
         "react": "18.0.0",
         "react-dom": "18.0.0",
         "react-query": "^3.39.1",

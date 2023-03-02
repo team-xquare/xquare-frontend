@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-
+import { useBridgeHandler } from '@shared/xbridge';
 import styled from '@emotion/styled';
 import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 import ProfileImage from '../../common/components/profile/ProfileImage';
@@ -10,9 +10,18 @@ interface ProfileWithCommentProps
     extends ComponentProps<typeof ProfileImage>,
         Omit<ComponentProps<typeof ProfileContent>, 'direction'> {
     comment: string;
+    // isMine: string;
 }
+const menuList = ['수정', '삭제'];
 
 const CommentBox = ({ comment, createAt, name, profileSrc }: ProfileWithCommentProps) => {
+    const onActionSheet = useBridgeHandler(
+        'actionSheet',
+        (e) => {
+            menuList[e.detail.index];
+        },
+        { menu: menuList },
+    );
     return (
         <ProfileWithCommentWrapper>
             <ProfileImage profileSrc={profileSrc}></ProfileImage>
@@ -20,7 +29,7 @@ const CommentBox = ({ comment, createAt, name, profileSrc }: ProfileWithCommentP
                 <ProfileContent direction="row" createAt={createAt} name={name} />
                 <CommentSection>{comment}</CommentSection>
             </CommentWrapper>
-            <KababButton onClick={() => {}} />
+            <KababButton onClick={onActionSheet} />
         </ProfileWithCommentWrapper>
     );
 };

@@ -1,23 +1,35 @@
 import axios from 'axios';
 
-export const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+const testToken =
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzk0YTk1NC0xMzhjLTQ5OTEtOWYwYS00NWFjMzI4MTViNWIiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjc3NzMzMDc4LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiU1RVIl19.RGj8lc0rPUdOkzcyvfrZr2PuFrkBwOC5s_8Cj3LdSOc';
+
+export const pointInstance = axios.create({
+    baseURL: 'https://stag-api.xquare.app/points',
 });
 
-instance.interceptors.request.use(
-    config => {
-        return config;
-    }, 
-    error => {
-        return Promise.reject(error);
-    }
-);
+export const feedInstance = axios.create({
+    baseURL: 'https://stag-api.xquare.app/feeds',
+});
 
-instance.interceptors.response.use(
-    response => {
-        return response;
-    },
-    error => {
-        return Promise.reject(error);
-    }
-);
+process.env.NODE_ENV === 'development' &&
+    (pointInstance.defaults.headers.common['Authorization'] = testToken);
+process.env.NODE_ENV === 'development' &&
+    (feedInstance.defaults.headers.common['Authorization'] = testToken);
+
+// instance.interceptors.request.use(
+//     (config) => {
+//         return config;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     },
+// );
+
+// instance.interceptors.response.use(
+//     (response) => {
+//         return response;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     },
+// );

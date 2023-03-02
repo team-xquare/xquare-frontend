@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { Button } from '@semicolondsm/ui';
-import MainPageTemplate from '../common/templates/MainPageTemplate';
-import { FlexCol, FlexRow } from '../common/Flexbox';
+import MainPageTemplate from '../common/components/templates/MainPageTemplate';
+import { FlexCol, FlexRow } from '../common/components/Flexbox';
 import { dehydrate, QueryClient } from 'react-query';
 import ApplyBox from '../main/components/ApplyContainer';
 import AdditionalApplyItem from '../main/components/AdditionalApplyItem';
@@ -13,6 +13,7 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
+
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
@@ -46,6 +47,7 @@ const Apply: NextPage = () => {
                         applyKind="교실 이동"
                         daliy="오늘"
                         linkTo="/class-move"
+                        rightButtonText="제출"
                         icon={ridingIcon.src}
                     />
                     <AdditionalApplyItem
@@ -73,7 +75,7 @@ const Apply: NextPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const queryClient = new QueryClient();
     await Promise.all([
         prefetchStayStatus(queryClient),

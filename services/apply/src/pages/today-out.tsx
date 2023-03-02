@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { FlexCol } from '../common/Flexbox';
-import MainPageTemplate from '../common/templates/MainPageTemplate';
+import { FlexCol } from '../common/components/Flexbox';
+import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
 import TimePickerBox from '../today-out/components/TimePickerBox';
-
+import { useBridgeCallback } from '@shared/xbridge';
 const TodayOut = () => {
     const [timeState, setTimeState] = useState({
         startTime: '',
         endTime: '',
     });
+
+    useBridgeCallback('rightButtonTaped', () => {}, undefined);
+
     return (
         <MainPageTemplate>
             <FlexCol gap={24} fullWidth>

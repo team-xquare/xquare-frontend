@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { PropsWithChildren } from 'react';
-import { FlexCol, FlexRow } from '../../common/Flexbox';
+import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 
 interface LabelBoxProps {
     label: string;

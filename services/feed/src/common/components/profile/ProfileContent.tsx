@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 import FlexBox from '../Flexbox';
 import styled from '@emotion/styled';
+import { timeFormatter } from '../../../utils/timeFormatter';
 
 interface ProfileContentProps extends Partial<Pick<ComponentProps<typeof FlexBox>, 'direction'>> {
     name: string;
@@ -14,7 +15,7 @@ const ProfileContent = ({ createAt, name, direction = 'col' }: ProfileContentPro
             gap={direction === 'col' ? 0 : 4}
             align={direction === 'col' ? 'flex-start' : 'flex-end'}>
             <NameWrapper>{name}</NameWrapper>
-            <DateWrapper>{createAt}</DateWrapper>
+            <DateWrapper>{timeFormatter(createAt)}</DateWrapper>
         </FlexBox>
     );
 };

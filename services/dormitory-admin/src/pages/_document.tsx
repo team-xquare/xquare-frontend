@@ -20,6 +20,6 @@ const Document = () => {
             </body>
         </Html>
     );
-}
+};
 
 export default Document;

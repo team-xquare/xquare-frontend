@@ -7,40 +7,43 @@ import NoticeListItem from './NoticeListItem';
 import { useModal } from '../../../contexts/modal';
 
 interface Props {
-    setActiveId: (id: number) => void;
-    activeId: number | null;
+    setActiveId: (id: string) => void;
+    activeId: string | null;
 }
 
-const NoticeList = ({
-    setActiveId,
-    activeId,
-}: Props) => {
-    const { data: notices } = useNoticeQuery();
+const NoticeList = ({ setActiveId, activeId }: Props) => {
+    const { data: feeds } = useNoticeQuery();
     const { openModal } = useModal();
 
     return (
         <MainContainer>
             <MainSectionTitle>공지사항 목록</MainSectionTitle>
             <MainBlock>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div></div>
-                    <Button size="sm" onClick={openModal}>새 공지사항 작성하기</Button>
+                    <Button size="sm" onClick={openModal}>
+                        새 공지사항 작성하기
+                    </Button>
                 </div>
                 <MainListWrapper>
                     <MainListHeader>제목</MainListHeader>
                     <MainListHeader>날짜</MainListHeader>
                     <MainListHeader>좋아요</MainListHeader>
                     <MainListHeader>댓글</MainListHeader>
-                    {
-                        notices && notices.map(notice => (
-                            <NoticeListItem key={notice.id} {...notice} isActive={notice.id === `${activeId}`} onClick={setActiveId} />
-                        ))
-                    }
+                    {feeds &&
+                        feeds.map((feeds) => (
+                            <NoticeListItem
+                                key={feeds.feed_id}
+                                {...feeds}
+                                isActive={feeds.feed_id === `${activeId}`}
+                                onClick={setActiveId}
+                            />
+                        ))}
                 </MainListWrapper>
             </MainBlock>
         </MainContainer>
     );
-}
+};
 
 const MainContainer = styled.div`
     width: 100%;
@@ -58,7 +61,7 @@ const MainBlock = styled.div`
     min-height: 0;
     padding: 16px 20px;
     display: flex;
-    background: ${props => props.theme.colors.gray200};
+    background: ${(props) => props.theme.colors.gray200};
     display: flex;
     flex-direction: column;
 `;
@@ -82,23 +85,18 @@ const MainListWrapper = styled.div`
         align-items: center;
         justify-content: center;
     }
-
-    & *:nth-child(4n + 1) {
-        padding-left: 20px;
-        justify-content: flex-start;
-    }
 `;
 
 const MainListHeader = styled(Body1)`
     top: 0;
     position: sticky;
-    background: ${props => props.theme.colors.gray200};
+    background: ${(props) => props.theme.colors.gray200};
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid ${props => props.theme.colors.gray400};
+    padding-left: 20px;
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray400};
 `;
 
 export default NoticeList;

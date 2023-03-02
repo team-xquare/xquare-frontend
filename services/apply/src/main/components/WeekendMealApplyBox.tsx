@@ -11,7 +11,6 @@ const WeekendMealApplyBox = () => {
     const sendApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            sendBridgeEvent('error', { message: String(detail.success) });
             detail.success && mutate({ apply: true });
         },
         {
@@ -28,7 +27,6 @@ const WeekendMealApplyBox = () => {
     const sendCancelConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            sendBridgeEvent('error', { message: String(detail.success) });
             detail.success && mutate({ apply: false });
         },
         {

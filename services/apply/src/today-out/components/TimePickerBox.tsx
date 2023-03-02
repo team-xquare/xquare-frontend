@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FlexRow } from '../../common/Flexbox';
+import { FlexRow } from '../../common/components/Flexbox';
 
 interface TimePickerBoxProps {
     startTime?: string;
