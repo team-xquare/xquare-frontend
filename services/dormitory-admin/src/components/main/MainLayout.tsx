@@ -12,7 +12,7 @@ const MainLayout = () => {
     return (
         <SortProvider>
             <MainContainer>
-                <ModalContainer></ModalContainer>
+                {/* <ModalContainer></ModalContainer> */}
                 <MainTotal />
                 <MainBoard />
                 <MainList />
