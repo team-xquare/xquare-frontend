@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { feedInstance, pointInstance } from '.';
-import { Notice } from './types';
+import { Comment, Notice } from './types';
 
 export const useNoticeQuery = () => {
     const fetcher = async (): Promise<Notice[]> => (await feedInstance.get('/writer')).data.feeds;
@@ -44,8 +44,17 @@ export const useAddNoticeMutation = () => {
 
 export const useCommentQuery = (noticeId: string) => {
     return useQuery(
-        ['comment'],
-        async (): Promise<Comment> =>
+        ['comment', noticeId],
+        async (): Promise<Comment[]> =>
             (await feedInstance.get(`/comments/${noticeId}`)).data.comments,
     );
+};
+
+export const useDeleteComment = (commentId: string) => {
+    const queryClient = useQueryClient();
+    return useMutation(async () => await feedInstance.delete(`/comments/${commentId}`), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['comment', commentId]);
+        },
+    });
 };

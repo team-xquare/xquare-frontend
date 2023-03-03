@@ -6,13 +6,14 @@ interface InputProps {
     label?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     name?: string;
+    placeholder?: string;
 }
 
-const Input = ({ value = '', onChange, label }: InputProps) => {
+const Input = ({ value = '', onChange, label, placeholder }: InputProps) => {
     return (
         <InputContainer>
             {label && <InputLabelBox>{label}</InputLabelBox>}
-            <InputBox onChange={onChange} defaultValue={value}></InputBox>
+            <InputBox onChange={onChange} value={value} placeholder={placeholder} />
         </InputContainer>
     );
 };

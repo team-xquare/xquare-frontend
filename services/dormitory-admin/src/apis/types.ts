@@ -14,6 +14,7 @@ export interface Notice {
     feed_id: string;
     content: string;
     created_at: string;
+    title: string;
     profile: string;
     name: string;
     type: string;
@@ -29,6 +30,7 @@ export interface Comment {
     content: string;
     name: string;
     profile: string;
+    is_mine: boolean;
     updated_at: string;
 }
 export interface Rule {

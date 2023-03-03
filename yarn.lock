@@ -2290,6 +2290,7 @@ __metadata:
     "@types/node": 17.0.24
     "@types/react": 18.0.5
     "@types/react-dom": 18.0.1
+    "@types/react-outside-click-handler": ^1.3.1
     "@xquare/utils": 1.0.8
     axios: ^0.26.1
     eslint: 8.13.0
@@ -2298,6 +2299,7 @@ __metadata:
     react: 18.0.0
     react-dom: 18.0.0
     react-is: ^18.0.0
+    react-outside-click-handler: ^1.3.0
     react-query: ^3.38.0
     typescript: 4.6.3
   languageName: unknown
@@ -2834,6 +2836,15 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 6c183e2e50240b77ed767cd968fe061ef4f2b47f84da5ec9e412a767d68c9a004d1f6ccca4295a5aa2c3ee723377e59006a2031f3767c00d8ac9e240a51bb142
+  languageName: node
+  linkType: hard
+
+"@types/react-outside-click-handler@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@types/react-outside-click-handler@npm:1.3.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: 514e5fe09adfee12dc790dc4bee008c8e44a814c6631e2374f08c0e77868ca77783396cc9c868406f952e48a5164a487a487e960d4ed3d77924b419cec5252c7
   languageName: node
   linkType: hard
 

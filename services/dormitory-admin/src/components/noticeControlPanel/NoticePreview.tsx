@@ -17,8 +17,6 @@ const NoticePreview = ({ activeId }: Props) => {
     const { data: feeds } = useNoticeQuery();
     const { mutate: deleteNotice } = useDeleteNoticeMutation();
     const { mutate: updateNotice } = useUpdateNoticeMutation();
-    console.log();
-    console.log(activeId);
     const { feed_id, content } = (feeds ?? []).filter(
         ({ feed_id }) => feed_id === `${activeId}`,
     )[0] ?? {
@@ -78,6 +76,7 @@ const MainBlock = styled.div`
     min-height: 0;
     padding: 16px 20px;
     display: flex;
+    border-radius: 12px;
     flex-direction: column;
     background: ${(props) => props.theme.colors.gray200};
 `;

@@ -25,6 +25,7 @@ const NoticeLayout = () => {
         <NoticeContainer>
             <ModalContainer>
                 <Box>
+                    <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                     <Textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
@@ -76,6 +77,7 @@ const Textarea = styled.textarea`
     width: 400px;
     height: 300px;
     resize: vertical;
+    outline: none;
     border-radius: 6px;
     border: 1px solid ${({ theme }) => theme.colors.gray200};
     padding: 8px 14px;

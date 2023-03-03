@@ -3738,6 +3738,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.24"],\
             ["@types/react", "npm:18.0.5"],\
             ["@types/react-dom", "npm:18.0.1"],\
+            ["@types/react-outside-click-handler", "npm:1.3.1"],\
             ["@xquare/utils", "npm:1.0.8"],\
             ["axios", "npm:0.26.1"],\
             ["eslint", "npm:8.13.0"],\
@@ -3746,6 +3747,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
             ["react-is", "npm:18.0.0"],\
+            ["react-outside-click-handler", "virtual:30db699bab441e4255e35f2d7708e2ec8c4c1f253398bc4b0f84316765322d74310519700a8f1869f5229345e0ce0ced62159aa0e6f09e3d73d59cd303dcd3fb#npm:1.3.0"],\
             ["react-query", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:3.39.2"],\
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=a1c5e5"]\
           ],\
@@ -4527,6 +4529,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.1-3444453ba7-6c183e2e50.zip/node_modules/@types/react-dom/",\
           "packageDependencies": [\
             ["@types/react-dom", "npm:18.0.1"],\
+            ["@types/react", "npm:18.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/react-outside-click-handler", [\
+        ["npm:1.3.1", {\
+          "packageLocation": "./.yarn/cache/@types-react-outside-click-handler-npm-1.3.1-5937a0d834-514e5fe09a.zip/node_modules/@types/react-outside-click-handler/",\
+          "packageDependencies": [\
+            ["@types/react-outside-click-handler", "npm:1.3.1"],\
             ["@types/react", "npm:18.0.6"]\
           ],\
           "linkType": "HARD"\
