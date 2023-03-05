@@ -10,7 +10,7 @@ import { usePointExcel, usePointQuery } from '../../../apis/points';
 import StudentList from './StudentList';
 import { Flex } from '../../common/Flex';
 import { sortedStudents } from '../../../libs/utils';
-import BlockContainer from '../common/BlockContainer';
+import BlockContainer from '../../common/BlockContainer';
 
 interface PropsType {
     selectedIds: SelectedUserIds;
@@ -95,7 +95,7 @@ const MainBlock = styled.div`
 
 const MainBlockHeader = styled.div`
     width: 100%;
-    padding: 0 24px;
+    padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;

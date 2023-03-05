@@ -4,7 +4,7 @@ import { Body1, Body2, Caption } from '@semicolondsm/ui';
 import { useDeleteRuleHistory, useHistoryByIdQuery } from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import KebabMenu from '../common/KebabMenu';
-import BlockContainer from './common/BlockContainer';
+import BlockContainer from '../common/BlockContainer';
 import { Flex } from '../common/Flex';
 
 interface PropsType {

@@ -7,6 +7,7 @@ import {
     useNoticeQuery,
     useUpdateNoticeMutation,
 } from '../../apis/notices';
+import BlockContainer from '../common/BlockContainer';
 
 interface Props {
     activeId: string | null;
@@ -42,8 +43,7 @@ const NoticePreview = ({ activeId }: Props) => {
 
     return (
         <MainContainer>
-            <MainSectionTitle>미리보기</MainSectionTitle>
-            <MainBlock>
+            <BlockContainer title="미리보기">
                 <PreviewContent ref={contentRef} contentEditable={isEditing} isEditing={isEditing}>
                     {content}
                 </PreviewContent>
@@ -58,7 +58,7 @@ const NoticePreview = ({ activeId }: Props) => {
                         {isEditing && content ? '수정완료' : '수정하기'}
                     </Button>
                 </ButtonBox>
-            </MainBlock>
+            </BlockContainer>
         </MainContainer>
     );
 };
@@ -72,20 +72,13 @@ const MainContainer = styled.div`
     align-items: flex-start;
 `;
 
-const MainBlock = styled.div`
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    display: flex;
-    border-radius: 16px;
-    flex-direction: column;
-`;
-
 const ButtonBox = styled.div`
+    width: 100%;
     display: flex;
-    margin-top: 12px;
+    padding: 12px;
     justify-content: flex-end;
     gap: 8px;
+    border-top: 1px solid ${({ theme }) => theme.colors.gray100};
     .delete {
         border: 0.5px solid ${({ theme }) => theme.colors.gray400};
         > div {
@@ -102,14 +95,14 @@ const ButtonBox = styled.div`
 `;
 
 const PreviewContent = styled.div<{ isEditing: boolean }>`
-    margin-top: 8px;
+    width: 100%;
     height: 80%;
     overflow-y: auto;
-    padding: 12px;
+    padding: 24px;
     white-space: pre-wrap;
     outline: none;
     background-color: ${({ theme, isEditing }) =>
-        isEditing ? theme.colors.purple50 : theme.colors.gray100};
+        isEditing ? theme.colors.purple50 : theme.colors.white};
 `;
 
 export default NoticePreview;

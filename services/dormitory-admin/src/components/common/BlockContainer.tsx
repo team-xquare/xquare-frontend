@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
 import { Body1 } from '@semicolondsm/ui';
-import { Flex } from '../../common/Flex';
+import { Flex } from './Flex';
 
 interface BlockContainerProps {
     title: string;
@@ -24,7 +24,8 @@ export default BlockContainer;
 
 const Header = styled(Flex)`
     padding: 8px 24px;
-    height: 60px;
+    min-height: 60px;
+
     border-bottom: 1px solid ${(props) => props.theme.colors.gray100};
 `;
 
@@ -35,7 +36,6 @@ const MainBlock = styled.div`
     border-radius: 8px;
 
     display: flex;
-    gap: 16px;
     flex-direction: column;
     align-items: center;
     position: relative;

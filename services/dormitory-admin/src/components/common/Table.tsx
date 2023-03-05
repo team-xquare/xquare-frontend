@@ -24,14 +24,19 @@ export const Table = styled.table<{ isScroll?: boolean }>`
         `}
 `;
 
-export const TableHead = styled.thead`
+export const TableHead = styled.thead<{ isBorder?: boolean }>`
     position: sticky;
     top: 0;
     left: 0;
     z-index: 1;
 
-    border-top: 1px solid ${({ theme }) => theme.colors.gray100};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
+    ${({ isBorder = true, theme }) =>
+        isBorder &&
+        css`
+            border-top: 1px solid ${theme.colors.gray100};
+            border-bottom: 1px solid ${theme.colors.gray100};
+        `}
+
     background: ${({ theme }) => theme.colors.gray50};
 `;
 

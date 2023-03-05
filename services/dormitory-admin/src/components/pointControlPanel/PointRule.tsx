@@ -8,7 +8,7 @@ import ModalContainer from '../common/ModalContainer';
 import PlusIcon from '../../assets/plus.svg';
 import Input from '../common/Input';
 import Counter from '../common/Counter';
-import BlockContainer from './common/BlockContainer';
+import BlockContainer from '../common/BlockContainer';
 
 interface PropsType {
     id: SelectedUserIds;

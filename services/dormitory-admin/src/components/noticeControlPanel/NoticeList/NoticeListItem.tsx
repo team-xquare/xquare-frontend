@@ -29,18 +29,18 @@ const NoticeListItem = ({
             customStyle
             isCursor
             style={{ padding: '8px 28px' }}>
-            <TableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
                 <Body2>{content.slice(0, 20)}</Body2>
-            </TableCell>
-            <TableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            </CustomTableCell>
+            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
                 <Body2>{getDateString(new Date(created_at))}</Body2>
-            </TableCell>
-            <TableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            </CustomTableCell>
+            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
                 <Body2>{like_count}</Body2>
-            </TableCell>
-            <TableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            </CustomTableCell>
+            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
                 <Body2>{comment_count}</Body2>
-            </TableCell>
+            </CustomTableCell>
         </TableRow>
     );
 };
@@ -48,3 +48,8 @@ const NoticeListItem = ({
 const NoticeItemContainer = styled.div``;
 
 export default NoticeListItem;
+
+const CustomTableCell = styled(TableCell)`
+    align-items: center;
+    height: 40px;
+`;
