@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { Body1 } from '@semicolondsm/ui';
+import { Body2 } from '@semicolondsm/ui';
+import { ColorToken } from '@semicolondsm/design-token';
+import { css } from '@emotion/react';
 
 interface PropsType {
     isActive: boolean;
@@ -13,7 +15,11 @@ const NavigationItem = ({ isActive, uri, title }: PropsType) => {
     return (
         <Link href={uri}>
             <Item isActive={isActive}>
-                <Body1>{title}</Body1>
+                <Body2
+                    fontWeight={isActive ? 'medium' : 'regular'}
+                    color={'currentColor' as ColorToken}>
+                    {title}
+                </Body2>
             </Item>
         </Link>
     );
@@ -21,21 +27,22 @@ const NavigationItem = ({ isActive, uri, title }: PropsType) => {
 
 const Item = styled.a<{ isActive: boolean }>`
     width: 100%;
-    color: ${(props) => props.theme.colors.black};
+    color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.black)};
     text-decoration: none;
     padding: 10px 12px;
-    border-radius: 12px;
-    background: ${({ isActive, theme }) => (isActive ? theme.colors.white : 'transparent')};
-    transition: background 0.07s linear;
+    border-radius: 4px;
+    background: ${({ isActive, theme }) => (isActive ? theme.colors.purple400 : 'transparent')};
+    transition: background 0.05s linear;
     cursor: pointer;
     user-select: none;
 
-    &:hover {
-        background: ${(props) => props.theme.colors.purple400};
-        > p {
-            color: ${(props) => props.theme.colors.white};
-        }
-    }
+    ${({ isActive, theme }) =>
+        !isActive &&
+        css`
+            &:hover {
+                background: ${theme.colors.gray100};
+            }
+        `}
 `;
 
 export default NavigationItem;

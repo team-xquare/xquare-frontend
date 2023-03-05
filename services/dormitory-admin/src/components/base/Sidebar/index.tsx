@@ -39,7 +39,8 @@ const SidebarContainer = styled.nav`
     width: 260px;
     height: 100%;
     padding: 30px;
-    background: ${(props) => props.theme.colors.purple50};
+    border-right: 1px solid ${(props) => props.theme.colors.gray100};
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;

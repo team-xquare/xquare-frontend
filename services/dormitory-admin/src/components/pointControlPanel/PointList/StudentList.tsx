@@ -46,53 +46,71 @@ const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserId
     ];
 
     return (
-        <Table>
-            <TableHead>
-                <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }}>
-                    {isMultiSelected && (
-                        <TableCell scope="col" justify="center" align="center">
-                            <input
-                                type="checkbox"
-                                onChange={handleSelectAll}
-                                checked={students.every(
-                                    ({ id: studentId }) => selectedIds[studentId],
-                                )}
-                            />
-                        </TableCell>
-                    )}
+        <Container>
+            <ScrollArea>
+                <Table>
+                    <TableHead>
+                        <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }}>
+                            {isMultiSelected && (
+                                <TableCell scope="col" justify="center" align="center">
+                                    <input
+                                        type="checkbox"
+                                        onChange={handleSelectAll}
+                                        checked={students.every(
+                                            ({ id: studentId }) => selectedIds[studentId],
+                                        )}
+                                    />
+                                </TableCell>
+                            )}
 
-                    {columns.map((column, i) => (
-                        <TableCell key={i} scope="col" justify="center" align="center">
-                            <Body2>{column}</Body2>
-                        </TableCell>
-                    ))}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {students.map((student) => (
-                    <StudentListItem
-                        key={student.id}
-                        cellSizes={cellSizes}
-                        isMultiSelected={isMultiSelected}
-                        isActive={!!selectedIds[student.id]}
-                        onClick={() => {
-                            if (isMultiSelected) {
-                                setSelectedUserIds({
-                                    ...selectedIds,
-                                    [student.id]: !selectedIds[student.id],
-                                });
-                            } else {
-                                setSelectedUserIds({
-                                    [student.id]: true,
-                                });
-                            }
-                        }}
-                        {...student}
-                    />
-                ))}
-            </TableBody>
-        </Table>
+                            {columns.map((column, i) => (
+                                <TableCell key={i} scope="col" justify="center" align="center">
+                                    <Body2>{column}</Body2>
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {students.map((student) => (
+                            <StudentListItem
+                                key={student.id}
+                                cellSizes={cellSizes}
+                                isMultiSelected={isMultiSelected}
+                                isActive={!!selectedIds[student.id]}
+                                onClick={() => {
+                                    if (isMultiSelected) {
+                                        setSelectedUserIds({
+                                            ...selectedIds,
+                                            [student.id]: !selectedIds[student.id],
+                                        });
+                                    } else {
+                                        setSelectedUserIds({
+                                            [student.id]: true,
+                                        });
+                                    }
+                                }}
+                                {...student}
+                            />
+                        ))}
+                    </TableBody>
+                </Table>
+            </ScrollArea>
+        </Container>
     );
 };
 
 export default StudentList;
+
+const Container = styled.div`
+    position: relative;
+    width: 100%;
+    flex: 1;
+`;
+
+const ScrollArea = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    overflow: auto;
+`;
