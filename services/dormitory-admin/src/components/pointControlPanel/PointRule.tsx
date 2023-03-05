@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { ToggleButton, Body1, Button } from '@semicolondsm/ui';
-import MainSectionTitle from '../common/MainSectionTitle';
+import { ToggleButton, Body2, Button } from '@semicolondsm/ui';
 import { useAddPointQuery, useAddRuleMutation, useRuleQuery } from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import { useModal } from '../../contexts/modal';
 import ModalContainer from '../common/ModalContainer';
-import Image from 'next/image';
 import PlusIcon from '../../assets/plus.svg';
 import Input from '../common/Input';
 import Counter from '../common/Counter';
+import BlockContainer from './common/BlockContainer';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -34,30 +33,37 @@ const PointRule = ({ id }: PropsType) => {
 
     return (
         <MainContainer>
-            <MainSectionTitle>상벌점 목록</MainSectionTitle>
-            <MainBlock>
-                <ToggleButton
-                    items={[
-                        {
-                            title: '상점',
-                            onClick: () => setType(true),
-                        },
-                        {
-                            title: '벌점',
-                            onClick: () => setType(false),
-                        },
-                    ]}
-                />
+            <BlockContainer
+                title="상벌점 목록"
+                titleRightContent={
+                    <div
+                        style={{
+                            width: '150px',
+                        }}>
+                        <ToggleButton
+                            items={[
+                                {
+                                    title: '상점',
+                                    onClick: () => setType(true),
+                                },
+                                {
+                                    title: '벌점',
+                                    onClick: () => setType(false),
+                                },
+                            ]}
+                        />
+                    </div>
+                }>
                 <MainListWrapper>
                     {ruleList?.map((rule) => (
                         <MainListItem key={rule.id}>
-                            <Body1>
+                            <Body2>
                                 {rule.reason} ({rule.point}점)
-                            </Body1>
+                            </Body2>
                             <Button
                                 disabled={Object.values(id).indexOf(true) === -1}
                                 size="sm"
-                                fill="purple"
+                                fill="purpleLight"
                                 onClick={() => pointsMutation.mutate(rule.id)}>
                                 부여하기
                             </Button>
@@ -89,7 +95,7 @@ const PointRule = ({ id }: PropsType) => {
                             onChange={(e) => setReason(e.target.value)}
                             value={reason}
                         />
-                        <Counter label="부여 점수" setNum={setNumber} num={number}></Counter>
+                        <Counter label="부여 점수" setNum={setNumber} num={number} />
 
                         <CustomButton
                             fill="purple"
@@ -99,7 +105,7 @@ const PointRule = ({ id }: PropsType) => {
                         </CustomButton>
                     </AddRuleModalContainer>
                 </ModalContainer>
-            </MainBlock>
+            </BlockContainer>
         </MainContainer>
     );
 };
@@ -111,20 +117,6 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-`;
-
-const MainBlock = styled.div`
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    border-radius: 16px;
-    padding: 16px 20px;
-    display: flex;
-    gap: 16px;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    background: ${(props) => props.theme.colors.gray200};
 `;
 
 const MainListWrapper = styled.div`
@@ -145,7 +137,7 @@ const MainListItem = styled.div`
     justify-content: space-between;
     align-items: center;
     justify-items: left;
-    padding: 16px 20px;
+    padding: 8px 24px;
 
     border-radius: 12px;
     background-color: ${({ theme }) => theme.colors.white};

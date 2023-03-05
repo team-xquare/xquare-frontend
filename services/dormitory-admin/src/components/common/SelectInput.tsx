@@ -4,7 +4,7 @@ const SelectInput = styled.input`
     padding: 0 12px;
     height: 36px;
     border-radius: 4px;
-    border: 1px solid ${({ theme }) => theme.colors.gray400};
+    border: 1px solid ${({ theme }) => theme.colors.gray200};
     outline: none;
 
     transition: 0.15s;
@@ -14,7 +14,7 @@ const SelectInput = styled.input`
     }
 
     &:hover {
-        border: 1px solid ${({ theme }) => theme.colors.gray500};
+        border: 1px solid ${({ theme }) => theme.colors.gray300};
         box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.purple100};
     }
 `;

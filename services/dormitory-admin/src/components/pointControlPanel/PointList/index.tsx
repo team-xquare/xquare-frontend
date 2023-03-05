@@ -10,6 +10,7 @@ import { usePointExcel, usePointQuery } from '../../../apis/points';
 import StudentList from './StudentList';
 import { Flex } from '../../common/Flex';
 import { sortedStudents } from '../../../libs/utils';
+import BlockContainer from '../common/BlockContainer';
 
 interface PropsType {
     selectedIds: SelectedUserIds;
@@ -37,8 +38,7 @@ const PointList = ({ selectedIds, setSelectedUserIds }: PropsType) => {
 
     return (
         <MainContainer>
-            <MainSectionTitle>학생 리스트</MainSectionTitle>
-            <MainBlock>
+            <BlockContainer title="학생 리스트">
                 <MainBlockHeader>
                     <FlexBox>
                         <Select
@@ -72,7 +72,7 @@ const PointList = ({ selectedIds, setSelectedUserIds }: PropsType) => {
                     selectedIds={selectedIds}
                     setSelectedUserIds={setSelectedUserIds}
                 />
-            </MainBlock>
+            </BlockContainer>
         </MainContainer>
     );
 };
@@ -94,10 +94,11 @@ const MainBlock = styled.div`
 `;
 
 const MainBlockHeader = styled.div`
+    width: 100%;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
 `;
 
 const MainContainer = styled.div`

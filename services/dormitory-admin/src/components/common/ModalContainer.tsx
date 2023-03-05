@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { useModal } from '../../contexts/modal';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { keyframes } from '@emotion/react';
 interface PropsType {
     children: React.ReactNode;
     isCanClose?: boolean;
@@ -29,6 +30,16 @@ const ModalContainer = ({ children, isCanClose }: PropsType) => {
     );
 };
 
+const disolve = keyframes`
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+    }
+    
+`;
 const ModalWrapper = styled.div`
     width: 100%;
     height: 100%;
@@ -49,7 +60,9 @@ const ModalBox = styled.div`
     justify-content: center;
     padding: 14px 20px;
     border-radius: 8px;
+
     background: ${(props) => props.theme.colors.white};
+    animation: ${disolve} 0.15s ease-in-out;
 `;
 
 const CloseButton = styled.span`

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import MainSectionTitle from '../common/MainSectionTitle';
 import { Body1, Body2, Caption } from '@semicolondsm/ui';
 import { useDeleteRuleHistory, useHistoryByIdQuery } from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import KebabMenu from '../common/KebabMenu';
+import BlockContainer from './common/BlockContainer';
+import { Flex } from '../common/Flex';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -21,8 +22,7 @@ const PointHistory = ({ id }: PropsType) => {
 
     return (
         <MainContainer>
-            <MainSectionTitle>내역</MainSectionTitle>
-            <MainBlock>
+            <BlockContainer title="내역">
                 <MainListWrapper>
                     {data ? (
                         data.length ? (
@@ -34,15 +34,19 @@ const PointHistory = ({ id }: PropsType) => {
                                         <Body2>{history.reason}</Body2>
                                         <Caption></Caption>
                                     </TextContainer>
-                                    <MenuRightContainer>
-                                        <MenuPointText>{history.point}</MenuPointText>
+                                    <Flex gap={18} align="center">
+                                        <Body1
+                                            color={history.point > 0 ? 'green800' : 'red200'}
+                                            fontWeight="medium">
+                                            {history.point}
+                                        </Body1>
                                         <KebabMenu
                                             item={['삭제하기']}
                                             callBack={(item) => {
                                                 itemAction[item]();
                                             }}
                                         />
-                                    </MenuRightContainer>
+                                    </Flex>
                                 </HistoryItemContainer>
                             ))
                         ) : (
@@ -54,7 +58,7 @@ const PointHistory = ({ id }: PropsType) => {
                         <Body1>학생을 선택해주세요 !</Body1>
                     )}
                 </MainListWrapper>
-            </MainBlock>
+            </BlockContainer>
         </MainContainer>
     );
 };
@@ -66,16 +70,6 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-`;
-
-const MainBlock = styled.div`
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    padding: 16px 20px;
-    border-radius: 12px;
-    display: flex;
-    background: ${(props) => props.theme.colors.gray200};
 `;
 
 const MainListWrapper = styled.div`
@@ -94,7 +88,7 @@ const HistoryItemContainer = styled.div`
     width: 100%;
     border-radius: 12px;
     background-color: ${({ theme }) => theme.colors.white};
-    padding: 16px;
+    padding: 8px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,16 +96,6 @@ const HistoryItemContainer = styled.div`
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
-`;
-
-const MenuRightContainer = styled.div`
-    display: flex;
-    gap: 12px;
-    align-items: center;
-`;
-
-const MenuPointText = styled.div`
-    color: ${({ theme }) => theme.colors.gray800};
 `;
 
 export default PointHistory;
