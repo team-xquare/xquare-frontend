@@ -12,22 +12,11 @@ import PointRule from './PointRule';
 interface PointProps {}
 
 const Point: FC<PointProps> = () => {
-    const { data, isLoading, error } = usePointQuery();
     const [selectedUserIds, setSelectedUserIds] = useState<SelectedUserIds>({});
-
-    const { sortType } = useSort();
-    const { pattern } = useSearch();
-
-    const sortedStudentsList = sortedStudents(sortType, data);
-    const filteredStudent = sortedStudentsList.filter(({ name }) => pattern.test(name));
 
     return (
         <PointContainer>
-            <PointList
-                selectedIds={selectedUserIds}
-                setSelectedUserIds={setSelectedUserIds}
-                students={filteredStudent}
-            />
+            <PointList selectedIds={selectedUserIds} setSelectedUserIds={setSelectedUserIds} />
             <PointRule id={selectedUserIds} />
             <PointHistory id={selectedUserIds} />
         </PointContainer>

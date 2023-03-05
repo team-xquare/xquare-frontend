@@ -7,21 +7,13 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from '../../common/T
 import StudentListItem from './StudentListItem';
 
 interface PropsType {
+    isMultiSelected: boolean;
     students: Student[];
     selectedIds: SelectedUserIds;
     setSelectedUserIds: React.Dispatch<React.SetStateAction<SelectedUserIds>>;
 }
 
-const cellSize = [
-    '40px',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 2fr)',
-];
-const StudentList = ({ students, selectedIds, setSelectedUserIds }: PropsType) => {
+const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserIds }: PropsType) => {
     const handleSelectAll = () => {
         if (students.every(({ id: studentId }) => selectedIds[studentId])) {
             setSelectedUserIds((prev) => ({
@@ -43,17 +35,31 @@ const StudentList = ({ students, selectedIds, setSelectedUserIds }: PropsType) =
 
     const columns = ['학번', '이름', '상점', '벌점', '다벌점 단계', '다벌점 완료 여부'];
 
+    const cellSizes = [
+        ...(isMultiSelected ? ['40px'] : []),
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 2fr)',
+    ];
+
     return (
         <Table>
             <TableHead>
-                <TableRow cellSizes={cellSize} style={{ padding: '8px 28px' }}>
-                    <TableCell scope="col" justify="center" align="center">
-                        <input
-                            type="checkbox"
-                            onChange={handleSelectAll}
-                            checked={students.every(({ id: studentId }) => selectedIds[studentId])}
-                        />
-                    </TableCell>
+                <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }}>
+                    {isMultiSelected && (
+                        <TableCell scope="col" justify="center" align="center">
+                            <input
+                                type="checkbox"
+                                onChange={handleSelectAll}
+                                checked={students.every(
+                                    ({ id: studentId }) => selectedIds[studentId],
+                                )}
+                            />
+                        </TableCell>
+                    )}
 
                     {columns.map((column, i) => (
                         <TableCell key={i} scope="col" justify="center" align="center">
@@ -66,13 +72,21 @@ const StudentList = ({ students, selectedIds, setSelectedUserIds }: PropsType) =
                 {students.map((student) => (
                     <StudentListItem
                         key={student.id}
-                        onClick={() =>
-                            setSelectedUserIds({
-                                ...selectedIds,
-                                [student.id]: !selectedIds[student.id],
-                            })
-                        }
-                        isActive={selectedIds[student.id]}
+                        cellSizes={cellSizes}
+                        isMultiSelected={isMultiSelected}
+                        isActive={!!selectedIds[student.id]}
+                        onClick={() => {
+                            if (isMultiSelected) {
+                                setSelectedUserIds({
+                                    ...selectedIds,
+                                    [student.id]: !selectedIds[student.id],
+                                });
+                            } else {
+                                setSelectedUserIds({
+                                    [student.id]: true,
+                                });
+                            }
+                        }}
                         {...student}
                     />
                 ))}
@@ -80,61 +94,5 @@ const StudentList = ({ students, selectedIds, setSelectedUserIds }: PropsType) =
         </Table>
     );
 };
-
-const FlexBox = styled.div`
-    display: flex;
-    align-content: center;
-    gap: 6px;
-`;
-
-const MainBlock = styled.div`
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    user-select: none;
-    background: ${(props) => props.theme.colors.white};
-`;
-
-const MainBlockHeader = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-`;
-
-const MainListWrapper = styled.div<{ length: number }>`
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-rows: 50px;
-    grid-template-columns: ${(props) => `repeat(${props.length}, auto)`};
-    align-items: center;
-    justify-items: center;
-    overflow-y: scroll;
-
-    & div {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-`;
-
-const MainListHeader = styled(Body1)`
-    top: 0;
-    position: sticky;
-    background: ${(props) => props.theme.colors.white};
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid ${(props) => props.theme.colors.gray400};
-`;
 
 export default StudentList;

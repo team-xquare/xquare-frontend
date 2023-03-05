@@ -1,26 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Select, Button } from '@semicolondsm/ui';
-import PointListItem from './StudentListItem';
 import MainSectionTitle from '../../common/MainSectionTitle';
-import { SelectedUserIds, SortingEnum, Student } from '../../../apis/types';
+import { SelectedUserIds, SortingEnum } from '../../../apis/types';
 import SelectInput from '../../common/SelectInput';
 import { useSort } from '../../../contexts/sort';
 import { useSearch } from '../../../contexts/search';
-import { usePointExcel } from '../../../apis/points';
+import { usePointExcel, usePointQuery } from '../../../apis/points';
 import StudentList from './StudentList';
 import { Flex } from '../../common/Flex';
+import { sortedStudents } from '../../../libs/utils';
 
 interface PropsType {
-    students: Student[];
     selectedIds: SelectedUserIds;
     setSelectedUserIds: React.Dispatch<React.SetStateAction<SelectedUserIds>>;
 }
 
-const PointList = ({ students, selectedIds, setSelectedUserIds }: PropsType) => {
+const PointList = ({ selectedIds, setSelectedUserIds }: PropsType) => {
+    const { data, isLoading, error } = usePointQuery();
+
     const { setSortType } = useSort();
     const { setQuery, query } = useSearch();
     const pointExcel = usePointExcel();
+
+    const { sortType } = useSort();
+    const { pattern } = useSearch();
+
+    const sortedStudentsList = sortedStudents(sortType, data);
+    const filteredStudent = sortedStudentsList.filter(({ name }) => pattern.test(name));
+
+    const [isMultiSelected, setMultiSelected] = useState<boolean>(false);
+
+    useEffect(() => {
+        setSelectedUserIds({});
+    }, [isMultiSelected]);
 
     return (
         <MainContainer>
@@ -42,13 +55,20 @@ const PointList = ({ students, selectedIds, setSelectedUserIds }: PropsType) => 
                         />
                     </FlexBox>
                     <Flex gap={8}>
+                        <Button
+                            onClick={() => setMultiSelected((prev) => !prev)}
+                            fill="border"
+                            size="sm">
+                            {isMultiSelected ? '다중 선택 취소' : '다중 선택'}
+                        </Button>
                         <Button onClick={() => pointExcel()} fill="purple" size="sm">
                             엑셀 다운로드
                         </Button>
                     </Flex>
                 </MainBlockHeader>
                 <StudentList
-                    students={students}
+                    isMultiSelected={isMultiSelected}
+                    students={filteredStudent}
                     selectedIds={selectedIds}
                     setSelectedUserIds={setSelectedUserIds}
                 />

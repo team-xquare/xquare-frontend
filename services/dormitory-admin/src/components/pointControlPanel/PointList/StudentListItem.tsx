@@ -7,7 +7,9 @@ import { TableCell, TableRow } from '../../common/Table';
 
 interface PropsType {
     onClick: (id: string, isCheckbox?: boolean) => void;
+    isMultiSelected: boolean;
     isActive: boolean;
+    cellSizes: string[];
 }
 
 const PointListItem = ({
@@ -16,8 +18,8 @@ const PointListItem = ({
     name,
     good_point,
     bad_point,
-    stay_apply,
-    meal_apply,
+    isMultiSelected,
+    cellSizes,
     penalty_level,
     is_penalty_required,
 
@@ -36,15 +38,6 @@ const PointListItem = ({
             </CustomTableCell>
         );
     };
-    const cellSizes = [
-        '40px',
-        'minmax(11%, 1fr)',
-        'minmax(11%, 1fr)',
-        'minmax(11%, 1fr)',
-        'minmax(11%, 1fr)',
-        'minmax(11%, 1fr)',
-        'minmax(11%, 2fr)',
-    ];
 
     const penaltyKo = ['-', '1단계', '2단계', '3단계', '1OUT', '2OUT'];
 
@@ -56,9 +49,15 @@ const PointListItem = ({
             isCursor
             onClick={() => onClick(id)}
             style={{ padding: '8px 28px' }}>
-            <CustomTableCell onClick={() => onClick(id, true)} justify="center" align="center">
-                <input type="checkbox" checked={isActive} />
-            </CustomTableCell>
+            {isMultiSelected && (
+                <CustomTableCell justify="center" align="center">
+                    <input
+                        type="checkbox"
+                        checked={isActive}
+                        onChange={(e) => onClick(id, e.target.checked)}
+                    />
+                </CustomTableCell>
+            )}
 
             {createText(num)}
             {createText(name)}

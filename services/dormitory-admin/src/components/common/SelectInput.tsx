@@ -6,6 +6,16 @@ const SelectInput = styled.input`
     border-radius: 4px;
     border: 1px solid ${({ theme }) => theme.colors.gray400};
     outline: none;
-    background: ${({ theme }) => theme.colors.gray50};
+
+    transition: 0.15s;
+
+    &::placeholder {
+        color: ${({ theme }) => theme.colors.gray400};
+    }
+
+    &:hover {
+        border: 1px solid ${({ theme }) => theme.colors.gray500};
+        box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.purple100};
+    }
 `;
 export default SelectInput;
