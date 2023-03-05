@@ -9,11 +9,7 @@ interface PropsType {
     title: string;
 }
 
-const NavigationItem = ({
-    isActive,
-    uri,
-    title,
-}: PropsType) => {
+const NavigationItem = ({ isActive, uri, title }: PropsType) => {
     return (
         <Link href={uri}>
             <Item isActive={isActive}>
@@ -21,21 +17,23 @@ const NavigationItem = ({
             </Item>
         </Link>
     );
-}
+};
 
-const Item = styled.a<{ isActive: boolean; }>`
+const Item = styled.a<{ isActive: boolean }>`
     width: 100%;
-    color: ${props => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.black};
     text-decoration: none;
-    border-radius: 10px;
     padding: 10px 12px;
-    background: ${({ isActive, theme }) => isActive ? theme.colors.gray400 : "transparent"};
-    transition: background .07s linear;
+    background: ${({ isActive, theme }) => (isActive ? theme.colors.white : 'transparent')};
+    transition: background 0.07s linear;
     cursor: pointer;
     user-select: none;
 
     &:hover {
-        background: ${props => props.theme.colors.gray400};
+        background: ${(props) => props.theme.colors.purple400};
+        > p {
+            color: ${(props) => props.theme.colors.white};
+        }
     }
 `;
 

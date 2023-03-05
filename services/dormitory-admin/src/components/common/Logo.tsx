@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import React from 'react';
 import styled from '@emotion/styled';
@@ -15,7 +14,7 @@ const Logo = () => {
             </LogoWrapper>
         </Link>
     );
-}
+};
 
 const LogoWrapper = styled.a`
     width: 100%;
@@ -30,25 +29,24 @@ const LogoSvgBorderRedius = styled.div`
     height: 40px;
     overflow: hidden;
     border-radius: 5px;
-
+    margin-top: 22px;
     & svg {
         transform: translateY(-32px);
     }
 `;
 
 const LogoText = styled.span`
-    font-size: 28px;
-    letter-spacing: -1px;
+    font-size: 24px;
     margin-left: 16px;
     position: relative;
 
     &::after {
-        content: "Admin";
-        font-size: 20px;
-        color: #19B6B6;
+        content: 'Admin';
+        font-size: 18px;
+        color: ${({ theme }) => theme.colors.gray500};
         position: absolute;
-        top: 100%;
-        right: -10px;
+        top: 120%;
+        left: 0;
         transform: translateY(-12px);
     }
 `;

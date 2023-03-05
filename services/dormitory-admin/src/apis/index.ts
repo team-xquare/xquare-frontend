@@ -75,7 +75,7 @@ instanceArr.map((instance) => {
                             customCookie.remove.access_token();
                             customCookie.remove.refresh_token();
                         } else {
-                            toast.error('관리지에게 문의해주세요.');
+                            toast.error('관리자에게 문의해주세요.');
                         }
                     }
                 } else return Promise.reject(error);

@@ -12,25 +12,17 @@ interface PropsType {
     items: Item[];
 }
 
-const Navigation = ({
-    items,
-}: PropsType) => {
+const Navigation = ({ items }: PropsType) => {
     const router = useRouter();
 
     return (
         <NavigationWrapper>
-            {
-                items.map(item => (
-                    <NavigationItem
-                        key={item.title}
-                        isActive={router.asPath === item.uri}
-                        {...item} 
-                    />
-                ))
-            }
+            {items.map((item) => (
+                <NavigationItem key={item.title} isActive={router.asPath === item.uri} {...item} />
+            ))}
         </NavigationWrapper>
     );
-}
+};
 
 const NavigationWrapper = styled.div`
     width: 100%;

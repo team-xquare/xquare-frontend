@@ -17,13 +17,12 @@ const NoticeList = ({ setActiveId, activeId }: Props) => {
 
     return (
         <MainContainer>
-            <MainSectionTitle>공지사항 목록</MainSectionTitle>
             <MainBlock>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div></div>
-                    <Button size="sm" onClick={openModal}>
+                    <MainSectionTitle>공지사항 목록</MainSectionTitle>
+                    <CustomButton size="sm" onClick={openModal} fill="purple">
                         새 공지사항 작성하기
-                    </Button>
+                    </CustomButton>
                 </div>
                 <MainListWrapper>
                     <MainListHeader>제목</MainListHeader>
@@ -59,9 +58,6 @@ const MainBlock = styled.div`
     width: 100%;
     height: 100%;
     min-height: 0;
-    padding: 16px 20px;
-    display: flex;
-    background: ${(props) => props.theme.colors.gray200};
     display: flex;
     flex-direction: column;
 `;
@@ -71,13 +67,13 @@ const MainListWrapper = styled.div`
     height: 100%;
     position: relative;
     display: grid;
+    margin-top: 20px;
     grid-auto-flow: row;
     grid-auto-rows: 50px;
     grid-template-columns: 3fr repeat(3, 1fr);
     align-items: center;
     justify-items: center;
     overflow-y: scroll;
-
     & div {
         width: 100%;
         height: 100%;
@@ -88,15 +84,17 @@ const MainListWrapper = styled.div`
 `;
 
 const MainListHeader = styled(Body1)`
-    top: 0;
     position: sticky;
-    background: ${(props) => props.theme.colors.gray200};
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     padding-left: 20px;
-    border-bottom: 1px solid ${(props) => props.theme.colors.gray400};
+    color: ${({ theme }) => theme.colors.gray700};
+`;
+
+const CustomButton = styled(Button)`
+    height: 40px;
 `;
 
 export default NoticeList;

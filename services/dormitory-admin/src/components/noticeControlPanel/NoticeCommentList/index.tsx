@@ -37,13 +37,12 @@ const MainBlock = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 12px 12px 0 0;
     min-height: 0;
     padding: 16px 20px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: ${(props) => props.theme.colors.gray200};
+    background: ${(props) => props.theme.colors.gray100};
     overflow: scroll;
 `;
 
@@ -51,7 +50,6 @@ const InputWrapper = styled.div`
     width: 100%;
     height: 60px;
     padding: 8px 16px;
-    border-radius: 0 0 12px 12px;
     background-color: ${({ theme }) => theme.colors.gray100};
 `;
 

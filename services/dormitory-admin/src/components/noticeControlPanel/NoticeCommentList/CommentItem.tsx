@@ -59,6 +59,7 @@ const CustomImage = styled(Image)`
     width: 32px;
     height: 32px;
     flex-shrink: 0;
+    object-fit: cover;
     background-color: ${({ theme }) => theme.colors.blue300};
 `;
 

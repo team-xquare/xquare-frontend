@@ -40,9 +40,11 @@ const NoticeListItem = ({
     );
 };
 
+const NoticeItemContainer = styled.div``;
+
 const MainListItem = styled(Body1)<{ isActive: boolean }>`
     background: ${({ isActive, theme }) =>
-        isActive ? theme.colors.gray300 : theme.colors.gray200};
+        isActive ? theme.colors.purple50 : theme.colors.gray50};
     width: 100%;
     height: 100%;
     padding-left: 20px;

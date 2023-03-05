@@ -41,21 +41,20 @@ const NoticePreview = ({ activeId }: Props) => {
         <MainContainer>
             <MainSectionTitle>미리보기</MainSectionTitle>
             <MainBlock>
-                <PreviewFlexBox>
-                    <PreviewFlexBox>
-                        <Button
-                            onClick={() => setIsEditing((prev) => (prev ? onUpdate() : !prev))}
-                            size="sm">
-                            {isEditing && content ? '수정완료' : '수정하기'}
-                        </Button>
-                        <Button onClick={onDelete} size="sm">
-                            삭제하기
-                        </Button>
-                    </PreviewFlexBox>
-                </PreviewFlexBox>
-                <PreviewContent ref={contentRef} contentEditable={isEditing}>
+                <PreviewContent ref={contentRef} contentEditable={isEditing} isEditing={isEditing}>
                     {content}
                 </PreviewContent>
+                <ButtonBox>
+                    <Button onClick={onDelete} size="sm" fill={'border'} className="delete">
+                        삭제하기
+                    </Button>
+                    <Button
+                        onClick={() => setIsEditing((prev) => (prev ? onUpdate() : !prev))}
+                        size="sm"
+                        fill={'purple'}>
+                        {isEditing && content ? '수정완료' : '수정하기'}
+                    </Button>
+                </ButtonBox>
             </MainBlock>
         </MainContainer>
     );
@@ -74,31 +73,40 @@ const MainBlock = styled.div`
     width: 100%;
     height: 100%;
     min-height: 0;
-    padding: 16px 20px;
     display: flex;
-    border-radius: 12px;
+    border-radius: 16px;
     flex-direction: column;
-    background: ${(props) => props.theme.colors.gray200};
 `;
 
-const PreviewFlexBox = styled.div`
+const ButtonBox = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    margin-top: 12px;
+    justify-content: flex-end;
+    gap: 8px;
+    .delete {
+        border: 0.5px solid ${({ theme }) => theme.colors.gray400};
+        > div {
+            color: ${({ theme }) => theme.colors.gray600};
+        }
+        &:hover {
+            background-color: transparent;
+            border: 0.5px solid ${({ theme }) => theme.colors.red200};
+            > div {
+                color: ${({ theme }) => theme.colors.red400};
+            }
+        }
+    }
 `;
 
-const PreviewTitle = styled(Subtitle3)`
-    max-width: 65%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-`;
-
-const PreviewContent = styled.div`
-    margin-top: 20px;
-    height: 100%;
+const PreviewContent = styled.div<{ isEditing: boolean }>`
+    margin-top: 8px;
+    height: 80%;
     overflow-y: auto;
+    padding: 12px;
     white-space: pre-wrap;
+    outline: none;
+    background-color: ${({ theme, isEditing }) =>
+        isEditing ? theme.colors.purple50 : theme.colors.gray100};
 `;
 
 export default NoticePreview;
