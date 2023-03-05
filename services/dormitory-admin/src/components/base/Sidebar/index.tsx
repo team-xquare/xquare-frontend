@@ -12,6 +12,10 @@ const SidebarItems = [
         title: '공지사항',
         uri: '/notice',
     },
+    {
+        title: '잔류신청',
+        uri: '/stay',
+    },
 ];
 
 const Sidebar = () => {
