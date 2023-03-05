@@ -43,7 +43,7 @@ const Apply: NextPage = () => {
                     <WeekendMealApplyBox />
                 </ApplyBox>
                 <ApplyBox title="추가 신청">
-                    <AdditionalApplyItem
+                    {/* <AdditionalApplyItem
                         applyKind="교실 이동"
                         daliy="오늘"
                         linkTo="/class-move"
@@ -55,7 +55,7 @@ const Apply: NextPage = () => {
                         daliy="오늘"
                         linkTo="/today-out"
                         icon={ridingIcon.src}
-                    />
+                    /> */}
                     <AdditionalApplyItem
                         applyKind="자습실 신청"
                         daliy="오늘"
@@ -82,6 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         prefetchStayList(queryClient),
         prefetchWeekendMeal(queryClient),
     ]);
+
     return {
         props: {
             dehydratedState: dehydrate(queryClient),

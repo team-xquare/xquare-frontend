@@ -1,6 +1,6 @@
 import Radio from '../class-move/components/Radio';
 import { Button } from '@semicolondsm/ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import TagButton from '../class-move/components/TagButton';
@@ -8,12 +8,17 @@ import useClassroom, { prefetchClassroom } from '../class-move/hooks/useClassroo
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { floorList, floorNumberSelector, FloorType } from '../constant/classMove';
-
+import { useBridgeCallback, sendBridgeEvent } from '@shared/xbridge';
 const ClassMove = () => {
     const [stageValue, setStageValue] = useState<FloorType>(floorList[0]);
     const [value, setValue] = useState('');
     const { data } = useClassroom({ floor: floorNumberSelector[stageValue], type: 'SELF_STUDY' });
 
+    useEffect(() => {
+        sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!value });
+    }, [!value]);
+
+    useBridgeCallback('rightButtonTaped', () => {}, undefined);
     return (
         <MainPageTemplate>
             <RadioWrapper>
