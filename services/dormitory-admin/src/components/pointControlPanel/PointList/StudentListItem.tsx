@@ -46,6 +46,7 @@ const PointListItem = ({
             cellSizes={cellSizes}
             isBorder
             customStyle
+            isActive={isActive}
             isCursor
             onClick={() => onClick(id)}
             style={{ padding: '8px 28px' }}>

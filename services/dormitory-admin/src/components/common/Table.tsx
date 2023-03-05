@@ -87,7 +87,7 @@ export const TableRow = styled.tr<{
     ${({ isActive, theme }) =>
         isActive &&
         css`
-            background-color: ${theme.colors.gray50};
+            background-color: ${theme.colors.purple50};
         `}
     ${({ isCursor, theme }) =>
         isCursor &&
@@ -99,7 +99,8 @@ ${({ isBorder, theme }) =>
         css`
             border-bottom: 1px solid ${theme.colors.gray100};
         `}
-${({ customStyle, theme }) =>
+${({ isActive, customStyle, theme }) =>
+        !isActive &&
         customStyle &&
         css`
             &:hover {
