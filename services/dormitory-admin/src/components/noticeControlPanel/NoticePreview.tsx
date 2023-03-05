@@ -46,7 +46,7 @@ const NoticePreview = ({ activeId }: Props) => {
                         <Button
                             onClick={() => setIsEditing((prev) => (prev ? onUpdate() : !prev))}
                             size="sm">
-                            {isEditing ? '수정완료' : '수정하기'}
+                            {isEditing && content ? '수정완료' : '수정하기'}
                         </Button>
                         <Button onClick={onDelete} size="sm">
                             삭제하기

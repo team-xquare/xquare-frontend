@@ -7,7 +7,6 @@ interface State {}
 const rootReducer = (state: any | undefined, action: AnyAction) => {
     switch (action.type) {
         case HYDRATE:
-            console.log('HYDRATE');
             return action.payload;
         default: {
             const combineReducer = combineReducers({

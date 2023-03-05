@@ -4,20 +4,23 @@ import Sidebar from '../base/Sidebar';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <GridLayout>
+        <LayoutWrapper>
             <Sidebar />
-            {children}
-        </GridLayout>
+            <ContentBox>{children}</ContentBox>
+        </LayoutWrapper>
     );
-}
+};
 
-const GridLayout = styled.div`
+const LayoutWrapper = styled.div`
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: min-content minmax(0, 1fr);
-    grid-template-rows: 100%;
+    display: flex;
     overflow: hidden;
+`;
+
+const ContentBox = styled.div`
+    flex: 1;
+    height: 100%;
 `;
 
 export default Layout;

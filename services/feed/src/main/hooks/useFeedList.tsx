@@ -3,7 +3,6 @@ import { QueryClient, useQuery } from '@tanstack/react-query';
 import { getFeedList } from '../apis';
 
 const useFeedList = (categoryId?: string) => {
-    console.log(categoryId);
     const feedListKey = queryKeys.getFeedList(categoryId);
     return useQuery([feedListKey], () => getFeedList(categoryId), {});
 };

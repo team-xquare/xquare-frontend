@@ -3741,11 +3741,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-outside-click-handler", "npm:1.3.1"],\
             ["@xquare/utils", "npm:1.0.8"],\
             ["axios", "npm:0.26.1"],\
+            ["cookies-next", "npm:2.1.1"],\
             ["eslint", "npm:8.13.0"],\
             ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
             ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
+            ["react-hot-toast", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:2.4.0"],\
             ["react-is", "npm:18.0.0"],\
             ["react-outside-click-handler", "virtual:30db699bab441e4255e35f2d7708e2ec8c4c1f253398bc4b0f84316765322d74310519700a8f1869f5229345e0ce0ced62159aa0e6f09e3d73d59cd303dcd3fb#npm:1.3.0"],\
             ["react-query", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:3.39.2"],\
@@ -3768,14 +3770,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.24"],\
             ["@types/react", "npm:18.0.5"],\
             ["@types/react-dom", "npm:18.0.1"],\
+            ["@types/react-outside-click-handler", "npm:1.3.1"],\
             ["@xquare/utils", "npm:1.0.8"],\
             ["axios", "npm:1.2.2"],\
             ["emotion-reset", "virtual:82cf095d9c01980e1bbabe560d810678a83231968d278ec5b0361c5e49926372cb31b3e09c949b63ab8d4ca456772ad4d6c1f32bac6873edc53af5619adc7fee#npm:3.0.1"],\
             ["eslint", "npm:8.13.0"],\
             ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
             ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
+            ["next-cookies", "npm:2.0.3"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
+            ["react-outside-click-handler", "virtual:30db699bab441e4255e35f2d7708e2ec8c4c1f253398bc4b0f84316765322d74310519700a8f1869f5229345e0ce0ced62159aa0e6f09e3d73d59cd303dcd3fb#npm:1.3.0"],\
             ["react-textarea-autosize", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:8.4.0"],\
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=a1c5e5"]\
           ],\
@@ -4420,6 +4425,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/cookie", "npm:0.3.3"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.4.1", {\
+          "packageLocation": "./.yarn/cache/@types-cookie-npm-0.4.1-274a704dc6-3275534ed6.zip/node_modules/@types/cookie/",\
+          "packageDependencies": [\
+            ["@types/cookie", "npm:0.4.1"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/hoist-non-react-statics", [\
@@ -4447,6 +4459,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.11.28-613fc80101-aba39c8a9f.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:16.11.28"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:16.18.14", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-16.18.14-5c09f9b896-7865c1c3e7.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:16.18.14"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -5984,6 +6003,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:0.4.2", {\
           "packageLocation": "./.yarn/cache/cookie-npm-0.4.2-7761894d5f-a00833c998.zip/node_modules/cookie/",\
           "packageDependencies": [\
+            ["cookie", "npm:0.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["cookies-next", [\
+        ["npm:2.1.1", {\
+          "packageLocation": "./.yarn/cache/cookies-next-npm-2.1.1-b220fa0499-c5fc2c72cf.zip/node_modules/cookies-next/",\
+          "packageDependencies": [\
+            ["cookies-next", "npm:2.1.1"],\
+            ["@types/cookie", "npm:0.4.1"],\
+            ["@types/node", "npm:16.18.14"],\
             ["cookie", "npm:0.4.2"]\
           ],\
           "linkType": "HARD"\
@@ -8119,6 +8150,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ignore", "npm:5.2.0"],\
             ["merge2", "npm:1.4.1"],\
             ["slash", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["goober", [\
+        ["npm:2.1.12", {\
+          "packageLocation": "./.yarn/cache/goober-npm-2.1.12-834a198dbb-5945cbe924.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "npm:2.1.12"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:853ebaab688f2b4b38a86b8475e77c12f77bad680799b2a35fa77df011534f94e6fb7a937993d0e787bb798fb419e19236fac60bbea9e7b11398b69d1edc2f30#npm:2.1.12", {\
+          "packageLocation": "./.yarn/__virtual__/goober-virtual-24e3cc7fa0/0/cache/goober-npm-2.1.12-834a198dbb-5945cbe924.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "virtual:853ebaab688f2b4b38a86b8475e77c12f77bad680799b2a35fa77df011534f94e6fb7a937993d0e787bb798fb419e19236fac60bbea9e7b11398b69d1edc2f30#npm:2.1.12"],\
+            ["@types/csstype", null],\
+            ["csstype", null]\
+          ],\
+          "packagePeers": [\
+            "@types/csstype",\
+            "csstype"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10662,6 +10715,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "packagePeers": [\
             "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-hot-toast", [\
+        ["npm:2.4.0", {\
+          "packageLocation": "./.yarn/cache/react-hot-toast-npm-2.4.0-df9434bc58-910214496d.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "npm:2.4.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:2.4.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-hot-toast-virtual-853ebaab68/0/cache/react-hot-toast-npm-2.4.0-df9434bc58-910214496d.zip/node_modules/react-hot-toast/",\
+          "packageDependencies": [\
+            ["react-hot-toast", "virtual:daf26736229cd2141a42566877df732e89f716c047748a20d343821bb8fe4d71d41462f23d10bff856f3bdae3017915cd77f18973352e8f180bca2619b8c3097#npm:2.4.0"],\
+            ["@types/react", "npm:18.0.5"],\
+            ["@types/react-dom", "npm:18.0.1"],\
+            ["goober", "virtual:853ebaab688f2b4b38a86b8475e77c12f77bad680799b2a35fa77df011534f94e6fb7a937993d0e787bb798fb419e19236fac60bbea9e7b11398b69d1edc2f30#npm:2.1.12"],\
+            ["react", "npm:18.0.0"],\
+            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
             "react"\
           ],\
           "linkType": "HARD"\

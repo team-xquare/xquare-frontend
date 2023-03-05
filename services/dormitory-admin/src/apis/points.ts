@@ -69,17 +69,18 @@ export const useHistoryByIdQuery = (id: SelectedUserIds) => {
     return useQuery(['/points/students', id], fetcher, { enabled: trueStudentIds.length === 1 });
 };
 
-export const useRuleQuery = () => {
-    //rule 조회 type true 면 상점 false 면 벌점
+export const useRuleQuery = (type: boolean) => {
     const fetcher = async (): Promise<Rule[]> => {
         const {
             data: { rules },
-        } = await pointInstance('/rule?type=true', {
+        } = await pointInstance(`/rule?type=${type}`, {
             method: 'GET',
         });
         return rules;
     };
-    return useQuery('/points/rules', fetcher);
+    return useQuery(['/points/rules', type], fetcher, {
+        staleTime: 60 * 60 * 24 * 100,
+    });
 };
 
 export const useAddRuleMutation = () => {

@@ -15,3 +15,7 @@ export const postFeedLike = async (feedId: string) => {
 export const deleteFeedLike = async (feedId: string) => {
     return await instance.delete(`/likes/${feedId}`);
 };
+
+export const deleteFeed = async (feedId: string) => {
+    return await instance.delete(`/${feedId}`);
+};

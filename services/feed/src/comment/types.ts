@@ -9,3 +9,8 @@ export type CommentType = {
 export interface GetCommentResponseType {
     comments: CommentType[];
 }
+
+export interface AddCommentRequestType {
+    feed_uuid: string;
+    content: string;
+}

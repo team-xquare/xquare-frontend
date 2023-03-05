@@ -2,18 +2,64 @@ import styled from '@emotion/styled';
 import TextareaAutosize from 'react-textarea-autosize';
 import { FlexCol } from '../common/components/Flexbox';
 import ImageDeleteContainer from '../common/components/image/imageDeleteContainer';
-import UploadFooter from '../write/UploadFooter';
-import WriteDropdownBox from '../write/WriteDropdownsBox';
+import UploadFooter from '../write/components/UploadFooter';
+import WriteDropdownBox from '../write/components/WriteDropdownsBox';
 import { useBridgeHandler } from '@shared/xbridge';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useCategoryList from '../common/hooks/useCategoryList';
+import { CategoryType } from '../common/types';
+import usePermissions from '../write/hooks/usePermissions';
+import { sendBridgeEvent, useBridgeCallback } from '@shared/xbridge';
+import useAddFeed from '../write/hooks/useAddFeed';
+export type DropdownType = 'group' | 'purpose';
 
 const Write = () => {
-    const [pickedImage, setPickedImage] = useState<string[]>([
-        'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E',
-    ]);
+    const [pickedImage, setPickedImage] = useState<string[]>([]);
+    const [content, setContent] = useState('');
+    const [selectState, setSelectState] = useState<Record<DropdownType, CategoryType>>({
+        group: { category_id: '', name: '권한이 존재하지 않음', key: '' },
+        purpose: { category_id: '', name: '목록이 존재하지 않음', key: '' },
+    });
+    const { data: purpose } = useCategoryList();
+    const { data: group } = usePermissions(selectState.purpose.key);
+
+    // useEffect(() => {
+    //     sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!content });
+    // }, [!!content]);
+
+    const { mutate: addFeedMutate } = useAddFeed();
+
+    useBridgeCallback(
+        'rightButtonTaped',
+        () => {
+            addFeedMutate({
+                category_id: selectState.purpose.category_id,
+                type: selectState.group.name,
+                content: content,
+                title: '',
+            });
+        },
+        undefined,
+    );
+
+    useEffect(() => {
+        setSelectState((state) => ({ ...state, purpose: { ...state.purpose, ...purpose?.[0] } }));
+    }, [purpose]);
+
+    useEffect(() => {
+        setSelectState((state) => ({
+            ...state,
+            group: {
+                ...state.group,
+                category_id: group?.[0]?.authority_id || '',
+                name: group?.[0]?.authority_name || '',
+            },
+        }));
+    }, [selectState.purpose, group]);
+
     const onImageSelect = useBridgeHandler(
         'photoPicker',
-        (e) => setPickedImage([...pickedImage, ...e.detail.photos]),
+        (e) => setPickedImage((state) => [...state, ...e.detail.photos]),
         {},
     );
 
@@ -24,9 +70,11 @@ const Write = () => {
     return (
         <>
             <WriteContainer>
-                <WriteDropdownBox />
+                <WriteDropdownBox selectState={selectState} setSelectState={setSelectState} />
                 <TextareaContainer
                     minRows={5}
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
                     spellCheck="false"
                     placeholder="내용을 입력하세요."
                 />

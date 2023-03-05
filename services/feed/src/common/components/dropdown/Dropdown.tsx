@@ -2,24 +2,22 @@ import DropdownItemBox, { DropdownItemBoxProps } from './DropdownItemBox';
 import styled from '@emotion/styled';
 import DropdownTag from './DropdownTag';
 import useEffectState from '../../hooks/useEffectState';
-import { css, keyframes } from '@emotion/react';
 
-interface DropdownProps<T extends string, P> extends DropdownItemBoxProps<T, P> {
+interface DropdownProps<T extends string> extends DropdownItemBoxProps<T> {
     value?: T;
     readonly?: boolean;
     open?: boolean;
-    setOpen?: (state: boolean) => void;
 }
 
-const Dropdown = <T extends string, P>(props: DropdownProps<T, P>) => {
-    const { value, onClick, setOpen, readonly, open = false, items, ...itemboxProps } = props;
+const Dropdown = <T extends string = string, P = any>(props: DropdownProps<T>) => {
+    const { value, onClick, setOpen, readonly, open = false, items, ...itemBoxProps } = props;
     const [itemsValue] = useEffectState(items);
     const initValue = props.items.filter((value) => !props.disableArr?.includes(value))[0];
     const [selectedItem, setSelectedItem] = useEffectState<T>(value || initValue);
     const [isOpen, setIsOpen] = useEffectState(open);
     const onClickItem = (item: T, p?: P) => {
         if (readonly) return;
-        onClick?.(item, p);
+        onClick?.(item);
         setSelectedItem(item);
         combineOpen(false);
     };
@@ -31,20 +29,25 @@ const Dropdown = <T extends string, P>(props: DropdownProps<T, P>) => {
     };
 
     return (
-        <DropdwonWrapper>
+        <DropdownWrapper>
             <DropdownTag
                 readonly={readonly || items.length === 1}
                 onClick={() => combineOpen(!isOpen)}>
                 {selectedItem}
             </DropdownTag>
             {isOpen && (
-                <DropdownItemBox items={itemsValue} onClick={onClickItem} {...itemboxProps} />
+                <DropdownItemBox
+                    setOpen={setOpen}
+                    items={itemsValue}
+                    onClick={onClickItem}
+                    {...itemBoxProps}
+                />
             )}
-        </DropdwonWrapper>
+        </DropdownWrapper>
     );
 };
 
-const DropdwonWrapper = styled.div`
+const DropdownWrapper = styled.div`
     position: relative;
 `;
 

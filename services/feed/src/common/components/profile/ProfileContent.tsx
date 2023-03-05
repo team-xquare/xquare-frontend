@@ -13,7 +13,7 @@ const ProfileContent = ({ createAt, name, direction = 'col' }: ProfileContentPro
         <FlexBox
             direction={direction}
             gap={direction === 'col' ? 0 : 4}
-            align={direction === 'col' ? 'flex-start' : 'flex-end'}>
+            align={direction === 'col' ? 'flex-start' : 'center'}>
             <NameWrapper>{name}</NameWrapper>
             <DateWrapper>{timeFormatter(createAt)}</DateWrapper>
         </FlexBox>

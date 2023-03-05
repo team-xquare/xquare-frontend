@@ -15,7 +15,7 @@ const NoticeLayout = () => {
     const [content, setContent] = useState('');
 
     const onSubmit = () => {
-        // addNotice({ title, content });
+        addNotice({ title, content });
         setTitle('');
         setContent('');
         closeModal();
@@ -25,7 +25,11 @@ const NoticeLayout = () => {
         <NoticeContainer>
             <ModalContainer>
                 <Box>
-                    <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <Input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="제목"
+                    />
                     <Textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
@@ -66,6 +70,7 @@ const Box = styled.div`
 `;
 
 const Input = styled.input`
+    outline: none;
     width: 400px;
     border-radius: 6px;
     border: 1px solid ${({ theme }) => theme.colors.gray200};

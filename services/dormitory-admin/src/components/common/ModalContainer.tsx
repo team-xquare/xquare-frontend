@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { useModal } from '../../contexts/modal';
-
+import OutsideClickHandler from 'react-outside-click-handler';
 interface PropsType {
     children: React.ReactNode;
     isCanClose?: boolean;

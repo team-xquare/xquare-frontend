@@ -6,6 +6,6 @@ module.exports = {
         externalDir: true,
     },
     images: {
-        domains: ['https://t1.daumcdn.net/'],
+        domains: ['https://t1.daumcdn.net/', 'xquare.s3.ap-northeast-2.amazonaws.com'],
     },
 };

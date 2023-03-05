@@ -1,35 +1,39 @@
 import styled from '@emotion/styled';
 import { FlexCol } from '../Flexbox';
 import DropdownItem from './DropdownItem';
+import OutsideClickHandler from 'react-outside-click-handler';
+
 //@todo onClick 타입 추론 더 빡빡하게 하기
-export interface DropdownItemBoxProps<T extends string, P> {
+export interface DropdownItemBoxProps<T extends string> {
     items: ReadonlyArray<T>;
-    props?: Record<T, P>;
-    onClick?: (item: T, props?: P) => void;
+    onClick?: (item: T) => void;
     className?: string;
+    setOpen: (value: boolean) => void;
     disableArr?: ReadonlyArray<T>;
 }
 
 const DropdownItemBox = <T extends string, P>({
     items = [],
-    props,
     onClick,
     className,
+    setOpen,
     disableArr = [],
-}: DropdownItemBoxProps<T, P>) => {
+}: DropdownItemBoxProps<T>) => {
     return (
         <>
             {!!items.length ? (
-                <DropdownBoxContainer className={className}>
-                    {items.map((item, idx) => (
-                        <DropdownItem
-                            key={idx}
-                            onClick={() => onClick?.(item, props?.[item])}
-                            isActive={!disableArr.includes(item)}>
-                            {item}
-                        </DropdownItem>
-                    ))}
-                </DropdownBoxContainer>
+                <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+                    <DropdownBoxContainer>
+                        {items.map((item, idx) => (
+                            <DropdownItem
+                                key={idx}
+                                onClick={() => onClick?.(item)}
+                                isActive={!disableArr.includes(item)}>
+                                {item}
+                            </DropdownItem>
+                        ))}
+                    </DropdownBoxContainer>
+                </OutsideClickHandler>
             ) : (
                 <></>
             )}
@@ -38,6 +42,8 @@ const DropdownItemBox = <T extends string, P>({
 };
 
 const DropdownBoxContainer = styled(FlexCol)`
+    display: flex;
+    flex-direction: column;
     position: absolute;
     overflow: hidden;
     left: 0;

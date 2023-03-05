@@ -36,10 +36,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
             </Head>
             <SDSThemeProvider mode="light-only">
-                <Global styles={globalStyles}></Global>
+                <Global styles={globalStyles} />
                 <QueryClientProvider client={queryClient}>
                     <Hydrate state={pageProps.dehydratedState}>
-                        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+                        <ReactQueryDevtools initialIsOpen={false} position="top-right" />
                         <Component {...pageProps} />
                     </Hydrate>
                 </QueryClientProvider>
@@ -47,4 +47,5 @@ function MyApp({ Component, pageProps }: AppProps) {
         </>
     );
 }
+
 export default MyApp;

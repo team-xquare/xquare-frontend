@@ -48,6 +48,22 @@ export interface StudentHistory {
     point: number;
 }
 
+export interface UserLogin {
+    account_id: string;
+    password: string;
+}
+
+export interface UserToken {
+    access_token: string;
+    refresh_token: string;
+    expire_at: string;
+}
+
+export interface Category {
+    category_id: string;
+    name: string;
+}
+
 export enum SortingEnum {
     a = '필터링 ✖',
     b = '벌점 봉사',

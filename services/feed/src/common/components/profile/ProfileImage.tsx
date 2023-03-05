@@ -6,7 +6,7 @@ interface ProfileImageProps {
 }
 
 const ProfileImage = ({ profileSrc }: ProfileImageProps) => {
-    return <ProfileImageWrapper src={profileSrc || defaultProfile.src}></ProfileImageWrapper>;
+    return <ProfileImageWrapper src={profileSrc || defaultProfile.src} />;
 };
 const ProfileImageWrapper = styled.img`
     width: 40px;

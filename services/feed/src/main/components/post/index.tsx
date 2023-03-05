@@ -10,8 +10,12 @@ import { ImageCountContainer } from '../../../common/components/image';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { FeedType } from '../../types';
 import { timeFormatter } from '../../../utils/timeFormatter';
+import { useMutation } from '@tanstack/react-query';
+import useDeleteFeed from '../../hooks/useDeleteFeed';
 interface FeedPostProps extends FeedType {}
 //@todo props 바꾸기
+const actionSheetMenu = ['삭제하기'] as const;
+
 const FeedPost = ({
     attachments_url,
     name,
@@ -25,14 +29,11 @@ const FeedPost = ({
     profile,
     type,
 }: FeedPostProps) => {
-    const actionSheetMenu = ['수정하기', '삭제하기'];
-    const onSelectMenu = useBridgeHandler(
-        'actionSheet',
-        (e) => console.log(actionSheetMenu[e.detail.index]),
-        {
-            menu: actionSheetMenu,
-        },
-    );
+    const { mutate: deleteMutate } = useDeleteFeed(feed_id);
+    const menuAction: Record<typeof actionSheetMenu[number], () => void> = {
+        삭제하기: () => deleteMutate(),
+    };
+
     return (
         <FlexCol fullWidth>
             <FeedPostContainer>
@@ -42,7 +43,12 @@ const FeedPost = ({
                         name={`${name}-${type}`}
                         profileSrc={profile}
                     />
-                    <KababButton onClick={onSelectMenu} />
+                    {is_mine && (
+                        <KababButton
+                            menu={actionSheetMenu}
+                            onClick={(menu) => menuAction[menu]()}
+                        />
+                    )}
                 </PostHeaderContainer>
                 <ContentBox content={content} limit={!!attachments_url.length ? 40 : 20} />
             </FeedPostContainer>

@@ -6,6 +6,7 @@ import { getKeyFromValue } from '../../utils/getKeyfromValue';
 const initSelectedTabValue: CategoryType = {
     category_id: '',
     name: '전체',
+    key: '',
 };
 
 const useTabMenu = () => {
@@ -17,14 +18,14 @@ const useTabMenu = () => {
         if (tabMenuItem === '전체') {
             setSelectedTabValueKey(initSelectedTabValue);
         }
-        const changeCategory = categoryListData?.category_list.filter(
+        const changeCategory = categoryListData?.filter(
             (category) => category.name === tabMenuItem,
         )[0];
         setSelectedTabValueKey((state) => changeCategory || state);
     };
 
     const tabMenuKeys = useMemo(
-        () => ['전체', ...(categoryListData?.category_list.map((category) => category.name) || [])],
+        () => ['전체', ...(categoryListData?.map((category) => category.name) || [])],
         [categoryListData],
     );
 

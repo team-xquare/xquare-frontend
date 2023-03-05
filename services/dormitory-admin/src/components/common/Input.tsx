@@ -9,11 +9,11 @@ interface InputProps {
     placeholder?: string;
 }
 
-const Input = ({ value = '', onChange, label, placeholder }: InputProps) => {
+const Input = ({ label, ...props }: InputProps) => {
     return (
         <InputContainer>
             {label && <InputLabelBox>{label}</InputLabelBox>}
-            <InputBox onChange={onChange} value={value} placeholder={placeholder} />
+            <InputBox {...props} />
         </InputContainer>
     );
 };

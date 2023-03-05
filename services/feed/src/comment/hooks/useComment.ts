@@ -7,5 +7,7 @@ export const useComment = () => {
     const router = useRouter();
     const postId = router.query.postId as string;
     const queryKey = queryKeys.getComment(postId);
-    return useQuery([queryKey], () => getComment(postId));
+    return useQuery([queryKey], () => getComment(postId), {
+        enabled: !!postId,
+    });
 };

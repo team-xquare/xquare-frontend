@@ -9,6 +9,7 @@ import ModalContainer from '../common/ModalContainer';
 import Image from 'next/image';
 import PlusIcon from '../../assets/plus.svg';
 import Input from '../common/Input';
+import Counter from '../common/Counter';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -17,9 +18,10 @@ interface PropsType {
 const PointRule = ({ id }: PropsType) => {
     const [type, setType] = useState<boolean>(true);
     const [addType, setAddType] = useState<boolean>(true);
-    const { data, isLoading, error } = useRuleQuery();
+    const { data: ruleList } = useRuleQuery(type);
     const pointsMutation = useAddPointQuery(id);
     const { openModal, closeModal } = useModal();
+    const [number, setNumber] = useState(0);
     const rule = {
         id: 1,
         point: 1,
@@ -47,59 +49,20 @@ const PointRule = ({ id }: PropsType) => {
                     ]}
                 />
                 <MainListWrapper>
-                    {/* {data?.map(
-                        (rule) =>
-                            type === rule.type && ( */}
-                    <MainListItem key={rule.id}>
-                        <Body1>
-                            {rule.reason} ({rule.point}점)
-                        </Body1>
-                        <Button
-                            disabled={Object.values(id).indexOf(true) === -1}
-                            size="sm"
-                            fill="purple"
-                            onClick={() => pointsMutation.mutate(rule.id)}>
-                            부여하기
-                        </Button>
-                    </MainListItem>
-                    <MainListItem key={rule.id}>
-                        <Body1>
-                            {rule.reason} ({rule.point}점)
-                        </Body1>
-                        <Button
-                            disabled={Object.values(id).indexOf(true) === -1}
-                            size="sm"
-                            fill="purple"
-                            onClick={() => pointsMutation.mutate(rule.id)}>
-                            부여하기
-                        </Button>
-                    </MainListItem>
-                    <MainListItem key={rule.id}>
-                        <Body1>
-                            {rule.reason} ({rule.point}점)
-                        </Body1>
-                        <Button
-                            disabled={Object.values(id).indexOf(true) === -1}
-                            size="sm"
-                            fill="purple"
-                            onClick={() => pointsMutation.mutate(rule.id)}>
-                            부여하기
-                        </Button>
-                    </MainListItem>
-                    <MainListItem key={rule.id}>
-                        <Body1>
-                            {rule.reason} ({rule.point}점)
-                        </Body1>
-                        <Button
-                            disabled={Object.values(id).indexOf(true) === -1}
-                            size="sm"
-                            fill="purple"
-                            onClick={() => pointsMutation.mutate(rule.id)}>
-                            부여하기
-                        </Button>
-                    </MainListItem>
-                    {/* ),
-                    )} */}
+                    {ruleList?.map((rule) => (
+                        <MainListItem key={rule.id}>
+                            <Body1>
+                                {rule.reason} ({rule.point}점)
+                            </Body1>
+                            <Button
+                                disabled={Object.values(id).indexOf(true) === -1}
+                                size="sm"
+                                fill="purple"
+                                onClick={() => pointsMutation.mutate(rule.id)}>
+                                부여하기
+                            </Button>
+                        </MainListItem>
+                    ))}
                 </MainListWrapper>
 
                 <RuleCreateButton onClick={openModal}>
@@ -121,8 +84,8 @@ const PointRule = ({ id }: PropsType) => {
                                 ]}
                             />
                         </AddRuleTogle>
-                        <Input label="제목" />
-                        <Input label="부여 점수" />
+                        <Input label="제목" placeholder="제목" />
+                        <Counter label="부여 점수" setNum={setNumber} num={number}></Counter>
 
                         <CustomButton fill="purple" fullWidth>
                             추가하기

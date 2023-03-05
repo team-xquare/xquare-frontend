@@ -10,6 +10,7 @@ import { sendBridgeEvent } from '@shared/xbridge';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { prefetchCategoryList } from '../common/hooks/useCategoryList';
 import useFeedList, { prefetchFeedList } from '../main/hooks/useFeedList';
+import cookies from 'next-cookies';
 const Home: NextPage = () => {
     const { onChangeTabValue, selectedTabValueKey, tabMenuKeys } = useTabMenu();
     const { data: feedList } = useFeedList(selectedTabValueKey.category_id);
@@ -28,8 +29,10 @@ const Home: NextPage = () => {
             </FeedContainer>
             <WriteButton
                 onClick={() =>
-                    sendBridgeEvent('navigate', { url: '/write', title: '글쓰기' }, () =>
-                        router.push('/write'),
+                    sendBridgeEvent(
+                        'navigate',
+                        { url: '/write', title: '글쓰기', rightButtonText: '완료' },
+                        () => router.push('/write'),
                     )
                 }
             />
@@ -37,9 +40,12 @@ const Home: NextPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const queryClient = new QueryClient();
+    const allCookies = cookies(ctx);
+
     await Promise.all([prefetchFeedList(queryClient), prefetchCategoryList(queryClient)]);
+
     return {
         props: {
             dehydratedState: dehydrate(queryClient),

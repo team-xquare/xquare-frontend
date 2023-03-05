@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { FlexRow } from '../common/components/Flexbox';
-
+import Image from 'next/image';
+import { FlexRow } from '../../common/components/Flexbox';
+import rightArrow from '../../assets/rightArrow.svg';
 interface UploadFooter {
     onClick: () => void;
 }
@@ -9,7 +10,7 @@ const UploadFooter = ({ onClick }: UploadFooter) => {
     return (
         <>
             <FooterContainer onClick={onClick}>
-                <img></img>
+                <CustomArrow src={rightArrow} width={24} height={24}></CustomArrow>
                 <p>사진 업로드</p>
             </FooterContainer>
             <FooterBlackBox />
@@ -41,5 +42,9 @@ const FooterContainer = styled(FlexRow)`
 const FooterBlackBox = styled.div`
     width: 100%;
     height: 40px;
+`;
+
+const CustomArrow = styled(Image)`
+    transform: rotate(90deg);
 `;
 export default UploadFooter;

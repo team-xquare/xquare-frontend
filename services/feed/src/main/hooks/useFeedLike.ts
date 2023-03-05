@@ -10,7 +10,6 @@ const useFeedLike = () => {
 
     const feedLikeMutateFn = (feedId: string) => {
         const getLike = preivousFeedList?.filter((feed) => feedId === feed.feed_id)[0];
-        console.log(getLike);
         return getLike?.is_like ? deleteFeedLike(feedId) : postFeedLike(feedId);
     };
 
@@ -18,7 +17,13 @@ const useFeedLike = () => {
         onMutate: (feedId) => {
             queryClient.cancelQueries([feedListKey]);
             const currentFeedList = preivousFeedList?.map((feed) =>
-                feed.feed_id === feedId ? { ...feed, is_like: !feed.is_like } : feed,
+                feed.feed_id === feedId
+                    ? {
+                          ...feed,
+                          is_like: !feed.is_like,
+                          like_count: !feed.is_like ? feed.like_count + 1 : feed.like_count - 1,
+                      }
+                    : feed,
             );
             queryClient.setQueryData([feedListKey], { feeds: currentFeedList });
             return { feeds: preivousFeedList };

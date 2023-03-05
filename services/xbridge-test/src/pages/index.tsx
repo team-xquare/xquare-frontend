@@ -107,7 +107,7 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const allCookies = cookies(ctx);
-
+    console.log(allCookies);
     return {
         props: {
             accessToken: allCookies['accessToken'] || '',

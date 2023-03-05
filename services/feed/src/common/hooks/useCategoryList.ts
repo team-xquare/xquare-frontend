@@ -5,16 +5,16 @@ import { getCategory } from '../apis';
 const ONE_DAY_TIME = 1000 * 60 * 60 * 24;
 
 const useCategoryList = () => {
-    const categroyListKey = queryKeys.getCategoryList();
-    return useQuery([categroyListKey], getCategory, {
+    const categoryListKey = queryKeys.getCategoryList();
+    return useQuery([categoryListKey], getCategory, {
         staleTime: ONE_DAY_TIME,
         retry: 3,
     });
 };
 
 export const prefetchCategoryList = (queryClient: QueryClient) => {
-    const categroyListKey = queryKeys.getCategoryList();
-    return queryClient.prefetchQuery([categroyListKey], getCategory, {
+    const categoryListKey = queryKeys.getCategoryList();
+    return queryClient.prefetchQuery([categoryListKey], getCategory, {
         staleTime: ONE_DAY_TIME,
     });
 };

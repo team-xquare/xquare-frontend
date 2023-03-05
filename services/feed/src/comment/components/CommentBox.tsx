@@ -5,23 +5,29 @@ import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 import ProfileImage from '../../common/components/profile/ProfileImage';
 import KababButton from '../../common/components/KababButton';
 import ProfileContent from '../../common/components/profile/ProfileContent';
+import { useMutation } from '@tanstack/react-query';
+import useDeleteComment from '../hooks/useDeleteComment';
 
 interface ProfileWithCommentProps
     extends ComponentProps<typeof ProfileImage>,
         Omit<ComponentProps<typeof ProfileContent>, 'direction'> {
     comment: string;
+    commentId: string;
     // isMine: string;
 }
-const menuList = ['수정', '삭제'];
+const menuList = ['삭제'] as const;
 
-const CommentBox = ({ comment, createAt, name, profileSrc }: ProfileWithCommentProps) => {
-    const onActionSheet = useBridgeHandler(
-        'actionSheet',
-        (e) => {
-            menuList[e.detail.index];
-        },
-        { menu: menuList },
-    );
+const CommentBox = ({
+    comment,
+    createAt,
+    name,
+    profileSrc,
+    commentId,
+}: ProfileWithCommentProps) => {
+    const { mutate: deleteMutate } = useDeleteComment();
+    const menuAction: Record<typeof menuList[number], () => void> = {
+        삭제: () => deleteMutate(commentId),
+    };
     return (
         <ProfileWithCommentWrapper>
             <ProfileImage profileSrc={profileSrc}></ProfileImage>
@@ -29,7 +35,7 @@ const CommentBox = ({ comment, createAt, name, profileSrc }: ProfileWithCommentP
                 <ProfileContent direction="row" createAt={createAt} name={name} />
                 <CommentSection>{comment}</CommentSection>
             </CommentWrapper>
-            <KababButton onClick={onActionSheet} />
+            <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />
         </ProfileWithCommentWrapper>
     );
 };
