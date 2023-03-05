@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ToggleButton, Body1, Button } from '@semicolondsm/ui';
 import MainSectionTitle from '../common/MainSectionTitle';
-import { useAddPointQuery, useRuleQuery } from '../../apis/points';
+import { useAddPointQuery, useAddRuleMutation, useRuleQuery } from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import { useModal } from '../../contexts/modal';
 import ModalContainer from '../common/ModalContainer';
@@ -22,15 +22,15 @@ const PointRule = ({ id }: PropsType) => {
     const pointsMutation = useAddPointQuery(id);
     const { openModal, closeModal } = useModal();
     const [number, setNumber] = useState(0);
-    const rule = {
-        id: 1,
-        point: 1,
-        reason: '13',
+    const [reason, setReason] = useState('');
+
+    const onRuleAddSuccess = () => {
+        closeModal();
+        setReason('');
+        setNumber(0);
     };
-    useEffect(() => {
-        // if(pointsMutation.isLoading) openModal();
-        // else closeModal();
-    }, [pointsMutation.isLoading]);
+
+    const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess);
 
     return (
         <MainContainer>
@@ -64,7 +64,6 @@ const PointRule = ({ id }: PropsType) => {
                         </MainListItem>
                     ))}
                 </MainListWrapper>
-
                 <RuleCreateButton onClick={openModal}>
                     <PlusIcon></PlusIcon>
                 </RuleCreateButton>
@@ -84,10 +83,18 @@ const PointRule = ({ id }: PropsType) => {
                                 ]}
                             />
                         </AddRuleTogle>
-                        <Input label="제목" placeholder="제목" />
+                        <Input
+                            label="제목"
+                            placeholder="제목"
+                            onChange={(e) => setReason(e.target.value)}
+                            value={reason}
+                        />
                         <Counter label="부여 점수" setNum={setNumber} num={number}></Counter>
 
-                        <CustomButton fill="purple" fullWidth>
+                        <CustomButton
+                            fill="purple"
+                            fullWidth
+                            onClick={() => addRuleMutate({ type: addType, point: number, reason })}>
                             추가하기
                         </CustomButton>
                     </AddRuleModalContainer>

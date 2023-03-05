@@ -57,7 +57,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
     const testTimePicker = useBridgeHandler(
         'timePicker',
         (event) => {
-            setTime(event.detail.time);
+            setTime('1');
         },
         { time: time },
     );

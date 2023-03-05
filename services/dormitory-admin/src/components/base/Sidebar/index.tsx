@@ -16,6 +16,14 @@ const SidebarItems = [
         title: '잔류신청',
         uri: '/stay',
     },
+    {
+        title: '주말외출',
+        uri: '/weekend-out',
+    },
+    {
+        title: '주말급식',
+        uri: '/weekend-meal',
+    },
 ];
 
 const Sidebar = () => {

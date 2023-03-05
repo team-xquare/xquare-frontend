@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import MainSectionTitle from '../../common/MainSectionTitle';
-import { Body1, Button } from '@semicolondsm/ui';
+import { Body1, Body2, Button } from '@semicolondsm/ui';
 import { useNoticeQuery } from '../../../apis/notices';
 import NoticeListItem from './NoticeListItem';
 import { useModal } from '../../../contexts/modal';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '../../common/Table';
 
 interface Props {
     setActiveId: (id: string) => void;
     activeId: string | null;
 }
-
+const cellSizes = ['minmax(11%, 3fr)', 'minmax(11%, 1fr)', 'minmax(11%, 1fr)', 'minmax(11%, 1fr)'];
 const NoticeList = ({ setActiveId, activeId }: Props) => {
     const { data: feeds } = useNoticeQuery();
     const { openModal } = useModal();
@@ -24,21 +25,35 @@ const NoticeList = ({ setActiveId, activeId }: Props) => {
                         새 공지사항 작성하기
                     </CustomButton>
                 </div>
-                <MainListWrapper>
-                    <MainListHeader>제목</MainListHeader>
-                    <MainListHeader>날짜</MainListHeader>
-                    <MainListHeader>좋아요</MainListHeader>
-                    <MainListHeader>댓글</MainListHeader>
-                    {feeds &&
-                        feeds.map((feeds) => (
-                            <NoticeListItem
-                                key={feeds.feed_id}
-                                {...feeds}
-                                isActive={feeds.feed_id === `${activeId}`}
-                                onClick={setActiveId}
-                            />
-                        ))}
-                </MainListWrapper>
+                <Table>
+                    <TableHead>
+                        <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }} customStyle>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>제목</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>날짜</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>좋아요</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>댓글</Body2>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {feeds &&
+                            feeds.map((feeds) => (
+                                <NoticeListItem
+                                    key={feeds.feed_id}
+                                    {...feeds}
+                                    isActive={feeds.feed_id === `${activeId}`}
+                                    onClick={setActiveId}
+                                />
+                            ))}
+                    </TableBody>
+                </Table>
             </MainBlock>
         </MainContainer>
     );
@@ -81,16 +96,6 @@ const MainListWrapper = styled.div`
         align-items: center;
         justify-content: center;
     }
-`;
-
-const MainListHeader = styled(Body1)`
-    position: sticky;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    color: ${({ theme }) => theme.colors.gray700};
 `;
 
 const CustomButton = styled(Button)`

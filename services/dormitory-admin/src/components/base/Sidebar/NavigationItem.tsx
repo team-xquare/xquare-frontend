@@ -24,6 +24,7 @@ const Item = styled.a<{ isActive: boolean }>`
     color: ${(props) => props.theme.colors.black};
     text-decoration: none;
     padding: 10px 12px;
+    border-radius: 12px;
     background: ${({ isActive, theme }) => (isActive ? theme.colors.white : 'transparent')};
     transition: background 0.07s linear;
     cursor: pointer;

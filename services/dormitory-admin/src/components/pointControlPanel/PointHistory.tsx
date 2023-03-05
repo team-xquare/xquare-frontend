@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import MainSectionTitle from '../common/MainSectionTitle';
 import { Body1, Body2, Caption } from '@semicolondsm/ui';
-import { useHistoryByIdQuery } from '../../apis/points';
+import { useDeleteRuleHistory, useHistoryByIdQuery } from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import KebabMenu from '../common/KebabMenu';
 
@@ -12,35 +12,47 @@ interface PropsType {
 
 const PointHistory = ({ id }: PropsType) => {
     const { data, isLoading, error } = useHistoryByIdQuery(id);
+    const { mutate: deleteMutate } = useDeleteRuleHistory(id);
+    const stdIds = Object.keys(id).filter((key) => id[key] && key);
+    const [historyId, setHistoryId] = useState('');
+    const itemAction = {
+        삭제하기: () => deleteMutate(historyId),
+    } as const;
 
     return (
         <MainContainer>
             <MainSectionTitle>내역</MainSectionTitle>
             <MainBlock>
                 <MainListWrapper>
-                    {/* {data ? (
+                    {data ? (
                         data.length ? (
-                            data.map((history) => <Body1 key={history.id}>{history.reason}</Body1>)
+                            data.map((history) => (
+                                <HistoryItemContainer
+                                    key={history.id}
+                                    onClick={() => setHistoryId(String(history.id))}>
+                                    <TextContainer>
+                                        <Body2>{history.reason}</Body2>
+                                        <Caption></Caption>
+                                    </TextContainer>
+                                    <MenuRightContainer>
+                                        <MenuPointText>{history.point}</MenuPointText>
+                                        <KebabMenu
+                                            item={['삭제하기']}
+                                            callBack={(item) => {
+                                                itemAction[item]();
+                                            }}
+                                        />
+                                    </MenuRightContainer>
+                                </HistoryItemContainer>
+                            ))
                         ) : (
                             <Body1>상벌점 기록이 없습니다.</Body1>
                         )
-                    ) : isLoading ? (
-                        <>로딩중</>
+                    ) : stdIds.length > 1 ? (
+                        <Body1>학생을 한명만 선택해주세요.</Body1>
                     ) : (
                         <Body1>학생을 선택해주세요 !</Body1>
-                    )} */}
-                    <HistoryItemContainer>
-                        <TextContainer>
-                            <Body2>기숙사 봉사활동</Body2>
-                            <Caption>2023-02-28</Caption>
-                        </TextContainer>
-                        <MenuRightContainer>
-                            <MenuPointText>2</MenuPointText>
-                            <KebabMenu
-                                item={['삭제하기', '수정하기']}
-                                callBack={(item) => {}}></KebabMenu>
-                        </MenuRightContainer>
-                    </HistoryItemContainer>
+                    )}
                 </MainListWrapper>
             </MainBlock>
         </MainContainer>

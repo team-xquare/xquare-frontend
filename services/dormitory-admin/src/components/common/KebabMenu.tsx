@@ -11,39 +11,43 @@ interface KebabMenuProps<T> {
 const KebabMenu = <T extends string>({ callBack, item, className }: KebabMenuProps<T>) => {
     const [open, setOpen] = useState(false);
     return (
-        <KebabContainer onOutsideClick={() => setOpen(false)}>
-            <svg
-                onClick={() => setOpen(!open)}
-                className={className}
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                cursor="pointer"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="4" r="2" fill="#706D75" />
-                <circle cx="12" cy="12" r="2" fill="#706D75" />
-                <circle cx="12" cy="20" r="2" fill="#706D75" />
-            </svg>
-            {open && (
-                <KebabMenuList>
-                    {item.map((value, idx) => (
-                        <ItemText
-                            key={idx}
-                            onClick={() => {
-                                setOpen(false);
-                                callBack(value);
-                            }}>
-                            {value}
-                        </ItemText>
-                    ))}
-                </KebabMenuList>
-            )}
-        </KebabContainer>
+        <OutsideClickHandler onOutsideClick={() => setOpen?.(false)}>
+            <KebabContainer>
+                <svg
+                    onClick={() => setOpen(!open)}
+                    className={className}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    cursor="pointer"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="4" r="2" fill="#706D75" />
+                    <circle cx="12" cy="12" r="2" fill="#706D75" />
+                    <circle cx="12" cy="20" r="2" fill="#706D75" />
+                </svg>
+                {open && (
+                    <KebabMenuList>
+                        {item.map((value, idx) => (
+                            <ItemText
+                                key={idx}
+                                onClick={() => {
+                                    setOpen(false);
+                                    callBack(value);
+                                }}>
+                                {value}
+                            </ItemText>
+                        ))}
+                    </KebabMenuList>
+                )}
+            </KebabContainer>
+        </OutsideClickHandler>
     );
 };
 
-const KebabContainer = styled(OutsideClickHandler)`
+const KebabContainer = styled.div`
+    width: 100%;
+    height: 100%;
     position: relative;
 `;
 

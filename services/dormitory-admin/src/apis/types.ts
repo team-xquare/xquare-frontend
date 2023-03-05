@@ -74,6 +74,35 @@ export enum SortingEnum {
     g = '2Out',
 }
 
+export const StaySortingEnum = ['전체', '금요 귀가', '토요 귀가', '토요 귀사', '잔류'] as const;
+
 export type SelectedUserIds = { [key: string]: boolean };
 
 export type MutateMethod = 'POST' | 'DELETE' | 'PUT';
+
+export type Stay = {
+    num: string;
+    name: string;
+    code: string;
+};
+
+export type StayCode = {
+    name: string;
+    value: string;
+};
+
+export type WeekendMealStu = {
+    user_id: string;
+    name: string;
+    num: string;
+};
+
+export type PicnicStu = {
+    picnic_id: string;
+    user_id: string;
+    num: string;
+    name: string;
+    start_time: string;
+    end_time: string;
+    is_acceptance: number;
+};

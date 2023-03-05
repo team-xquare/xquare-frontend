@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import MainSectionTitle from '../common/MainSectionTitle';
 import { Button, Subtitle3 } from '@semicolondsm/ui';
@@ -25,6 +25,9 @@ const NoticePreview = ({ activeId }: Props) => {
     };
     const contentRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        setIsEditing(false);
+    }, [activeId]);
     const onUpdate = () => {
         updateNotice({
             feed_id,

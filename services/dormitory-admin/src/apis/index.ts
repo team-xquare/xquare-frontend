@@ -19,7 +19,11 @@ export const userInstance = axios.create({
     baseURL: 'https://stag-api.xquare.app/users',
 });
 
-export const instanceArr = [pointInstance, feedInstance, userInstance];
+export const applyInstance = axios.create({
+    baseURL: 'https://stag-api.xquare.app/applications',
+});
+
+export const instanceArr = [pointInstance, feedInstance, userInstance, applyInstance];
 
 // process.env.NODE_ENV === 'development' &&
 //     (pointInstance.defaults.headers.common['Authorization'] = testToken);
