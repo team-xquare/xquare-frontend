@@ -20,6 +20,7 @@ const PointListItem = ({
     meal_apply,
     penalty_level,
     is_penalty_required,
+
     isActive,
     onClick,
 }: Student & PropsType) => {
@@ -53,17 +54,19 @@ const PointListItem = ({
             isBorder
             customStyle
             isCursor
+            onClick={() => onClick(id)}
             style={{ padding: '8px 28px' }}>
             <CustomTableCell onClick={() => onClick(id, true)} justify="center" align="center">
                 <input type="checkbox" checked={isActive} />
             </CustomTableCell>
+
             {createText(num)}
             {createText(name)}
             {createText(good_point)}
             {createText(bad_point)}
             {createText(penaltyKo[penalty_level])}
             {is_penalty_required ? (
-                <CustomTableCell onClick={() => onClick(id)} justify="center" align="center">
+                <CustomTableCell justify="center" align="center">
                     <CustomButton
                         size="sm"
                         onClick={(e) => {
@@ -80,14 +83,6 @@ const PointListItem = ({
         </TableRow>
     );
 };
-
-const BodyWrapper = styled.div<{ isActive: boolean }>`
-    width: 100%;
-    height: 100%;
-    background: ${(props) =>
-        props.isActive ? props.theme.colors.purple50 : props.theme.colors.gray50};
-    cursor: pointer;
-`;
 
 const CustomButton = styled(Button)``;
 const CustomTableCell = styled(TableCell)`

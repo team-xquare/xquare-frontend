@@ -1,13 +1,16 @@
 import type { NextPage } from 'next';
-import PointLayout from '../components/pointControlPanel/PointLayout';
+import Point from '../components/pointControlPanel';
 import { ModalProvider } from '../contexts/modal';
+import { SortProvider } from '../contexts/sort';
 
-const Point: NextPage = () => {
+const PointPage: NextPage = () => {
     return (
         <ModalProvider>
-            <PointLayout />
+            <SortProvider>
+                <Point />
+            </SortProvider>
         </ModalProvider>
     );
 };
 
-export default Point;
+export default PointPage;

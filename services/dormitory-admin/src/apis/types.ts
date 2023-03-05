@@ -65,7 +65,7 @@ export interface Category {
 }
 
 export enum SortingEnum {
-    a = '필터링 ✖',
+    a = '선택안함',
     b = '벌점 봉사',
     c = '1단계',
     d = '2단계',
