@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Body2, Button, Select } from '@semicolondsm/ui';
-import { useWeekendMealList } from '../apis/apply';
+import { useWeekendMealExcel, useWeekendMealList } from '../apis/apply';
 import { Flex } from '../components/common/Flex';
 import MainSectionTitle from '../components/common/MainSectionTitle';
 import SelectInput from '../components/common/SelectInput';
@@ -10,13 +10,14 @@ const cellSizes = ['minmax(11%, 1fr)', 'minmax(11%, 1fr)'];
 
 const WeekendMeal = () => {
     const { data } = useWeekendMealList();
+    const weekendMealExcelDownload = useWeekendMealExcel();
     return (
         <Container>
             <Flex direction="column" fullWidth gap={24}>
                 <Flex direction="column">
                     <MainSectionTitle>주말 급식 신청 현황</MainSectionTitle>
                     <Flex justify="flex-end" fullWidth>
-                        <Button size="sm" fill="purple" onClick={() => {}}>
+                        <Button size="sm" fill="purple" onClick={() => weekendMealExcelDownload()}>
                             엑셀 출력하기
                         </Button>
                     </Flex>

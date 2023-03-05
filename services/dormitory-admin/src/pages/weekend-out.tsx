@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
-import { Body2, Select } from '@semicolondsm/ui';
+import { Body2, Select, Button } from '@semicolondsm/ui';
+
+import { useState } from 'react';
 import { usePicnicList } from '../apis/apply';
 import { Flex } from '../components/common/Flex';
 import MainSectionTitle from '../components/common/MainSectionTitle';
@@ -15,10 +17,19 @@ const cellSizes = [
     'minmax(11%, 1fr)',
 ];
 
-const picnicType = [];
+const picnicType = ['대기 학생', '복귀 학생'] as const;
+
+const picnicTypeKeySelector: Record<typeof picnicType[number], string> = {
+    '복귀 학생': 'RETURN',
+    '대기 학생': 'AWAIT',
+};
 
 const WeekendOut = () => {
-    const { data: picnicList } = usePicnicList();
+    const [picnicTypeState, setPicnicTypeState] = useState<typeof picnicType[number]>(
+        picnicType[0],
+    );
+
+    const { data: picnicList } = usePicnicList(picnicTypeKeySelector[picnicTypeState]);
 
     return (
         <Container>
@@ -26,7 +37,26 @@ const WeekendOut = () => {
                 <Flex direction="column">
                     <MainSectionTitle>주말 외출</MainSectionTitle>
                     <Flex justify="space-between" fullWidth>
-                        <Select items={[]} placeholder=""></Select>
+                        <Select
+                            items={picnicType}
+                            value={picnicTypeState}
+                            onChange={setPicnicTypeState}
+                            placeholder=""
+                        />
+                        <Flex gap={12}>
+                            {picnicTypeState === '대기 학생' ? (
+                                <>
+                                    <Button size="sm">거절하기</Button>
+                                    <Button size="sm" fill="purple">
+                                        수락하기
+                                    </Button>
+                                </>
+                            ) : (
+                                <Button size="sm" fill="purple">
+                                    복귀하기
+                                </Button>
+                            )}
+                        </Flex>
                     </Flex>
                 </Flex>
                 <ScrollBox>
@@ -53,7 +83,7 @@ const WeekendOut = () => {
                         <TableBody>
                             {picnicList?.picnic_list.map((picnic) => (
                                 <TableRow
-                                    key={picnic.user_id}
+                                    key={picnic.picnic_id}
                                     cellSizes={cellSizes}
                                     isBorder
                                     customStyle

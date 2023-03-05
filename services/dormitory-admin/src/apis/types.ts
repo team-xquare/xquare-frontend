@@ -84,6 +84,7 @@ export type Stay = {
     num: string;
     name: string;
     code: string;
+    id: string;
 };
 
 export type StayCode = {
