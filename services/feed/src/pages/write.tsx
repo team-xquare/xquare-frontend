@@ -23,9 +23,11 @@ const Write = () => {
     const { data: purpose } = useCategoryList();
     const { data: group } = usePermissions(selectState.purpose.key);
 
-    // useEffect(() => {
-    //     sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!content });
-    // }, [!!content]);
+    useEffect(() => {
+        sendBridgeEvent('isRightButtonEnabled', {
+            isEnabled: !!content && !!selectState.group.name,
+        });
+    }, [!!content, selectState.group.name]);
 
     const { mutate: addFeedMutate } = useAddFeed();
 
