@@ -24,9 +24,9 @@ const CommentBox = ({
     profileSrc,
     commentId,
 }: ProfileWithCommentProps) => {
-    const { mutate: deleteMutate } = useDeleteComment();
+    const { mutate: deleteMutate } = useDeleteComment(commentId);
     const menuAction: Record<typeof menuList[number], () => void> = {
-        삭제: () => deleteMutate(commentId),
+        삭제: () => deleteMutate(),
     };
     return (
         <ProfileWithCommentWrapper>

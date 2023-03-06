@@ -3,9 +3,9 @@ import { queryKeys } from '../../utils/queryKeys';
 import { deleteFeedLike, postFeedLike } from '../apis';
 import { FeedType } from '../types';
 
-const useFeedLike = () => {
+const useFeedLike = (categoryId: string) => {
     const queryClient = useQueryClient();
-    const feedListKey = queryKeys.getFeedList();
+    const feedListKey = queryKeys.getFeedList(categoryId);
     const preivousFeedList = queryClient.getQueryData<{ feeds: FeedType[] }>([feedListKey])?.feeds;
 
     const feedLikeMutateFn = (feedId: string) => {

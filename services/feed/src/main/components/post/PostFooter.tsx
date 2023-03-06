@@ -11,15 +11,16 @@ interface PostFooterProps {
     comments: number;
     isMyLike: boolean;
     postId: string;
+    categoryId: string;
 }
 
-const PostFooter = ({ comments, like, isMyLike, postId }: PostFooterProps) => {
-    const { mutate: feedLikeMutate } = useFeedLike();
+const PostFooter = ({ comments, like, isMyLike, postId, categoryId }: PostFooterProps) => {
+    const { mutate: feedLikeMutate } = useFeedLike(categoryId);
     const router = useRouter();
     return (
         <PostFooterContainer>
-            <FooterInfoContainer>
-                <Good isBlack={isMyLike} onClick={() => feedLikeMutate(postId)} />
+            <FooterInfoContainer onClick={() => feedLikeMutate(postId)}>
+                <Good isBlack={isMyLike} />
                 <p>좋아요 {like}</p>
             </FooterInfoContainer>
             <FooterInfoContainer

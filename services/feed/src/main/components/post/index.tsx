@@ -12,7 +12,9 @@ import { FeedType } from '../../types';
 import { timeFormatter } from '../../../utils/timeFormatter';
 import { useMutation } from '@tanstack/react-query';
 import useDeleteFeed from '../../hooks/useDeleteFeed';
-interface FeedPostProps extends FeedType {}
+interface FeedPostProps extends FeedType {
+    categoryId: string;
+}
 //@todo props 바꾸기
 const actionSheetMenu = ['삭제하기'] as const;
 
@@ -28,6 +30,7 @@ const FeedPost = ({
     like_count,
     profile,
     type,
+    categoryId,
 }: FeedPostProps) => {
     const { mutate: deleteMutate } = useDeleteFeed(feed_id);
     const menuAction: Record<typeof actionSheetMenu[number], () => void> = {
@@ -54,6 +57,7 @@ const FeedPost = ({
             </FeedPostContainer>
             {!!attachments_url.length ? <ImageCountContainer images={attachments_url} /> : <></>}
             <PostFooter
+                categoryId={categoryId}
                 comments={comment_count}
                 like={like_count}
                 isMyLike={is_like}

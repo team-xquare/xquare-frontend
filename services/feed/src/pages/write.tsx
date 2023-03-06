@@ -38,7 +38,8 @@ const Write = () => {
                 category_id: selectState.purpose.category_id,
                 type: selectState.group.name,
                 content: content,
-                title: '',
+                title: '1234',
+                fileBase64Arr: pickedImage,
             });
         },
         undefined,

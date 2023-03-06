@@ -24,7 +24,11 @@ const Home: NextPage = () => {
             />
             <FeedContainer>
                 {feedList?.feeds.map((feed) => (
-                    <FeedPost {...feed} key={feed.feed_id} />
+                    <FeedPost
+                        categoryId={selectedTabValueKey.category_id}
+                        {...feed}
+                        key={feed.feed_id}
+                    />
                 ))}
             </FeedContainer>
             <WriteButton

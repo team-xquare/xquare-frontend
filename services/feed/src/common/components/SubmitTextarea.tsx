@@ -28,9 +28,6 @@ const SubmitTextarea = ({ placeholder, onChange, onSubmit, value }: SubmitTextar
 };
 
 const FixedBox = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     padding: 8px 16px;
     background-color: ${({ theme }) => theme.colors.gray50};

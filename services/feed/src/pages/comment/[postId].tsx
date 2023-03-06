@@ -27,23 +27,28 @@ const Comment = () => {
                 name={feedDetailData?.name || ''}
                 profileSrc={feedDetailData?.profile || ''}
             />
-            <FlexCol gap={16} fullWidth>
-                {commentsData?.comments.map((comment) => (
-                    <CommentBox
-                        key={comment.comment_id}
-                        comment={comment.content}
-                        createAt={comment.updated_at}
-                        profileSrc={comment.profile}
-                        name={comment.name}
-                        commentId={comment.comment_id}
-                    />
-                ))}
-            </FlexCol>
+            <CommentBoxSection gap={16} fullWidth>
+                <CommentWrapper>
+                    {commentsData?.comments.map((comment) => (
+                        <CommentBox
+                            key={comment.comment_id}
+                            comment={comment.content}
+                            createAt={comment.updated_at}
+                            profileSrc={comment.profile}
+                            name={comment.name}
+                            commentId={comment.comment_id}
+                        />
+                    ))}
+                </CommentWrapper>
+            </CommentBoxSection>
             <SubmitTextarea
                 placeholder="댓글을 입력해주세요."
                 onChange={(e) => setCommentValue(e.target.value)}
                 value={commentValue}
-                onSubmit={() => addMutate(commentValue)}
+                onSubmit={() => {
+                    setCommentValue('');
+                    addMutate(commentValue);
+                }}
             />
         </CommentContainer>
     );
@@ -53,6 +58,22 @@ const CommentContainer = styled(FlexCol)`
     > * + * {
         border-top: 1px solid ${({ theme }) => theme.colors.gray300};
     }
+    position: absolute;
+    width: 100%;
+    height: 100%;
+`;
+
+const CommentBoxSection = styled(FlexCol)`
+    flex: 1;
+    position: relative;
+    width: 100%;
+`;
+
+const CommentWrapper = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
 `;
 
 export default Comment;

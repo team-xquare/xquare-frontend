@@ -1,17 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
-import { postAddFeed } from '../apis';
+import { postAddFeed, postAttachment, postFeedImage } from '../apis';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { AxiosError } from 'axios';
+import { b64toFile } from '../../utils/b64toFile';
+import { PostFeedResponse } from '../types';
 const useAddFeed = () => {
-    return useMutation(postAddFeed, {
-        onMutate: (e) => {
-            sendBridgeEvent('error', {
-                message: `${e.category_id}`,
-            });
-        },
+    const addFeedRequest = async (param: { fileBase64Arr: string[] } & PostFeedResponse) => {
+        const { fileBase64Arr, ...postAddParam } = param;
+        const fileArr = await Promise.all(fileBase64Arr.map((base64) => b64toFile(base64)));
+        const imageUrls = await postAttachment(fileArr);
+        const postResponse = await postAddFeed(postAddParam);
+        await postFeedImage(postResponse.data.id, imageUrls.filesUrl);
+    };
+    return useMutation(addFeedRequest, {
         onError: (e: AxiosError) => {
             sendBridgeEvent('error', {
-                message: `피드 등록에 실패하였습니다.(${e?.response?.data})`,
+                message: `피드 등록에 실패하였습니다.(${e})`,
             });
         },
         onSuccess: () => {
