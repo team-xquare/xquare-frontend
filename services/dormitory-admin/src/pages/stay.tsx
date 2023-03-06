@@ -52,7 +52,7 @@ const Stay: NextPage = () => {
                         />
                     </Flex>
                     <Button size="sm" fill="purple" onClick={() => onExcelDownload()}>
-                        엑셀 출력하기
+                        엑셀 다운로드
                     </Button>
                 </Flex>
                 <ScrollBox>

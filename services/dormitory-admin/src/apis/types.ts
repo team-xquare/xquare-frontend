@@ -44,7 +44,7 @@ export interface StudentHistory {
     id: number;
     date: Date;
     reason: string;
-    pointType: boolean;
+    point_type: boolean;
     point: number;
 }
 

@@ -7,6 +7,7 @@ import ModalContainer from '../common/ModalContainer';
 import { useModal } from '../../contexts/modal';
 import { Button } from '@semicolondsm/ui';
 import { useAddNoticeMutation } from '../../apis/notices';
+import SelectInput from '../common/SelectInput';
 const NoticeLayout = () => {
     const [activeId, setActiveId] = useState<string | null>(null);
     const { mutate: addNotice } = useAddNoticeMutation();
@@ -25,12 +26,13 @@ const NoticeLayout = () => {
         <NoticeContainer>
             <ModalContainer>
                 <Box>
-                    <Input
+                    <SelectInput
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="제목"
                     />
                     <Textarea
+                        as="textarea"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         placeholder="내용"></Textarea>
@@ -38,7 +40,7 @@ const NoticeLayout = () => {
                         <Button size="sm" fill="border" onClick={closeModal}>
                             닫기
                         </Button>
-                        <Button size="sm" fill="purple" onClick={onSubmit}>
+                        <Button disabled={!title} size="sm" fill="purple" onClick={onSubmit}>
                             만들기
                         </Button>
                     </ButtonWrapper>
@@ -78,23 +80,20 @@ const Input = styled.input`
     font-size: 16px;
 `;
 
-const Textarea = styled.textarea`
+const Textarea = styled(SelectInput)`
     width: 400px;
     height: 300px;
     resize: vertical;
+    padding: 12px;
     outline: none;
-    border-radius: 6px;
-    border: 1px solid ${({ theme }) => theme.colors.gray200};
-    padding: 8px 14px;
-    font-size: 16px;
 `;
 
 const ButtonWrapper = styled.div`
     width: 100%;
     display: flex;
     gap: 10px;
-    padding: 16px 0;
-    justify-content: center;
+
+    justify-content: flex-end;
     //BODY 1 추가
 `;
 

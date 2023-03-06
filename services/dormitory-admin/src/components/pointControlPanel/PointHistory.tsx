@@ -6,6 +6,7 @@ import { SelectedUserIds } from '../../apis/types';
 import KebabMenu from '../common/KebabMenu';
 import BlockContainer from '../common/BlockContainer';
 import { Flex } from '../common/Flex';
+import Spinner from '../common/Spinner';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -24,7 +25,11 @@ const PointHistory = ({ id }: PropsType) => {
         <MainContainer>
             <BlockContainer title="내역">
                 <MainListWrapper>
-                    {data ? (
+                    {isLoading ? (
+                        <Flex align="center" justify="center" fullHeight fullWidth>
+                            <Spinner />
+                        </Flex>
+                    ) : data ? (
                         data.length ? (
                             data.map((history) => (
                                 <HistoryItemContainer
@@ -36,7 +41,7 @@ const PointHistory = ({ id }: PropsType) => {
                                     </TextContainer>
                                     <Flex gap={18} align="center">
                                         <Body1
-                                            color={history.point > 0 ? 'green800' : 'red200'}
+                                            color={history.point_type ? 'green800' : 'red200'}
                                             fontWeight="medium">
                                             {history.point}
                                         </Body1>
@@ -50,18 +55,29 @@ const PointHistory = ({ id }: PropsType) => {
                                 </HistoryItemContainer>
                             ))
                         ) : (
-                            <Body1>상벌점 기록이 없습니다.</Body1>
+                            <GuideMessage>상벌점 기록이 없습니다.</GuideMessage>
                         )
                     ) : stdIds.length > 1 ? (
-                        <Body1>학생을 한명만 선택해주세요.</Body1>
+                        <GuideMessage>학생을 한명만 선택해주세요.</GuideMessage>
                     ) : (
-                        <Body1>학생을 선택해주세요 !</Body1>
+                        <GuideMessage>학생을 선택해주세요 !</GuideMessage>
                     )}
                 </MainListWrapper>
             </BlockContainer>
         </MainContainer>
     );
 };
+
+const GuideMessage = styled(Body1)`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: ${({ theme }) => theme.fonts.weight.regular};
+
+    color: ${({ theme }) => theme.colors.gray600};
+`;
 
 const MainContainer = styled.div`
     width: 100%;

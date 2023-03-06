@@ -49,13 +49,7 @@ const NoticePreview = ({ activeId }: Props) => {
     return (
         <MainContainer>
             <BlockContainer title="미리보기">
-                <Flex
-                    direction="column"
-                    fullHeight
-                    fullWidth
-                    gap={8}
-                    align="flex-start"
-                    padding={'24px'}>
+                <Flex direction="column" fullHeight fullWidth gap={8} align="flex-start">
                     <PreviewTitle contentEditable={isEditing} isEditing={isEditing} ref={titleRef}>
                         {title}
                     </PreviewTitle>
@@ -83,7 +77,7 @@ const NoticePreview = ({ activeId }: Props) => {
                             setIsEditing((prev) => (prev ? onUpdate() : !prev));
                         }}
                         size="sm"
-                        fill={'purple'}>
+                        fill="purple">
                         {isEditing && content ? '수정완료' : '수정하기'}
                     </Button>
                 </ButtonBox>
@@ -130,19 +124,21 @@ const PreviewTitle = styled.div<{ isEditing: boolean }>`
     white-space: pre-wrap;
     outline: none;
     font-size: 18px;
+    padding: 8px 24px;
+    color: ${({ theme }) => theme.colors.gray900};
     background-color: ${({ theme, isEditing }) =>
         isEditing ? theme.colors.purple50 : theme.colors.white};
 `;
 
 const PreviewContent = styled.div<{ isEditing: boolean }>`
+    padding: 6px 24px;
     width: 100%;
-    flex-grow: 1;
-    flex: 1;
+    height: 100%;
     overflow-y: auto;
-    padding-top: 0;
     white-space: pre-wrap;
     font-weight: 300;
     outline: none;
+    color: ${({ theme }) => theme.colors.gray900};
     background-color: ${({ theme, isEditing }) =>
         isEditing ? theme.colors.purple50 : theme.colors.white};
 `;

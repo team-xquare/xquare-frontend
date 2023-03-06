@@ -1,21 +1,15 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { FC, SVGProps } from 'react';
 
-const Spinner = () => {
+interface SpinnerProps extends SVGProps<SVGSVGElement> {}
+const Spinner: FC<SpinnerProps> = ({ ...props }) => {
     return (
-        <Svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            <circle
-                className="path"
-                cx="25"
-                cy="25"
-                r="20"
-                fill="none"
-                strokeWidth="5"
-            ></circle>
+        <Svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" {...props}>
+            <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
         </Svg>
     );
-}
+};
 const rotate = keyframes`
     from {
         transform: rotate(0deg);
@@ -48,7 +42,7 @@ const Svg = styled.svg`
     width: 50px;
     height: 50px;
     & circle {
-        stroke: ${props => props.theme.colors.gray900};
+        stroke: ${(props) => props.theme.colors.gray900};
         stroke-linecap: round;
         animation: ${dash} 1.5s ease-in-out infinite;
     }
