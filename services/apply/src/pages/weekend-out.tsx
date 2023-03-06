@@ -50,9 +50,17 @@ const WeekendOut = () => {
                     weekendOutMutate({
                         end_time: timeState.endTime,
                         start_time: timeState.startTime,
-                        arrangement: inputState.arrangement,
+                        arrangement: inputState.arrangement || ' ',
                         reason: inputState.reason,
                     })
+                }
+                disabled={
+                    !(
+                        timeState.endTime &&
+                        timeState.startTime &&
+                        inputState.arrangement &&
+                        inputState.reason
+                    )
                 }>
                 신청하기
             </ButtomFixedButton>

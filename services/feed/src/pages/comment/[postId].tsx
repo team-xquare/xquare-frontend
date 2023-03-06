@@ -36,6 +36,7 @@ const Comment = () => {
                             createAt={comment.updated_at}
                             profileSrc={comment.profile}
                             name={comment.name}
+                            isMine={comment.is_mine}
                             commentId={comment.comment_id}
                         />
                     ))}

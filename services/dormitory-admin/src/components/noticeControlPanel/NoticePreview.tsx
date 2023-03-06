@@ -8,6 +8,8 @@ import {
     useUpdateNoticeMutation,
 } from '../../apis/notices';
 import BlockContainer from '../common/BlockContainer';
+import { Flex } from '../common/Flex';
+import ScrollBox from '../common/ScrollBox';
 
 interface Props {
     activeId: string | null;
@@ -18,21 +20,24 @@ const NoticePreview = ({ activeId }: Props) => {
     const { data: feeds } = useNoticeQuery();
     const { mutate: deleteNotice } = useDeleteNoticeMutation();
     const { mutate: updateNotice } = useUpdateNoticeMutation();
-    const { feed_id, content } = (feeds ?? []).filter(
+    const { feed_id, content, title } = (feeds ?? []).filter(
         ({ feed_id }) => feed_id === `${activeId}`,
     )[0] ?? {
         feed_id: '',
+        title: '',
         content: '',
     };
     const contentRef = useRef<HTMLDivElement>(null);
-
+    const titleRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         setIsEditing(false);
     }, [activeId]);
+
     const onUpdate = () => {
         updateNotice({
             feed_id,
             content: contentRef.current?.innerText,
+            title: titleRef.current?.innerText,
         });
         return false;
     };
@@ -44,15 +49,39 @@ const NoticePreview = ({ activeId }: Props) => {
     return (
         <MainContainer>
             <BlockContainer title="미리보기">
-                <PreviewContent ref={contentRef} contentEditable={isEditing} isEditing={isEditing}>
-                    {content}
-                </PreviewContent>
+                <Flex
+                    direction="column"
+                    fullHeight
+                    fullWidth
+                    gap={8}
+                    align="flex-start"
+                    padding={'24px'}>
+                    <PreviewTitle contentEditable={isEditing} isEditing={isEditing} ref={titleRef}>
+                        {title}
+                    </PreviewTitle>
+                    <ScrollBox>
+                        <PreviewContent
+                            ref={contentRef}
+                            contentEditable={isEditing}
+                            isEditing={isEditing}>
+                            {content}
+                        </PreviewContent>
+                    </ScrollBox>
+                </Flex>
                 <ButtonBox>
-                    <Button onClick={onDelete} size="sm" fill={'border'} className="delete">
+                    <Button
+                        onClick={onDelete}
+                        disabled={!content}
+                        size="sm"
+                        fill={'border'}
+                        className="delete">
                         삭제하기
                     </Button>
                     <Button
-                        onClick={() => setIsEditing((prev) => (prev ? onUpdate() : !prev))}
+                        disabled={!content}
+                        onClick={() => {
+                            setIsEditing((prev) => (prev ? onUpdate() : !prev));
+                        }}
                         size="sm"
                         fill={'purple'}>
                         {isEditing && content ? '수정완료' : '수정하기'}
@@ -94,12 +123,25 @@ const ButtonBox = styled.div`
     }
 `;
 
+const PreviewTitle = styled.div<{ isEditing: boolean }>`
+    width: 100%;
+    overflow-y: auto;
+    padding-bottom: 0;
+    white-space: pre-wrap;
+    outline: none;
+    font-size: 18px;
+    background-color: ${({ theme, isEditing }) =>
+        isEditing ? theme.colors.purple50 : theme.colors.white};
+`;
+
 const PreviewContent = styled.div<{ isEditing: boolean }>`
     width: 100%;
-    height: 80%;
+    flex-grow: 1;
+    flex: 1;
     overflow-y: auto;
-    padding: 24px;
+    padding-top: 0;
     white-space: pre-wrap;
+    font-weight: 300;
     outline: none;
     background-color: ${({ theme, isEditing }) =>
         isEditing ? theme.colors.purple50 : theme.colors.white};

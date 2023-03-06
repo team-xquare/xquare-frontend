@@ -25,9 +25,9 @@ const Write = () => {
 
     useEffect(() => {
         sendBridgeEvent('isRightButtonEnabled', {
-            isEnabled: !!content && !!selectState.group.name,
+            isEnabled: (!!content || !!pickedImage.length) && !!selectState.group.name,
         });
-    }, [!!content, selectState.group.name]);
+    }, [!!content, selectState.group.name, !!pickedImage.length]);
 
     const { mutate: addFeedMutate } = useAddFeed();
 

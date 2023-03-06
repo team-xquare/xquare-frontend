@@ -19,18 +19,20 @@ const NoticeListItem = ({
     isActive,
     like_count,
     comment_count,
+    title,
 }: Notice & Props) => {
     const onClickItem = () => onClick(feed_id);
 
     return (
         <TableRow
             cellSizes={cellSizes}
+            isActive={isActive}
             isBorder
             customStyle
             isCursor
             style={{ padding: '8px 28px' }}>
             <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
-                <Body2>{content.slice(0, 20)}</Body2>
+                <Body2>{title}</Body2>
             </CustomTableCell>
             <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
                 <Body2>{getDateString(new Date(created_at))}</Body2>
@@ -47,9 +49,9 @@ const NoticeListItem = ({
 
 const NoticeItemContainer = styled.div``;
 
-export default NoticeListItem;
-
 const CustomTableCell = styled(TableCell)`
     align-items: center;
     height: 40px;
 `;
+
+export default NoticeListItem;

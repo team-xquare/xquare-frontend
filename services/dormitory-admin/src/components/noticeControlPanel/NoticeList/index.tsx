@@ -7,7 +7,6 @@ import NoticeListItem from './NoticeListItem';
 import { useModal } from '../../../contexts/modal';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '../../common/Table';
 import BlockContainer from '../../common/BlockContainer';
-import FullHeightScrollArea from '../../common/FullHeightScrollArea';
 
 interface Props {
     setActiveId: (id: string) => void;
@@ -20,47 +19,41 @@ const NoticeList = ({ setActiveId, activeId }: Props) => {
 
     return (
         <MainContainer>
-            <BlockContainer
-                title="공자사항 목록"
-                titleRightContent={
+            <BlockContainer title="공지사항 목록">
+                <MainBlockHeader>
                     <Button size="sm" onClick={openModal} fill="purple">
-                        작성하기
+                        새 공지사항 작성하기
                     </Button>
-                }>
-                <FullHeightScrollArea>
-                    <Table>
-                        <TableHead isBorder={false}>
-                            <TableRow
-                                isBorder
-                                cellSizes={cellSizes}
-                                style={{ padding: '8px 28px' }}>
-                                <TableCell scope="col" justify="flex-start">
-                                    <Body2>제목</Body2>
-                                </TableCell>
-                                <TableCell scope="col" justify="flex-start">
-                                    <Body2>날짜</Body2>
-                                </TableCell>
-                                <TableCell scope="col" justify="flex-start">
-                                    <Body2>좋아요</Body2>
-                                </TableCell>
-                                <TableCell scope="col" justify="flex-start">
-                                    <Body2>댓글</Body2>
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {feeds &&
-                                feeds.map((feeds) => (
-                                    <NoticeListItem
-                                        key={feeds.feed_id}
-                                        {...feeds}
-                                        isActive={feeds.feed_id === `${activeId}`}
-                                        onClick={setActiveId}
-                                    />
-                                ))}
-                        </TableBody>
-                    </Table>
-                </FullHeightScrollArea>
+                </MainBlockHeader>
+                <Table>
+                    <TableHead>
+                        <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }} customStyle>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>제목</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>날짜</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>좋아요</Body2>
+                            </TableCell>
+                            <TableCell scope="col" justify="flex-start">
+                                <Body2>댓글</Body2>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {feeds &&
+                            feeds.map((feeds) => (
+                                <NoticeListItem
+                                    key={feeds.feed_id}
+                                    {...feeds}
+                                    isActive={feeds.feed_id === `${activeId}`}
+                                    onClick={setActiveId}
+                                />
+                            ))}
+                    </TableBody>
+                </Table>
             </BlockContainer>
         </MainContainer>
     );
@@ -76,25 +69,12 @@ const MainContainer = styled.div`
     grid-row: 1 / 3;
 `;
 
-const MainListWrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: grid;
-    margin-top: 20px;
-    grid-auto-flow: row;
-    grid-auto-rows: 50px;
-    grid-template-columns: 3fr repeat(3, 1fr);
+const MainBlockHeader = styled.div`
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    justify-items: center;
-    overflow-y: scroll;
-    & div {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    padding: 16px 24px;
+    width: 100%;
 `;
 
 export default NoticeList;

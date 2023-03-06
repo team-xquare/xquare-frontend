@@ -13,7 +13,7 @@ interface ProfileWithCommentProps
         Omit<ComponentProps<typeof ProfileContent>, 'direction'> {
     comment: string;
     commentId: string;
-    // isMine: string;
+    isMine: boolean;
 }
 const menuList = ['삭제'] as const;
 
@@ -23,6 +23,7 @@ const CommentBox = ({
     name,
     profileSrc,
     commentId,
+    isMine,
 }: ProfileWithCommentProps) => {
     const { mutate: deleteMutate } = useDeleteComment(commentId);
     const menuAction: Record<typeof menuList[number], () => void> = {
@@ -35,7 +36,7 @@ const CommentBox = ({
                 <ProfileContent direction="row" createAt={createAt} name={name} />
                 <CommentSection>{comment}</CommentSection>
             </CommentWrapper>
-            <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />
+            {isMine && <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />}
         </ProfileWithCommentWrapper>
     );
 };

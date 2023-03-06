@@ -1,6 +1,13 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { applyInstance } from '.';
-import { PicnicStu, Stay, StayCode, WeekendMealStu } from './types';
+import {
+    PicnicDetail,
+    PicnicStu,
+    SelectedPicnicType,
+    Stay,
+    StayCode,
+    WeekendMealStu,
+} from './types';
 import FileSaver from 'file-saver';
 import toast from 'react-hot-toast';
 export const useStayList = () => {
@@ -8,7 +15,11 @@ export const useStayList = () => {
         const response = await applyInstance.get<{ stay_list: Stay[] }>('/admin/stay');
         return response.data;
     };
-    return useQuery('stay-list', fetcher);
+    return useQuery('stay-list', fetcher, {
+        onError: () => {
+            toast.error('잔류신청목록 조회를 실패하였습니다.');
+        },
+    });
 };
 
 export const useStayCode = () => {
@@ -42,7 +53,11 @@ export const useWeekendMealList = () => {
         );
         return response.data;
     };
-    return useQuery('/admin/weekend-meal', fetcher);
+    return useQuery('/admin/weekend-meal', fetcher, {
+        onError: () => {
+            toast.error('주말 급식 신청목록 조회를 실패하였습니다.');
+        },
+    });
 };
 
 export const usePicnicList = (type: string) => {
@@ -52,7 +67,11 @@ export const usePicnicList = (type: string) => {
         );
         return response.data;
     };
-    return useQuery(`/admin/picnic?type=${type}`, fetcher);
+    return useQuery(`/admin/picnic?type=${type}`, fetcher, {
+        onError: () => {
+            toast.error('주말 외출 목록 조회를 실패하였습니다.');
+        },
+    });
 };
 
 export const useWeekendMealExcel = () => {
@@ -70,21 +89,94 @@ export const useWeekendMealExcel = () => {
 };
 
 export const useStayUpdate = (studentId: string) => {
+    const queryClient = useQueryClient();
     const fetcher = async (param: { status: string }) => {
         return await applyInstance.put(`/admin/stay/${studentId}`, param);
     };
     return useMutation(fetcher, {
         onSuccess: () => {
+            queryClient.invalidateQueries(['stay-list']);
             toast.success('외출사항 변경을 성공했습니다.');
+        },
+        onError: () => {
+            toast.error('외출사항 변경을 실패하였습니다.');
         },
     });
 };
 
 export const useRefusePicnic = () => {
-    const fetcher = async () => {
-        return await applyInstance('/admin/picnic/accept/');
+    const queryClient = useQueryClient();
+    const fetcher = async (picnicIds: SelectedPicnicType) => {
+        const truePicnicIds = Object.keys(picnicIds).filter((key) => picnicIds[key] && key);
+        return await Promise.all(
+            truePicnicIds.map((picnicId) =>
+                applyInstance.delete<PicnicDetail>(`/admin/picnic/refuse/${picnicId}`),
+            ),
+        );
     };
-    return useMutation(fetcher, {});
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('외출신청을 거절하였습니다.');
+            queryClient.invalidateQueries(['/admin/picnic?type=AWAIT']);
+        },
+        onError: () => {
+            toast.error('외출신청 거절을 실패하였습니다.');
+        },
+    });
 };
 
-export const useAcceptPicnic = () => {};
+export const useAcceptPicnic = () => {
+    const queryClient = useQueryClient();
+    const fetcher = async (picnicIds: SelectedPicnicType) => {
+        const truePicnicIds = Object.keys(picnicIds).filter((key) => picnicIds[key] && key);
+        return await Promise.all(
+            truePicnicIds.map((picnicId) =>
+                applyInstance.patch<PicnicDetail>(`/admin/picnic/accept/${picnicId}`),
+            ),
+        );
+    };
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('외출신청을 수락하였습니다.');
+            queryClient.invalidateQueries(['/admin/picnic?type=AWAIT']);
+        },
+        onError: () => {
+            toast.error('외출신청 수락을 실패하였습니다.');
+        },
+    });
+};
+
+export const useArrivePicnic = () => {
+    const queryClient = useQueryClient();
+    const fetcher = async (picnicIds: SelectedPicnicType) => {
+        const truePicnicIds = Object.keys(picnicIds).filter((key) => picnicIds[key] && key);
+        return await Promise.all(
+            truePicnicIds.map((picnicId) =>
+                applyInstance.patch<PicnicDetail>(`/admin/picnic/arrive/${picnicId}`),
+            ),
+        );
+    };
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('외출 복귀를 성공하였습니다.');
+            queryClient.invalidateQueries(['/admin/picnic?type=RETURN']);
+        },
+        onError: () => {
+            toast.error('외출 복귀를 실패하였습니다.');
+        },
+    });
+};
+
+export const usePicnicDetail = (studentIds: string[]) => {
+    const fetcher = async () => {
+        const response = await applyInstance.get<PicnicDetail>(
+            `/admin/picnic/detail/${studentIds[0]}`,
+        );
+        return response.data;
+    };
+
+    return useQuery(`/admin/picnic/detail/${studentIds[0]}`, fetcher, {
+        enabled: studentIds.length === 1,
+        onSuccess: () => {},
+    });
+};

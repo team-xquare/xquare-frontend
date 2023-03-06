@@ -33,13 +33,16 @@ export const useAddPointQuery = (id: SelectedUserIds) => {
     };
     return useMutation(fetcher, {
         onSuccess: () => {
-            toast.success('상점이 부여되었습니다.');
+            toast.success('상/벌점이 부여되었습니다.');
             queryClient.invalidateQueries('/points/students', {
                 predicate: ({ queryKey }) =>
                     queryKey[0] === '/points/students' &&
                     trueStudentIds.indexOf(queryKey[1] as string) !== -1,
             });
             queryClient.invalidateQueries('/student');
+        },
+        onError: () => {
+            toast.error('상/벌점 부여에 실패하였습니다.');
         },
     });
 };
@@ -102,7 +105,7 @@ export const useAddRuleMutation = (successCallback: () => void) => {
 
 export const useDeleteRuleHistory = (id: SelectedUserIds) => {
     const trueStudentIds = Object.keys(id).filter((key) => id[key] && key);
-
+    const queryClient = useQueryClient();
     const fetcher = async (historyId: string) => {
         const pathname = `/student/${
             trueStudentIds.length ? trueStudentIds[0] : ''
@@ -112,6 +115,7 @@ export const useDeleteRuleHistory = (id: SelectedUserIds) => {
     return useMutation(fetcher, {
         onSuccess: () => {
             toast.success('삭제되었습니다.');
+            queryClient.invalidateQueries(['/student']);
         },
         onError: () => {
             toast.error('삭제에 실패하였습니다.');

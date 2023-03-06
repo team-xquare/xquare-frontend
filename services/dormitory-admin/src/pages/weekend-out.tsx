@@ -1,26 +1,20 @@
 import styled from '@emotion/styled';
-import { Body2, Select, Button } from '@semicolondsm/ui';
+import { Body2 } from '@semicolondsm/ui';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePicnicList } from '../apis/apply';
-import { Flex } from '../components/common/Flex';
-import MainSectionTitle from '../components/common/MainSectionTitle';
+import { SelectedPicnicType } from '../apis/types';
+import BlockContainer from '../components/common/BlockContainer';
 import ScrollBox from '../components/common/ScrollBox';
-import SelectInput from '../components/common/SelectInput';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '../components/common/Table';
+import PicnicItem from '../components/weekendOutControlPanel/\bPicnicItem';
+import PicnicDetail from '../components/weekendOutControlPanel/PicnicDetail';
+import PicnicController from '../components/weekendOutControlPanel/PicnicController';
 
-const cellSizes = [
-    '40px',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-    'minmax(11%, 1fr)',
-];
-
-const picnicType = ['대기 학생', '복귀 학생'] as const;
+export const picnicType = ['대기 학생', '외출 학생'] as const;
 
 const picnicTypeKeySelector: Record<typeof picnicType[number], string> = {
-    '복귀 학생': 'RETURN',
+    '외출 학생': 'RETURN',
     '대기 학생': 'AWAIT',
 };
 
@@ -28,44 +22,65 @@ const WeekendOut = () => {
     const [picnicTypeState, setPicnicTypeState] = useState<typeof picnicType[number]>(
         picnicType[0],
     );
-
+    const [selectedPicnicIds, setSelectedPicnicIds] = useState<SelectedPicnicType>({});
+    const [isMultiSelected, setMultiSelected] = useState<boolean>(false);
     const { data: picnicList } = usePicnicList(picnicTypeKeySelector[picnicTypeState]);
+
+    const cellSizes = [
+        ...(isMultiSelected ? ['40px'] : []),
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+        'minmax(11%, 1fr)',
+    ];
+
+    const handleSelectAll = () => {
+        if (picnicList?.picnic_list.every(({ id }) => selectedPicnicIds[id])) {
+            setSelectedPicnicIds((prev) => ({
+                ...prev,
+                ...picnicList?.picnic_list.reduce((acc, { id }) => {
+                    acc[id] = false;
+                    return acc;
+                }, {} as SelectedPicnicType),
+            }));
+        } else {
+            setSelectedPicnicIds(
+                picnicList?.picnic_list.reduce((acc, { id }) => {
+                    acc[id] = true;
+                    return acc;
+                }, {} as SelectedPicnicType) || {},
+            );
+        }
+    };
+
+    useEffect(() => {
+        setSelectedPicnicIds({});
+    }, [picnicTypeState]);
 
     return (
         <Container>
-            <Flex direction="column" fullWidth gap={24}>
-                <Flex direction="column">
-                    <MainSectionTitle>주말 외출</MainSectionTitle>
-                    <Flex justify="space-between" fullWidth>
-                        <Select
-                            items={picnicType}
-                            value={picnicTypeState}
-                            onChange={setPicnicTypeState}
-                            placeholder=""
-                        />
-                        <Flex gap={12}>
-                            {picnicTypeState === '대기 학생' ? (
-                                <>
-                                    <Button size="sm">거절하기</Button>
-                                    <Button size="sm" fill="purple">
-                                        수락하기
-                                    </Button>
-                                </>
-                            ) : (
-                                <Button size="sm" fill="purple">
-                                    복귀하기
-                                </Button>
-                            )}
-                        </Flex>
-                    </Flex>
-                </Flex>
+            <BlockContainer title="주말 외출">
+                <PicnicController
+                    selectedPicnicIds={selectedPicnicIds}
+                    isMultiSelected={isMultiSelected}
+                    onClickMultiSelected={() => setMultiSelected((prev) => !prev)}
+                    picnicTypeState={picnicTypeState}
+                    setPicnicTypeState={setPicnicTypeState}
+                />
                 <ScrollBox>
                     <Table style={{ overflow: 'scroll' }}>
                         <TableHead>
                             <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }}>
-                                <CustomTableCell scope="col" justify="center">
-                                    <input type="checkbox"></input>
-                                </CustomTableCell>
+                                {isMultiSelected && (
+                                    <CustomTableCell scope="col" justify="center">
+                                        <input
+                                            type="checkbox"
+                                            checked={picnicList?.picnic_list.every(
+                                                ({ id }) => selectedPicnicIds[id],
+                                            )}
+                                            onChange={handleSelectAll}></input>
+                                    </CustomTableCell>
+                                )}
                                 <CustomTableCell scope="col" justify="center">
                                     <Body2>학번</Body2>
                                 </CustomTableCell>
@@ -82,38 +97,33 @@ const WeekendOut = () => {
                         </TableHead>
                         <TableBody>
                             {picnicList?.picnic_list.map((picnic) => (
-                                <TableRow
-                                    key={picnic.picnic_id}
+                                <PicnicItem
+                                    key={picnic.id}
+                                    {...picnic}
+                                    onClick={() => {
+                                        if (isMultiSelected) {
+                                            setSelectedPicnicIds({
+                                                ...selectedPicnicIds,
+                                                [picnic.id]: !selectedPicnicIds[picnic.id],
+                                            });
+                                        } else {
+                                            setSelectedPicnicIds({
+                                                [picnic.id]: true,
+                                            });
+                                        }
+                                    }}
+                                    isChecked={!!selectedPicnicIds[picnic.id]}
                                     cellSizes={cellSizes}
-                                    isBorder
-                                    customStyle
-                                    isCursor
-                                    style={{ padding: '8px 28px' }}>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <input type="checkbox"></input>
-                                    </CustomTableCell>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{picnic.num}</Body2>
-                                    </CustomTableCell>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{picnic.name}</Body2>
-                                    </CustomTableCell>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{picnic.start_time}</Body2>
-                                    </CustomTableCell>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{picnic.end_time}</Body2>
-                                    </CustomTableCell>
-                                </TableRow>
+                                    isMultiSelected={isMultiSelected}
+                                />
                             ))}
                         </TableBody>
                     </Table>
                 </ScrollBox>
-            </Flex>
-            <Flex direction="column" fullWidth>
-                <MainSectionTitle>외출 수락하기</MainSectionTitle>
-                <AcceptContainer></AcceptContainer>
-            </Flex>
+            </BlockContainer>
+            <BlockContainer title="외출 상세보기">
+                <PicnicDetail selectedPicnicId={selectedPicnicIds} />
+            </BlockContainer>
         </Container>
     );
 };

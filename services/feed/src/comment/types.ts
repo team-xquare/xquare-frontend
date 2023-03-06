@@ -3,6 +3,7 @@ export type CommentType = {
     content: string;
     name: string;
     profile: string;
+    is_mine: boolean;
     updated_at: string;
 };
 
