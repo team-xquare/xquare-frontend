@@ -9,6 +9,8 @@ import PlusIcon from '../../assets/plus.svg';
 import Input from '../common/Input';
 import Counter from '../common/Counter';
 import BlockContainer from '../common/BlockContainer';
+import SelectInput from '../common/SelectInput';
+import { Flex } from '../common/Flex';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -81,23 +83,36 @@ const PointRule = ({ id }: PropsType) => {
                                     {
                                         title: '상점',
                                         onClick: () => setAddType(true),
+                                        buttonStyle: {
+                                            padding: 0,
+                                            height: '32px',
+                                        },
                                     },
                                     {
                                         title: '벌점',
                                         onClick: () => setAddType(false),
+                                        buttonStyle: {
+                                            padding: 0,
+                                            height: '32px',
+                                        },
                                     },
                                 ]}
                             />
                         </AddRuleTogle>
-                        <Input
-                            label="제목"
-                            placeholder="제목"
-                            onChange={(e) => setReason(e.target.value)}
-                            value={reason}
-                        />
+                        <Flex gap={8} direction="column" fullWidth>
+                            <Body2 fontWeight="medium" color="gray700">
+                                벌점 사유
+                            </Body2>
+                            <SelectInput
+                                placeholder="벌점 사유"
+                                onChange={(e) => setReason(e.target.value)}
+                                value={reason}
+                            />
+                        </Flex>
                         <Counter label="부여 점수" setNum={setNumber} num={number} />
 
                         <CustomButton
+                            disabled={reason === ''}
                             fill="purple"
                             fullWidth
                             onClick={() => addRuleMutate({ type: addType, point: number, reason })}>
@@ -171,16 +186,17 @@ const AddRuleModalContainer = styled.div`
     width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
 `;
 
 const AddRuleTogle = styled.div`
     width: 100%;
+
     padding: 8px 0;
 `;
 
 const CustomButton = styled(Button)`
-    border-radius: 12px;
+    border-radius: 4px;
     height: 44px;
     margin-top: 16px;
 `;

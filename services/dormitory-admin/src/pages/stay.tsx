@@ -34,7 +34,14 @@ const Stay: NextPage = () => {
         <Container>
             <BlockContainer title="잔류상태">
                 <Flex justify="space-between" fullWidth padding={'16px 24px'}>
-                    <Flex gap={20}>
+                    <Flex gap={6}>
+                        <Select
+                            items={StaySortingEnum}
+                            value={curFilter}
+                            placeholder=""
+                            onChange={(value) => setCurFilter(value)}
+                        />
+
                         <SelectInput
                             style={{
                                 width: '300px',
@@ -42,13 +49,6 @@ const Stay: NextPage = () => {
                             placeholder="학생 이름을 검색하세요."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                        />
-
-                        <Select
-                            items={StaySortingEnum}
-                            value={curFilter}
-                            placeholder=""
-                            onChange={(value) => setCurFilter(value)}
                         />
                     </Flex>
                     <Button size="sm" fill="purple" onClick={() => onExcelDownload()}>

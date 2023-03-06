@@ -25,22 +25,23 @@ const NoticeListItem = ({
 
     return (
         <TableRow
+            onClick={() => onClickItem()}
             cellSizes={cellSizes}
             isActive={isActive}
             isBorder
             customStyle
             isCursor
             style={{ padding: '8px 28px' }}>
-            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            <CustomTableCell scope="col" justify="flex-start">
                 <Body2>{title}</Body2>
             </CustomTableCell>
-            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            <CustomTableCell scope="col" justify="flex-start">
                 <Body2>{getDateString(new Date(created_at))}</Body2>
             </CustomTableCell>
-            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            <CustomTableCell scope="col" justify="flex-start">
                 <Body2>{like_count}</Body2>
             </CustomTableCell>
-            <CustomTableCell scope="col" justify="flex-start" onClick={() => onClickItem()}>
+            <CustomTableCell scope="col" justify="flex-start">
                 <Body2>{comment_count}</Body2>
             </CustomTableCell>
         </TableRow>

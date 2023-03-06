@@ -24,7 +24,7 @@ const PicnicController = ({
     const { mutate: arriveMutate } = useArrivePicnic();
     return (
         <Flex justify="space-between" fullWidth padding={'16px 24px'}>
-            <Flex gap={12}>
+            <Flex gap={6}>
                 <Select
                     items={picnicType}
                     value={picnicTypeState}
@@ -35,7 +35,7 @@ const PicnicController = ({
                     {isMultiSelected ? '다중 선택 취소' : '다중 선택'}
                 </Button>
             </Flex>
-            <Flex gap={12}>
+            <Flex gap={8}>
                 {picnicTypeState === '대기 학생' ? (
                     <>
                         <Button size="sm" onClick={() => refuseMutate(selectedPicnicIds)}>

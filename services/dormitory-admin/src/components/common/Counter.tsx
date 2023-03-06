@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { Dispatch, SetStateAction } from 'react';
+import { Button, Body2 } from '@semicolondsm/ui';
+import SelectInput from './SelectInput';
 
 interface CounterProps {
     num: number;
@@ -10,11 +12,17 @@ interface CounterProps {
 const Counter = ({ num, setNum, label }: CounterProps) => {
     return (
         <Wrapper>
-            <CounterLabelBox>{label}</CounterLabelBox>
+            <Body2 fontWeight="medium" color="gray700">
+                {label}
+            </Body2>
             <CounterContainer>
-                <CounterButton onClick={() => setNum((number) => number - 1)}>-</CounterButton>
-                <DisplayBox>{num}</DisplayBox>
-                <CounterButton onClick={() => setNum((number) => number + 1)}>+</CounterButton>
+                <CounterButton size="sm" onClick={() => setNum((number) => number - 1)}>
+                    -
+                </CounterButton>
+                <CustomInput type="text" value={num} readOnly />
+                <CounterButton size="sm" onClick={() => setNum((number) => number + 1)}>
+                    +
+                </CounterButton>
             </CounterContainer>
         </Wrapper>
     );
@@ -34,30 +42,18 @@ const CounterContainer = styled.div`
     height: 36px;
 `;
 
-const CounterButton = styled.div`
+const CounterButton = styled(Button)`
     flex: 1;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 8px;
-    border: 1px solid ${({ theme }) => theme.colors.gray300};
+
+    & div {
+        font-weight: 500;
+    }
 `;
 
-const DisplayBox = styled.div`
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 8px;
-    border: 1px solid ${({ theme }) => theme.colors.gray300};
-`;
-
-const CounterLabelBox = styled.div`
-    font-size: 14px;
-    color: ${({ theme }) => theme.colors.gray900};
-    font-weight: 400;
+const CustomInput = styled(SelectInput)`
+    width: 120px;
+    text-align: center;
 `;
 
 export default Counter;

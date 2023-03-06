@@ -48,6 +48,7 @@ export const useAddNoticeMutation = () => {
             const noticeCategory = categoryResponse.data.category_list.filter(
                 (category) => category.name === '공지사항',
             )[0];
+
             return await feedInstance.post('/', {
                 ...params,
                 category_id: noticeCategory.category_id,
