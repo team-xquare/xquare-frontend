@@ -31,7 +31,6 @@ const ImageCountContainer = ({ images }: ImageCountContainerProps) => {
 const ImageContainer = styled.div`
     position: relative;
     width: 100%;
-    padding: 0 24px 24px;
 `;
 
 const ImageViewContainer = styled.div`

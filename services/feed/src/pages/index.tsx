@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const FeedContainer = styled(FlexCol)`
     > * + * {
-        border-top: 8px solid ${({ theme }) => theme.colors.gray100};
+        border-top: 1px solid ${({ theme }) => theme.colors.gray200};
     }
 `;
 

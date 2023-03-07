@@ -2301,6 +2301,7 @@ __metadata:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
     "@semicolondsm/react-emotion-theme": ^1.0.10
+    "@semicolondsm/ui": 1.4.1
     "@shared/xbridge": "workspace:^"
     "@tanstack/react-query": ^4.22.0
     "@tanstack/react-query-devtools": ^4.19.1

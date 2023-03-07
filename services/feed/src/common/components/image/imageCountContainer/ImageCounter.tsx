@@ -15,7 +15,7 @@ const ImageCounter = ({ maxSize, current }: ImageCounterProps) => {
 
 const CountBox = styled.div`
     position: absolute;
-    right: 36px;
+    right: 12px;
     top: 12px;
     padding: 4px 12px;
     color: ${({ theme }) => theme.colors.white};
