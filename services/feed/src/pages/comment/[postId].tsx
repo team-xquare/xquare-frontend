@@ -1,15 +1,16 @@
 import CommentBox from '../../comment/components/CommentBox';
 import styled from '@emotion/styled';
+import { Body1 } from '@semicolondsm/ui';
 import { FlexCol } from '../../common/components/Flexbox';
-import ContentDetail from '../../comment/components/ContentDetail';
+import ContentProfile from '../../comment/components/ContentDetail';
 import { useComment } from '../../comment/hooks/useComment';
-import { timeFormatter } from '../../utils/timeFormatter';
 import useFeedList from '../../main/hooks/useFeedList';
 import { useRouter } from 'next/router';
 import SubmitTextarea from '../../common/components/SubmitTextarea';
 import { useState } from 'react';
 import useAddComments from '../../comment/hooks/useAddComment';
 import { ImageCountContainer } from '../../common/components/image';
+import { useScrollWithRef } from '../../write/hooks/useScrollWithRef';
 
 const Comment = () => {
     const router = useRouter();
@@ -19,6 +20,7 @@ const Comment = () => {
     const { data: feedsData, isLoading } = useFeedList();
     const feedDetailData = feedsData?.feeds.filter((feed) => feed.feed_id === postId)[0];
     const { mutate: addMutate } = useAddComments(postId);
+    const { ref, isScroll } = useScrollWithRef();
 
     return (
         <>
@@ -26,16 +28,20 @@ const Comment = () => {
                 <></>
             ) : (
                 <CommentContainer fullWidth>
-                    <ContentDetail
-                        content={feedDetailData?.content || ''}
+                    <ContentProfile
+                        isScroll={isScroll}
                         createAt={feedDetailData?.created_at || ''}
                         name={feedDetailData?.name || ''}
                         profileSrc={feedDetailData?.profile || ''}
                     />
 
                     <CommentBoxSection gap={8} fullWidth>
-                        <CommentWrapper>
+                        <CommentWrapper ref={ref}>
+                            <DetailWrapper>
+                                <Body1>{feedDetailData?.content}</Body1>
+                            </DetailWrapper>
                             <ImageCountContainer images={feedDetailData?.attachments_url} />
+
                             {commentsData?.comments.map((comment) => (
                                 <CommentBox
                                     key={comment.comment_id}
@@ -81,6 +87,10 @@ const CommentWrapper = styled.div`
     height: 100%;
     width: 100%;
     overflow: auto;
+`;
+
+const DetailWrapper = styled.div`
+    padding: 12px 16px;
 `;
 
 export default Comment;
