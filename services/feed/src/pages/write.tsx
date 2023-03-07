@@ -11,6 +11,7 @@ import { CategoryType } from '../common/types';
 import usePermissions from '../write/hooks/usePermissions';
 import { sendBridgeEvent, useBridgeCallback } from '@shared/xbridge';
 import useAddFeed from '../write/hooks/useAddFeed';
+import WriteButton from '../main/components/WriteButton';
 export type DropdownType = 'group' | 'purpose';
 
 const Write = () => {
@@ -29,7 +30,7 @@ const Write = () => {
         });
     }, [!!content, selectState.group.name, !!pickedImage.length]);
 
-    const { mutate: addFeedMutate } = useAddFeed();
+    const { mutate: addFeedMutate } = useAddFeed(selectState.purpose.category_id);
 
     useBridgeCallback(
         'rightButtonTaped',

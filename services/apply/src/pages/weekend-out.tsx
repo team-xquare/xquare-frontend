@@ -39,10 +39,18 @@ const WeekendOut = () => {
                         placeholder="내용을 입력해주세요"
                         minRows={4}
                         onChange={onChangeTextarea}
+                        name="reason"
+                        value={inputState.reason}
                     />
                 </LabelBox>
                 <LabelBox label="동행자의 학번, 이름을 적어주세요.">
-                    <Textarea placeholder="내용을 입력해주세요" minRows={4} />
+                    <Textarea
+                        placeholder="내용을 입력해주세요"
+                        minRows={4}
+                        onChange={onChangeTextarea}
+                        name="arrangement"
+                        value={inputState.arrangement}
+                    />
                 </LabelBox>
             </FlexCol>
             <ButtomFixedButton
@@ -54,14 +62,7 @@ const WeekendOut = () => {
                         reason: inputState.reason,
                     })
                 }
-                disabled={
-                    !(
-                        timeState.endTime &&
-                        timeState.startTime &&
-                        inputState.arrangement &&
-                        inputState.reason
-                    )
-                }>
+                disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}>
                 신청하기
             </ButtomFixedButton>
         </MainPageTemplate>

@@ -32,9 +32,17 @@ const FeedPost = ({
     type,
     categoryId,
 }: FeedPostProps) => {
-    const { mutate: deleteMutate } = useDeleteFeed(feed_id);
+    const { mutate: deleteMutate } = useDeleteFeed(feed_id, categoryId);
+    const deleteConfirm = useBridgeHandler('confirm', (e) => e.detail.success && deleteMutate(), {
+        message: '피드를 삭제하시겠습니까?',
+        cancelText: '취소하기',
+        confirmText: '삭제하기',
+    });
+
     const menuAction: Record<typeof actionSheetMenu[number], () => void> = {
-        삭제하기: () => deleteMutate(),
+        삭제하기: () => {
+            deleteConfirm();
+        },
     };
 
     return (

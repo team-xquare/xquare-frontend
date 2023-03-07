@@ -10,13 +10,13 @@ export const getUserPermissions = async (categoryKey: string) => {
 
 export const postAddFeed = async (param: PostFeedResponse) => {
     const uri = '/';
-    return await instance.post<{ id: string }>(uri, param);
+    return await instance.post<{ feed_id: string }>(uri, param);
 };
 
-export const postFeedImage = async (feedId: string, imageUrl: string[]) => {
+export const postFeedImage = async (feedId: string, imageUrl?: string[]) => {
     const uri = `/images/${feedId}`;
     return await instance.post(uri, {
-        attachments_url: imageUrl,
+        attachments_url: imageUrl || [],
     });
 };
 
@@ -31,7 +31,7 @@ export const postAttachment = async (files: File[]) => {
     const formData = new FormData();
     files.forEach((file) => formData.append('files', file));
 
-    const response = await attachmentInstance.post<{ filesUrl: string[] }>(
+    const response = await attachmentInstance.post<{ fileUrl: string[] }>(
         '?bucketName=xquare',
         formData,
         {

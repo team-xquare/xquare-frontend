@@ -31,7 +31,7 @@ const PointRule = ({ id }: PropsType) => {
         setNumber(0);
     };
 
-    const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess);
+    const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess, addType);
 
     return (
         <MainContainer>
