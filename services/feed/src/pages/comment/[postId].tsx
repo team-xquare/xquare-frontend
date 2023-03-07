@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import SubmitTextarea from '../../common/components/SubmitTextarea';
 import { useState } from 'react';
 import useAddComments from '../../comment/hooks/useAddComment';
+import { ImageCountContainer } from '../../common/components/image';
 
 const Comment = () => {
     const router = useRouter();
@@ -31,8 +32,10 @@ const Comment = () => {
                         name={feedDetailData?.name || ''}
                         profileSrc={feedDetailData?.profile || ''}
                     />
-                    <CommentBoxSection gap={16} fullWidth>
+
+                    <CommentBoxSection gap={8} fullWidth>
                         <CommentWrapper>
+                            <ImageCountContainer images={feedDetailData?.attachments_url} />
                             {commentsData?.comments.map((comment) => (
                                 <CommentBox
                                     key={comment.comment_id}
@@ -62,9 +65,6 @@ const Comment = () => {
 };
 
 const CommentContainer = styled(FlexCol)`
-    > * + * {
-        border-top: 1px solid ${({ theme }) => theme.colors.gray300};
-    }
     position: absolute;
     width: 100%;
     height: 100%;
@@ -80,7 +80,7 @@ const CommentWrapper = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
-    overflow: scroll;
+    overflow: auto;
 `;
 
 export default Comment;

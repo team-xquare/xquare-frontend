@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
-import { useBridgeHandler } from '@shared/xbridge';
 import styled from '@emotion/styled';
+import { Body2 } from '@semicolondsm/ui';
 import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 import ProfileImage from '../../common/components/profile/ProfileImage';
 import KababButton from '../../common/components/KababButton';
@@ -34,7 +34,7 @@ const CommentBox = ({
             <ProfileImage profileSrc={profileSrc}></ProfileImage>
             <CommentWrapper>
                 <ProfileContent direction="row" createAt={createAt} name={name} />
-                <CommentSection>{comment}</CommentSection>
+                <Body2 color="gray800">{comment}</Body2>
             </CommentWrapper>
             {isMine && <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />}
         </ProfileWithCommentWrapper>
@@ -43,12 +43,12 @@ const CommentBox = ({
 
 const ProfileWithCommentWrapper = styled(FlexRow)`
     width: 100%;
-    padding: 16px;
+    padding: 12px 16px;
     align-items: flex-start;
 `;
 
 const CommentWrapper = styled(FlexCol)`
-    gap: 4px;
+    gap: 2px;
     flex: 1;
     padding-left: 12px;
 `;

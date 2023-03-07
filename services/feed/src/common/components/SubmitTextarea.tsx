@@ -52,7 +52,8 @@ const CustomTextarea = styled(Textarea)`
 const SubmitButton = styled.div<{ disable: boolean }>`
     position: absolute;
     right: 12px;
-    bottom: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 16px;
     line-height: 24px;
     cursor: pointer;

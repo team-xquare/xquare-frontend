@@ -16,9 +16,8 @@ const ContentDetail = ({ createAt, name, profileSrc, content }: ContentDetailPro
         <ContentDetailWrapper>
             <FlexRow gap={12}>
                 <ProfileImage profileSrc={profileSrc} />
-                <ProfileContent createAt={createAt} name={name} direction="row" />
+                <ProfileContent createAt={createAt} name={name} direction="col" />
             </FlexRow>
-            <ContentBox content={content} />
         </ContentDetailWrapper>
     );
 };
@@ -26,7 +25,10 @@ const ContentDetail = ({ createAt, name, profileSrc, content }: ContentDetailPro
 const ContentDetailWrapper = styled(FlexCol)`
     gap: 8px;
     width: 100%;
-    padding: 16px;
+    padding: 8px 16px;
+    box-sizing: border-box;
+
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray200};
 `;
 
 export default ContentDetail;
