@@ -40,7 +40,9 @@ const Comment = () => {
                             <DetailWrapper>
                                 <Body1>{feedDetailData?.content}</Body1>
                             </DetailWrapper>
-                            <ImageCountContainer images={feedDetailData?.attachments_url} />
+                            {feedDetailData?.attachments_url.length && (
+                                <ImageCountContainer images={feedDetailData?.attachments_url} />
+                            )}
 
                             {commentsData?.comments.map((comment) => (
                                 <CommentBox

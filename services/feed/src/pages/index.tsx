@@ -11,10 +11,12 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { prefetchCategoryList } from '../common/hooks/useCategoryList';
 import useFeedList, { prefetchFeedList } from '../main/hooks/useFeedList';
 import cookies from 'next-cookies';
+import { useWriteButton } from '../main/hooks/useWriteButton';
 const Home: NextPage = () => {
     const { onChangeTabValue, selectedTabValueKey, tabMenuKeys } = useTabMenu();
     const { data: feedList } = useFeedList(selectedTabValueKey.category_id);
     const router = useRouter();
+    const { isScroll } = useWriteButton();
     return (
         <>
             <ButtonTabs
@@ -31,15 +33,17 @@ const Home: NextPage = () => {
                     />
                 ))}
             </FeedContainer>
-            <WriteButton
-                onClick={() =>
-                    sendBridgeEvent(
-                        'navigate',
-                        { url: '/write', title: '글쓰기', rightButtonText: '완료' },
-                        () => router.push('/write'),
-                    )
-                }
-            />
+            {isScroll && (
+                <WriteButton
+                    onClick={() =>
+                        sendBridgeEvent(
+                            'navigate',
+                            { url: '/write', title: '글쓰기', rightButtonText: '완료' },
+                            () => router.push('/write'),
+                        )
+                    }
+                />
+            )}
         </>
     );
 };
