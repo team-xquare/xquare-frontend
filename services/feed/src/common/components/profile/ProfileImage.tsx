@@ -6,7 +6,14 @@ interface ProfileImageProps {
 }
 
 const ProfileImage = ({ profileSrc }: ProfileImageProps) => {
-    return <ProfileImageWrapper src={profileSrc || defaultProfile.src} />;
+    return (
+        <ProfileImageWrapper
+            src={profileSrc || defaultProfile.src}
+            onError={(e) => {
+                e.currentTarget.src = defaultProfile.src;
+            }}
+        />
+    );
 };
 const ProfileImageWrapper = styled.img`
     width: 40px;
