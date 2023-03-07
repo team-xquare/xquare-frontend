@@ -6,7 +6,7 @@ import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
 import TimePickerBox from '../today-out/components/TimePickerBox';
 import useWeekendOut from '../weekend-out/hooks/useWeekendOut';
-
+import { useBridgeHandler } from '@shared/xbridge';
 const WeekendOut = () => {
     const [timeState, setTimeState] = useState({
         startTime: '',
@@ -17,6 +17,24 @@ const WeekendOut = () => {
         arrangement: '',
         reason: '',
     });
+
+    const weekendOutConfirm = useBridgeHandler(
+        'confirm',
+        (e) => {
+            e.detail.success &&
+                weekendOutMutate({
+                    end_time: timeState.endTime,
+                    start_time: timeState.startTime,
+                    arrangement: inputState.arrangement || ' ',
+                    reason: inputState.reason,
+                });
+        },
+        {
+            cancelText: '취소하기',
+            confirmText: '신청하기',
+            message: '외출을 신청하겠습니까?',
+        },
+    );
 
     const onChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInputState((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -43,7 +61,7 @@ const WeekendOut = () => {
                         value={inputState.reason}
                     />
                 </LabelBox>
-                <LabelBox label="동행자의 학번, 이름을 적어주세요.">
+                <LabelBox label="동행자의 학번, 이름을 적어주세요." required={false}>
                     <Textarea
                         placeholder="내용을 입력해주세요"
                         minRows={4}
@@ -54,14 +72,7 @@ const WeekendOut = () => {
                 </LabelBox>
             </FlexCol>
             <ButtomFixedButton
-                onClick={() =>
-                    weekendOutMutate({
-                        end_time: timeState.endTime,
-                        start_time: timeState.startTime,
-                        arrangement: inputState.arrangement || ' ',
-                        reason: inputState.reason,
-                    })
-                }
+                onClick={weekendOutConfirm}
                 disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}>
                 신청하기
             </ButtomFixedButton>
