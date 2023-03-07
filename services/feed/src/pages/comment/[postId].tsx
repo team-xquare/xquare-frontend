@@ -11,6 +11,7 @@ import { useState } from 'react';
 import useAddComments from '../../comment/hooks/useAddComment';
 import { ImageCountContainer } from '../../common/components/image';
 import { useScrollWithRef } from '../../write/hooks/useScrollWithRef';
+import PostFooter from '../../main/components/post/PostFooter';
 
 const Comment = () => {
     const router = useRouter();
@@ -24,7 +25,7 @@ const Comment = () => {
 
     return (
         <>
-            {isLoading ? (
+            {isLoading || !feedDetailData ? (
                 <></>
             ) : (
                 <CommentContainer fullWidth>
@@ -37,12 +38,14 @@ const Comment = () => {
 
                     <CommentBoxSection gap={8} fullWidth>
                         <CommentWrapper ref={ref}>
-                            <DetailWrapper>
-                                <Body1>{feedDetailData?.content}</Body1>
-                            </DetailWrapper>
-                            {feedDetailData?.attachments_url.length && (
-                                <ImageCountContainer images={feedDetailData?.attachments_url} />
-                            )}
+                            <ContentWrapper>
+                                <DetailWrapper>
+                                    <Body1>{feedDetailData?.content}</Body1>
+                                </DetailWrapper>
+                                {(feedDetailData?.attachments_url.length ?? 0) > 0 && (
+                                    <ImageCountContainer images={feedDetailData?.attachments_url} />
+                                )}
+                            </ContentWrapper>
 
                             {commentsData?.comments.map((comment) => (
                                 <CommentBox
@@ -89,6 +92,10 @@ const CommentWrapper = styled.div`
     height: 100%;
     width: 100%;
     overflow: auto;
+`;
+
+const ContentWrapper = styled.div`
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray200};
 `;
 
 const DetailWrapper = styled.div`
