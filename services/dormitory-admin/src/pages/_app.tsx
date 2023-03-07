@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import cookies, { getCookie } from 'cookies-next';
 import { instanceArr } from '../apis';
 import axios from 'axios';
+import Head from 'next/head';
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(
         () =>
@@ -23,19 +24,29 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
 
     return (
-        <SDSThemeProvider mode="light-only">
-            <Global styles={GlobalStyles} />
-            <QueryClientProvider client={queryClient}>
-                <Hydrate state={pageProps?.dehydratedState}>
-                    <SearchProvider>
-                        <Toaster />
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </SearchProvider>
-                </Hydrate>
-            </QueryClientProvider>
-        </SDSThemeProvider>
+        <>
+            <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+                    rel="stylesheet"
+                />
+            </Head>
+            <SDSThemeProvider mode="light-only">
+                <Global styles={GlobalStyles} />
+                <QueryClientProvider client={queryClient}>
+                    <Hydrate state={pageProps?.dehydratedState}>
+                        <SearchProvider>
+                            <Toaster />
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                        </SearchProvider>
+                    </Hydrate>
+                </QueryClientProvider>
+            </SDSThemeProvider>
+        </>
     );
 }
 
