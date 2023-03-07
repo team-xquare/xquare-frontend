@@ -78,9 +78,8 @@ const Comment = () => {
 const CommentContainer = styled(FlexCol)`
     position: absolute;
     width: 100%;
-
     height: 100%;
-    height: -webkit-fill-available;
+    overflow: hidden;
 `;
 
 const CommentBoxSection = styled(FlexCol)`
