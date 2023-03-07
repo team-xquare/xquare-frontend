@@ -1,17 +1,19 @@
-import CommentBox from '../../comment/components/CommentBox';
+import CommentBox from '../../../comment/components/CommentBox';
 import styled from '@emotion/styled';
 import { Body1 } from '@semicolondsm/ui';
-import { FlexCol } from '../../common/components/Flexbox';
-import ContentProfile from '../../comment/components/ContentDetail';
-import { useComment } from '../../comment/hooks/useComment';
-import useFeedList from '../../main/hooks/useFeedList';
+import { FlexCol, FlexRow } from '../../../common/components/Flexbox';
+import ContentProfile from '../../../comment/components/ContentDetail';
+import { useComment } from '../../../comment/hooks/useComment';
+import useFeedList from '../../../main/hooks/useFeedList';
 import { useRouter } from 'next/router';
-import SubmitTextarea from '../../common/components/SubmitTextarea';
+import SubmitTextarea from '../../../common/components/SubmitTextarea';
 import { useState } from 'react';
-import useAddComments from '../../comment/hooks/useAddComment';
-import { ImageCountContainer } from '../../common/components/image';
-import { useScrollWithRef } from '../../write/hooks/useScrollWithRef';
-import PostFooter from '../../main/components/post/PostFooter';
+import useAddComments from '../../../comment/hooks/useAddComment';
+import { ImageCountContainer } from '../../../common/components/image';
+import { useScrollWithRef } from '../../../write/hooks/useScrollWithRef';
+import PostFooter from '../../../main/components/post/PostFooter';
+import KababButton from '../../../common/components/KababButton';
+import { sendBridgeEvent } from '@shared/xbridge';
 
 const Comment = () => {
     const router = useRouter();
@@ -29,12 +31,29 @@ const Comment = () => {
                 <></>
             ) : (
                 <CommentContainer fullWidth>
-                    <ContentProfile
-                        isScroll={isScroll}
-                        createAt={feedDetailData?.created_at || ''}
-                        name={feedDetailData?.name || ''}
-                        profileSrc={feedDetailData?.profile || ''}
-                    />
+                    <FlexRow
+                        justify="space-between"
+                        fullWidth
+                        style={{
+                            paddingRight: 16,
+                        }}>
+                        <ContentProfile
+                            isScroll={isScroll}
+                            createAt={feedDetailData?.created_at || ''}
+                            name={feedDetailData?.name || ''}
+                            profileSrc={feedDetailData?.profile || ''}
+                        />
+                        <KababButton
+                            menu={['신고']}
+                            onClick={() =>
+                                sendBridgeEvent('navigate', {
+                                    title: '신고하기',
+                                    url: `/declare`,
+                                    rightButtonText: '제출',
+                                })
+                            }
+                        />
+                    </FlexRow>
 
                     <CommentBoxSection gap={8} fullWidth>
                         <CommentWrapper ref={ref}>

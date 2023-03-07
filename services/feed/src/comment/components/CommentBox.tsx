@@ -7,6 +7,8 @@ import KababButton from '../../common/components/KababButton';
 import ProfileContent from '../../common/components/profile/ProfileContent';
 import { useMutation } from '@tanstack/react-query';
 import useDeleteComment from '../hooks/useDeleteComment';
+import { sendBridgeEvent } from '@shared/xbridge';
+import { useRouter } from 'next/router';
 
 interface ProfileWithCommentProps
     extends ComponentProps<typeof ProfileImage>,
@@ -15,7 +17,6 @@ interface ProfileWithCommentProps
     commentId: string;
     isMine: boolean;
 }
-const menuList = ['삭제'] as const;
 
 const CommentBox = ({
     comment,
@@ -25,8 +26,18 @@ const CommentBox = ({
     commentId,
     isMine,
 }: ProfileWithCommentProps) => {
+    const router = useRouter();
     const { mutate: deleteMutate } = useDeleteComment(commentId);
+
+    const menuList = ['신고', ...(isMine ? ['삭제'] : [])] as const;
+
     const menuAction: Record<typeof menuList[number], () => void> = {
+        신고: () =>
+            sendBridgeEvent(
+                'navigate',
+                { url: '/declare', title: '신고하기', rightButtonText: '제출' },
+                () => router.push('/declare'),
+            ),
         삭제: () => deleteMutate(),
     };
     return (
@@ -36,7 +47,7 @@ const CommentBox = ({
                 <ProfileContent direction="row" createAt={createAt} name={name} />
                 <Body2 color="gray800">{comment}</Body2>
             </CommentWrapper>
-            {isMine && <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />}
+            <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />
         </ProfileWithCommentWrapper>
     );
 };
