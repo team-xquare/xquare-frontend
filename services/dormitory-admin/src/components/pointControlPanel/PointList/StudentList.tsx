@@ -24,12 +24,13 @@ const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserId
                 }, {} as SelectedUserIds),
             }));
         } else {
-            setSelectedUserIds(
-                students.reduce((acc, { id: studentId }) => {
+            setSelectedUserIds((prev) => ({
+                ...prev,
+                ...students.reduce((acc, { id: studentId }) => {
                     acc[studentId] = true;
                     return acc;
                 }, {} as SelectedUserIds),
-            );
+            }));
         }
     };
 

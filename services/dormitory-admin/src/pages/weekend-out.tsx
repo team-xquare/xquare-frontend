@@ -44,12 +44,13 @@ const WeekendOut = () => {
                 }, {} as SelectedPicnicType),
             }));
         } else {
-            setSelectedPicnicIds(
-                picnicList?.picnic_list.reduce((acc, { id }) => {
+            setSelectedPicnicIds((prev) => ({
+                ...prev,
+                ...(picnicList?.picnic_list.reduce((acc, { id }) => {
                     acc[id] = true;
                     return acc;
-                }, {} as SelectedPicnicType) || {},
-            );
+                }, {} as SelectedPicnicType) || {}),
+            }));
         }
     };
 
