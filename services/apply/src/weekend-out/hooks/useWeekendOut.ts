@@ -8,7 +8,7 @@ const useWeekendOut = () => {
         },
         onError: () => {
             sendBridgeEvent('error', {
-                message: '주말외출 신청을 실패하였습니다.',
+                message: '주말외출 신청은 한번만 진행할 수 있습니다.',
             });
         },
     });
