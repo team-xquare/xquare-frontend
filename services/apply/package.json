@@ -1,7 +1,7 @@
 {
     "name": "@service/apply",
     "description": "신청을 위한 웹뷰.",
-    "version": "0.0.34",
+    "version": "0.0.35",
     "private": true,
     "scripts": {
         "dev": "next dev",
