@@ -44,7 +44,7 @@ const CommentBox = ({
         <ProfileWithCommentWrapper>
             <ProfileImage profileSrc={profileSrc}></ProfileImage>
             <CommentWrapper>
-                <ProfileContent direction="row" createAt={createAt} name={name} />
+                <ProfileContent direction="row" createAt={createAt} name={name || '익명'} />
                 <Body2 color="gray800">{comment}</Body2>
             </CommentWrapper>
             <KababButton menu={menuList} onClick={(str) => menuAction[str]()} />
