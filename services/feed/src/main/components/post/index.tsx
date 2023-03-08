@@ -51,7 +51,7 @@ const FeedPost = ({
                 <PostHeaderContainer>
                     <PostProfile
                         createAt={created_at}
-                        name={`${name}-${type}`}
+                        name={`${name ? `${name}-` : ''}${type}`}
                         profileSrc={profile}
                     />
                     {is_mine && (
