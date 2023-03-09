@@ -32,16 +32,29 @@ const Write = () => {
 
     const { mutate: addFeedMutate } = useAddFeed(selectState.purpose.category_id);
 
+    const writeConfirm = useBridgeHandler(
+        'confirm',
+        (e) => {
+            e.detail.success &&
+                addFeedMutate({
+                    category_id: selectState.purpose.category_id,
+                    type: selectState.group.name,
+                    content: content,
+                    title: '1234',
+                    fileBase64Arr: pickedImage,
+                });
+        },
+        {
+            cancelText: '취소하기',
+            confirmText: '작성하기',
+            message: '게시물을 등록하시겠습니까?',
+        },
+    );
+
     useBridgeCallback(
         'rightButtonTaped',
         () => {
-            addFeedMutate({
-                category_id: selectState.purpose.category_id,
-                type: selectState.group.name,
-                content: content,
-                title: '1234',
-                fileBase64Arr: pickedImage,
-            });
+            writeConfirm();
         },
         undefined,
     );
