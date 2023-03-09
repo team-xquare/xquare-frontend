@@ -44,7 +44,7 @@ const Home: NextPage<{ todayDirectorData: DirectorDataType }> = ({ todayDirector
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const todayDirectorData = (
-        await axios.get<DirectorDataType>('https://stag-api.xquare.app//pick/self-study/today')
+        await axios.get<DirectorDataType>('https://api.xquare.app//pick/self-study/today')
     ).data;
     console.log(todayDirectorData);
     return { props: { todayDirectorData } };

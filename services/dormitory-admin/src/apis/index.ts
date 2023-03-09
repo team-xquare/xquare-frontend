@@ -8,19 +8,19 @@ import { UserToken } from './types';
 //     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NmZhNTQ1YS00NjA1LTQyMjgtYWE5OS1iZTNjZTBhMGIzMjMiLCJyb2xlIjoiRE9SIiwiZXhwIjoxNjc3ODM3NTY1LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiRE9SIl19.Ltfdsw3i9ADqXByA3RceznBySN3A68JRoswUNj67_04';
 
 export const pointInstance = axios.create({
-    baseURL: 'https://stag-api.xquare.app/points',
+    baseURL: 'https://api.xquare.app/points',
 });
 
 export const feedInstance = axios.create({
-    baseURL: 'https://stag-api.xquare.app/feeds',
+    baseURL: 'https://api.xquare.app/feeds',
 });
 
 export const userInstance = axios.create({
-    baseURL: 'https://stag-api.xquare.app/users',
+    baseURL: 'https://api.xquare.app/users',
 });
 
 export const applyInstance = axios.create({
-    baseURL: 'https://stag-api.xquare.app/applications',
+    baseURL: 'https://api.xquare.app/applications',
 });
 
 export const instanceArr = [pointInstance, feedInstance, userInstance, applyInstance];
@@ -55,7 +55,7 @@ instanceArr.map((instance) => {
                         if (!beforeRefresh) throw error;
 
                         const response = await axios.put<UserToken>(
-                            'https://stag-api.xquare.app/users/login',
+                            'https://api.xquare.app/users/login',
                             {},
                             {
                                 headers: {
