@@ -1,7 +1,7 @@
 {
     "name": "@service/dormitory-admin",
     "description": "기숙사 관리 시스템 사감선생님 전용",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "private": true,
     "scripts": {
         "dev": "next dev",
