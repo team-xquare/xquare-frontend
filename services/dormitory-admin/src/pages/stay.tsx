@@ -72,7 +72,7 @@ const Stay: NextPage = () => {
                         </TableHead>
                         <TableBody>
                             {filterStudents.map((stayStu) => (
-                                <StayItem {...stayStu} key={stayStu.num} />
+                                <StayItem {...stayStu} key={stayStu.id} />
                             ))}
                         </TableBody>
                     </Table>
