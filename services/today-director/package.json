@@ -1,7 +1,7 @@
 {
     "name": "@service/today-director",
     "description": "오늘의 자습감독 선생님 웹뷰",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "scripts": {
         "dev": "next dev",
