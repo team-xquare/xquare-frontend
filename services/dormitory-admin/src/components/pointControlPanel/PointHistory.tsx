@@ -51,10 +51,10 @@ const PointHistory = ({ id, setSelectedUserIds }: PropsType) => {
                                 <HistoryItemContainer
                                     key={history.id}
                                     onClick={() => setHistoryId(String(history.id))}>
-                                    <TextContainer>
+                                    <Flex direction="column" gap={2}>
                                         <Body2>{history.reason}</Body2>
-                                        <Caption></Caption>
-                                    </TextContainer>
+                                        <Caption color="gray600">{history.date}</Caption>
+                                    </Flex>
                                     <Flex gap={18} align="center">
                                         <Body1
                                             color={history.point_type ? 'green800' : 'red200'}
@@ -122,10 +122,6 @@ const HistoryItemContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-`;
-const TextContainer = styled.div`
-    display: flex;
-    flex-direction: column;
 `;
 
 const StudentListItem = styled.div`

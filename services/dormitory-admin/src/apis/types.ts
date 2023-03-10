@@ -42,7 +42,7 @@ export interface Rule {
 
 export interface StudentHistory {
     id: number;
-    date: Date;
+    date: string;
     reason: string;
     point_type: boolean;
     point: number;
