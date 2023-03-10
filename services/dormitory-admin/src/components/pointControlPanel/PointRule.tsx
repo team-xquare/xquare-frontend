@@ -63,7 +63,7 @@ const PointRule = ({ id }: PropsType) => {
                                 {rule.reason} ({rule.point}점)
                             </Body2>
                             <Button
-                                disabled={Object.values(id).indexOf(true) === -1}
+                                disabled={!Object.values(id).filter((stu) => !!stu).length}
                                 size="sm"
                                 fill="purpleLight"
                                 onClick={() => pointsMutation.mutate(rule.id)}>

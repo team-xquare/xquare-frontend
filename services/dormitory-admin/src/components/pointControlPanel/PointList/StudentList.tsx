@@ -15,7 +15,7 @@ interface PropsType {
 
 const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserIds }: PropsType) => {
     const handleSelectAll = () => {
-        if (students.every(({ id: studentId }) => selectedIds[studentId])) {
+        if (students.every(({ id: studentId }) => !!selectedIds[studentId])) {
             setSelectedUserIds((prev) => ({
                 ...prev,
                 ...students.reduce((acc, { id: studentId }) => {
@@ -26,8 +26,8 @@ const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserId
         } else {
             setSelectedUserIds((prev) => ({
                 ...prev,
-                ...students.reduce((acc, { id: studentId }) => {
-                    acc[studentId] = true;
+                ...students.reduce((acc, student) => {
+                    student.id && (acc[student.id] = student);
                     return acc;
                 }, {} as SelectedUserIds),
             }));
@@ -82,11 +82,13 @@ const StudentList = ({ isMultiSelected, students, selectedIds, setSelectedUserId
                                     if (isMultiSelected) {
                                         setSelectedUserIds({
                                             ...selectedIds,
-                                            [student.id]: !selectedIds[student.id],
+                                            [student.id]: !!selectedIds[student.id]
+                                                ? false
+                                                : student,
                                         });
                                     } else {
                                         setSelectedUserIds({
-                                            [student.id]: true,
+                                            [student.id]: student,
                                         });
                                     }
                                 }}

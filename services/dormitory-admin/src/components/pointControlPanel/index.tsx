@@ -18,7 +18,7 @@ const Point: FC<PointProps> = () => {
         <PointContainer>
             <PointList selectedIds={selectedUserIds} setSelectedUserIds={setSelectedUserIds} />
             <PointRule id={selectedUserIds} />
-            <PointHistory id={selectedUserIds} />
+            <PointHistory id={selectedUserIds} setSelectedUserIds={setSelectedUserIds} />
         </PointContainer>
     );
 };

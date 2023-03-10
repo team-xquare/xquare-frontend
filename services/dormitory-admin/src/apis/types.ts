@@ -76,7 +76,7 @@ export enum SortingEnum {
 
 export const StaySortingEnum = ['전체', '금요 귀가', '토요 귀가', '토요 귀사', '잔류'] as const;
 
-export type SelectedUserIds = { [key: string]: boolean };
+export type SelectedUserIds = { [key: string]: Student | false };
 export type SelectedPicnicType = { [key: string]: boolean };
 export type MutateMethod = 'POST' | 'DELETE' | 'PUT';
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Body1, Body2, Caption } from '@semicolondsm/ui';
-import { useDeleteRuleHistory, useHistoryByIdQuery } from '../../apis/points';
-import { SelectedUserIds } from '../../apis/types';
+import { Body1, Body2, Button, Caption } from '@semicolondsm/ui';
+import { useDeleteRuleHistory, useHistoryByIdQuery, usePointQuery } from '../../apis/points';
+import { SelectedUserIds, Student } from '../../apis/types';
 import KebabMenu from '../common/KebabMenu';
 import BlockContainer from '../common/BlockContainer';
 import { Flex } from '../common/Flex';
@@ -10,9 +10,10 @@ import Spinner from '../common/Spinner';
 
 interface PropsType {
     id: SelectedUserIds;
+    setSelectedUserIds: React.Dispatch<React.SetStateAction<SelectedUserIds>>;
 }
 
-const PointHistory = ({ id }: PropsType) => {
+const PointHistory = ({ id, setSelectedUserIds }: PropsType) => {
     const { data, isLoading, error } = useHistoryByIdQuery(id);
     const { mutate: deleteMutate } = useDeleteRuleHistory(id);
     const stdIds = Object.keys(id).filter((key) => id[key] && key);
@@ -20,15 +21,30 @@ const PointHistory = ({ id }: PropsType) => {
     const itemAction = {
         삭제하기: () => deleteMutate(historyId),
     } as const;
-
     return (
         <MainContainer>
-            <BlockContainer title="내역">
+            <BlockContainer title={stdIds.length > 1 ? '선택한 학생' : '내역'}>
                 <MainListWrapper>
                     {isLoading ? (
                         <Flex align="center" justify="center" fullHeight fullWidth>
                             <Spinner />
                         </Flex>
+                    ) : stdIds.length > 1 ? (
+                        stdIds.map((stu) => (
+                            <StudentListItem>
+                                <Body2>{`${(id[stu] as Student).num} ${
+                                    (id[stu] as Student).name
+                                }`}</Body2>
+                                <Button
+                                    size="sm"
+                                    fill="purpleLight"
+                                    onClick={() =>
+                                        setSelectedUserIds((state) => ({ ...state, [stu]: false }))
+                                    }>
+                                    삭제하기
+                                </Button>
+                            </StudentListItem>
+                        ))
                     ) : data ? (
                         data.length ? (
                             data.map((history) => (
@@ -57,8 +73,6 @@ const PointHistory = ({ id }: PropsType) => {
                         ) : (
                             <GuideMessage>상벌점 기록이 없습니다.</GuideMessage>
                         )
-                    ) : stdIds.length > 1 ? (
-                        <GuideMessage>학생을 한명만 선택해주세요.</GuideMessage>
                     ) : (
                         <GuideMessage>학생을 선택해주세요 !</GuideMessage>
                     )}
@@ -112,6 +126,28 @@ const HistoryItemContainer = styled.div`
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
+`;
+
+const StudentListItem = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: left;
+    padding: 8px 24px;
+
+    border-radius: 12px;
+    background-color: ${({ theme }) => theme.colors.white};
+    & div {
+        width: 100%;
+        min-width: 0;
+    }
+
+    & p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 `;
 
 export default PointHistory;

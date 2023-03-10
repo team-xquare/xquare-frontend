@@ -69,7 +69,7 @@ const WeekendOut = () => {
                     setPicnicTypeState={setPicnicTypeState}
                 />
                 <ScrollBox>
-                    <Table style={{ overflow: 'scroll' }}>
+                    <Table style={{ overflow: 'auto' }}>
                         <TableHead>
                             <TableRow cellSizes={cellSizes} style={{ padding: '8px 28px' }}>
                                 {isMultiSelected && (
