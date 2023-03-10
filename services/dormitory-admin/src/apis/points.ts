@@ -105,6 +105,22 @@ export const useAddRuleMutation = (successCallback: () => void, addType: boolean
     });
 };
 
+export const useDeleteRuleMutation = (successCallback: () => void, addType: boolean) => {
+    //rule 삭제
+    const queryClient = useQueryClient();
+    const fetcher = async (id: number) => await pointInstance.delete(`/rule/${id}`);
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('규칙을 삭제하였습니다.');
+            queryClient.invalidateQueries(['/points/rules', addType]);
+            successCallback();
+        },
+        onError: () => {
+            toast.error('실패하였습니다.');
+        },
+    });
+};
+
 export const useDeleteRuleHistory = (id: SelectedUserIds) => {
     const trueStudentIds = Object.keys(id).filter((key) => id[key] && key);
     const queryClient = useQueryClient();

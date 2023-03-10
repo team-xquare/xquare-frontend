@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { ToggleButton, Body2, Button } from '@semicolondsm/ui';
-import { useAddPointQuery, useAddRuleMutation, useRuleQuery } from '../../apis/points';
+import {
+    useAddPointQuery,
+    useAddRuleMutation,
+    useDeleteRuleMutation,
+    useRuleQuery,
+} from '../../apis/points';
 import { SelectedUserIds } from '../../apis/types';
 import { useModal } from '../../contexts/modal';
 import ModalContainer from '../common/ModalContainer';
@@ -11,6 +16,7 @@ import Counter from '../common/Counter';
 import BlockContainer from '../common/BlockContainer';
 import SelectInput from '../common/SelectInput';
 import { Flex } from '../common/Flex';
+import KebabMenu from '../common/KebabMenu';
 
 interface PropsType {
     id: SelectedUserIds;
@@ -32,6 +38,8 @@ const PointRule = ({ id }: PropsType) => {
     };
 
     const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess, addType);
+
+    const { mutate: deleteRuleMutate } = useDeleteRuleMutation(() => {}, addType);
 
     return (
         <MainContainer>
@@ -62,13 +70,23 @@ const PointRule = ({ id }: PropsType) => {
                             <Body2>
                                 {rule.reason} ({rule.point}점)
                             </Body2>
-                            <Button
-                                disabled={!Object.values(id).filter((stu) => !!stu).length}
-                                size="sm"
-                                fill="purpleLight"
-                                onClick={() => pointsMutation.mutate(rule.id)}>
-                                부여하기
-                            </Button>
+                            <Flex gap={8}>
+                                <Button
+                                    disabled={!Object.values(id).filter((stu) => !!stu).length}
+                                    size="sm"
+                                    fill="purpleLight"
+                                    onClick={() => pointsMutation.mutate(rule.id)}>
+                                    부여하기
+                                </Button>
+                                <KebabMenu
+                                    item={['삭제']}
+                                    callBack={(item) => {
+                                        if (item === '삭제') {
+                                            deleteRuleMutate(rule.id);
+                                        }
+                                    }}
+                                />
+                            </Flex>
                         </MainListItem>
                     ))}
                 </MainListWrapper>
@@ -101,10 +119,10 @@ const PointRule = ({ id }: PropsType) => {
                         </AddRuleTogle>
                         <Flex gap={8} direction="column" fullWidth>
                             <Body2 fontWeight="medium" color="gray700">
-                                벌점 사유
+                                사유
                             </Body2>
                             <SelectInput
-                                placeholder="벌점 사유"
+                                placeholder="사유"
                                 onChange={(e) => setReason(e.target.value)}
                                 value={reason}
                             />
@@ -156,12 +174,9 @@ const MainListItem = styled.div`
 
     border-radius: 12px;
     background-color: ${({ theme }) => theme.colors.white};
-    & div {
-        width: 100%;
-        min-width: 0;
-    }
 
     & p {
+        max-width: 240px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
