@@ -57,12 +57,11 @@ const FeedPost = ({
                         name={`${name ? `${name}-` : ''}${type}`}
                         profileSrc={profile}
                     />
-                    {is_mine && (
-                        <KababButton
-                            menu={actionSheetMenu}
-                            onClick={(menu) => menuAction[menu]()}
-                        />
-                    )}
+
+                    <KababButton
+                        menu={is_mine ? actionSheetMenu : ['신고하기']}
+                        onClick={(menu) => menuAction[menu]()}
+                    />
                 </PostHeaderContainer>
                 <ContentBox content={content} limit={!!attachments_url.length ? 40 : 20} />
             </FeedPostContainer>
