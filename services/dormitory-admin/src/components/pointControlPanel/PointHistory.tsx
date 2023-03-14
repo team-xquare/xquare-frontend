@@ -21,6 +21,7 @@ const PointHistory = ({ id, setSelectedUserIds }: PropsType) => {
     const itemAction = {
         삭제하기: () => deleteMutate(historyId),
     } as const;
+
     return (
         <MainContainer>
             <BlockContainer title={stdIds.length > 1 ? '선택한 학생' : '내역'}>

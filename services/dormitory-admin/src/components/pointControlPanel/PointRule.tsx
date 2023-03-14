@@ -30,6 +30,7 @@ const PointRule = ({ id }: PropsType) => {
     const { openModal, closeModal } = useModal();
     const [number, setNumber] = useState(0);
     const [reason, setReason] = useState('');
+    const [searchText, setSearchText] = useState('');
 
     const onRuleAddSuccess = () => {
         closeModal();
@@ -64,31 +65,43 @@ const PointRule = ({ id }: PropsType) => {
                         />
                     </div>
                 }>
+                <MainBlockHeader>
+                    <SelectInput
+                        placeholder="검색"
+                        style={{
+                            width: '100%',
+                        }}
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                    />
+                </MainBlockHeader>
                 <MainListWrapper>
-                    {ruleList?.map((rule) => (
-                        <MainListItem key={rule.id}>
-                            <Body2>
-                                {rule.reason} ({rule.point}점)
-                            </Body2>
-                            <Flex gap={8}>
-                                <Button
-                                    disabled={!Object.values(id).filter((stu) => !!stu).length}
-                                    size="sm"
-                                    fill="purpleLight"
-                                    onClick={() => pointsMutation.mutate(rule.id)}>
-                                    부여하기
-                                </Button>
-                                <KebabMenu
-                                    item={['삭제']}
-                                    callBack={(item) => {
-                                        if (item === '삭제') {
-                                            deleteRuleMutate(rule.id);
-                                        }
-                                    }}
-                                />
-                            </Flex>
-                        </MainListItem>
-                    ))}
+                    {ruleList
+                        ?.filter((rule) => rule.reason.includes(searchText))
+                        ?.map((rule) => (
+                            <MainListItem key={rule.id}>
+                                <Body2>
+                                    {rule.reason} ({rule.point}점)
+                                </Body2>
+                                <Flex gap={8}>
+                                    <Button
+                                        disabled={!Object.values(id).filter((stu) => !!stu).length}
+                                        size="sm"
+                                        fill="purpleLight"
+                                        onClick={() => pointsMutation.mutate(rule.id)}>
+                                        부여하기
+                                    </Button>
+                                    <KebabMenu
+                                        item={['삭제']}
+                                        callBack={(item) => {
+                                            if (item === '삭제') {
+                                                deleteRuleMutate(rule.id);
+                                            }
+                                        }}
+                                    />
+                                </Flex>
+                            </MainListItem>
+                        ))}
                 </MainListWrapper>
                 <RuleCreateButton onClick={openModal}>
                     <PlusIcon></PlusIcon>
@@ -181,6 +194,15 @@ const MainListItem = styled.div`
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+`;
+
+const MainBlockHeader = styled.div`
+    width: 100%;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
 `;
 
 const RuleCreateButton = styled.div`
