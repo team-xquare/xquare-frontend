@@ -20,22 +20,35 @@ const ButtonTabs = <T extends string>({ items, value, setValue }: ButtonTabsProp
     };
 
     return (
-        <TabContainer>
-            {items.map((item, idx) => (
-                <TabButtonWrapper
-                    isSelected={selectedValue === item}
-                    onClick={() => onSelect(item)}
-                    key={idx}>
-                    {item}
-                </TabButtonWrapper>
-            ))}
-        </TabContainer>
+        <>
+            <Spacer />
+            <TabContainer>
+                {items.map((item, idx) => (
+                    <TabButtonWrapper
+                        isSelected={selectedValue === item}
+                        onClick={() => onSelect(item)}
+                        key={idx}>
+                        {item}
+                    </TabButtonWrapper>
+                ))}
+            </TabContainer>
+        </>
     );
 };
+const Spacer = styled.div`
+    width: 100%;
+    height: 50px;
+`;
 
 const TabContainer = styled(FlexRow)`
+    width: 100%;
     padding: 4px 16px 12px;
     gap: 8px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: 10;
     overflow: auto;
 `;
 

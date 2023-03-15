@@ -1,71 +1,79 @@
 import styled from '@emotion/styled';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import Dropdown from '../../common/components/dropdown/Dropdown';
 import { FlexRow } from '../../common/components/Flexbox';
-import useCategoryList from '../../common/hooks/useCategoryList';
-import { CategoryType } from '../../common/types';
-import { DropdownType } from '../../pages/write';
-import usePermissions from '../hooks/usePermissions';
+import { AuthorityType, CategoryType } from '../../common/types';
+import { AddFeedParam } from '../hooks/useAddFeed';
+import useAuthorityCategory from '../hooks/useAuthorityCategory';
 
 interface WriteDropdownBoxProps {
-    setSelectState: Dispatch<SetStateAction<Record<DropdownType, CategoryType>>>;
-    selectState: Record<DropdownType, CategoryType>;
+    setNewFeedInfo: Dispatch<SetStateAction<AddFeedParam>>;
 }
 
-const WriteDropdownBox = ({ selectState, setSelectState }: WriteDropdownBoxProps) => {
-    const { data: purpose } = useCategoryList();
-    const { data: group } = usePermissions(selectState.purpose.key);
+type CategoryDeps = 'category' | 'authority';
 
-    const [isOpenState, setIsOpenState] = useState<Record<DropdownType, boolean>>({
-        group: false,
-        purpose: false,
+const WriteDropdownBox = ({ setNewFeedInfo }: WriteDropdownBoxProps) => {
+    const [isOpenState, setIsOpenState] = useState<Record<CategoryDeps, boolean>>({
+        category: false,
+        authority: false,
     });
 
-    const setOpen = (openState: boolean, type: DropdownType) => {
+    const setOpen = (openState: boolean, type: CategoryDeps) => {
         setIsOpenState({
-            group: false,
-            purpose: false,
+            authority: false,
+            category: false,
             [type]: openState,
         });
     };
 
+    const authorityCategory = useAuthorityCategory();
+
+    const [selectedCategory, setSelectedCategory] = useState<CategoryType>(authorityCategory[0]);
+
+    const [selectedAuthority, setSelectedAuthority] = useState<AuthorityType>(
+        authorityCategory[0].authorities[0],
+    );
+
+    useEffect(() => {
+        setNewFeedInfo((state) => ({ ...state, category_id: selectedCategory.category_id }));
+        setSelectedAuthority(selectedCategory.authorities[0]);
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        setNewFeedInfo((state) => ({ ...state, type: selectedAuthority.authority }));
+    }, [selectedAuthority]);
+
+    useEffect(() => {
+        setSelectedCategory(authorityCategory[0]);
+    }, [authorityCategory]);
+
+    const categoryNames = authorityCategory.map((category) => category.name);
+
     return (
         <DropdownBox>
             <Dropdown
-                items={
-                    !!purpose?.length ? purpose.map((item) => item.name) : ['목록이 존재하지 않음']
-                }
-                value={selectState.purpose.name}
-                onClick={(item) => {
-                    const selectPurpose = purpose?.filter((info) => info.name === item)[0];
-                    setSelectState((state) => ({
-                        ...state,
-                        purpose: { ...state.purpose, ...selectPurpose },
-                    }));
+                items={categoryNames}
+                value={selectedCategory.name}
+                onClick={(selectedValue) => {
+                    const selectedCategory = authorityCategory?.find(
+                        (category) => category.name === selectedValue,
+                    );
+                    setSelectedCategory((state) => selectedCategory || state);
                 }}
-                open={isOpenState.purpose}
-                setOpen={(state) => setOpen(state, 'purpose')}
+                open={isOpenState.category}
+                setOpen={(state) => setOpen(state, 'category')}
             />
             <Dropdown
-                items={
-                    !!group?.length
-                        ? group?.map((item) => item.authority_name)
-                        : ['권한이 존재하지 않음']
-                }
-                value={selectState.group.name}
-                onClick={(item) => {
-                    const selectGroup = group?.filter((info) => info.authority_name === item)[0];
-                    setSelectState((state) => ({
-                        ...state,
-                        group: {
-                            ...state.purpose,
-                            category_id: selectGroup?.authority_id!,
-                            name: selectGroup?.authority_name!,
-                        },
-                    }));
+                items={selectedCategory.authorities.map((authority) => authority.authority_name)}
+                value={selectedAuthority.authority_name}
+                onClick={(selectedValue) => {
+                    const selectedAuthority = selectedCategory.authorities.find(
+                        (authority) => authority.authority_name === selectedValue,
+                    );
+                    setSelectedAuthority((state) => selectedAuthority || state);
                 }}
-                open={isOpenState.group}
-                setOpen={(state) => setOpen(state, 'group')}
+                open={isOpenState.authority}
+                setOpen={(state) => setOpen(state, 'authority')}
             />
         </DropdownBox>
     );

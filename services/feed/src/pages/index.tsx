@@ -50,7 +50,6 @@ const Home: NextPage = () => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const queryClient = new QueryClient();
-    const allCookies = cookies(ctx);
 
     await Promise.all([prefetchFeedList(queryClient), prefetchCategoryList(queryClient)]);
 

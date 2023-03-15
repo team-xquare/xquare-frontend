@@ -5,10 +5,14 @@ import { AxiosError } from 'axios';
 import { b64toFile } from '../../utils/b64toFile';
 import { PostFeedResponse } from '../types';
 import { queryKeys } from '../../utils/queryKeys';
+import { useRouter } from 'next/router';
 
-const useAddFeed = (categoryId: string) => {
+export type AddFeedParam = { fileBase64Arr: string[] } & PostFeedResponse;
+
+const useAddFeed = () => {
     const queryClient = useQueryClient();
-    const addFeedRequest = async (param: { fileBase64Arr: string[] } & PostFeedResponse) => {
+    const router = useRouter();
+    const addFeedRequest = async (param: AddFeedParam) => {
         const { fileBase64Arr, ...postAddParam } = param;
         const fileArr = !!fileBase64Arr.length
             ? await Promise.all(fileBase64Arr.map((base64) => b64toFile(base64)))
@@ -25,9 +29,11 @@ const useAddFeed = (categoryId: string) => {
             });
         },
         onSuccess: () => {
-            const feedListKey = queryKeys.getFeedList(categoryId || '');
+            const feedListKey = queryKeys.getFeedList('');
             queryClient.invalidateQueries([feedListKey]);
-            sendBridgeEvent('back', true);
+            sendBridgeEvent('back', true, () => {
+                router.push('/');
+            });
         },
     });
 };
