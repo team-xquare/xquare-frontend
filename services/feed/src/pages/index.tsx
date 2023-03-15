@@ -10,13 +10,15 @@ import { sendBridgeEvent } from '@shared/xbridge';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { prefetchCategoryList } from '../common/hooks/useCategoryList';
 import useFeedList, { prefetchFeedList } from '../main/hooks/useFeedList';
-import cookies from 'next-cookies';
 import { useWriteButton } from '../main/hooks/useWriteButton';
+import useIsAuthority from '../common/hooks/useIsAuthority';
+
 const Home: NextPage = () => {
     const { onChangeTabValue, selectedTabValueKey, tabMenuKeys } = useTabMenu();
     const { data: feedList } = useFeedList(selectedTabValueKey.category_id);
     const router = useRouter();
     const { isScroll } = useWriteButton();
+    const isAuthority = useIsAuthority();
     return (
         <>
             <ButtonTabs
@@ -33,7 +35,7 @@ const Home: NextPage = () => {
                     />
                 ))}
             </FeedContainer>
-            {isScroll && (
+            {isScroll && isAuthority && (
                 <WriteButton
                     onClick={() =>
                         sendBridgeEvent(

@@ -27,7 +27,6 @@ const WriteDropdownBox = ({ setNewFeedInfo }: WriteDropdownBoxProps) => {
     };
 
     const authorityCategory = useAuthorityCategory();
-
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>(authorityCategory[0]);
 
     const [selectedAuthority, setSelectedAuthority] = useState<AuthorityType>(

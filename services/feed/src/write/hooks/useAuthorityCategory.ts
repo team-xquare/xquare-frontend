@@ -6,14 +6,17 @@ const useAuthorityCategory = () => {
     const { data: categoryListData } = useCategoryList();
     const defaultValue: CategoryType[] = [
         {
-            authorities: [{ authority: '', authority_id: '', authority_name: '' }],
+            authorities: [{ authority: '', authority_id: '', authority_name: '권한 없음' }],
             category_id: '',
             key: '',
-            name: '',
+            name: '카테고리 없음',
         },
     ];
     const filteredCategory = categoryListData?.filter((category) => !!category.authorities.length);
-    const authorityCategory = useMemo(() => filteredCategory || defaultValue, [categoryListData]);
+    const authorityCategory = useMemo(
+        () => (!!filteredCategory?.length ? filteredCategory : defaultValue),
+        [categoryListData],
+    );
 
     return authorityCategory;
 };
