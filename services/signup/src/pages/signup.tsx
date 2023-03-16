@@ -5,6 +5,7 @@ import Input from '../components/input';
 import { postSignup } from '../apis/signup';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
+import BottomFixedButton from '../components/BottomFixedButton';
 interface OnLonginExProps {
     verification_code: string;
     account_id: string;
@@ -77,7 +78,7 @@ const signup = () => {
                 placeholder="재입력"
                 borderColor={userInfo.password === userInfo.repassword ? 'gray300' : 'red300'}
             />
-            <CustomButton
+            <BottomFixedButton
                 fill="purple"
                 fullWidth
                 disabled={
@@ -90,7 +91,7 @@ const signup = () => {
                 }
                 onClick={() => signupMutate(signupData)}>
                 입력완료
-            </CustomButton>
+            </BottomFixedButton>
         </Template>
     );
 };
@@ -119,11 +120,6 @@ const Title = styled.div`
     font-size: 24px;
     font-weight: 500;
     line-height: 28px;
-`;
-
-const CustomButton = styled(Button)`
-    margin-top: 128px;
-    border-radius: 12px;
 `;
 
 export default signup;

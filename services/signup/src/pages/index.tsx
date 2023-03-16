@@ -3,6 +3,7 @@ import { Button } from '@semicolondsm/ui';
 import styled from '@emotion/styled';
 import Logo from '../assets/logo.png';
 import { useRouter } from 'next/router';
+import BottomFixedButton from '../components/BottomFixedButton';
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -12,9 +13,9 @@ const Home: NextPage = () => {
                 <img src={Logo.src} alt="xquaer-logo" />
             </Background>
             <ButtonWrapper>
-                <CustomButton fill="purple" fullWidth onClick={() => router.push('/signup')}>
+                <BottomFixedButton fill="purple" fullWidth onClick={() => router.push('/signup')}>
                     회원가입 하러가기
-                </CustomButton>
+                </BottomFixedButton>
             </ButtonWrapper>
         </Template>
     );
@@ -36,8 +37,7 @@ const Background = styled.div`
     justify-content: center;
 
     width: 100%;
-    height: 461px;
-
+    height: 80%;
     background-color: #9550f9;
     background-color: ${({ theme }) => theme.colors.purple400};
 `;

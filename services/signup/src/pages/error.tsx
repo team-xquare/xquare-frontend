@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Button } from '@semicolondsm/ui';
 import error from '../assets/error.png';
 import { useRouter } from 'next/router';
+import BottomFixedButton from '../components/BottomFixedButton';
 
 const complete = () => {
     const router = useRouter();
@@ -11,9 +12,9 @@ const complete = () => {
             <img src={error.src} />
             <Title>회원가입 실패</Title>
             <Body>XQUARE 회원가입을 실패하였습니다.</Body>
-            <CustomButton fill="purpleLight" onClick={() => router.push('/signup')}>
+            <BottomFixedButton fill="purpleLight" onClick={() => router.push('/signup')}>
                 돌아가기
-            </CustomButton>
+            </BottomFixedButton>
         </Template>
     );
 };
