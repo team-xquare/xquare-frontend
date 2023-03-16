@@ -1,0 +1,33 @@
+{
+    "name": "@service/signup",
+    "description": "회원가입 임시 페이지",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@semicolondsm/react-emotion-theme": "^1.0.10",
+        "@semicolondsm/ui": "^1.4.1",
+        "@xquare/utils": "1.0.8",
+        "axios": "^1.3.4",
+        "emotion-reset": "^3.0.1",
+        "next": "12.1.5",
+        "react": "18.0.0",
+        "react-dom": "18.0.0",
+        "react-query": "^3.39.3"
+    },
+    "devDependencies": {
+        "@types/node": "17.0.24",
+        "@types/react": "18.0.5",
+        "@types/react-dom": "18.0.1",
+        "eslint": "8.13.0",
+        "eslint-config-next": "12.1.5",
+        "typescript": "4.6.3"
+    }
+}
