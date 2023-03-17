@@ -5,61 +5,55 @@ import ImageDeleteContainer from '../common/components/image/imageDeleteContaine
 import UploadFooter from '../write/components/UploadFooter';
 import WriteDropdownBox from '../write/components/WriteDropdownsBox';
 import { useBridgeHandler } from '@shared/xbridge';
-import { useEffect, useState } from 'react';
-import useCategoryList from '../common/hooks/useCategoryList';
-import { CategoryType } from '../common/types';
-import usePermissions from '../write/hooks/usePermissions';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { sendBridgeEvent, useBridgeCallback } from '@shared/xbridge';
-import useAddFeed from '../write/hooks/useAddFeed';
-export type DropdownType = 'group' | 'purpose';
+import useAddFeed, { AddFeedParam } from '../write/hooks/useAddFeed';
+import WriteButton from '../main/components/WriteButton';
 
 const Write = () => {
-    const [pickedImage, setPickedImage] = useState<string[]>([]);
-    const [content, setContent] = useState('');
-    const [selectState, setSelectState] = useState<Record<DropdownType, CategoryType>>({
-        group: { category_id: '', name: '권한이 존재하지 않음', key: '' },
-        purpose: { category_id: '', name: '목록이 존재하지 않음', key: '' },
+    const [newFeedInfo, setNewFeedInfo] = useState<AddFeedParam>({
+        category_id: '',
+        content: '',
+        fileBase64Arr: [],
+        title: '12345',
+        type: '',
     });
-    const { data: purpose } = useCategoryList();
-    const { data: group } = usePermissions(selectState.purpose.key);
 
-    // useEffect(() => {
-    //     sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!content });
-    // }, [!!content]);
+    useEffect(() => {
+        sendBridgeEvent('isRightButtonEnabled', {
+            isEnabled: !!newFeedInfo.content && !!newFeedInfo.type,
+        });
+    }, [!!newFeedInfo.content, !!newFeedInfo.type]);
 
     const { mutate: addFeedMutate } = useAddFeed();
+
+    const writeConfirm = useBridgeHandler(
+        'confirm',
+        (e) => {
+            e.detail.success && addFeedMutate(newFeedInfo);
+        },
+        {
+            cancelText: '취소하기',
+            confirmText: '작성하기',
+            message: '게시물을 등록하시겠습니까?',
+        },
+    );
 
     useBridgeCallback(
         'rightButtonTaped',
         () => {
-            addFeedMutate({
-                category_id: selectState.purpose.category_id,
-                type: selectState.group.name,
-                content: content,
-                title: '',
-            });
+            writeConfirm();
         },
         undefined,
     );
 
-    useEffect(() => {
-        setSelectState((state) => ({ ...state, purpose: { ...state.purpose, ...purpose?.[0] } }));
-    }, [purpose]);
-
-    useEffect(() => {
-        setSelectState((state) => ({
-            ...state,
-            group: {
-                ...state.group,
-                category_id: group?.[0]?.authority_id || '',
-                name: group?.[0]?.authority_name || '',
-            },
-        }));
-    }, [selectState.purpose, group]);
-
     const onImageSelect = useBridgeHandler(
         'photoPicker',
-        (e) => setPickedImage((state) => [...state, ...e.detail.photos]),
+        (e) =>
+            setNewFeedInfo((state) => ({
+                ...state,
+                fileBase64Arr: [...state.fileBase64Arr, ...e.detail.photos],
+            })),
         {},
     );
 
@@ -67,25 +61,38 @@ const Write = () => {
         return imageState.filter((_, idx) => idx !== deleteIdx);
     };
 
+    const onChangeInput = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+        setNewFeedInfo((state) => ({ ...state, content: e.target.value }));
+    }, []);
+
     return (
         <>
             <WriteContainer>
-                <WriteDropdownBox selectState={selectState} setSelectState={setSelectState} />
+                <WriteDropdownBox setNewFeedInfo={setNewFeedInfo} />
                 <TextareaContainer
                     minRows={5}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={onChangeInput}
                     spellCheck="false"
                     placeholder="내용을 입력하세요."
                 />
                 <ImageDeleteContainer
-                    images={pickedImage}
+                    images={newFeedInfo.fileBase64Arr}
                     onDelete={(deleteIdx) =>
-                        setPickedImage((state) => onDeleteImage(state, deleteIdx))
+                        setNewFeedInfo((state) => ({
+                            ...state,
+                            fileBase64Arr: onDeleteImage(state.fileBase64Arr, deleteIdx),
+                        }))
                     }
                 />
             </WriteContainer>
             <UploadFooter onClick={onImageSelect} />
+            {process.env.NODE_ENV === 'development' && (
+                <WriteButton
+                    onClick={() => {
+                        addFeedMutate(newFeedInfo);
+                    }}
+                />
+            )}
         </>
     );
 };

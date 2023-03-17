@@ -54,6 +54,14 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
         () => {},
     );
 
+    const testTimePicker = useBridgeHandler(
+        'timePicker',
+        (event) => {
+            setTime('1');
+        },
+        { time: time },
+    );
+
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -99,6 +107,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testPhotoPicker}>이미지 피커</Button>
             <div>선택된 menu: {bottomSheetMenu[selectedMenu!]}</div>
             <Button onClick={testActionSheet}>메뉴선택</Button>
+            <div>선택된 time:{time}</div>
+            <Button onClick={testTimePicker}>타임 피커</Button>
         </div>
     );
 };

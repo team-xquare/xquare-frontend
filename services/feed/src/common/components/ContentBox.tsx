@@ -1,5 +1,6 @@
 import useEllipsis from '../hooks/useEllipsis';
 import styled from '@emotion/styled';
+import { Body1 } from '@semicolondsm/ui';
 
 interface ContentBoxProps {
     content: string;
@@ -13,8 +14,12 @@ const ContentBox = ({ content, limit }: ContentBoxProps) => {
     );
     return (
         <ContentWrapper>
-            <p>{ellipsisContent}</p>
-            {isEllipsis && <p onClick={onClickMore}>...더보기</p>}
+            <Body1>{ellipsisContent}</Body1>
+            {isEllipsis && (
+                <div onClick={onClickMore}>
+                    <Body1>...더보기</Body1>
+                </div>
+            )}
         </ContentWrapper>
     );
 };

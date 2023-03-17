@@ -1,17 +1,19 @@
+import toast from 'react-hot-toast';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { pointInstance } from '.';
 import { Rule, SelectedUserIds, Student, StudentHistory } from './types';
+import FileSaver from 'file-saver';
 
 export const usePointQuery = () => {
     const fetcher = async (): Promise<Student[]> => {
         const {
             data: { students },
-        } = await pointInstance('', {
+        } = await pointInstance('/student', {
             method: 'GET',
         });
         return students;
     };
-    return useQuery('/students', fetcher);
+    return useQuery('/student', fetcher);
 };
 
 export const useAddPointQuery = (id: SelectedUserIds) => {
@@ -31,33 +33,35 @@ export const useAddPointQuery = (id: SelectedUserIds) => {
     };
     return useMutation(fetcher, {
         onSuccess: () => {
+            toast.success('상/벌점이 부여되었습니다.');
             queryClient.invalidateQueries('/points/students', {
                 predicate: ({ queryKey }) =>
                     queryKey[0] === '/points/students' &&
                     trueStudentIds.indexOf(queryKey[1] as string) !== -1,
             });
-            queryClient.invalidateQueries('/points/students');
+            queryClient.invalidateQueries('/student');
+        },
+        onError: () => {
+            toast.error('상/벌점 부여에 실패하였습니다.');
         },
     });
 };
 
 export const useTrainingMutation = () => {
     const queryClient = useQueryClient();
-    const fetcher = ({ id, penalty_level }: Pick<Student, 'id' | 'penalty_level'>) =>
-        pointInstance.post(`/points/student/${id}/training?penalty_level=${penalty_level}`);
+    const fetcher = ({ id }: Pick<Student, 'id'>) => pointInstance.patch(`/penalty/${id}`);
 
     return useMutation(fetcher, {
         onSuccess: () => {
             queryClient.invalidateQueries('/points/students');
+            queryClient.invalidateQueries('/student');
         },
     });
 };
 
 export const useHistoryByIdQuery = (id: SelectedUserIds) => {
-    //
     const trueStudentIds = Object.keys(id).filter((key) => id[key] && key);
-    const pathname = `/points/student/${trueStudentIds.length ? trueStudentIds[0] : ''}/history`;
-
+    const pathname = `/student/${trueStudentIds.length ? trueStudentIds[0] : ''}/history?type=`;
     const fetcher = async (): Promise<StudentHistory[]> => {
         const {
             data: { point_histories },
@@ -66,7 +70,9 @@ export const useHistoryByIdQuery = (id: SelectedUserIds) => {
         });
         return point_histories;
     };
-    return useQuery(['/points/students', id], fetcher, { enabled: trueStudentIds.length === 1 });
+    return useQuery(['/points/students', trueStudentIds[0]], fetcher, {
+        enabled: trueStudentIds.length === 1,
+    });
 };
 
 export const useRuleQuery = (type: boolean) => {
@@ -83,8 +89,70 @@ export const useRuleQuery = (type: boolean) => {
     });
 };
 
-export const useAddRuleMutation = () => {
+export const useAddRuleMutation = (successCallback: () => void, addType: boolean) => {
     //rule 추가
+    const queryClient = useQueryClient();
     const fetcher = async (param: Omit<Rule, 'id'>) => await pointInstance.post('/rule', param);
-    return useMutation(fetcher);
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('규칙을 추가하였습니다.');
+            queryClient.invalidateQueries(['/points/rules', addType]);
+            successCallback();
+        },
+        onError: () => {
+            toast.error('실패하였습니다.');
+        },
+    });
+};
+
+export const useDeleteRuleMutation = (successCallback: () => void, addType: boolean) => {
+    //rule 삭제
+    const queryClient = useQueryClient();
+    const fetcher = async (id: number) => await pointInstance.delete(`/rule/${id}`);
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('규칙을 삭제하였습니다.');
+            queryClient.invalidateQueries(['/points/rules', addType]);
+            successCallback();
+        },
+        onError: () => {
+            toast.error('실패하였습니다.');
+        },
+    });
+};
+
+export const useDeleteRuleHistory = (id: SelectedUserIds) => {
+    const trueStudentIds = Object.keys(id).filter((key) => id[key] && key);
+    const queryClient = useQueryClient();
+    const fetcher = async (historyId: string) => {
+        const pathname = `/student/${
+            trueStudentIds.length ? trueStudentIds[0] : ''
+        }/history/${historyId}`;
+        await pointInstance.delete(pathname);
+    };
+    return useMutation(fetcher, {
+        onSuccess: () => {
+            toast.success('삭제되었습니다.');
+            queryClient.invalidateQueries(['/points/students', trueStudentIds[0]]);
+            queryClient.invalidateQueries([`/student`]);
+        },
+        onError: () => {
+            toast.error('삭제에 실패하였습니다.');
+        },
+    });
+};
+
+export const usePointExcel = () => {
+    const fetcher = async () => {
+        try {
+            const { data } = await pointInstance.get('/excel', {
+                responseType: 'blob',
+            });
+            FileSaver.saveAs(data, `상벌점 현황 ${new Date()}.xlsx`);
+        } catch (e) {
+            toast.error('상벌점 현황 다운로드를 실패하였습니다.');
+        }
+    };
+
+    return fetcher;
 };

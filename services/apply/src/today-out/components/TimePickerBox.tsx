@@ -1,18 +1,37 @@
 import styled from '@emotion/styled';
 import { FlexRow } from '../../common/components/Flexbox';
-
+import { useBridgeHandler } from '@shared/xbridge';
 interface TimePickerBoxProps {
-    startTime?: string;
-    endTime?: string;
+    startTime: string;
+    endTime: string;
     setTime: (props: { type: 'startTime' | 'endTime'; value: string }) => void;
 }
 
 const TimePickerBox = ({ setTime, endTime, startTime }: TimePickerBoxProps) => {
+    const onSelectStartTime = useBridgeHandler(
+        'timePicker',
+        (e) => {
+            setTime({ type: 'startTime', value: e.detail.time });
+        },
+        { time: startTime },
+    );
+    const onSelectEndTime = useBridgeHandler(
+        'timePicker',
+        (e) => {
+            setTime({ type: 'endTime', value: e.detail.time });
+        },
+        { time: endTime },
+    );
+
     return (
         <TimeContainer>
-            <TimeInput value={startTime}>{startTime || '출발시간'}</TimeInput>
+            <TimeInput value={startTime} onClick={onSelectStartTime}>
+                {startTime || '출발시간'}
+            </TimeInput>
             <FlexRow justify="center">~</FlexRow>
-            <TimeInput value={endTime}>{endTime || '도착시간'}</TimeInput>
+            <TimeInput value={endTime} onClick={onSelectEndTime}>
+                {endTime || '도착시간'}
+            </TimeInput>
         </TimeContainer>
     );
 };

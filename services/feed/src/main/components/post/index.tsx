@@ -2,19 +2,17 @@ import styled from '@emotion/styled';
 import { FlexCol, FlexRow } from '../../../common/components/Flexbox';
 import PostProfile from './PostProfile';
 import PostFooter from './PostFooter';
-import { ComponentProps } from 'react';
 import KababButton from '../../../common/components/KababButton';
 import ContentBox from '../../../common/components/ContentBox';
-import testImage from '../../../assets/test/testimage1.jpeg';
 import { ImageCountContainer } from '../../../common/components/image';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { FeedType } from '../../types';
-import { timeFormatter } from '../../../utils/timeFormatter';
-import { useMutation } from '@tanstack/react-query';
 import useDeleteFeed from '../../hooks/useDeleteFeed';
-interface FeedPostProps extends FeedType {}
+interface FeedPostProps extends FeedType {
+    categoryId: string;
+}
 //@todo props 바꾸기
-const actionSheetMenu = ['삭제하기'] as const;
+const actionSheetMenu = ['삭제하기', '신고하기'] as const;
 
 const FeedPost = ({
     attachments_url,
@@ -28,10 +26,26 @@ const FeedPost = ({
     like_count,
     profile,
     type,
+    categoryId,
 }: FeedPostProps) => {
-    const { mutate: deleteMutate } = useDeleteFeed(feed_id);
+    const { mutate: deleteMutate } = useDeleteFeed(feed_id, categoryId);
+    const deleteConfirm = useBridgeHandler('confirm', (e) => e.detail.success && deleteMutate(), {
+        message: '피드를 삭제하시겠습니까?',
+        cancelText: '취소하기',
+        confirmText: '삭제하기',
+    });
+
     const menuAction: Record<typeof actionSheetMenu[number], () => void> = {
-        삭제하기: () => deleteMutate(),
+        삭제하기: () => {
+            deleteConfirm();
+        },
+        신고하기: () => {
+            sendBridgeEvent('navigate', {
+                url: `/comment/${feed_id}/declare`,
+                title: '신고하기',
+                rightButtonText: '제출',
+            });
+        },
     };
 
     return (
@@ -40,20 +54,20 @@ const FeedPost = ({
                 <PostHeaderContainer>
                     <PostProfile
                         createAt={created_at}
-                        name={`${name}-${type}`}
+                        name={`${name ? `${name}-` : ''}${type}`}
                         profileSrc={profile}
                     />
-                    {is_mine && (
-                        <KababButton
-                            menu={actionSheetMenu}
-                            onClick={(menu) => menuAction[menu]()}
-                        />
-                    )}
+
+                    <KababButton
+                        menu={is_mine ? actionSheetMenu : ['신고하기']}
+                        onClick={(menu) => menuAction[menu]()}
+                    />
                 </PostHeaderContainer>
                 <ContentBox content={content} limit={!!attachments_url.length ? 40 : 20} />
             </FeedPostContainer>
             {!!attachments_url.length ? <ImageCountContainer images={attachments_url} /> : <></>}
             <PostFooter
+                categoryId={categoryId}
                 comments={comment_count}
                 like={like_count}
                 isMyLike={is_like}

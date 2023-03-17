@@ -8,7 +8,7 @@ export const useLoginMutation = () => {
     const router = useRouter();
     return useMutation(
         async (param: UserLogin) =>
-            axios.post<UserToken>('https://stag-api.xquare.app/users/login', {
+            axios.post<UserToken>('https://api.xquare.app/users/login', {
                 ...param,
                 device_token: 'qwefsdfejk',
             }),

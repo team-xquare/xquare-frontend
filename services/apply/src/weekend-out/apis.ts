@@ -1,7 +1,7 @@
-import { pickInstance } from '../utils/axios';
+import { instance, pickInstance } from '../utils/axios';
 import { PostWeekendOutRequestParam } from './types';
 
 export const postWeekendOut = async (param: PostWeekendOutRequestParam) => {
-    const uri = `/applications`;
-    return await pickInstance.post(uri, param);
+    const uri = `/picnic`;
+    return await instance.post(uri, param);
 };

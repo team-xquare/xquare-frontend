@@ -29,8 +29,8 @@ const NavigationWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
-    grid-gap: 20px;
-    margin-top: 150px;
+
+    margin-top: 50px;
 `;
 
 export default Navigation;

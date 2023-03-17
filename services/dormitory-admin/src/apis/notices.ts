@@ -5,7 +5,11 @@ import toast from 'react-hot-toast';
 export const useNoticeQuery = () => {
     const fetcher = async (): Promise<Notice[]> => (await feedInstance.get('/writer')).data.feeds;
 
-    return useQuery('notice', fetcher);
+    return useQuery('notice', fetcher, {
+        onError: () => {
+            toast.error('피드 리스트 조회를 실패하였습니다.');
+        },
+    });
 };
 
 export const useDeleteNoticeMutation = () => {
@@ -22,10 +26,11 @@ export const useUpdateNoticeMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation(
-        ({ feed_id, ...params }: Partial<{ feed_id: string; content: string }>) =>
+        ({ feed_id, ...params }: Partial<{ feed_id: string; content: string; title: string }>) =>
             feedInstance.patch(`/${feed_id}`, params),
         {
             onSuccess: () => {
+                toast.success('수정이 완료되었습니다.');
                 queryClient.invalidateQueries(['notice']);
             },
         },
@@ -43,6 +48,7 @@ export const useAddNoticeMutation = () => {
             const noticeCategory = categoryResponse.data.category_list.filter(
                 (category) => category.name === '공지사항',
             )[0];
+
             return await feedInstance.post('/', {
                 ...params,
                 category_id: noticeCategory.category_id,

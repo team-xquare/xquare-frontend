@@ -4,14 +4,15 @@ import { FlexCol, FlexRow } from '../../common/components/Flexbox';
 
 interface LabelBoxProps {
     label: string;
+    required?: boolean;
 }
 
-const LabelBox = ({ label, children }: PropsWithChildren<LabelBoxProps>) => {
+const LabelBox = ({ label, required = true, children }: PropsWithChildren<LabelBoxProps>) => {
     return (
         <FlexCol gap={8} fullWidth>
             <LabelText>
                 {label}
-                <p>*</p>
+                {required && <p>*</p>}
             </LabelText>
             {children}
         </FlexCol>

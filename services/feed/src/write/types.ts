@@ -1,6 +1,7 @@
 export type Authority = {
     authority_id: string;
     authority_name: string;
+    authority: string;
 };
 
 export interface GetAuthorityResponse {

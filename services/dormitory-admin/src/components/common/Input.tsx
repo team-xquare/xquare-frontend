@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, HTMLAttributes } from 'react';
 
-interface InputProps {
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
+    type?: 'text' | 'password' | 'number' | 'email' | 'tel';
     value?: string;
     label?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;

@@ -10,7 +10,12 @@ interface StudentProfileProps extends Student {
 const StudentProfile = (props: StudentProfileProps) => {
     return (
         <ProfileContainer>
-            <ProfileImage src={props.profile_image || defaultProfileImage} width={40} height={40} />
+            <ProfileImage
+                src={props.profile_image}
+                onError={(e) => {
+                    e.currentTarget.src = defaultProfileImage.src;
+                }}
+            />
             <ProfileName isFull={props.isFull}>{props.student_name}</ProfileName>
         </ProfileContainer>
     );
@@ -23,7 +28,7 @@ const ProfileContainer = styled.div`
     gap: 4px;
 `;
 
-const ProfileImage = styled(Image)`
+const ProfileImage = styled.img`
     border-radius: 50%;
     width: 40px;
     object-fit: cover;

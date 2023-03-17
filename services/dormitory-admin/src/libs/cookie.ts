@@ -8,7 +8,7 @@ export const customCookie = {
     set: {
         token: (access: string, refresh: string, expires: string) => {
             const date = new Date();
-            date.setDate(date.getDate() + 1);
+            date.setDate(date.getDate() + 5);
 
             setCookie('access_token', access, { expires: new Date(expires) });
             setCookie('refresh_token', refresh, { expires: date });

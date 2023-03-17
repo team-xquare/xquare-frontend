@@ -28,12 +28,9 @@ const SubmitTextarea = ({ placeholder, onChange, onSubmit, value }: SubmitTextar
 };
 
 const FixedBox = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     padding: 8px 16px;
-    background-color: ${({ theme }) => theme.colors.gray50};
+    background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const RelativeBox = styled.div`
@@ -46,6 +43,7 @@ const CustomTextarea = styled(Textarea)`
     border-radius: 8px;
     outline: none;
     resize: none;
+    font-size: 16px;
     border: 1px solid ${({ theme }) => theme.colors.gray500};
     padding: 10px 16px;
     color: ${({ theme }) => theme.colors.gray900};
@@ -54,7 +52,8 @@ const CustomTextarea = styled(Textarea)`
 const SubmitButton = styled.div<{ disable: boolean }>`
     position: absolute;
     right: 12px;
-    bottom: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 16px;
     line-height: 24px;
     cursor: pointer;

@@ -23,7 +23,7 @@ const FooterContainer = styled(FlexRow)`
     bottom: 0;
     width: 100%;
     height: 48px;
-    border-top: 1px solid ${({ theme }) => theme.colors.gray300};
+    border-top: 1px solid ${({ theme }) => theme.colors.gray200};
     gap: 8px;
     padding: 0 16px;
     align-items: center;

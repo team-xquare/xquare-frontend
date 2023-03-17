@@ -1,71 +1,105 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import PointListItem from './PointListItem';
+import { Select, Button } from '@semicolondsm/ui';
 import MainSectionTitle from '../../common/MainSectionTitle';
-import StudentList from '../../common/StudentList';
-import { usePointQuery } from '../../../apis/points';
+import { SelectedUserIds, SortingEnum } from '../../../apis/types';
+import SelectInput from '../../common/SelectInput';
 import { useSort } from '../../../contexts/sort';
-import { sortedStudents } from '../../../libs/utils';
-import { SelectedUserIds, SortingEnum, Student } from '../../../apis/types';
 import { useSearch } from '../../../contexts/search';
+import { usePointExcel, usePointQuery } from '../../../apis/points';
+import StudentList from './StudentList';
+import { Flex } from '../../common/Flex';
+import { sortedStudents } from '../../../libs/utils';
+import BlockContainer from '../../common/BlockContainer';
+
 interface PropsType {
-    onClick: (id: string, isCheckbox?: boolean) => void;
-    students: Student[];
-    id: SelectedUserIds;
-    setId: React.Dispatch<React.SetStateAction<SelectedUserIds>>;
+    selectedIds: SelectedUserIds;
+    setSelectedUserIds: React.Dispatch<React.SetStateAction<SelectedUserIds>>;
 }
 
-const PointList = ({
-    onClick,
-    students,
-    id,
-    setId,
-}: PropsType) => {
+const PointList = ({ selectedIds, setSelectedUserIds }: PropsType) => {
+    const { data, isLoading, error } = usePointQuery();
+
+    const { setSortType } = useSort();
+    const { setQuery, query } = useSearch();
+    const pointExcel = usePointExcel();
+
     const { sortType } = useSort();
     const { pattern } = useSearch();
-    const filteredStudent = sortedStudents(sortType, students).filter(({ name }) => pattern.test(name));
+
+    const sortedStudentsList = sortedStudents(sortType, data);
+    const filteredStudent = sortedStudentsList.filter(({ name }) => pattern.test(name));
+
+    const [isMultiSelected, setMultiSelected] = useState<boolean>(false);
 
     useEffect(() => {
-        toggleSelectAll();
-    }, [pattern]);
-
-    useEffect(() => {
-        if(sortType !== SortingEnum.a) {
-            toggleSelectAll();
-        }
-    }, [sortType]);
-    
-    const toggleSelectAll = (e?: React.ChangeEvent<HTMLInputElement>) => {
-        const sortedStudentsList = sortedStudents(sortType, students);
-        if(e?.currentTarget?.checked) setId(Object.fromEntries(filteredStudent.map(student => [student.id, true])));
-        else setId(Object.fromEntries(sortedStudentsList.map(student => [student.id, false])));
-    }
-
-    const columns = [
-        <input 
-            type="checkbox" 
-            checked={filteredStudent.every(({ id: studentId }) => id[studentId])} 
-            onChange={toggleSelectAll} 
-        />, 
-        "학번", "이름", "상점", "벌점", "1단계", "2단계", "3단계", "1Out", "2Out"
-    ];
+        setSelectedUserIds({});
+    }, [isMultiSelected]);
 
     return (
         <MainContainer>
-            <MainSectionTitle>학생 리스트</MainSectionTitle>
-            <StudentList columns={columns}>
-                {
-                    filteredStudent.map(student => <PointListItem 
-                        key={student.id} 
-                        onClick={onClick} 
-                        isActive={id[student.id]} 
-                        {...student} 
-                    />)
-                }
-            </StudentList>
+            <BlockContainer title="학생 리스트">
+                <MainBlockHeader>
+                    <FlexBox>
+                        <Select
+                            items={Object.values(SortingEnum)}
+                            onChange={setSortType}
+                            value={SortingEnum.a}
+                            placeholder=""
+                        />
+                        <SelectInput
+                            type="text"
+                            placeholder="학생 이름을 검색하세요"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                    </FlexBox>
+                    <Flex gap={8}>
+                        <Button
+                            onClick={() => setMultiSelected((prev) => !prev)}
+                            fill="border"
+                            size="sm">
+                            {isMultiSelected ? '다중 선택 취소' : '다중 선택'}
+                        </Button>
+                        <Button onClick={() => pointExcel()} fill="purple" size="sm">
+                            엑셀 다운로드
+                        </Button>
+                    </Flex>
+                </MainBlockHeader>
+                <StudentList
+                    isMultiSelected={isMultiSelected}
+                    students={filteredStudent}
+                    selectedIds={selectedIds}
+                    setSelectedUserIds={setSelectedUserIds}
+                />
+            </BlockContainer>
         </MainContainer>
     );
-}
+};
+
+const FlexBox = styled.div`
+    display: flex;
+    align-content: center;
+    gap: 6px;
+`;
+
+const MainBlock = styled.div`
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    background: ${(props) => props.theme.colors.white};
+`;
+
+const MainBlockHeader = styled.div`
+    width: 100%;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
 
 const MainContainer = styled.div`
     width: 100%;

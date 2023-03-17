@@ -34,8 +34,11 @@ const ButtonTabs = <T extends string>({ items, value, setValue }: ButtonTabsProp
 };
 
 const TabContainer = styled(FlexRow)`
+    width: 100%;
     padding: 4px 16px 12px;
     gap: 8px;
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: 10;
     overflow: auto;
 `;
 

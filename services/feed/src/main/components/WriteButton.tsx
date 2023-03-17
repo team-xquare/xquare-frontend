@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import pencil from '../../assets/pencil.png';
@@ -14,6 +15,17 @@ const WriteButton = ({ onClick }: WriteButton) => {
     );
 };
 
+const disolve = keyframes`
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+    }
+
+`;
+
 const ButtonWrapper = styled.div`
     position: fixed;
     bottom: 16px;
@@ -26,6 +38,8 @@ const ButtonWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    animation: ${disolve} 0.2s ease-in-out;
 `;
 
 export default WriteButton;

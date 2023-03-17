@@ -10,11 +10,15 @@ import { sendBridgeEvent } from '@shared/xbridge';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { prefetchCategoryList } from '../common/hooks/useCategoryList';
 import useFeedList, { prefetchFeedList } from '../main/hooks/useFeedList';
-import cookies from 'next-cookies';
+import { useWriteButton } from '../main/hooks/useWriteButton';
+import useIsAuthority from '../common/hooks/useIsAuthority';
+
 const Home: NextPage = () => {
     const { onChangeTabValue, selectedTabValueKey, tabMenuKeys } = useTabMenu();
     const { data: feedList } = useFeedList(selectedTabValueKey.category_id);
     const router = useRouter();
+    const { isScroll } = useWriteButton();
+    const isAuthority = useIsAuthority();
     return (
         <>
             <ButtonTabs
@@ -24,25 +28,30 @@ const Home: NextPage = () => {
             />
             <FeedContainer>
                 {feedList?.feeds.map((feed) => (
-                    <FeedPost {...feed} key={feed.feed_id} />
+                    <FeedPost
+                        categoryId={selectedTabValueKey.category_id}
+                        {...feed}
+                        key={feed.feed_id}
+                    />
                 ))}
             </FeedContainer>
-            <WriteButton
-                onClick={() =>
-                    sendBridgeEvent(
-                        'navigate',
-                        { url: '/write', title: '글쓰기', rightButtonText: '완료' },
-                        () => router.push('/write'),
-                    )
-                }
-            />
+            {isScroll && isAuthority && (
+                <WriteButton
+                    onClick={() =>
+                        sendBridgeEvent(
+                            'navigate',
+                            { url: '/write', title: '글쓰기', rightButtonText: '완료' },
+                            () => router.push('/write'),
+                        )
+                    }
+                />
+            )}
         </>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const queryClient = new QueryClient();
-    const allCookies = cookies(ctx);
 
     await Promise.all([prefetchFeedList(queryClient), prefetchCategoryList(queryClient)]);
 
@@ -55,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const FeedContainer = styled(FlexCol)`
     > * + * {
-        border-top: 8px solid ${({ theme }) => theme.colors.gray100};
+        border-top: 1px solid ${({ theme }) => theme.colors.gray200};
     }
 `;
 

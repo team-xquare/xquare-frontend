@@ -3,30 +3,36 @@ import ProfileContent from '../../common/components/profile/ProfileContent';
 import ProfileImage from '../../common/components/profile/ProfileImage';
 import styled from '@emotion/styled';
 import { FlexCol, FlexRow } from '../../common/components/Flexbox';
-import useEllipsis from '../../common/hooks/useEllipsis';
-import ContentBox from '../../common/components/ContentBox';
-interface ContentDetailProps
+import { css } from '@emotion/react';
+
+interface ContentProfileProps
     extends ComponentProps<typeof ProfileImage>,
         Omit<ComponentProps<typeof ProfileContent>, 'direction'> {
-    content: string;
+    isScroll: boolean;
 }
 
-const ContentDetail = ({ createAt, name, profileSrc, content }: ContentDetailProps) => {
+const ContentProfile = ({ createAt, name, profileSrc, isScroll }: ContentProfileProps) => {
     return (
-        <ContentDetailWrapper>
+        <ContentProfileWrapper isScroll={isScroll}>
             <FlexRow gap={12}>
                 <ProfileImage profileSrc={profileSrc} />
-                <ProfileContent createAt={createAt} name={name} direction="row" />
+                <ProfileContent createAt={createAt} name={name} direction="col" />
             </FlexRow>
-            <ContentBox content={content} />
-        </ContentDetailWrapper>
+        </ContentProfileWrapper>
     );
 };
 
-const ContentDetailWrapper = styled(FlexCol)`
+const ContentProfileWrapper = styled(FlexCol)<{ isScroll: boolean }>`
     gap: 8px;
     width: 100%;
-    padding: 16px;
+    padding: 8px 16px;
+    box-sizing: border-box;
+
+    ${({ theme, isScroll }) =>
+        isScroll &&
+        css`
+            border-bottom: 1px solid ${theme.colors.gray200};
+        `}
 `;
 
-export default ContentDetail;
+export default ContentProfile;

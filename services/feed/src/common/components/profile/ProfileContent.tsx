@@ -1,4 +1,5 @@
 import { ComponentProps } from 'react';
+import { Body2, Body3 } from '@semicolondsm/ui';
 import FlexBox from '../Flexbox';
 import styled from '@emotion/styled';
 import { timeFormatter } from '../../../utils/timeFormatter';
@@ -14,8 +15,8 @@ const ProfileContent = ({ createAt, name, direction = 'col' }: ProfileContentPro
             direction={direction}
             gap={direction === 'col' ? 0 : 4}
             align={direction === 'col' ? 'flex-start' : 'center'}>
-            <NameWrapper>{name}</NameWrapper>
-            <DateWrapper>{timeFormatter(createAt)}</DateWrapper>
+            <Body2 fontWeight="medium">{name}</Body2>
+            <Body3 color="gray800">{timeFormatter(createAt)}</Body3>
         </FlexBox>
     );
 };
@@ -24,12 +25,6 @@ const NameWrapper = styled.strong`
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-`;
-
-const DateWrapper = styled.p`
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 18px;
 `;
 
 export default ProfileContent;

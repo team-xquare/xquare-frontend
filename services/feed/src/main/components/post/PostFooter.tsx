@@ -5,22 +5,25 @@ import Good from '../../../assets/Good';
 import { FlexRow } from '../../../common/components/Flexbox';
 import useFeedLike from '../../hooks/useFeedLike';
 import { sendBridgeEvent } from '@shared/xbridge';
+import { Body1 } from '@semicolondsm/ui';
+
 // @todo post footer api 연동
 interface PostFooterProps {
     like: number;
     comments: number;
     isMyLike: boolean;
     postId: string;
+    categoryId: string;
 }
 
-const PostFooter = ({ comments, like, isMyLike, postId }: PostFooterProps) => {
-    const { mutate: feedLikeMutate } = useFeedLike();
+const PostFooter = ({ comments, like, isMyLike, postId, categoryId }: PostFooterProps) => {
+    const { mutate: feedLikeMutate } = useFeedLike(categoryId);
     const router = useRouter();
     return (
         <PostFooterContainer>
-            <FooterInfoContainer>
-                <Good isBlack={isMyLike} onClick={() => feedLikeMutate(postId)} />
-                <p>좋아요 {like}</p>
+            <FooterInfoContainer onClick={() => feedLikeMutate(postId)}>
+                <Good isBlack={isMyLike} />
+                <Body1>좋아요 {like}</Body1>
             </FooterInfoContainer>
             <FooterInfoContainer
                 onClick={() =>
@@ -29,7 +32,7 @@ const PostFooter = ({ comments, like, isMyLike, postId }: PostFooterProps) => {
                     )
                 }>
                 <Comment />
-                <p>댓글 {comments}</p>
+                <Body1>댓글 {comments}</Body1>
             </FooterInfoContainer>
         </PostFooterContainer>
     );
@@ -41,11 +44,10 @@ const PostFooterContainer = styled(FlexRow)`
     width: 100%;
     align-items: center;
     padding: 0 16px;
-    border-top: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
 const FooterInfoContainer = styled(FlexRow)`
-    gap: 9px;
+    gap: 4px;
     align-items: center;
     > img {
         width: 28px;

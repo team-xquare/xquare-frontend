@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import MainLayout from '../components/main/MainLayout';
 import { ModalProvider } from '../contexts/modal';
 import loginBackground from '../assets/loginBackground.png';
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import Input from '../components/common/Input';
 import { Button } from '@semicolondsm/ui';
 import xquareLogo from '../assets/xquareLogo.png';
@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useLoginMutation } from '../apis/user';
 import { getCookie } from 'cookies-next';
+import SelectInput from '../components/common/SelectInput';
 
 const Main: NextPage = () => {
     useLayoutEffect(() => {
@@ -21,7 +22,7 @@ const Main: NextPage = () => {
         };
     }, []);
 
-    const { mutate: loginMutate } = useLoginMutation();
+    const { mutate: loginMutate, isLoading } = useLoginMutation();
 
     const [loginData, setLoginData] = useState({
         account_id: '',
@@ -40,7 +41,8 @@ const Main: NextPage = () => {
                 }}>
                 <Image src={xquareLogo} width={50} height={50}></Image>
                 <InputContainer>
-                    <Input
+                    <SelectInput
+                        inputSize="large"
                         placeholder="아이디를 입력하세요"
                         name="account_id"
                         value={loginData.account_id}
@@ -48,7 +50,9 @@ const Main: NextPage = () => {
                             setLoginData((state) => ({ ...state, [e.target.name]: e.target.value }))
                         }
                     />
-                    <Input
+                    <SelectInput
+                        inputSize="large"
+                        type="password"
                         placeholder="비밀번호를 입력하세요"
                         name="password"
                         value={loginData.password}
@@ -57,7 +61,7 @@ const Main: NextPage = () => {
                         }
                     />
                 </InputContainer>
-                <LoginButton fullWidth fill="purple" onClick={onClickLogin}>
+                <LoginButton loading={isLoading} fullWidth fill="purple" onClick={onClickLogin}>
                     로그인
                 </LoginButton>
             </LoginWrapper>
@@ -81,7 +85,7 @@ const LoginWrapper = styled.form`
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 24px;
     align-items: center;
     box-shadow: 0px 2px 8px rgba(33, 33, 33, 0.25);
     background-color: ${({ theme }) => theme.colors.white};
@@ -95,7 +99,11 @@ const InputContainer = styled.div`
 `;
 
 const LoginButton = styled(Button)`
-    border-radius: 12px;
+    border-radius: 4px;
+
+    & div {
+        font-weight: 500;
+    }
 `;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

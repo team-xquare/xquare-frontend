@@ -11,7 +11,9 @@ const ImageCountContainer = ({ images }: ImageCountContainerProps) => {
     const [currentImage, setCurrentImage] = useState(1);
     return (
         <ImageContainer>
-            <ImageCounter current={currentImage} maxSize={images?.length || 0} />
+            {(images?.length ?? 0) > 1 && (
+                <ImageCounter current={currentImage} maxSize={images?.length || 0} />
+            )}
             <ImageViewContainer
                 onClick={() => sendBridgeEvent('imageDetail', { images: images || [] }, () => {})}>
                 {images?.map((src, idx) => (
@@ -31,7 +33,6 @@ const ImageCountContainer = ({ images }: ImageCountContainerProps) => {
 const ImageContainer = styled.div`
     position: relative;
     width: 100%;
-    padding: 0 24px 24px;
 `;
 
 const ImageViewContainer = styled.div`

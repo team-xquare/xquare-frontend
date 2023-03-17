@@ -1,4 +1,4 @@
-import { SortingEnum, Student } from '../apis/types';
+import { SortingEnum, Stay, StaySortingEnum, Student } from '../apis/types';
 
 export const sortedStudents = (sortType: SortingEnum, data?: Student[]) => {
     let students = data ?? [];
@@ -75,4 +75,10 @@ export const ch2pattern = (ch: string) => {
 export const createFuzzyPattern = (query: string) => {
     const pattern = query.split('').map(ch2pattern).join('.*?');
     return new RegExp(pattern);
+};
+
+export const staySortedStudents = (sortType: typeof StaySortingEnum[number], data?: Stay[]) => {
+    let students = data ?? [];
+    if (sortType === StaySortingEnum[0]) return students;
+    return students.filter((student) => student.code === sortType);
 };

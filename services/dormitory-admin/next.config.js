@@ -4,7 +4,14 @@ module.exports = {
     images: {
         domains: ['xquare.s3.ap-northeast-2.amazonaws.com'],
     },
-    webpack(config) {
+    webpack(config, { isServer }) {
+        if (!isServer) {
+            config.resolve.fallback = {
+                fs: false,
+                module: false,
+                process: false,
+            };
+        }
         config.module.rules.push({
             test: /\.svg$/,
             use: ['@svgr/webpack'],
