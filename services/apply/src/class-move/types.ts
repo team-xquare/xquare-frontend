@@ -1,5 +1,6 @@
 export type ClassroomType = {
-    id: string;
+    classroom_id: string;
+    type_id: string;
     name: string;
     description: string;
 };
@@ -20,5 +21,10 @@ export interface GetClassroomRequestParam {
 
 export interface PostClassroomRequestParam {
     classroomId: string;
-    period: string;
+    period: number;
 }
+
+export type TodayType = {
+    date: string;
+    type: string;
+};

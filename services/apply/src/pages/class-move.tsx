@@ -8,17 +8,48 @@ import useClassroom, { prefetchClassroom } from '../class-move/hooks/useClassroo
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { floorList, floorNumberSelector, FloorType } from '../constant/classMove';
-import { useBridgeCallback, sendBridgeEvent } from '@shared/xbridge';
+import { useBridgeCallback, sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
+import useTodayType, { prefetchTodayType } from '../class-move/hooks/useTodayType';
+import { queryKeys } from '../utils/queryKeys';
+import { TodayType } from '../class-move/types';
+import dateFormat from '../utils/function/dateFormat';
+import useClassroomMove from '../class-move/hooks/useClassroomMove';
+
 const ClassMove = () => {
     const [stageValue, setStageValue] = useState<FloorType>(floorList[0]);
-    const [value, setValue] = useState('');
-    const { data } = useClassroom({ floor: floorNumberSelector[stageValue], type: 'SELF_STUDY' });
+    const [classroomName, setClassroomName] = useState('');
+
+    const { data: classroomData } = useClassroom({
+        floor: floorNumberSelector[stageValue],
+        type: 'SELF_STUDY',
+    });
+
+    const { mutate: classroomMoveMutate } = useClassroomMove();
 
     useEffect(() => {
-        sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!value });
-    }, [!value]);
+        sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!classroomName });
+    }, [!classroomName]);
+    const selectedClassroom = classroomData?.classroom_list.find(
+        (classroom) => classroom.name === classroomName,
+    );
 
-    useBridgeCallback('rightButtonTaped', () => {}, undefined);
+    const classroomConfirm = useBridgeHandler(
+        'confirm',
+        (e) => {
+            const selectedClassroom = classroomData?.classroom_list.find(
+                (classroom) => classroom.name === classroomName,
+            );
+            e.detail.success && classroomMoveMutate(selectedClassroom?.classroom_id || '');
+        },
+        {
+            cancelText: '취소하기',
+            confirmText: '신청하기',
+            message: '교실 이동을 신청하시겠습니까?',
+        },
+    );
+
+    useBridgeCallback('rightButtonTaped', classroomConfirm, undefined);
+
     return (
         <MainPageTemplate>
             <RadioWrapper>
@@ -35,13 +66,13 @@ const ClassMove = () => {
                 />
             </RadioWrapper>
             <Radio
-                items={data?.classroom_list.map((i) => i.name) || []}
+                items={classroomData?.classroom_list.map((i) => i.name) || []}
                 flex="grid"
                 ShowComponent={({ children }) => (
                     <CustomButton
                         size="sm"
-                        onClick={() => setValue(children)}
-                        fill={value === children ? 'purple' : 'default'}>
+                        onClick={() => setClassroomName(children)}
+                        fill={classroomName === children ? 'purple' : 'default'}>
                         {children}
                     </CustomButton>
                 )}
@@ -52,7 +83,12 @@ const ClassMove = () => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
-    await Promise.all([prefetchClassroom(queryClient, { floor: '1', type: 'SELF_STUDY' })]);
+    const todayTypeKey = queryKeys.getTodayType(dateFormat());
+    await prefetchTodayType(queryClient);
+    const todayType = queryClient.getQueryData<TodayType>(todayTypeKey);
+    await Promise.all([
+        prefetchClassroom(queryClient, { floor: '1', type: todayType?.type || 'SELF_STUDY' }),
+    ]);
     return {
         props: {
             dehydrateState: dehydrate(queryClient),

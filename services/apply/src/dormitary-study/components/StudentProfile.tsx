@@ -11,7 +11,7 @@ const StudentProfile = (props: StudentProfileProps) => {
     return (
         <ProfileContainer>
             <ProfileImage
-                src={props.profile_image}
+                src={props.profile_image || defaultProfileImage.src}
                 onError={(e) => {
                     e.currentTarget.src = defaultProfileImage.src;
                 }}

@@ -1,9 +1,11 @@
-import { pickInstance } from '../utils/axios';
+import dayjs from 'dayjs';
+import { instance, pickInstance, timetableInstance } from '../utils/axios';
+import dateFormat from '../utils/function/dateFormat';
 import { queryKeys } from '../utils/queryKeys';
+import { GetTimeTableResponseDto } from './types';
 
 export const getTimeTable = async () => {
-    const newDate = new Date();
-    const uri = queryKeys.getTimeTables(newDate.toString());
-    const response = await pickInstance.get(uri);
+    const uri = queryKeys.getTimeTables(dateFormat());
+    const response = await timetableInstance.get<GetTimeTableResponseDto>(uri);
     return response.data;
 };

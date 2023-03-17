@@ -4,7 +4,7 @@ import { FlexCol } from '../common/components/Flexbox';
 import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
-import TimePickerBox from '../today-out/components/TimePickerBox';
+import TimePickerBox from '../weekend-out/components/TimePickerBox';
 import useWeekendOut from '../weekend-out/hooks/useWeekendOut';
 import { useBridgeHandler } from '@shared/xbridge';
 const WeekendOut = () => {
