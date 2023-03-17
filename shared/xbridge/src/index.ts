@@ -10,9 +10,10 @@ type BridgeType =
     | 'photoPicker'
     | 'actionSheet'
     | 'timePicker'
-    | 'isRightButtonEnabled';
+    | 'isRightButtonEnabled'
+    | 'periodPicker';
 
-type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet' | 'timePicker';
+type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet' | 'timePicker' | 'periodPicker';
 
 interface XBridgeRequestData extends Record<BridgeType, unknown> {
     navigate: {
@@ -38,6 +39,9 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
     isRightButtonEnabled: {
         isEnabled: boolean;
     };
+    periodPicker: {
+        period?: number;
+    };
 }
 
 interface XBridgeResponseData extends Record<BridgeType, unknown> {
@@ -54,6 +58,9 @@ interface XBridgeResponseData extends Record<BridgeType, unknown> {
         time: string;
     };
     rightButtonTaped: {};
+    periodPicker: {
+        period: number;
+    };
 }
 
 export interface BrowserActionParameters<T> {

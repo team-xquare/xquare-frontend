@@ -17,6 +17,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
     const [selectedImage, setSelectedImage] = useState<string[]>([]);
     const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
     const [testAlertParam, setTestAlertParam] = useState('');
+    const [selectedPeriod, setSelectedPeriod] = useState<number | undefined>();
     const bottomSheetMenu = ['수정하기', '삭제하기'];
     const [time, setTime] = useState('');
     const testConfirm = useBridgeHandler(
@@ -62,6 +63,11 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
         { time: time },
     );
 
+    const testPeriodPicker = useBridgeHandler(
+        'periodPicker',
+        (e) => setSelectedPeriod(e.detail.period),
+        { period: selectedPeriod },
+    );
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -109,6 +115,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testActionSheet}>메뉴선택</Button>
             <div>선택된 time:{time}</div>
             <Button onClick={testTimePicker}>타임 피커</Button>
+            <div>선택된 교시: {selectedPeriod}</div>
+            <Button onClick={testPeriodPicker}>교시 피커</Button>
         </div>
     );
 };
@@ -117,7 +125,6 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const allCookies = cookies(ctx);
-    console.log(allCookies);
     return {
         props: {
             accessToken: allCookies['accessToken'] || '',
