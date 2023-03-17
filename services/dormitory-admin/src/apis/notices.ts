@@ -52,7 +52,7 @@ export const useAddNoticeMutation = () => {
             return await feedInstance.post('/', {
                 ...params,
                 category_id: noticeCategory.category_id,
-                type: '사감선생님',
+                type: 'DOD',
             });
         },
         {

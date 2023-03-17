@@ -14,7 +14,6 @@ const PicnicDetail = ({ selectedPicnicId }: PicnicDetailProps) => {
         (key) => selectedPicnicId[key] && key,
     );
     const { data: picnicDetail } = usePicnicDetail(trueStudentIds);
-    console.log(picnicDetail);
 
     return (
         <ScrollBox>

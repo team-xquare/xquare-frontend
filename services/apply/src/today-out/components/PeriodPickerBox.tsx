@@ -25,11 +25,11 @@ const PeriodPickerBox = ({ setPeriod, endPeriod, startPeriod }: PeriodPickerBoxP
 
     return (
         <PeriodContainer>
-            <PeriodInput value={String(startPeriod)} onClick={onSelectStartPeriod}>
+            <PeriodInput value={startPeriod} onClick={onSelectStartPeriod}>
                 {startPeriod ? `${startPeriod}교시` : '출발교시'}
             </PeriodInput>
             <FlexRow justify="center">~</FlexRow>
-            <PeriodInput value={String(endPeriod)} onClick={onSelectEndPeriod}>
+            <PeriodInput value={endPeriod} onClick={onSelectEndPeriod}>
                 {endPeriod ? `${endPeriod}교시` : '도착교시'}
             </PeriodInput>
         </PeriodContainer>
@@ -42,7 +42,7 @@ const PeriodContainer = styled.div`
     width: 100%;
 `;
 
-const PeriodInput = styled.div<{ value?: string }>`
+const PeriodInput = styled.div<{ value?: number }>`
     height: 44px;
     border-radius: 8px;
     border: 1px solid

@@ -7,7 +7,7 @@ import { SelectedPicnicType } from '../apis/types';
 import BlockContainer from '../components/common/BlockContainer';
 import ScrollBox from '../components/common/ScrollBox';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '../components/common/Table';
-import PicnicItem from '../components/weekendOutControlPanel/\bPicnicItem';
+import PicnicItem from '../components/weekendOutControlPanel/PicnicItem';
 import PicnicDetail from '../components/weekendOutControlPanel/PicnicDetail';
 import PicnicController from '../components/weekendOutControlPanel/PicnicController';
 

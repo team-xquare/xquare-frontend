@@ -57,6 +57,7 @@ export interface UserToken {
     access_token: string;
     refresh_token: string;
     expire_at: string;
+    role: string;
 }
 
 export interface Category {

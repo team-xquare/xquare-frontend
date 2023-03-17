@@ -3,7 +3,6 @@ import { FlexCol } from '../common/components/Flexbox';
 import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
-import TimePickerBox from '../weekend-out/components/TimePickerBox';
 import { useBridgeCallback, sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import useTodayOutApply from '../today-out/hooks/useTodayOutApply';
 import PeriodPickerBox from '../today-out/components/PeriodPickerBox';
@@ -13,8 +12,8 @@ const TodayOut = () => {
     const [periodState, setTimeState] = useState<
         Record<'startPeriod' | 'endPeriod', number | undefined>
     >({
-        startPeriod: currentPeriod,
-        endPeriod: currentPeriod,
+        startPeriod: undefined,
+        endPeriod: undefined,
     });
     const [reason, setReason] = useState('');
     const { mutate: todayOutMutate } = useTodayOutApply();
@@ -29,8 +28,8 @@ const TodayOut = () => {
         (e) => {
             e.detail.success &&
                 todayOutMutate({
-                    desired_end_period: periodState.startPeriod!,
-                    desired_start_period: periodState.endPeriod!,
+                    desired_end_period: periodState.startPeriod || currentPeriod!,
+                    desired_start_period: periodState.endPeriod || currentPeriod!,
                     reason: reason,
                 });
         },

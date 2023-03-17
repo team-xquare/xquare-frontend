@@ -9,8 +9,8 @@ import { SearchProvider } from '../contexts/search';
 import { Toaster } from 'react-hot-toast';
 import cookies, { getCookie } from 'cookies-next';
 import { instanceArr } from '../apis';
-import axios from 'axios';
 import Head from 'next/head';
+
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(
         () =>

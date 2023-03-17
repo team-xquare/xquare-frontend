@@ -7,20 +7,22 @@ import { UserToken } from './types';
 // const testToken =
 //     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NmZhNTQ1YS00NjA1LTQyMjgtYWE5OS1iZTNjZTBhMGIzMjMiLCJyb2xlIjoiRE9SIiwiZXhwIjoxNjc3ODM3NTY1LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiRE9SIl19.Ltfdsw3i9ADqXByA3RceznBySN3A68JRoswUNj67_04';
 
+const xquareBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export const pointInstance = axios.create({
-    baseURL: 'https://api.xquare.app/points',
+    baseURL: `${xquareBaseUrl}/points`,
 });
 
 export const feedInstance = axios.create({
-    baseURL: 'https://api.xquare.app/feeds',
+    baseURL: `${xquareBaseUrl}/feeds`,
 });
 
 export const userInstance = axios.create({
-    baseURL: 'https://api.xquare.app/users',
+    baseURL: `${xquareBaseUrl}/users`,
 });
 
 export const applyInstance = axios.create({
-    baseURL: 'https://api.xquare.app/applications',
+    baseURL: `${xquareBaseUrl}/applications`,
 });
 
 export const instanceArr = [pointInstance, feedInstance, userInstance, applyInstance];
@@ -55,7 +57,7 @@ instanceArr.map((instance) => {
                         if (!beforeRefresh) throw error;
 
                         const response = await axios.put<UserToken>(
-                            'https://api.xquare.app/users/login',
+                            `${xquareBaseUrl}/login`,
                             {},
                             {
                                 headers: {

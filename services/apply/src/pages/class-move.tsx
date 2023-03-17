@@ -29,6 +29,7 @@ const ClassMove = () => {
     useEffect(() => {
         sendBridgeEvent('isRightButtonEnabled', { isEnabled: !!classroomName });
     }, [!classroomName]);
+
     const selectedClassroom = classroomData?.classroom_list.find(
         (classroom) => classroom.name === classroomName,
     );
