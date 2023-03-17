@@ -11,7 +11,7 @@ const complete = () => {
         <Template>
             <img src={error.src} />
             <Title>회원가입 실패</Title>
-            <Body>XQUARE 회원가입을 실패하였습니다.</Body>
+            <Body>XQUARE 회원가입을 실패하였습니다. </Body>
             <BottomFixedButton fill="purpleLight" onClick={() => router.push('/signup')}>
                 돌아가기
             </BottomFixedButton>
