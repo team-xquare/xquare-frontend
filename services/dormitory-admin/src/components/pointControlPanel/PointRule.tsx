@@ -37,9 +37,8 @@ const PointRule = ({ id }: PropsType) => {
         setReason('');
         setNumber(0);
     };
-    console.log(type);
-    const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess, addType);
 
+    const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess, addType);
     const { mutate: deleteRuleMutate } = useDeleteRuleMutation(() => {}, type);
 
     return (
