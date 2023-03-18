@@ -57,7 +57,7 @@ instanceArr.map((instance) => {
                         if (!beforeRefresh) throw error;
 
                         const response = await axios.put<UserToken>(
-                            `${xquareBaseUrl}/login`,
+                            `${xquareBaseUrl}/users/login`,
                             {},
                             {
                                 headers: {
