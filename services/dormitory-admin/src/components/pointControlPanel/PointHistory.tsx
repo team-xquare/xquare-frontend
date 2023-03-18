@@ -112,7 +112,7 @@ const MainListWrapper = styled.div`
     gap: 12px;
     align-items: center;
     justify-items: center;
-    overflow-y: scroll;
+    overflow-y: auto;
 `;
 
 const HistoryItemContainer = styled.div`

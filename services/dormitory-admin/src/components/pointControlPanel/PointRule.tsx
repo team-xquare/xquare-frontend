@@ -171,9 +171,7 @@ const MainListWrapper = styled.div`
     display: flex;
     gap: 8px;
     flex-direction: column;
-    overflow: scroll;
-
-    overflow-y: scroll;
+    overflow-y: auto;
 `;
 
 const MainListItem = styled.div`
