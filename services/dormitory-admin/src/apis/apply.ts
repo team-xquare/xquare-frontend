@@ -35,7 +35,7 @@ export const useStayCode = () => {
 export const useStayExcel = () => {
     const fetcher = async () => {
         try {
-            const { data } = await applyInstance.get('/stay/excel', {
+            const { data } = await applyInstance.get('/admin/stay/excel', {
                 responseType: 'blob',
             });
             FileSaver.saveAs(data, `잔류신청 현황${new Date()}.xlsx`);
@@ -77,7 +77,7 @@ export const usePicnicList = (type: string) => {
 export const useWeekendMealExcel = () => {
     const fetcher = async () => {
         try {
-            const { data } = await applyInstance.get('/weekend-meal/excel', {
+            const { data } = await applyInstance.get('admin/weekend-meal/excel', {
                 responseType: 'blob',
             });
             FileSaver.saveAs(data, `주말 급식 현황${new Date()}.xlsx`);
