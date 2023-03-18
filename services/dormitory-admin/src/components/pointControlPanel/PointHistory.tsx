@@ -42,7 +42,7 @@ const PointHistory = ({ id, setSelectedUserIds }: PropsType) => {
                                     onClick={() =>
                                         setSelectedUserIds((state) => ({ ...state, [stu]: false }))
                                     }>
-                                    삭제하기
+                                    선택 취소
                                 </Button>
                             </StudentListItem>
                         ))

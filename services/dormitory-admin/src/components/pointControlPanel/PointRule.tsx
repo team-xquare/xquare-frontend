@@ -39,7 +39,7 @@ const PointRule = ({ id }: PropsType) => {
     };
 
     const { mutate: addRuleMutate } = useAddRuleMutation(onRuleAddSuccess, addType);
-    const { mutate: deleteRuleMutate } = useDeleteRuleMutation(() => {}, type);
+    const { mutate: deleteRuleMutate } = useDeleteRuleMutation(id, type);
 
     return (
         <MainContainer>

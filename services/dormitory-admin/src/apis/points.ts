@@ -54,7 +54,6 @@ export const useTrainingMutation = () => {
     return useMutation(fetcher, {
         onSuccess: () => {
             queryClient.invalidateQueries('/points/students');
-            queryClient.invalidateQueries('/points/history');
             queryClient.invalidateQueries('/student');
         },
     });
@@ -71,7 +70,7 @@ export const useHistoryByIdQuery = (id: SelectedUserIds) => {
         });
         return point_histories;
     };
-    return useQuery('/points/history', fetcher, {
+    return useQuery(['/points/students', trueStudentIds[0]], fetcher, {
         enabled: trueStudentIds.length === 1,
     });
 };
@@ -100,23 +99,24 @@ export const useAddRuleMutation = (successCallback: () => void, addType: boolean
             successCallback();
         },
         onError: () => {
-            toast.error('규칙 추가를 실패하였습니다.');
+            toast.error('실패하였습니다.');
         },
     });
 };
 
-export const useDeleteRuleMutation = (successCallback: () => void, addType: boolean) => {
+export const useDeleteRuleMutation = (id: SelectedUserIds, addType: boolean) => {
+    const trueStudentIds = Object.keys(id).filter((key) => id[key] && key);
     const queryClient = useQueryClient();
     const fetcher = async (id: number) => await pointInstance.delete(`/rule/${id}`);
     return useMutation(fetcher, {
         onSuccess: () => {
             toast.success('규칙을 삭제하였습니다.');
-            queryClient.invalidateQueries('/points/history');
+            queryClient.invalidateQueries('/student');
             queryClient.invalidateQueries(['/points/rules', addType]);
-            successCallback();
+            queryClient.invalidateQueries(['/points/students', trueStudentIds[0]]);
         },
         onError: () => {
-            toast.error('규칙 삭제를 실패하였습니다.');
+            toast.error('실패하였습니다.');
         },
     });
 };
@@ -133,7 +133,7 @@ export const useDeleteRuleHistory = (id: SelectedUserIds) => {
     return useMutation(fetcher, {
         onSuccess: () => {
             toast.success('삭제되었습니다.');
-            queryClient.invalidateQueries('/points/history');
+            queryClient.invalidateQueries(['/points/students', trueStudentIds[0]]);
             queryClient.invalidateQueries([`/student`]);
         },
         onError: () => {
