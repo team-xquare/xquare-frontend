@@ -90,7 +90,6 @@ export const useRuleQuery = (type: boolean) => {
 };
 
 export const useAddRuleMutation = (successCallback: () => void, addType: boolean) => {
-    //rule 추가
     const queryClient = useQueryClient();
     const fetcher = async (param: Omit<Rule, 'id'>) => await pointInstance.post('/rule', param);
     return useMutation(fetcher, {
@@ -100,13 +99,12 @@ export const useAddRuleMutation = (successCallback: () => void, addType: boolean
             successCallback();
         },
         onError: () => {
-            toast.error('실패하였습니다.');
+            toast.error('규칙 추가를 실패하였습니다.');
         },
     });
 };
 
 export const useDeleteRuleMutation = (successCallback: () => void, addType: boolean) => {
-    //rule 삭제
     const queryClient = useQueryClient();
     const fetcher = async (id: number) => await pointInstance.delete(`/rule/${id}`);
     return useMutation(fetcher, {
@@ -116,7 +114,7 @@ export const useDeleteRuleMutation = (successCallback: () => void, addType: bool
             successCallback();
         },
         onError: () => {
-            toast.error('실패하였습니다.');
+            toast.error('규칙 삭제를 실패하였습니다.');
         },
     });
 };
