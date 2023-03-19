@@ -40,7 +40,7 @@ const Comment = () => {
                         <ContentProfile
                             isScroll={isScroll}
                             createAt={feedDetailData?.created_at || ''}
-                            name={feedDetailData?.name || ''}
+                            name={feedDetailData?.name || '익명'}
                             profileSrc={feedDetailData?.profile || ''}
                         />
                         <KababButton

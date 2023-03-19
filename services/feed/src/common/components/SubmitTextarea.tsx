@@ -31,29 +31,34 @@ const FixedBox = styled.div`
     width: 100%;
     padding: 8px 16px;
     background-color: ${({ theme }) => theme.colors.white};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const RelativeBox = styled.div`
-    position: relative;
+    display: flex;
     width: 100%;
+    padding: 10px 16px;
+    border: 1px solid ${({ theme }) => theme.colors.gray500};
+    border-radius: 8px;
+    gap: 12px;
 `;
 
 const CustomTextarea = styled(Textarea)`
-    width: 100%;
-    border-radius: 8px;
     outline: none;
+    flex: 1;
     resize: none;
     font-size: 16px;
-    border: 1px solid ${({ theme }) => theme.colors.gray500};
-    padding: 10px 16px;
+    padding: 0;
+    border: none;
     color: ${({ theme }) => theme.colors.gray900};
 `;
 
 const SubmitButton = styled.div<{ disable: boolean }>`
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    width: fit-content;
+    display: flex;
+    align-items: flex-end;
     font-size: 16px;
     line-height: 24px;
     cursor: pointer;
