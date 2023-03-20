@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 },
             }),
     );
+
     return (
         <>
             <Head>
@@ -32,7 +33,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-                    rel="stylesheet"
+                    rel="preload"
+                    as="font"
                 />
             </Head>
             <SDSThemeProvider mode="light-only">
