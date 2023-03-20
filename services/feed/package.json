@@ -1,7 +1,7 @@
 {
     "name": "@service/feed",
     "description": "xquare feed 페이지 webview 입니다.",
-    "version": "0.0.36",
+    "version": "0.0.37",
     "private": true,
     "scripts": {
         "dev": "next dev",
