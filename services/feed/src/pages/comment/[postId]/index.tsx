@@ -66,7 +66,7 @@ const Comment = () => {
                                 )}
                             </ContentWrapper>
 
-                            {commentsData?.comments.reverse().map((comment) => (
+                            {commentsData?.comments.map((comment) => (
                                 <CommentBox
                                     key={comment.comment_id}
                                     comment={comment.content}
