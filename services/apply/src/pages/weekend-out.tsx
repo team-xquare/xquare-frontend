@@ -7,6 +7,7 @@ import Textarea from '../today-out/components/Textarea';
 import TimePickerBox from '../weekend-out/components/TimePickerBox';
 import useWeekendOut from '../weekend-out/hooks/useWeekendOut';
 import { useBridgeHandler } from '@shared/xbridge';
+import { Body3, Button, Botton } from '@semicolondsm/ui';
 const WeekendOut = () => {
     const [timeState, setTimeState] = useState({
         startTime: '',
@@ -69,6 +70,11 @@ const WeekendOut = () => {
                         name="arrangement"
                         value={inputState.arrangement}
                     />
+                </LabelBox>
+
+                <LabelBox label="외출 가능 시간" required={false}>
+                    <Botton color="gray700">토요일: 점심점호 후 ~ 20:00 까지</Botton>
+                    <Botton color="gray700">일요일: 점심점호 후 ~ 17:00 까지</Botton>
                 </LabelBox>
             </FlexCol>
             <ButtomFixedButton
