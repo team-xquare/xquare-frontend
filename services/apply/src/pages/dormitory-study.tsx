@@ -23,7 +23,7 @@ const DormitoryStudy: NextPage = () => {
     }, [selectCard, studyRoom]);
 
     return (
-        <MainPageTemplate subTitle="공부할 자습실을 선택해 주세요.">
+        <MainPageTemplate subTitle="자습실을 선택해 주세요.">
             <ApplyCardList>
                 {studyRoom?.study_rooms.map((i, idx) => (
                     <ApplyCard
