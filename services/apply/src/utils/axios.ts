@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const testToken =
-    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMjE0YjRkYi1mNzIzLTRiNDMtYjRkNS0xYmI2N2VkODAyODkiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjc5MDYzMjcyLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiVUtOIiwiU1RVIiwiU1RDIl19.Uk1Jwpq68CDyzuPd_CYh7V4h6q5X8y0KXHqxk7_rUIY';
+    'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxYWMyODcwZi1iYTMwLTExZWQtYTUyYy0wZTk0MTc2NTg4ZjYiLCJyb2xlIjoiU0NIIiwiZXhwIjoxNjgxMzQ4ODA2LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiU0NIIl19.pbuFeozZOiEad1ztnjXDEzSFMDFzq9kWzZdeD5WAQzw';
 
 export const instance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}/applications`,

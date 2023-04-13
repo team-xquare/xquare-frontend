@@ -42,12 +42,15 @@ const WeekendMealApplyBox = () => {
 
     return (
         <MealApplyWrapper>
-            <Botton>{weekendMealStatus?.title}</Botton>
+            <Botton>
+                {weekendMealStatus ? weekendMealStatus?.title : '지금은 신청기간이 아닙니다'}
+            </Botton>
             <MealApplyButton
                 loading={isLoading}
                 size="sm"
                 fill={weekendMealStatus?.applied ? 'border' : 'purple'}
-                onClick={weekendMealStatus?.applied ? sendCancelConfirm : sendApplyConfirm}>
+                onClick={weekendMealStatus?.applied ? sendCancelConfirm : sendApplyConfirm}
+                disabled={!weekendMealStatus}>
                 {weekendMealStatus?.applied ? '취소하기' : '신청하기'}
             </MealApplyButton>
         </MealApplyWrapper>
