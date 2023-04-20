@@ -18,6 +18,7 @@ const ProfileImage = ({ profileSrc }: ProfileImageProps) => {
 const ProfileImageWrapper = styled.img`
     width: 40px;
     height: 40px;
+    border: 0.5px solid gray;
     border-radius: 50%;
     background-color: gray;
     object-fit: cover;
