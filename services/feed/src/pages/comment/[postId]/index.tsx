@@ -119,6 +119,11 @@ const ContentWrapper = styled.div`
 
 const DetailWrapper = styled.div`
     padding: 12px 16px;
+    > p {
+        word-break: break-all;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
 `;
 
 export default Comment;

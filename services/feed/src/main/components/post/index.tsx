@@ -63,7 +63,7 @@ const FeedPost = ({
                         onClick={(menu) => menuAction[menu]()}
                     />
                 </PostHeaderContainer>
-                <ContentBox content={content} limit={!!attachments_url.length ? 40 : 20} />
+                <ContentBox content={content.trim()} limit={!!attachments_url.length ? 72 : 48} />
             </FeedPostContainer>
             {!!attachments_url.length ? <ImageCountContainer images={attachments_url} /> : <></>}
             <PostFooter

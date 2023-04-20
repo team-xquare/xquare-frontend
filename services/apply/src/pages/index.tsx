@@ -37,11 +37,11 @@ const Apply: NextPage = () => {
                         ))}
                     </WeekendStayWrapper>
                 </ApplyBox>
-                <ApplyBox
+                {/* {<ApplyBox
                     title="주말급식 신청"
                     subTitle="신청여부는 담임선생님께서 확인 후 전달돼요.">
                     <WeekendMealApplyBox />
-                </ApplyBox>
+                </ApplyBox>} */}
                 <ApplyBox title="추가 신청">
                     {/* <AdditionalApplyItem
                         applyKind="교실 이동"
