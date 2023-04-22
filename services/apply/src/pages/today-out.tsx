@@ -28,8 +28,8 @@ const TodayOut = () => {
         (e) => {
             e.detail.success &&
                 todayOutMutate({
-                    desired_end_period: periodState.startPeriod || currentPeriod!,
-                    desired_start_period: periodState.endPeriod || currentPeriod!,
+                    desired_start_period: periodState.startPeriod || currentPeriod!,
+                    desired_end_period: periodState.endPeriod || currentPeriod!,
                     reason: reason,
                 });
         },
