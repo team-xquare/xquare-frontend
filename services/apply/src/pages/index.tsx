@@ -13,14 +13,16 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
+import { useApplyItem } from '../main/hooks/useApplyItem';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
     const { mutate: putStayStatusMutate } = useSetStayStatus();
+    const { isClassMove, isTodayOut, isDormitoryStudy, isWeekendOut } = useApplyItem();
 
     return (
-        <MainPageTemplate>
+        <MainPageTemplate isShowRight={true}>
             <FlexCol gap={16}>
                 <ApplyBox title="잔류 신청" subTitle="목요일 10시까지는 잔류 신청을 완료해주세요.">
                     <WeekendStayWrapper gap={8}>
@@ -43,32 +45,40 @@ const Apply: NextPage = () => {
                     <WeekendMealApplyBox />
                 </ApplyBox>} */}
                 <ApplyBox title="추가 신청">
-                    <AdditionalApplyItem
-                        applyKind="교실 이동"
-                        daliy="오늘"
-                        linkTo="/class-move"
-                        rightButtonText="제출"
-                        icon={ridingIcon.src}
-                    />
-                    <AdditionalApplyItem
-                        applyKind="외출 신청"
-                        daliy="오늘"
-                        rightButtonText="신청"
-                        linkTo="/today-out"
-                        icon={ridingIcon.src}
-                    />
-                    <AdditionalApplyItem
-                        applyKind="자습실 신청"
-                        daliy="오늘"
-                        linkTo="/dormitory-study"
-                        icon={dormitoryStudyIcon.src}
-                    />
-                    <AdditionalApplyItem
-                        applyKind="주말 외출 신청"
-                        daliy="이번주 주말"
-                        linkTo="/weekend-out"
-                        icon={ridingIcon.src}
-                    />
+                    {isClassMove && (
+                        <AdditionalApplyItem
+                            applyKind="교실 이동"
+                            daliy="오늘"
+                            linkTo="/class-move"
+                            rightButtonText="제출"
+                            icon={ridingIcon.src}
+                        />
+                    )}
+                    {isTodayOut && (
+                        <AdditionalApplyItem
+                            applyKind="외출 신청"
+                            daliy="오늘"
+                            rightButtonText="신청"
+                            linkTo="/today-out"
+                            icon={ridingIcon.src}
+                        />
+                    )}
+                    {isDormitoryStudy && (
+                        <AdditionalApplyItem
+                            applyKind="자습실 신청"
+                            daliy="오늘"
+                            linkTo="/dormitory-study"
+                            icon={dormitoryStudyIcon.src}
+                        />
+                    )}
+                    {isWeekendOut && (
+                        <AdditionalApplyItem
+                            applyKind="주말 외출 신청"
+                            daliy="이번주 주말"
+                            linkTo="/weekend-out"
+                            icon={ridingIcon.src}
+                        />
+                    )}
                 </ApplyBox>
             </FlexCol>
         </MainPageTemplate>
