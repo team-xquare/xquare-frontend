@@ -13,19 +13,12 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
-import { useOnWeek, useOnTime } from '../main/hooks/useApplyItem';
+import { useOnWeek, useOnTime } from '../utils/function/useApplyItem';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
     const { mutate: putStayStatusMutate } = useSetStayStatus();
-
-    const isClassMove = useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([16, 40], [20, 30]);
-    const isTodayOut = useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([8, 40], [20, 30]);
-    const isDormitoryStudy =
-        (useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([20, 30], [23, 30])) ||
-        useOnWeek(['토', '일']);
-    const isWeekendOut = useOnWeek(['금', '토', '일']) && useOnTime([20, 30], [11, 30]);
 
     return (
         <MainPageTemplate isShowRight={true}>
@@ -51,40 +44,53 @@ const Apply: NextPage = () => {
                     <WeekendMealApplyBox />
                 </ApplyBox>} */}
                 <ApplyBox title="추가 신청">
-                    {isClassMove && (
-                        <AdditionalApplyItem
-                            applyKind="교실 이동"
-                            daliy="오늘"
-                            linkTo="/class-move"
-                            rightButtonText="제출"
-                            icon={ridingIcon.src}
-                        />
-                    )}
-                    {isTodayOut && (
-                        <AdditionalApplyItem
-                            applyKind="외출 신청"
-                            daliy="오늘"
-                            rightButtonText="신청"
-                            linkTo="/today-out"
-                            icon={ridingIcon.src}
-                        />
-                    )}
-                    {isDormitoryStudy && (
-                        <AdditionalApplyItem
-                            applyKind="자습실 신청"
-                            daliy="오늘"
-                            linkTo="/dormitory-study"
-                            icon={dormitoryStudyIcon.src}
-                        />
-                    )}
-                    {isWeekendOut && (
-                        <AdditionalApplyItem
-                            applyKind="주말 외출 신청"
-                            daliy="이번주 주말"
-                            linkTo="/weekend-out"
-                            icon={ridingIcon.src}
-                        />
-                    )}
+                    <AdditionalApplyItem
+                        applyKind="교실 이동"
+                        daliy="오늘"
+                        linkTo="/class-move"
+                        rightButtonText="제출"
+                        icon={ridingIcon.src}
+                        isDay={['월', '화', '수', '목', '금']}
+                        isTime={[
+                            [16, 40],
+                            [20, 30],
+                        ]}
+                    />
+                    <AdditionalApplyItem
+                        applyKind="외출 신청"
+                        daliy="오늘"
+                        rightButtonText="신청"
+                        linkTo="/today-out"
+                        icon={ridingIcon.src}
+                        isDay={['월', '화', '수', '목', '금']}
+                        isTime={[
+                            [8, 40],
+                            [20, 30],
+                        ]}
+                    />
+                    <AdditionalApplyItem
+                        applyKind="자습실 신청"
+                        daliy="오늘"
+                        linkTo="/dormitory-study"
+                        icon={dormitoryStudyIcon.src}
+                        isDay={['월', '화', '수', '목', '금']}
+                        isTime={[
+                            [20, 30],
+                            [23, 30],
+                        ]}
+                        isEverytime={['토', '일']}
+                    />
+                    <AdditionalApplyItem
+                        applyKind="주말 외출 신청"
+                        daliy="이번주 주말"
+                        linkTo="/weekend-out"
+                        icon={ridingIcon.src}
+                        isDay={['금', '토', '일']}
+                        isTime={[
+                            [20, 30],
+                            [11, 30],
+                        ]}
+                    />
                 </ApplyBox>
             </FlexCol>
         </MainPageTemplate>

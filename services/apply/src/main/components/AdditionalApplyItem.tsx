@@ -5,11 +5,16 @@ import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useOnTime, useOnWeek, WeekType } from '../../utils/function/useApplyItem';
+
 interface AdditionalApplyItemProps {
     daliy: string;
     applyKind: string;
     linkTo: string;
     icon: string;
+    isDay: WeekType[];
+    isTime: [[number, number], [number, number]];
+    isEverytime?: WeekType[];
     rightButtonText?: string;
 }
 
@@ -18,11 +23,19 @@ const AdditionalApplyItem = ({
     applyKind,
     linkTo,
     icon,
+    isDay,
+    isTime,
+    isEverytime,
     rightButtonText,
 }: AdditionalApplyItemProps) => {
     const router = useRouter();
+    const isOnDay = useOnWeek(isDay);
+    const isOnTime = useOnTime(isTime[0], isTime[1]);
+    const isEveryMoment = isEverytime && useOnWeek(isEverytime);
 
-    return (
+    const isShow = (isOnDay && isOnTime) || isEveryMoment;
+
+    return isShow ? (
         <AdditionalApplyCardContainer
             onClick={(e) => {
                 e.preventDefault();
@@ -43,10 +56,11 @@ const AdditionalApplyItem = ({
                 </FlexRow>
             </FlexCol>
         </AdditionalApplyCardContainer>
-    );
+    ) : null;
 };
 
 export default AdditionalApplyItem;
+
 const AdditionalApplyCardContainer = styled.a`
     background-color: ${({ theme }) => theme.colors.gray50};
     text-decoration: none;
