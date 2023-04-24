@@ -13,13 +13,19 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
-import { useApplyItem } from '../main/hooks/useApplyItem';
+import { useOnWeek, useOnTime } from '../main/hooks/useApplyItem';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
     const { mutate: putStayStatusMutate } = useSetStayStatus();
-    const { isClassMove, isTodayOut, isDormitoryStudy, isWeekendOut } = useApplyItem();
+
+    const isClassMove = useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([16, 40], [20, 30]);
+    const isTodayOut = useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([8, 40], [20, 30]);
+    const isDormitoryStudy =
+        (useOnWeek(['월', '화', '수', '목', '금']) && useOnTime([20, 30], [23, 30])) ||
+        useOnWeek(['토', '일']);
+    const isWeekendOut = useOnWeek(['금', '토', '일']) && useOnTime([20, 30], [11, 30]);
 
     return (
         <MainPageTemplate isShowRight={true}>

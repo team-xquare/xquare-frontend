@@ -1,27 +1,36 @@
-export const useApplyItem = () => {
-    const ONE_HOUR = 60;
-    const FIRST_PERIOD = 8 * ONE_HOUR + 30;
-    const EIGHT_PERIOD = 16 * ONE_HOUR + 40;
-    const TENTH_PERIOD = 20 * ONE_HOUR + 30;
-    const END_PERIOD = 23 * ONE_HOUR + 30;
-    const WEEKEND = 11 * ONE_HOUR + 30;
+const weeks = {
+    '0': '일',
+    '1': '월',
+    '2': '화',
+    '3': '수',
+    '4': '목',
+    '5': '금',
+    '6': '토',
+} as const;
 
-    const date = new Date();
-    const day = date.getDay();
+type weeks = (typeof weeks)[keyof typeof weeks];
+
+const date = new Date();
+
+export const useOnWeek = (week: weeks[]) => {
+    const day = date.getDay().toString();
+
+    const onDay = week.includes(weeks[day as keyof typeof weeks]);
+    return onDay;
+};
+
+export const useOnTime = (startTime: number[], endTime: number[]) => {
+    const ONE_HOUR = 60;
     const hour = date.getHours();
     const minute = date.getMinutes();
 
-    const isWeekdays = day !== 0 && day !== 6;
-    const time = ONE_HOUR * hour + minute;
+    const current = ONE_HOUR * hour + minute;
+    const start = ONE_HOUR * startTime[0] + startTime[1];
+    const end = ONE_HOUR * endTime[0] + endTime[1];
 
-    const applyItem = {
-        isClassMove: isWeekdays && time >= EIGHT_PERIOD && time <= TENTH_PERIOD,
-        isTodayOut: isWeekdays && time >= FIRST_PERIOD && time <= EIGHT_PERIOD,
-        isDormitoryStudy: (isWeekdays && time >= TENTH_PERIOD && time <= END_PERIOD) || !isWeekdays,
-        isWeekendOut:
-            (day <= 5 && day >= 6 && (time >= END_PERIOD || time <= WEEKEND)) ||
-            (day <= 6 && day >= 7 && (time >= END_PERIOD || time <= WEEKEND)),
-    };
-
-    return applyItem;
+    if (start <= end) {
+        return current >= start && current <= end;
+    } else {
+        return current >= start || current <= end;
+    }
 };
