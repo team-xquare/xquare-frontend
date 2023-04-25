@@ -1,19 +1,32 @@
 {
     "name": "xquare-frontend",
-    "packageManager": "yarn@3.2.3",
+    "packageManager": "yarn@3.5.0",
     "scripts": {
-        "new-service": "hygen services new"
+        "new-service": "hygen services new",
+        "prepare": "husky install"
     },
     "devDependencies": {
+        "husky": ">=6",
         "hygen": "^6.1.0",
+        "lint-staged": ">=10",
+        "prettier": "^2.8.8",
         "typescript": "^4.3.5"
     },
     "resolutions": {
-        "typescript": "4.3.5"
+        "typescript": "4.3.5",
+        "react": "18.0.0",
+        "react-dom": "18.0.0",
+        "@types/react": "18.0.5",
+        "@types/react-dom": "18.0.1"
     },
     "workspaces": [
         "services/*",
         "libraries/*",
         "shared/*"
-    ]
+    ],
+    "lint-staged": {
+        "{services,shared}/**/*.{js,ts,jsx,tsx}": [
+            "prettier --write"
+        ]
+    }
 }

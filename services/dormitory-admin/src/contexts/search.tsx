@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { createFuzzyPattern } from '../libs/utils';
 
 interface StateType {
@@ -9,20 +9,20 @@ interface StateType {
 }
 
 const initialState: StateType = {
-    query: "",
-    pattern: createFuzzyPattern(""),
+    query: '',
+    pattern: createFuzzyPattern(''),
     setQuery: () => {},
-}
+};
 
 const SearchContext = createContext<StateType>(initialState);
 
-export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
-    const [query, setQuery] = useState<string>("");
-    const [pattern, setPattern] = useState<RegExp>(createFuzzyPattern(""));
+export const SearchProvider = ({ children }: { children: ReactNode }) => {
+    const [query, setQuery] = useState<string>('');
+    const [pattern, setPattern] = useState<RegExp>(createFuzzyPattern(''));
     const router = useRouter();
 
     useEffect(() => {
-        setQuery("");
+        setQuery('');
     }, [router.asPath]);
 
     useEffect(() => {
@@ -30,10 +30,11 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     }, [query]);
 
     return (
-        <SearchContext.Provider value={{ query, setQuery: (query: string) => setQuery(query), pattern }}>
+        <SearchContext.Provider
+            value={{ query, setQuery: (query: string) => setQuery(query), pattern }}>
             {children}
         </SearchContext.Provider>
-    )
-}
+    );
+};
 
 export const useSearch = () => useContext(SearchContext);

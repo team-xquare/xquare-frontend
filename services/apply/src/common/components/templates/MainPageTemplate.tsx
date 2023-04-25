@@ -7,16 +7,20 @@ interface MainPageTemplateProps {
     title?: string;
     subTitle?: string;
 }
-const MainPageTemplate: FC<MainPageTemplateProps> = ({ title, subTitle, children }) => {
+
+interface MainPageTemplateProps extends React.HTMLAttributes<HTMLDivElement> {
+    style?: React.CSSProperties;
+}
+
+const MainPageTemplate: FC<MainPageTemplateProps> = ({ title, subTitle, style, children }) => {
     return (
-        <MainPageTemplateContainer>
+        <MainPageTemplateContainer style={style}>
             {title && <SectionTitle fontWeight="bold">{title}</SectionTitle>}
             {subTitle && (
                 <SectionDescription fontWeight="medium" color="gray700">
                     {subTitle}
                 </SectionDescription>
             )}
-
             <MainPageContentsContainer>{children}</MainPageContentsContainer>
         </MainPageTemplateContainer>
     );

@@ -7,7 +7,7 @@ import Layout from '../components/common/Layout';
 import GlobalStyles from '../styles/globalStyles';
 import { SearchProvider } from '../contexts/search';
 import { Toaster } from 'react-hot-toast';
-import cookies, { getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { instanceArr } from '../apis';
 import Head from 'next/head';
 
