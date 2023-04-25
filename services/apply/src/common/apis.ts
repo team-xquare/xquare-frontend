@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-import { instance, pickInstance, timetableInstance } from '../utils/axios';
+import { timetableInstance } from '../utils/axios';
 import dateFormat from '../utils/function/dateFormat';
 import { queryKeys } from '../utils/queryKeys';
 import { GetTimeTableResponseDto } from './types';

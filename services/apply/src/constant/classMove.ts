@@ -1,5 +1,5 @@
 export const floorList = ['1층', '2층', '3층', '4층', '5층'] as const;
-export type FloorType = typeof floorList[number];
+export type FloorType = (typeof floorList)[number];
 export const floorNumberSelector = {
     '1층': '1',
     '2층': '2',

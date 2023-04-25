@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { SortingEnum } from '../apis/types';
 
 interface StateType {
@@ -9,18 +9,19 @@ interface StateType {
 const initialState: StateType = {
     sortType: SortingEnum.a,
     setSortType: (sortType: SortingEnum) => {},
-}
+};
 
 const SortContext = createContext<StateType>(initialState);
 
-export const SortProvider = ({ children }: { children: React.ReactNode }) => {
+export const SortProvider = ({ children }: { children: ReactNode }) => {
     const [sortType, setSortType] = useState<SortingEnum>(SortingEnum.a);
 
     return (
-        <SortContext.Provider value={{ sortType, setSortType: (sortType: SortingEnum) => setSortType(sortType) }}>
+        <SortContext.Provider
+            value={{ sortType, setSortType: (sortType: SortingEnum) => setSortType(sortType) }}>
             {children}
         </SortContext.Provider>
-    )
-}
+    );
+};
 
 export const useSort = () => useContext(SortContext);

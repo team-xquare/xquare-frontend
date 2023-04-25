@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Body2 } from '@semicolondsm/ui';
-
 import { useEffect, useState } from 'react';
 import { usePicnicList } from '../apis/apply';
 import { SelectedPicnicType } from '../apis/types';
@@ -13,13 +12,13 @@ import PicnicController from '../components/weekendOutControlPanel/PicnicControl
 
 export const picnicType = ['대기 학생', '외출 학생'] as const;
 
-const picnicTypeKeySelector: Record<typeof picnicType[number], string> = {
+const picnicTypeKeySelector: Record<(typeof picnicType)[number], string> = {
     '외출 학생': 'RETURN',
     '대기 학생': 'AWAIT',
 };
 
 const WeekendOut = () => {
-    const [picnicTypeState, setPicnicTypeState] = useState<typeof picnicType[number]>(
+    const [picnicTypeState, setPicnicTypeState] = useState<(typeof picnicType)[number]>(
         picnicType[0],
     );
     const [selectedPicnicIds, setSelectedPicnicIds] = useState<SelectedPicnicType>({});
@@ -57,6 +56,19 @@ const WeekendOut = () => {
     useEffect(() => {
         setSelectedPicnicIds({});
     }, [picnicTypeState]);
+
+    const onClickPicnic = (id: string) => {
+        if (isMultiSelected) {
+            setSelectedPicnicIds({
+                ...selectedPicnicIds,
+                [id]: !selectedPicnicIds[id],
+            });
+        } else {
+            setSelectedPicnicIds({
+                [id]: true,
+            });
+        }
+    };
 
     return (
         <Container>
@@ -101,18 +113,7 @@ const WeekendOut = () => {
                                 <PicnicItem
                                     key={picnic.id}
                                     {...picnic}
-                                    onClick={() => {
-                                        if (isMultiSelected) {
-                                            setSelectedPicnicIds({
-                                                ...selectedPicnicIds,
-                                                [picnic.id]: !selectedPicnicIds[picnic.id],
-                                            });
-                                        } else {
-                                            setSelectedPicnicIds({
-                                                [picnic.id]: true,
-                                            });
-                                        }
-                                    }}
+                                    onClick={() => onClickPicnic(picnic.id)}
                                     isChecked={!!selectedPicnicIds[picnic.id]}
                                     cellSizes={cellSizes}
                                     isMultiSelected={isMultiSelected}
@@ -128,6 +129,7 @@ const WeekendOut = () => {
         </Container>
     );
 };
+
 const Container = styled.section`
     width: 100%;
     height: 100%;

@@ -57,11 +57,11 @@ export const useAddNoticeMutation = () => {
         },
         {
             onSuccess: () => {
-                toast.success('게시물 추가를 성공했습니다.');
+                toast.success('게시물 추가에 성공했습니다.');
                 queryClient.invalidateQueries(['notice']);
             },
             onError: () => {
-                toast.error('게시물 추가를 실패하였습니다.');
+                toast.error('게시물 추가에 실패하였습니다.');
             },
         },
     );
