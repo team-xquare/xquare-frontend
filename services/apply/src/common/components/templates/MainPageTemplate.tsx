@@ -6,23 +6,21 @@ interface MainPageTemplateProps {
     children?: React.ReactNode;
     title?: string;
     subTitle?: string;
-    isShowRight?: boolean;
 }
-const MainPageTemplate: FC<MainPageTemplateProps> = ({
-    title,
-    subTitle,
-    isShowRight,
-    children,
-}) => {
+
+interface MainPageTemplateProps extends React.HTMLAttributes<HTMLDivElement> {
+    style?: React.CSSProperties;
+}
+
+const MainPageTemplate: FC<MainPageTemplateProps> = ({ title, subTitle, style, children }) => {
     return (
-        <MainPageTemplateContainer isShowRight={isShowRight}>
+        <MainPageTemplateContainer style={style}>
             {title && <SectionTitle fontWeight="bold">{title}</SectionTitle>}
             {subTitle && (
                 <SectionDescription fontWeight="medium" color="gray700">
                     {subTitle}
                 </SectionDescription>
             )}
-
             <MainPageContentsContainer>{children}</MainPageContentsContainer>
         </MainPageTemplateContainer>
     );
@@ -30,10 +28,10 @@ const MainPageTemplate: FC<MainPageTemplateProps> = ({
 
 export default MainPageTemplate;
 
-const MainPageTemplateContainer = styled.div<{ isShowRight?: boolean }>`
+const MainPageTemplateContainer = styled.div`
     position: absolute;
     width: 100%;
-    padding: 0 ${({ isShowRight }) => isShowRight && 0} 16px 16px;
+    padding: 0 16px 16px;
     height: 100%;
     display: flex;
     flex-direction: column;

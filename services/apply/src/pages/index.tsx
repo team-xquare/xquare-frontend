@@ -20,7 +20,7 @@ const Apply: NextPage = () => {
     const { mutate: putStayStatusMutate } = useSetStayStatus();
 
     return (
-        <MainPageTemplate isShowRight={true}>
+        <MainPageTemplate style={{paddingRight: 0}}>
             <FlexCol gap={16}>
                 <ApplyBox title="잔류 신청" subTitle="목요일 10시까지는 잔류 신청을 완료해주세요.">
                     <WeekendStayWrapper gap={8}>

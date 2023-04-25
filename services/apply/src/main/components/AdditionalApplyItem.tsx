@@ -5,7 +5,7 @@ import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { isWithinTimeRange, isWithinDayRange, WeekTypes } from '../../utils/function/useApplyItem';
+import { isWithinTimeRange, isWithinDayRange, WeekTypes } from '../../utils/function/showApplyItem';
 
 interface AdditionalApplyItemProps {
     daliy: string;
