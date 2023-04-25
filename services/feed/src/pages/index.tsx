@@ -13,6 +13,7 @@ import useIsAuthority from '../common/hooks/useIsAuthority';
 import {useMemo} from "react";
 import {getFeedList} from "../main/apis";
 import {useIntersect} from "../common/hooks/useIntersect";
+import SkeletonFeed from "../main/components/post/SkeletonFeed";
 import {prefetchFeedList} from "../main/hooks/useFeedList";
 import {prefetchCategoryList} from "../common/hooks/useCategoryList";
 
@@ -55,6 +56,10 @@ const Home: NextPage = () => {
                         key={feed.feed_id}
                     />
                 ))}
+                {dataList ? <FullDiv ref={bottomRef}>
+                    <SkeletonFeed/>
+                    <SkeletonFeed/>
+                </FullDiv> : undefined}
             </FeedContainer>
             {isScroll && isAuthority && (
                 <WriteButton
@@ -70,6 +75,10 @@ const Home: NextPage = () => {
         </>
     );
 };
+
+const FullDiv = styled.div`
+  width: 100%;
+`
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const queryClient = new QueryClient();
