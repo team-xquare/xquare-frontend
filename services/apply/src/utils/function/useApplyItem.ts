@@ -1,16 +1,26 @@
-import { ms, minute, hour, day, ONE_HOUR, weeks } from '../../constant/useApplyItem';
+import { ONE_SECOND, ONE_MINUTE, ONE_DAY, ONE_HOUR, weeks } from '../../constant/time';
 
 export type WeekType = (typeof weeks)[number];
+export type WeekTypes = WeekType[] | '매일';
 
-export const useOnWeek = (week: WeekType[]) => {
-    const onDay = week.includes(weeks[day]);
+const date = new Date();
+const second = date.getSeconds();
+const minute = date.getMinutes();
+const hour = date.getHours();
+const day = date.getDay();
+
+export const isWithinDayRange = (week: WeekTypes) => {
+    if (week === '매일') {
+        return true;
+    }
+    const onDay = week && week.includes(weeks[day]);
     return onDay;
 };
 
-export const useOnTime = (startTime: [number, number], endTime: [number, number]) => {
-    const current = ONE_HOUR * hour + minute + ms;
-    const start = ONE_HOUR * startTime[0] + startTime[1];
-    const end = ONE_HOUR * endTime[0] + endTime[1];
+export const isWithinTimeRange = (startTime: [number, number], endTime: [number, number]) => {
+    const current = hour * ONE_HOUR + minute * ONE_MINUTE + second * ONE_SECOND;
+    const start = ONE_HOUR * startTime[0] + startTime[1] * ONE_MINUTE;
+    const end = ONE_HOUR * endTime[0] + endTime[1] * ONE_MINUTE;
 
     if (start <= end) {
         return current >= start && current <= end;

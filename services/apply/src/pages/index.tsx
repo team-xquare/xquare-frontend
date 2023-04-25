@@ -13,7 +13,6 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
-import { useOnWeek, useOnTime } from '../utils/function/useApplyItem';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
@@ -51,10 +50,10 @@ const Apply: NextPage = () => {
                         rightButtonText="제출"
                         icon={ridingIcon.src}
                         isDay={['월', '화', '수', '목', '금']}
-                        isTime={[
-                            [16, 40],
-                            [20, 30],
-                        ]}
+                        isTime={{
+                            start: [16, 40],
+                            end: [20, 30],
+                        }}
                     />
                     <AdditionalApplyItem
                         applyKind="외출 신청"
@@ -63,10 +62,10 @@ const Apply: NextPage = () => {
                         linkTo="/today-out"
                         icon={ridingIcon.src}
                         isDay={['월', '화', '수', '목', '금']}
-                        isTime={[
-                            [8, 40],
-                            [20, 30],
-                        ]}
+                        isTime={{
+                            start: [8, 40],
+                            end: [20, 30],
+                        }}
                     />
                     <AdditionalApplyItem
                         applyKind="자습실 신청"
@@ -74,11 +73,11 @@ const Apply: NextPage = () => {
                         linkTo="/dormitory-study"
                         icon={dormitoryStudyIcon.src}
                         isDay={['월', '화', '수', '목', '금']}
-                        isTime={[
-                            [20, 30],
-                            [23, 30],
-                        ]}
-                        isEverytime={['토', '일']}
+                        isTime={{
+                            start: [20, 30],
+                            end: [23, 30],
+                            everytime: ['토', '일'],
+                        }}
                     />
                     <AdditionalApplyItem
                         applyKind="주말 외출 신청"
@@ -86,10 +85,10 @@ const Apply: NextPage = () => {
                         linkTo="/weekend-out"
                         icon={ridingIcon.src}
                         isDay={['금', '토', '일']}
-                        isTime={[
-                            [20, 30],
-                            [11, 30],
-                        ]}
+                        isTime={{
+                            start: [20, 30],
+                            end: [11, 30],
+                        }}
                     />
                 </ApplyBox>
             </FlexCol>

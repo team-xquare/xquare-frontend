@@ -5,16 +5,15 @@ import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useOnTime, useOnWeek, WeekType } from '../../utils/function/useApplyItem';
+import { isWithinTimeRange, isWithinDayRange, WeekTypes } from '../../utils/function/useApplyItem';
 
 interface AdditionalApplyItemProps {
     daliy: string;
     applyKind: string;
     linkTo: string;
     icon: string;
-    isDay: WeekType[];
-    isTime: [[number, number], [number, number]];
-    isEverytime?: WeekType[];
+    isDay?: WeekTypes;
+    isTime?: { start?: [number, number]; end?: [number, number]; everytime?: WeekTypes };
     rightButtonText?: string;
 }
 
@@ -23,17 +22,18 @@ const AdditionalApplyItem = ({
     applyKind,
     linkTo,
     icon,
-    isDay,
-    isTime,
-    isEverytime,
+    isDay = '매일',
+    isTime = { start: [0, 0], end: [24, 0], everytime: '매일' },
     rightButtonText,
 }: AdditionalApplyItemProps) => {
     const router = useRouter();
-    const isOnDay = useOnWeek(isDay);
-    const isOnTime = useOnTime(isTime[0], isTime[1]);
-    const isEveryMoment = isEverytime && useOnWeek(isEverytime);
-
-    const isShow = (isOnDay && isOnTime) || isEveryMoment;
+    const isOnDay = isWithinDayRange(isDay);
+    const isOnTime = isWithinTimeRange(
+        isTime.start as [number, number],
+        isTime.end as [number, number],
+    );
+    const EveryTime = isWithinDayRange(isTime.everytime as WeekTypes);
+    const isShow = (isOnDay && isOnTime) || EveryTime;
 
     return isShow ? (
         <AdditionalApplyCardContainer
