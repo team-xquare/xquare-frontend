@@ -29,7 +29,7 @@ const AdditionalApplyItem = ({
     const router = useRouter();
     const isOnDay = isWithinDayRange(showDays);
     const isOnTime = isWithinTimeRange(showTime.start, showTime.end);
-    const isShow = isOnDay && isOnTime;
+    const isShow = (isOnDay && isOnTime) || true;
 
     return isShow ? (
         <AdditionalApplyCardContainer
