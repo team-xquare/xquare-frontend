@@ -5,11 +5,15 @@ import { Botton, Caption } from '@semicolondsm/ui';
 import { sendBridgeEvent } from '@shared/xbridge';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { isWithinTimeRange, isWithinDayRange, WeekTypes } from '../../utils/function/showApplyItem';
+
 interface AdditionalApplyItemProps {
     daliy: string;
     applyKind: string;
     linkTo: string;
     icon: string;
+    showDays: WeekTypes;
+    showTime: { start: [number, number]; end: [number, number] };
     rightButtonText?: string;
 }
 
@@ -18,11 +22,16 @@ const AdditionalApplyItem = ({
     applyKind,
     linkTo,
     icon,
+    showDays = '매일',
+    showTime = { start: [0, 0], end: [24, 0] },
     rightButtonText,
 }: AdditionalApplyItemProps) => {
     const router = useRouter();
+    const isOnDay = isWithinDayRange(showDays);
+    const isOnTime = isWithinTimeRange(showTime.start, showTime.end);
+    const isShow = isOnDay && isOnTime;
 
-    return (
+    return isShow ? (
         <AdditionalApplyCardContainer
             onClick={(e) => {
                 e.preventDefault();
@@ -43,10 +52,11 @@ const AdditionalApplyItem = ({
                 </FlexRow>
             </FlexCol>
         </AdditionalApplyCardContainer>
-    );
+    ) : null;
 };
 
 export default AdditionalApplyItem;
+
 const AdditionalApplyCardContainer = styled.a`
     background-color: ${({ theme }) => theme.colors.gray50};
     text-decoration: none;
