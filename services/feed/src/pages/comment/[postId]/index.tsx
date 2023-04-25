@@ -7,11 +7,10 @@ import { useComment } from '../../../comment/hooks/useComment';
 import useFeedList from '../../../main/hooks/useFeedList';
 import { useRouter } from 'next/router';
 import SubmitTextarea from '../../../common/components/SubmitTextarea';
-import { useState } from 'react';
+import {useState} from 'react';
 import useAddComments from '../../../comment/hooks/useAddComment';
 import { ImageCountContainer } from '../../../common/components/image';
 import { useScrollWithRef } from '../../../write/hooks/useScrollWithRef';
-import PostFooter from '../../../main/components/post/PostFooter';
 import KababButton from '../../../common/components/KababButton';
 import { sendBridgeEvent } from '@shared/xbridge';
 
@@ -20,14 +19,13 @@ const Comment = () => {
     const postId = router.query.postId as string;
     const [commentValue, setCommentValue] = useState('');
     const { data: commentsData } = useComment();
-    const { data: feedsData, isLoading } = useFeedList();
-    const feedDetailData = feedsData?.feeds.filter((feed) => feed.feed_id === postId)[0];
+    const { data: feedsData, isLoading } = useFeedList(postId);
     const { mutate: addMutate } = useAddComments(postId);
     const { ref, isScroll } = useScrollWithRef();
 
     return (
         <>
-            {isLoading || !feedDetailData ? (
+            {isLoading || !feedsData ? (
                 <></>
             ) : (
                 <CommentContainer fullWidth>
@@ -39,9 +37,9 @@ const Comment = () => {
                         }}>
                         <ContentProfile
                             isScroll={isScroll}
-                            createAt={feedDetailData?.created_at || ''}
-                            name={feedDetailData?.name || '익명'}
-                            profileSrc={feedDetailData?.profile || ''}
+                            createAt={feedsData?.created_at || ''}
+                            name={feedsData?.name || '익명'}
+                            profileSrc={feedsData?.profile || ''}
                         />
                         <KababButton
                             menu={['신고']}
@@ -59,10 +57,10 @@ const Comment = () => {
                         <CommentWrapper ref={ref}>
                             <ContentWrapper>
                                 <DetailWrapper>
-                                    <Body1>{feedDetailData?.content}</Body1>
+                                    <Body1>{feedsData?.content}</Body1>
                                 </DetailWrapper>
-                                {(feedDetailData?.attachments_url.length ?? 0) > 0 && (
-                                    <ImageCountContainer images={feedDetailData?.attachments_url} />
+                                {(feedsData?.attachments_url.length ?? 0) > 0 && (
+                                    <ImageCountContainer images={feedsData?.attachments_url} />
                                 )}
                             </ContentWrapper>
 

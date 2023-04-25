@@ -15,3 +15,14 @@ export type FeedType = {
 export interface GetFeedListResponseDto {
     feeds: FeedType[];
 }
+
+export type FeedDto = {
+    feed_id: string;
+    title: string;
+    content: string;
+    created_at: string;
+    profile: string;
+    name: string;
+    type: string;
+    attachments_url: string[];
+};
