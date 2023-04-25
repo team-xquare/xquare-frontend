@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
 import type { GetServerSideProps, NextPage } from 'next';
-import MainLayout from '../components/main/MainLayout';
-import { ModalProvider } from '../contexts/modal';
 import loginBackground from '../assets/loginBackground.png';
 import { useLayoutEffect } from 'react';
-import Input from '../components/common/Input';
 import { Button } from '@semicolondsm/ui';
 import xquareLogo from '../assets/xquareLogo.png';
 import Image from 'next/image';

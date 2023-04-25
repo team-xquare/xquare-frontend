@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface StateType {
     closeModal: () => void;
@@ -14,7 +14,7 @@ const initialState: StateType = {
 
 const ModalContext = createContext<StateType>(initialState);
 
-export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
+export const ModalProvider = ({ children }: { children: ReactNode }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const closeModal = () => setIsOpen(false);
