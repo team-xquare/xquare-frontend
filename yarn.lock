@@ -8062,15 +8062,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinst@npm:>=2":
-  version: 3.0.0
-  resolution: "pinst@npm:3.0.0"
-  bin:
-    pinst: bin.js
-  checksum: 4ae48a6a60f79c37071233af51b4d91bfc85cfa3c12b66ccda60cdb642b4d14a4ab0cb3587afc55b1f6192cea1772a5e4822026a0d0d3528296edef00cc2d61f
-  languageName: node
-  linkType: hard
-
 "pkg-dir@npm:^4.1.0":
   version: 4.2.0
   resolution: "pkg-dir@npm:4.2.0"
@@ -10100,7 +10091,6 @@ __metadata:
     husky: ">=6"
     hygen: ^6.1.0
     lint-staged: ">=10"
-    pinst: ">=2"
     prettier: ^2.8.8
     typescript: ^4.3.5
   languageName: unknown
