@@ -12,8 +12,8 @@ interface AdditionalApplyItemProps {
     applyKind: string;
     linkTo: string;
     icon: string;
-    isDay?: WeekTypes;
-    isTime?: { start?: [number, number]; end?: [number, number]; everytime?: WeekTypes };
+    showDays: WeekTypes;
+    showTime: { start: [number, number]; end: [number, number] };
     rightButtonText?: string;
 }
 
@@ -22,18 +22,14 @@ const AdditionalApplyItem = ({
     applyKind,
     linkTo,
     icon,
-    isDay = '매일',
-    isTime = { start: [0, 0], end: [24, 0], everytime: '매일' },
+    showDays = '매일',
+    showTime = { start: [0, 0], end: [24, 0] },
     rightButtonText,
 }: AdditionalApplyItemProps) => {
     const router = useRouter();
-    const isOnDay = isWithinDayRange(isDay);
-    const isOnTime = isWithinTimeRange(
-        isTime.start as [number, number],
-        isTime.end as [number, number],
-    );
-    const EveryTime = isWithinDayRange(isTime.everytime as WeekTypes);
-    const isShow = (isOnDay && isOnTime) || EveryTime;
+    const isOnDay = isWithinDayRange(showDays);
+    const isOnTime = isWithinTimeRange(showTime.start, showTime.end);
+    const isShow = isOnDay && isOnTime;
 
     return isShow ? (
         <AdditionalApplyCardContainer

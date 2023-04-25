@@ -20,7 +20,7 @@ const Apply: NextPage = () => {
     const { mutate: putStayStatusMutate } = useSetStayStatus();
 
     return (
-        <MainPageTemplate style={{paddingRight: 0}}>
+        <MainPageTemplate style={{ paddingRight: 0 }}>
             <FlexCol gap={16}>
                 <ApplyBox title="잔류 신청" subTitle="목요일 10시까지는 잔류 신청을 완료해주세요.">
                     <WeekendStayWrapper gap={8}>
@@ -49,8 +49,8 @@ const Apply: NextPage = () => {
                         linkTo="/class-move"
                         rightButtonText="제출"
                         icon={ridingIcon.src}
-                        isDay={['월', '화', '수', '목', '금']}
-                        isTime={{
+                        showDays={['월', '화', '수', '목', '금']}
+                        showTime={{
                             start: [16, 40],
                             end: [20, 30],
                         }}
@@ -61,8 +61,8 @@ const Apply: NextPage = () => {
                         rightButtonText="신청"
                         linkTo="/today-out"
                         icon={ridingIcon.src}
-                        isDay={['월', '화', '수', '목', '금']}
-                        isTime={{
+                        showDays={['월', '화', '수', '목', '금']}
+                        showTime={{
                             start: [8, 40],
                             end: [20, 30],
                         }}
@@ -72,11 +72,10 @@ const Apply: NextPage = () => {
                         daliy="오늘"
                         linkTo="/dormitory-study"
                         icon={dormitoryStudyIcon.src}
-                        isDay={['월', '화', '수', '목', '금']}
-                        isTime={{
+                        showDays={['월', '화', '수', '목', '금']}
+                        showTime={{
                             start: [20, 30],
                             end: [23, 30],
-                            everytime: ['토', '일'],
                         }}
                     />
                     <AdditionalApplyItem
@@ -84,8 +83,8 @@ const Apply: NextPage = () => {
                         daliy="이번주 주말"
                         linkTo="/weekend-out"
                         icon={ridingIcon.src}
-                        isDay={['금', '토', '일']}
-                        isTime={{
+                        showDays={['금', '토', '일']}
+                        showTime={{
                             start: [20, 30],
                             end: [11, 30],
                         }}
