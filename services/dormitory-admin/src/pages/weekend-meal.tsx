@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Body2, Button, Select } from '@semicolondsm/ui';
+import { Body2, Button } from '@semicolondsm/ui';
 import { useWeekendMealExcel, useWeekendMealList } from '../apis/apply';
 import BlockContainer from '../components/common/BlockContainer';
 import { Flex } from '../components/common/Flex';

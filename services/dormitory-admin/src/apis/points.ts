@@ -99,7 +99,7 @@ export const useAddRuleMutation = (successCallback: () => void, addType: boolean
             successCallback();
         },
         onError: () => {
-            toast.error('실패하였습니다.');
+            toast.error('규칙추가에 실패하였습니다.');
         },
     });
 };
@@ -116,7 +116,7 @@ export const useDeleteRuleMutation = (id: SelectedUserIds, addType: boolean) => 
             queryClient.invalidateQueries(['/points/students', trueStudentIds[0]]);
         },
         onError: () => {
-            toast.error('실패하였습니다.');
+            toast.error('규칙 삭제에 실패하였습니다.');
         },
     });
 };
