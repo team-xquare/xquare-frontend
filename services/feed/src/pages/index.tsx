@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         ({pageParam = null}) => getFeedList(selectedTabValueKey.category_id, pageParam),
         {
             getNextPageParam: (lastPage, page) => {
-                return lastPage.feeds[lastPage.feeds.length - 1].created_at;
+                return lastPage.feeds.length == 6 ? lastPage.feeds[lastPage.feeds.length - 1].created_at : undefined;
             },
         }
     )
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                         key={feed.feed_id}
                     />
                 ))}
-                {dataList ? <FullDiv ref={bottomRef}>
+                {dataList && dataList.pages.length && hasNextPage ? <FullDiv ref={bottomRef}>
                     <SkeletonFeed/>
                     <SkeletonFeed/>
                 </FullDiv> : undefined}
