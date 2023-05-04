@@ -1,10 +1,9 @@
 import { queryKeys } from '../../utils/queryKeys';
 import { QueryClient, useQuery } from '@tanstack/react-query';
-import { getFeedList } from '../apis';
+import {getFeed, getFeedList} from '../apis';
 
-const useFeedList = (categoryId?: string) => {
-    const feedListKey = queryKeys.getFeedList(categoryId || '');
-    return useQuery([feedListKey], () => getFeedList(categoryId));
+const useFeedList = (feedID: string) => {
+    return useQuery(['getFeed'], () => getFeed(feedID));
 };
 
 export const prefetchFeedList = (queryClient: QueryClient) => {
