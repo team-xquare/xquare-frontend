@@ -7,10 +7,10 @@ import useTodayType from './useTodayType';
 
 const useClassroom = (param: GetClassroomRequestParam) => {
     const { data: todayTypeData } = useTodayType();
-    const queryKey = queryKeys.getClassroomList(param.floor, todayTypeData?.type || ''); //todo
+    const queryKey = queryKeys.getClassroomList(param.floor, 'ALL'); //todo
     return useQuery(
         queryKey,
-        () => getClassroomList({ floor: param.floor, type: todayTypeData?.type || '' }),
+        () => getClassroomList({ floor: param.floor, type: 'ALL' }),
         {
             staleTime: ONE_DAY,
             enabled: !!todayTypeData,

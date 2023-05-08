@@ -47,7 +47,7 @@ const Apply: NextPage = () => {
                         applyKind="교실 이동"
                         daliy="오늘"
                         linkTo="/class-move"
-                        rightButtonText="제출"
+                        rightButtonText="등록"
                         icon={ridingIcon.src}
                         showDays={['월', '화', '수', '목', '금']}
                         showTime={{
