@@ -1,9 +1,9 @@
 import { instance } from '../utils/axios';
 import { queryKeys } from '../utils/queryKeys';
-import {FeedDto, GetFeedListResponseDto} from './types';
+import { FeedDto, GetFeedListResponseDto } from './types';
 
-export const getFeed = async (feedID: string) => {
-    const feedListKey = queryKeys.getFeed(feedID);
+export const getFeed = async (feedId: string) => {
+    const feedListKey = queryKeys.getFeed(feedId);
     const { data } = await instance.get<FeedDto>(feedListKey);
     return data;
 };

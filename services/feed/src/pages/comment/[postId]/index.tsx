@@ -7,19 +7,20 @@ import { useComment } from '../../../comment/hooks/useComment';
 import useFeedList from '../../../main/hooks/useFeedList';
 import { useRouter } from 'next/router';
 import SubmitTextarea from '../../../common/components/SubmitTextarea';
-import {useState} from 'react';
+import { useState } from 'react';
 import useAddComments from '../../../comment/hooks/useAddComment';
 import { ImageCountContainer } from '../../../common/components/image';
 import { useScrollWithRef } from '../../../write/hooks/useScrollWithRef';
 import KababButton from '../../../common/components/KababButton';
 import { sendBridgeEvent } from '@shared/xbridge';
+import useFeed from '../../../main/hooks/useFeed';
 
 const Comment = () => {
     const router = useRouter();
     const postId = router.query.postId as string;
     const [commentValue, setCommentValue] = useState('');
     const { data: commentsData } = useComment();
-    const { data: feedsData, isLoading } = useFeedList(postId);
+    const { data: feedsData, isLoading } = useFeed(postId);
     const { mutate: addMutate } = useAddComments(postId);
     const { ref, isScroll } = useScrollWithRef();
 
@@ -34,7 +35,8 @@ const Comment = () => {
                         fullWidth
                         style={{
                             paddingRight: 16,
-                        }}>
+                        }}
+                    >
                         <ContentProfile
                             isScroll={isScroll}
                             createAt={feedsData?.created_at || ''}

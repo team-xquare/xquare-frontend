@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SDSThemeProvider } from '@semicolondsm/react-emotion-theme';
 import { Global } from '@emotion/react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 },
             }),
     );
+
     return (
         <>
             <Head>
