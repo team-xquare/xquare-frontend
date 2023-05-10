@@ -44,6 +44,10 @@ const WeekendOut = () => {
     return (
         <MainPageTemplate>
             <FlexCol gap={24}>
+                <LabelBox label="외출 가능 시간" required={false}>
+                    <Botton color="gray700">토요일: 점심점호 후 ~ 20:00 까지</Botton>
+                    <Botton color="gray700">일요일: 점심점호 후 ~ 17:00 까지</Botton>
+                </LabelBox>
                 <LabelBox label="외출 시간을 적어주세요.">
                     <TimePickerBox
                         setTime={(props) =>
@@ -70,11 +74,6 @@ const WeekendOut = () => {
                         name="arrangement"
                         value={inputState.arrangement}
                     />
-                </LabelBox>
-
-                <LabelBox label="외출 가능 시간" required={false}>
-                    <Botton color="gray700">토요일: 점심점호 후 ~ 20:00 까지</Botton>
-                    <Botton color="gray700">일요일: 점심점호 후 ~ 17:00 까지</Botton>
                 </LabelBox>
             </FlexCol>
             <ButtomFixedButton
