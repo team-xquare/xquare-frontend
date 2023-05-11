@@ -2500,6 +2500,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@service/xdesign-story@workspace:services/xdesign-story":
+  version: 0.0.0-use.local
+  resolution: "@service/xdesign-story@workspace:services/xdesign-story"
+  languageName: unknown
+  linkType: soft
+
 "@shared/xbridge@workspace:*, @shared/xbridge@workspace:^, @shared/xbridge@workspace:shared/xbridge":
   version: 0.0.0-use.local
   resolution: "@shared/xbridge@workspace:shared/xbridge"
@@ -2512,6 +2518,12 @@ __metadata:
     uuid: ^9.0.0
   peerDependencies:
     react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@shared/xdesign@workspace:shared/xdesign":
+  version: 0.0.0-use.local
+  resolution: "@shared/xdesign@workspace:shared/xdesign"
   languageName: unknown
   linkType: soft
 
@@ -2864,6 +2876,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/commander@npm:^2.12.2":
+  version: 2.12.2
+  resolution: "@types/commander@npm:2.12.2"
+  dependencies:
+    commander: "*"
+  checksum: 8cfc1797b3a6cbff7d723590480c36f5569dc1a9f2810770178ce10de1ed65655ae2ef954c9051fa176760dcf87b1e5330be65ef2e77e58c904be0e299b8b08e
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:^0.3.3":
   version: 0.3.3
   resolution: "@types/cookie@npm:0.3.3"
@@ -2927,6 +2948,20 @@ __metadata:
   version: 16.11.28
   resolution: "@types/node@npm:16.11.28"
   checksum: aba39c8a9fdac1d73f69e5308b669952d607504ac2bd6f9f99201b8b974baedd52ca43f8cbbbb2e5015269eb2c680a85f80a4416816accb6019029bae3a7714c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.16.0":
+  version: 18.16.0
+  resolution: "@types/node@npm:18.16.0"
+  checksum: 63e0042136663b9e85ce503a4c65406cc6621fdba63ea66c74b4b1364a9aa9bdb57cadcb76696abab177f38a819b0fa6ace9e7f1647dcb990aedb1b4bd01012f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.16.2":
+  version: 18.16.2
+  resolution: "@types/node@npm:18.16.2"
+  checksum: 7ad66d23b3b93885a9f879bff98e0196790ad35589b47a3d81b52db969ad17ee298082020296df5166c2d72d3cd6a4b9ab34d254483637d967944a4b3e6febdb
   languageName: node
   linkType: hard
 
@@ -4014,6 +4049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"child_process@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "child_process@npm:1.0.2"
+  checksum: bd814d82bc8c6e85ed6fb157878978121cd03b5296c09f6135fa3d081fd9a6a617a6d509c50397711df713af403331241a9c0397a7fad30672051485e156c2a1
+  languageName: node
+  linkType: hard
+
 "chokidar@npm:3.5.1":
   version: 3.5.1
   resolution: "chokidar@npm:3.5.1"
@@ -4168,7 +4210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^10.0.0":
+"commander@npm:*, commander@npm:^10.0.0, commander@npm:^10.0.1":
   version: 10.0.1
   resolution: "commander@npm:10.0.1"
   checksum: 436901d64a818295803c1996cd856621a74f30b9f9e28a588e726b2b1670665bccd7c1a77007ebf328729f0139838a88a19265858a0fa7a8728c4656796db948
@@ -8854,6 +8896,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"script@workspace:script":
+  version: 0.0.0-use.local
+  resolution: "script@workspace:script"
+  dependencies:
+    "@types/commander": ^2.12.2
+    "@types/node": ^18.16.0
+    child_process: ^1.0.2
+    commander: ^10.0.1
+  languageName: unknown
+  linkType: soft
+
 "semver@npm:7.0.0":
   version: 7.0.0
   resolution: "semver@npm:7.0.0"
@@ -10088,6 +10141,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "xquare-frontend@workspace:."
   dependencies:
+    "@types/node": ^18.16.2
     husky: ">=6"
     hygen: ^6.1.0
     lint-staged: ">=10"
