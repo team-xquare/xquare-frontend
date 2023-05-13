@@ -6,14 +6,24 @@ import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
 import TimePickerBox from '../weekend-out/components/TimePickerBox';
 import useWeekendOut from '../weekend-out/hooks/useWeekendOut';
-import { useBridgeHandler } from '@shared/xbridge';
-import { Body3, Button, Botton } from '@semicolondsm/ui';
+import { useBridgeHandler, sendBridgeEvent } from '@shared/xbridge';
+import { Botton } from '@semicolondsm/ui';
+import useWeekOutTime, { prefetchWeekOutTime } from '../weekend-out/hooks/useWeekOutTime';
+import { GetServerSideProps } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
+import useIsApplyTime from '../weekend-out/hooks/useIsApplyTime';
+import { weeksMap } from '../constant/time';
+
 const WeekendOut = () => {
     const [timeState, setTimeState] = useState({
         startTime: '',
         endTime: '',
     });
+
     const { mutate: weekendOutMutate } = useWeekendOut();
+    const { data: outTime } = useWeekOutTime();
+    const isApplyTime = useIsApplyTime(timeState.startTime, timeState.endTime);
+
     const [inputState, setInputState] = useState({
         arrangement: '',
         reason: '',
@@ -37,16 +47,27 @@ const WeekendOut = () => {
         },
     );
 
+    const onClickApplyButton = () => {
+        if (isApplyTime) {
+            weekendOutConfirm();
+        } else {
+            sendBridgeEvent('error', { message: '외출가능시간 안에만 외출이 가능합니다.' });
+        }
+    };
+
     const onChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInputState((state) => ({ ...state, [e.target.name]: e.target.value }));
     };
-
+    console.log(outTime);
     return (
         <MainPageTemplate>
             <FlexCol gap={24}>
                 <LabelBox label="외출 가능 시간" required={false}>
-                    <Botton color="gray700">토요일: 점심점호 후 ~ 20:00 까지</Botton>
-                    <Botton color="gray700">일요일: 점심점호 후 ~ 17:00 까지</Botton>
+                    {outTime && (
+                        <Botton color="gray700">{`${weeksMap[outTime?.day_type]}요일: ${
+                            outTime.picnic_allow_start_time
+                        } ~ ${outTime.picnic_allow_end_time}`}</Botton>
+                    )}
                 </LabelBox>
                 <LabelBox label="외출 시간을 적어주세요.">
                     <TimePickerBox
@@ -77,12 +98,22 @@ const WeekendOut = () => {
                 </LabelBox>
             </FlexCol>
             <ButtomFixedButton
-                onClick={weekendOutConfirm}
-                disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}>
+                onClick={onClickApplyButton}
+                disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}
+            >
                 신청하기
             </ButtomFixedButton>
         </MainPageTemplate>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const queryClient = new QueryClient();
+    await Promise.all([prefetchWeekOutTime(queryClient)]);
+
+    return {
+        props: { dehydratedState: dehydrate(queryClient) },
+    };
 };
 
 export default WeekendOut;

@@ -8,4 +8,5 @@ export const queryKeys = {
     getClassroomList: (floor: string, type: string) => `/class-room?floor=${floor}&type=${type}`,
     getTodayType: (date: string) => `/admin?date=${date}`,
     getTimeTables: (date: string) => `/${date}`,
+    getWeekOutTime: () => '/picnic/time',
 };
