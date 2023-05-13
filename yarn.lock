@@ -2559,6 +2559,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@service/school-meal@workspace:services/school-meal":
+  version: 0.0.0-use.local
+  resolution: "@service/school-meal@workspace:services/school-meal"
+  dependencies:
+    "@emotion/react": ^11.11.0
+    "@emotion/styled": ^11.11.0
+    "@semicolondsm/react-emotion-theme": ^1.0.10
+    "@types/node": 17.0.24
+    "@types/react": 18.0.5
+    "@types/react-dom": 18.0.1
+    "@xquare/utils": 1.0.8
+    axios: ^1.4.0
+    dayjs: ^1.11.7
+    emotion-reset: ^3.0.1
+    eslint: 8.13.0
+    eslint-config-next: 12.1.5
+    next: 12.1.5
+    react: 18.0.0
+    react-dom: 18.0.0
+    react-query: ^3.39.3
+    typescript: 4.6.3
+  languageName: unknown
+  linkType: soft
+
 "@service/signup@workspace:services/signup":
   version: 0.0.0-use.local
   resolution: "@service/signup@workspace:services/signup"
@@ -3722,6 +3746,17 @@ __metadata:
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
   checksum: 7440edefcf8498bc3cdf39de00443e8101f249972c83b739c6e880d9d669fea9486372dbe8739e88b3bf8bb1ad15f6106693f206f078f4516fe8fd47b1c3093c
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "axios@npm:1.4.0"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 7fb6a4313bae7f45e89d62c70a800913c303df653f19eafec88e56cea2e3821066b8409bc68be1930ecca80e861c52aa787659df0ffec6ad4d451c7816b9386b
   languageName: node
   linkType: hard
 

@@ -32,6 +32,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:services/leesauce"\
       },\
       {\
+        "name": "@service/school-meal",\
+        "reference": "workspace:services/school-meal"\
+      },\
+      {\
         "name": "@service/signup",\
         "reference": "workspace:services/signup"\
       },\
@@ -63,6 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@service/dormitory-admin", ["workspace:services/dormitory-admin"]],\
       ["@service/feed", ["workspace:services/feed"]],\
       ["@service/leesauce", ["workspace:services/leesauce"]],\
+      ["@service/school-meal", ["workspace:services/school-meal"]],\
       ["@service/signup", ["workspace:services/signup"]],\
       ["@service/style", ["workspace:services/style"]],\
       ["@service/today-director", ["workspace:services/today-director"]],\
@@ -3148,6 +3153,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react"\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["virtual:cdc80a38f27333e53a5d8ea12092426f051f43d0f040f031ab6c9b5825b8daeeb0ccd523fc11725119d8ce1c3c2378b3314b5ec6e6102b32cc3dfafabe88c524#npm:1.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/@emotion-use-insertion-effect-with-fallbacks-virtual-c29597ef88/0/cache/@emotion-use-insertion-effect-with-fallbacks-npm-1.0.1-730758c66c-700b6e5bbb.zip/node_modules/@emotion/use-insertion-effect-with-fallbacks/",\
+>>>>>>> Stashed changes
+          "packageDependencies": [\
+            ["@emotion/use-insertion-effect-with-fallbacks", "virtual:cdc80a38f27333e53a5d8ea12092426f051f43d0f040f031ab6c9b5825b8daeeb0ccd523fc11725119d8ce1c3c2378b3314b5ec6e6102b32cc3dfafabe88c524#npm:1.0.1"],\
+            ["@types/react", "npm:18.0.5"],\
+            ["react", "npm:18.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@emotion/utils", [\
@@ -4069,6 +4088,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@service/school-meal", [\
+        ["workspace:services/school-meal", {\
+          "packageLocation": "./services/school-meal/",\
+          "packageDependencies": [\
+            ["@service/school-meal", "workspace:services/school-meal"],\
+            ["@emotion/react", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:11.11.0"],\
+            ["@emotion/styled", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:11.11.0"],\
+            ["@semicolondsm/react-emotion-theme", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:1.0.10"],\
+            ["@types/node", "npm:17.0.24"],\
+            ["@types/react", "npm:18.0.5"],\
+            ["@types/react-dom", "npm:18.0.1"],\
+            ["@xquare/utils", "npm:1.0.8"],\
+            ["axios", "npm:1.4.0"],\
+            ["dayjs", "npm:1.11.7"],\
+            ["emotion-reset", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:3.0.1"],\
+            ["eslint", "npm:8.13.0"],\
+            ["eslint-config-next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
+            ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
+            ["react", "npm:18.0.0"],\
+            ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
+            ["react-query", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:3.39.3"],\
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=dba6d9"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
       ["@service/signup", [\
         ["workspace:services/signup", {\
           "packageLocation": "./services/signup/",\
@@ -4089,7 +4134,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:12.1.5"],\
             ["react", "npm:18.0.0"],\
             ["react-dom", "virtual:29092108f688a05f0b90bc65217b26851d2bea68c5d9c66ebdb93c30779d2f0acd31e43e1c8ecda406c34bbdb64546756dbb308c020c657cb5e6f1071889da1e#npm:18.0.0"],\
-            ["react-query", "virtual:96107ad4f02dd7393c3f90f9b49c92b004b494e5e222ec5e13f077e0413ee7901e18843b8908185307e95510c9dbd7865f757265604951973eac07b6c6a3cc3a#npm:3.39.3"],\
+            ["react-query", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:3.39.3"],\
             ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=dba6d9"]\
           ],\
           "linkType": "SOFT"\
@@ -5574,6 +5619,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/axios-npm-1.3.4-01ea685178-7440edefcf.zip/node_modules/axios/",\
           "packageDependencies": [\
             ["axios", "npm:1.3.4"],\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"],\
+            ["form-data", "npm:4.0.0"],\
+            ["proxy-from-env", "npm:1.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:1.4.0", {\
+          "packageLocation": "./.yarn/cache/axios-npm-1.4.0-4d7ce8ca3e-7fb6a4313b.zip/node_modules/axios/",\
+          "packageDependencies": [\
+            ["axios", "npm:1.4.0"],\
             ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.15.2"],\
             ["form-data", "npm:4.0.0"],\
             ["proxy-from-env", "npm:1.1.0"]\
@@ -11430,10 +11485,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:96107ad4f02dd7393c3f90f9b49c92b004b494e5e222ec5e13f077e0413ee7901e18843b8908185307e95510c9dbd7865f757265604951973eac07b6c6a3cc3a#npm:3.39.3", {\
-          "packageLocation": "./.yarn/__virtual__/react-query-virtual-0cf2f952da/0/cache/react-query-npm-3.39.3-72b2a93edf-d2de6a0992.zip/node_modules/react-query/",\
+        ["virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:3.39.3", {\
+          "packageLocation": "./.yarn/__virtual__/react-query-virtual-e4ccf2012f/0/cache/react-query-npm-3.39.3-72b2a93edf-d2de6a0992.zip/node_modules/react-query/",\
           "packageDependencies": [\
-            ["react-query", "virtual:96107ad4f02dd7393c3f90f9b49c92b004b494e5e222ec5e13f077e0413ee7901e18843b8908185307e95510c9dbd7865f757265604951973eac07b6c6a3cc3a#npm:3.39.3"],\
+            ["react-query", "virtual:5069f6af8ca4f927ac73590a679e91ad4f4fc98bdf10215855d6faaf4e2940e1d1ed447fd6c5485e25455d8ca8e9428117c21a985b68dfa13f89a9f0903c8f54#npm:3.39.3"],\
             ["@babel/runtime", "npm:7.18.3"],\
             ["@types/react", "npm:18.0.5"],\
             ["@types/react-dom", "npm:18.0.1"],\
