@@ -1,8 +1,10 @@
-import { useMutation } from 'react-query';
-import { postWeekendOut } from '../apis';
+import { queryKeys } from './../../utils/queryKeys';
+import { useMutation, useQuery } from 'react-query';
+import { getWeekendOut, patchWekendOut, postWeekendOut } from '../apis';
 import { sendBridgeEvent } from '@shared/xbridge';
 import useWeekOutTime from './useWeekOutTime';
-const useWeekendOut = () => {
+
+const usePostWeekendOut = () => {
     return useMutation(postWeekendOut, {
         onSuccess: () => {
             sendBridgeEvent('back', true);
@@ -15,4 +17,22 @@ const useWeekendOut = () => {
     });
 };
 
-export default useWeekendOut;
+export const useGetWeekendOut = () => {
+    const getWeekendOutKey = queryKeys.getPicnic();
+    return useQuery(getWeekendOutKey, getWeekendOut);
+};
+
+export const usePatchWeekendOut = () => {
+    return useMutation(patchWekendOut, {
+        onSuccess: () => {
+            sendBridgeEvent('back', true);
+        },
+        onError: () => {
+            sendBridgeEvent('error', {
+                message: '주말 외출 수정에 실패하였습니다.',
+            });
+        },
+    });
+};
+
+export default usePostWeekendOut;

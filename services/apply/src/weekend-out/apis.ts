@@ -1,10 +1,21 @@
 import { instance, pickInstance } from '../utils/axios';
 import { queryKeys } from '../utils/queryKeys';
-import { GetWeekOutTimeResponse, PostWeekendOutRequestParam } from './types';
+import { GetWeekOutTimeResponse, WeekendOutParam } from './types';
 
-export const postWeekendOut = async (param: PostWeekendOutRequestParam) => {
-    const uri = `/picnic`;
-    return await instance.post(uri, param);
+export const postWeekendOut = async (param: WeekendOutParam) => {
+    const weekendOutUrl = queryKeys.getPicnic();
+    return await instance.post(weekendOutUrl, param);
+};
+
+export const getWeekendOut = async () => {
+    const weekendOutUrl = queryKeys.getPicnic();
+    const { data } = await instance.get<WeekendOutParam>(weekendOutUrl);
+    return data;
+};
+
+export const patchWekendOut = async (param: WeekendOutParam) => {
+    const weekendOutUrl = queryKeys.getPicnic();
+    return await instance.patch(weekendOutUrl, param);
 };
 
 export const getWeekOutTime = async () => {

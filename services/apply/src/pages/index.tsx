@@ -13,10 +13,12 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
+import { useGetWeekendOut } from '../weekend-out/hooks/useWeekendOut';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
+    const { data: getWeekendOut } = useGetWeekendOut();
     const { mutate: putStayStatusMutate } = useSetStayStatus();
 
     return (
@@ -79,7 +81,7 @@ const Apply: NextPage = () => {
                         }}
                     />
                     <AdditionalApplyItem
-                        applyKind="주말 외출 신청"
+                        applyKind={getWeekendOut ? '주말 외출 조회' : '주말 외출 신청'}
                         daliy="이번주 주말"
                         linkTo="/weekend-out"
                         icon={ridingIcon.src}

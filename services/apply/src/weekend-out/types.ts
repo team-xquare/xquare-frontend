@@ -4,7 +4,7 @@
 //     reason: number;
 // }
 
-export interface PostWeekendOutRequestParam {
+export interface WeekendOutParam {
     start_time: string;
     end_time: string;
     reason: string;
