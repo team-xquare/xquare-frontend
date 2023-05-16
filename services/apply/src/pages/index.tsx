@@ -13,7 +13,7 @@ import useStayList, { prefetchStayList } from '../main/hooks/useStayList';
 import useSetStayStatus from '../main/hooks/useSetStayStatus';
 import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
-import { useGetWeekendOut } from '../weekend-out/hooks/useWeekendOut';
+import { useGetWeekendOut } from '../weekend-out/hooks/usePostWeekendOut';
 
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();

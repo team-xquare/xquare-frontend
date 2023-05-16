@@ -13,7 +13,7 @@ export const getWeekendOut = async () => {
     return data;
 };
 
-export const patchWekendOut = async (param: WeekendOutParam) => {
+export const patchWeekendOut = async (param: WeekendOutParam) => {
     const weekendOutUrl = queryKeys.getPicnic();
     return await instance.patch(weekendOutUrl, param);
 };
