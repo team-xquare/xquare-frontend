@@ -5,51 +5,37 @@ import MainPageTemplate from '../common/components/templates/MainPageTemplate';
 import LabelBox from '../today-out/components/LabelBox';
 import Textarea from '../today-out/components/Textarea';
 import TimePickerBox from '../weekend-out/components/TimePickerBox';
-import useWeekendOut from '../weekend-out/hooks/useWeekendOut';
-import { useBridgeHandler, sendBridgeEvent } from '@shared/xbridge';
+import useGetWeekendOut, { prefetchWeekendOut } from '../weekend-out/hooks/useGetWeekendOut';
+import { sendBridgeEvent } from '@shared/xbridge';
 import { Botton } from '@semicolondsm/ui';
 import useWeekOutTime, { prefetchWeekOutTime } from '../weekend-out/hooks/useWeekOutTime';
 import { GetServerSideProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import useIsApplyTime from '../weekend-out/hooks/useIsApplyTime';
 import { weeksMap } from '../constant/time';
+import useWeekendOutConfirm from '../weekend-out/hooks/useWeekendOutConfirm';
 
 const WeekendOut = () => {
+    const { data: weekendOutData } = useGetWeekendOut();
+
     const [timeState, setTimeState] = useState({
-        startTime: '',
-        endTime: '',
+        startTime: weekendOutData?.start_time || '',
+        endTime: weekendOutData?.end_time || '',
     });
 
-    const { mutate: weekendOutMutate } = useWeekendOut();
     const { data: outTime } = useWeekOutTime();
     const isApplyTime = useIsApplyTime(timeState.startTime, timeState.endTime);
 
     const [inputState, setInputState] = useState({
-        arrangement: '',
-        reason: '',
+        arrangement: weekendOutData?.arrangement || '',
+        reason: weekendOutData?.reason || '',
     });
 
-    const weekendOutConfirm = useBridgeHandler(
-        'confirm',
-        (e) => {
-            e.detail.success &&
-                weekendOutMutate({
-                    end_time: timeState.endTime,
-                    start_time: timeState.startTime,
-                    arrangement: inputState.arrangement || ' ',
-                    reason: inputState.reason,
-                });
-        },
-        {
-            cancelText: '취소하기',
-            confirmText: '신청하기',
-            message: '외출을 신청하겠습니까?',
-        },
-    );
+    const ChangeWeekendOutConfirm = useWeekendOutConfirm(timeState, inputState)
 
     const onClickApplyButton = () => {
         if (isApplyTime) {
-            weekendOutConfirm();
+            ChangeWeekendOutConfirm();
         } else {
             sendBridgeEvent('error', { message: '외출가능시간 안에만 외출이 가능합니다.' });
         }
@@ -58,7 +44,7 @@ const WeekendOut = () => {
     const onChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInputState((state) => ({ ...state, [e.target.name]: e.target.value }));
     };
-    console.log(outTime);
+
     return (
         <MainPageTemplate>
             <FlexCol gap={24}>
@@ -99,9 +85,8 @@ const WeekendOut = () => {
             </FlexCol>
             <ButtomFixedButton
                 onClick={onClickApplyButton}
-                disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}
-            >
-                신청하기
+                disabled={!(timeState.endTime && timeState.startTime && inputState.reason)}>
+                {weekendOutData ? '수정하기' : '신청하기'}
             </ButtomFixedButton>
         </MainPageTemplate>
     );
@@ -109,7 +94,7 @@ const WeekendOut = () => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
-    await Promise.all([prefetchWeekOutTime(queryClient)]);
+    await Promise.all([prefetchWeekOutTime(queryClient), prefetchWeekendOut(queryClient)]);
 
     return {
         props: { dehydratedState: dehydrate(queryClient) },

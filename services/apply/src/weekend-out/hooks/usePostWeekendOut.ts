@@ -1,8 +1,10 @@
-import { useMutation } from 'react-query';
-import { postWeekendOut } from '../apis';
+import { queryKeys } from '../../utils/queryKeys';
+import { useMutation, useQuery } from 'react-query';
+import { getWeekendOut, patchWeekendOut, postWeekendOut } from '../apis';
 import { sendBridgeEvent } from '@shared/xbridge';
 import useWeekOutTime from './useWeekOutTime';
-const useWeekendOut = () => {
+
+const usePostWeekendOut = () => {
     return useMutation(postWeekendOut, {
         onSuccess: () => {
             sendBridgeEvent('back', true);
@@ -15,4 +17,4 @@ const useWeekendOut = () => {
     });
 };
 
-export default useWeekendOut;
+export default usePostWeekendOut;
