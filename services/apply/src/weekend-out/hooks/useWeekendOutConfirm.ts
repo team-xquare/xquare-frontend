@@ -6,12 +6,12 @@ import usePostWeekendOut from './usePostWeekendOut';
 type timeStateType = {
     endTime: string;
     startTime: string;
-}
+};
 
 type inputStateType = {
     arrangement: string;
     reason: string;
-}
+};
 
 const useWeekendOutConfirm = (timeState: timeStateType, inputState: inputStateType) => {
     const { data: weekendOutData } = useGetWeekendOut();
@@ -43,7 +43,7 @@ const useWeekendOutConfirm = (timeState: timeStateType, inputState: inputStateTy
         },
     );
 
-    return ChangeWeekendOutConfirm   
-}
+    return ChangeWeekendOutConfirm;
+};
 
-export default useWeekendOutConfirm
+export default useWeekendOutConfirm;

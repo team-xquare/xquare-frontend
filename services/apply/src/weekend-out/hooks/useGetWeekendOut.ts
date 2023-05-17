@@ -9,7 +9,7 @@ const useGetWeekendOut = () => {
 
 export const prefetchWeekendOut = (queryClient: QueryClient) => {
     const queryKey = queryKeys.getPicnic();
-    return queryClient.prefetchQuery(queryKey, getWeekendOut)
-}
+    return queryClient.prefetchQuery(queryKey, getWeekendOut);
+};
 
-export default useGetWeekendOut
+export default useGetWeekendOut;

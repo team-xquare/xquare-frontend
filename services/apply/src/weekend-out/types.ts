@@ -4,11 +4,19 @@
 //     reason: number;
 // }
 
-export interface WeekendOutParam {
+export interface WeekendOutRequestParam {
     start_time: string;
     end_time: string;
     reason: string;
     arrangement: string;
+}
+
+export interface WeekendOutResponseParam {
+    start_time: string;
+    end_time: string;
+    reason: string;
+    arrangement: string;
+    create_date_time: string;
 }
 
 export interface GetWeekOutTimeResponse {

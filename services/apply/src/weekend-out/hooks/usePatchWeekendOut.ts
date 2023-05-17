@@ -15,4 +15,4 @@ const usePatchWeekendOut = () => {
     });
 };
 
-export default usePatchWeekendOut
+export default usePatchWeekendOut;

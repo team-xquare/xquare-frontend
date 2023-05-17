@@ -14,13 +14,14 @@ import { dehydrate, QueryClient } from 'react-query';
 import useIsApplyTime from '../weekend-out/hooks/useIsApplyTime';
 import { weeksMap } from '../constant/time';
 import useWeekendOutConfirm from '../weekend-out/hooks/useWeekendOutConfirm';
+import FormatTime from '../weekend-out/components/FormatTime';
 
 const WeekendOut = () => {
     const { data: weekendOutData } = useGetWeekendOut();
 
     const [timeState, setTimeState] = useState({
-        startTime: weekendOutData?.start_time || '',
-        endTime: weekendOutData?.end_time || '',
+        startTime: FormatTime(weekendOutData?.start_time) || '',
+        endTime: FormatTime(weekendOutData?.end_time) || '',
     });
 
     const { data: outTime } = useWeekOutTime();
@@ -31,7 +32,7 @@ const WeekendOut = () => {
         reason: weekendOutData?.reason || '',
     });
 
-    const ChangeWeekendOutConfirm = useWeekendOutConfirm(timeState, inputState)
+    const ChangeWeekendOutConfirm = useWeekendOutConfirm(timeState, inputState);
 
     const onClickApplyButton = () => {
         if (isApplyTime) {
@@ -50,9 +51,9 @@ const WeekendOut = () => {
             <FlexCol gap={24}>
                 <LabelBox label="외출 가능 시간" required={false}>
                     {outTime && (
-                        <Botton color="gray700">{`${weeksMap[outTime?.day_type]}요일: ${
-                            outTime.picnic_allow_start_time
-                        } ~ ${outTime.picnic_allow_end_time}`}</Botton>
+                        <Botton color="gray700">{`${weeksMap[outTime?.day_type]}요일: ${FormatTime(
+                            outTime.picnic_allow_start_time,
+                        )} ~ ${FormatTime(outTime.picnic_allow_end_time)}`}</Botton>
                     )}
                 </LabelBox>
                 <LabelBox label="외출 시간을 적어주세요.">
