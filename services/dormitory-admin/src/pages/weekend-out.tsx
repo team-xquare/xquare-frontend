@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Body2 } from '@semicolondsm/ui';
+import { Body2, Button } from '@semicolondsm/ui';
 import { useEffect, useState } from 'react';
-import { usePicnicList } from '../apis/apply';
+import { usePicnicExcel, usePicnicList } from '../apis/apply';
 import { SelectedPicnicType } from '../apis/types';
 import BlockContainer from '../components/common/BlockContainer';
 import ScrollBox from '../components/common/ScrollBox';
@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from '../components/
 import PicnicItem from '../components/weekendOutControlPanel/PicnicItem';
 import PicnicDetail from '../components/weekendOutControlPanel/PicnicDetail';
 import PicnicController from '../components/weekendOutControlPanel/PicnicController';
+import { Flex } from '../components/common/Flex';
 
 export const picnicType = ['대기 학생', '외출 학생'] as const;
 
@@ -24,6 +25,7 @@ const WeekendOut = () => {
     const [selectedPicnicIds, setSelectedPicnicIds] = useState<SelectedPicnicType>({});
     const [isMultiSelected, setMultiSelected] = useState<boolean>(false);
     const { data: picnicList } = usePicnicList(picnicTypeKeySelector[picnicTypeState]);
+    const usePicnicExcelDownload = usePicnicExcel();
 
     const cellSizes = [
         ...(isMultiSelected ? ['40px'] : []),
@@ -73,13 +75,18 @@ const WeekendOut = () => {
     return (
         <Container>
             <BlockContainer title="주말 외출">
-                <PicnicController
+                <Flex fullWidth padding={'16px 24px'} justify="flex-end">
+                    <Button size="sm" fill="purple" onClick={() => usePicnicExcelDownload()}>
+                        엑셀 출력하기
+                    </Button>
+                </Flex>
+                {/* <PicnicController
                     selectedPicnicIds={selectedPicnicIds}
                     isMultiSelected={isMultiSelected}
                     onClickMultiSelected={() => setMultiSelected((prev) => !prev)}
                     picnicTypeState={picnicTypeState}
                     setPicnicTypeState={setPicnicTypeState}
-                />
+                /> */}
                 <ScrollBox>
                     <Table style={{ overflow: 'auto' }}>
                         <TableHead>

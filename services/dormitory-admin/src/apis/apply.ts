@@ -74,6 +74,20 @@ export const usePicnicList = (type: string) => {
     });
 };
 
+export const usePicnicExcel = () => {
+    const fetcher = async () => {
+        try {
+            const { data } = await applyInstance.get('/admin/picnic/excel', {
+                responseType: 'blob',
+            });
+            FileSaver.saveAs(data, `주말 외출 현황${new Date()}.xlsx`);
+        } catch (e) {
+            toast.error('주말 외출 현황 다운로드를 실패하였습니다.');
+        }
+    };
+    return fetcher;
+};
+
 export const useWeekendMealExcel = () => {
     const fetcher = async () => {
         try {
