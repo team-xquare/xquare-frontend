@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import ButtomFixedButton from '../common/components/ButtomFixedButton';
 import { FlexCol } from '../common/components/Flexbox';
 import MainPageTemplate from '../common/components/templates/MainPageTemplate';
@@ -20,17 +20,31 @@ const WeekendOut = () => {
     const { data: weekendOutData } = useGetWeekendOut();
 
     const [timeState, setTimeState] = useState({
-        startTime: FormatTime(weekendOutData?.start_time) || '',
-        endTime: FormatTime(weekendOutData?.end_time) || '',
+        startTime: '',
+        endTime: '',
     });
 
     const { data: outTime } = useWeekOutTime();
     const isApplyTime = useIsApplyTime(timeState.startTime, timeState.endTime);
 
     const [inputState, setInputState] = useState({
-        arrangement: weekendOutData?.arrangement || '',
-        reason: weekendOutData?.reason || '',
+        arrangement: '',
+        reason: '',
     });
+
+    useEffect(
+        () =>
+            weekendOutData &&
+            (setTimeState({
+                startTime: FormatTime(weekendOutData.start_time),
+                endTime: FormatTime(weekendOutData.end_time),
+            }),
+            setInputState({
+                arrangement: weekendOutData.arrangement,
+                reason: weekendOutData.reason,
+            })),
+        [weekendOutData],
+    );
 
     const ChangeWeekendOutConfirm = useWeekendOutConfirm(timeState, inputState);
 
