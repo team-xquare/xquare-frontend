@@ -10,6 +10,7 @@ import PicnicItem from '../components/weekendOutControlPanel/PicnicItem';
 import PicnicDetail from '../components/weekendOutControlPanel/PicnicDetail';
 import PicnicController from '../components/weekendOutControlPanel/PicnicController';
 import { Flex } from '../components/common/Flex';
+import { formatTime } from '../libs/utils';
 
 export const picnicType = ['대기 학생', '외출 학생'] as const;
 
@@ -120,6 +121,8 @@ const WeekendOut = () => {
                                 <PicnicItem
                                     key={picnic.id}
                                     {...picnic}
+                                    start_time={formatTime(picnic.start_time)}
+                                    end_time={formatTime(picnic.end_time)}
                                     onClick={() => onClickPicnic(picnic.id)}
                                     isChecked={!!selectedPicnicIds[picnic.id]}
                                     cellSizes={cellSizes}

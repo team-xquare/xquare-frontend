@@ -77,8 +77,14 @@ export const createFuzzyPattern = (query: string) => {
     return new RegExp(pattern);
 };
 
-export const staySortedStudents = (sortType: typeof StaySortingEnum[number], data?: Stay[]) => {
+export const staySortedStudents = (sortType: (typeof StaySortingEnum)[number], data?: Stay[]) => {
     let students = data ?? [];
     if (sortType === StaySortingEnum[0]) return students;
     return students.filter((student) => student.code === sortType);
+};
+
+export const formatTime = (time: string) => {
+    const tweTime = time.split(':');
+    tweTime.pop();
+    return tweTime.join(':');
 };

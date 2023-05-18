@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Body1, Title1, Title2, Title3 } from '@semicolondsm/ui';
 import { usePicnicDetail } from '../../apis/apply';
 import { SelectedPicnicType } from '../../apis/types';
+import { formatTime } from '../../libs/utils';
 import { Flex } from '../common/Flex';
 import ScrollBox from '../common/ScrollBox';
 
@@ -27,7 +28,8 @@ const PicnicDetail = ({ selectedPicnicId }: PicnicDetailProps) => {
                             <LabelContainer direction="column" gap={4}>
                                 <h3>외출 시간</h3>
                                 <p>
-                                    {picnicDetail?.start_time} ~ {picnicDetail?.end_time}
+                                    {picnicDetail && formatTime(picnicDetail.start_time)} ~{' '}
+                                    {picnicDetail && formatTime(picnicDetail.end_time)}
                                 </p>
                             </LabelContainer>
                             <LabelContainer direction="column" gap={4}>
