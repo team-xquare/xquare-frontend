@@ -15,6 +15,7 @@ import useIsApplyTime from '../weekend-out/hooks/useIsApplyTime';
 import { weeksMap } from '../constant/time';
 import useWeekendOutConfirm from '../weekend-out/hooks/useWeekendOutConfirm';
 import FormatTime from '../weekend-out/components/FormatTime';
+import useIsInvalidTime from '../weekend-out/hooks/useIsInvalidTime';
 
 const WeekendOut = () => {
     const { data: weekendOutData } = useGetWeekendOut();
@@ -26,6 +27,7 @@ const WeekendOut = () => {
 
     const { data: outTime } = useWeekOutTime();
     const isApplyTime = useIsApplyTime(timeState.startTime, timeState.endTime);
+    const isInvalidTime = useIsInvalidTime(timeState.startTime, timeState.endTime);
 
     const [inputState, setInputState] = useState({
         arrangement: '',
@@ -49,10 +51,12 @@ const WeekendOut = () => {
     const ChangeWeekendOutConfirm = useWeekendOutConfirm(timeState, inputState);
 
     const onClickApplyButton = () => {
-        if (isApplyTime) {
+        if (isApplyTime && isInvalidTime) {
             ChangeWeekendOutConfirm();
-        } else {
+        } else if (!isApplyTime) {
             sendBridgeEvent('error', { message: '외출가능시간 안에만 외출이 가능합니다.' });
+        } else {
+            sendBridgeEvent('error', { message: '시간을 잘못 입력하였습니다.' });
         }
     };
 
