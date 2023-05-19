@@ -11,7 +11,8 @@ const useIsApplyTime = (startTime: string, endTime: string) => {
     if (!setStartTime || !setEndTime) return;
     const enableStartTime = parseTime(weekOutTime.picnic_allow_start_time);
     const enableEndTime = parseTime(weekOutTime.picnic_allow_end_time);
-    return !!(setStartTime.diff(enableStartTime) >= 0 && setEndTime.diff(enableEndTime) <= 0);
+    console.log(setStartTime, enableStartTime);
+    return !!(setStartTime.diff(enableStartTime) >= 0 && setEndTime.diff(enableEndTime) <= 60000);
 };
 
 export default useIsApplyTime;

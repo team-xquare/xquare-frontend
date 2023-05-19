@@ -14,7 +14,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import useIsApplyTime from '../weekend-out/hooks/useIsApplyTime';
 import { weeksMap } from '../constant/time';
 import useWeekendOutConfirm from '../weekend-out/hooks/useWeekendOutConfirm';
-import FormatTime from '../weekend-out/components/FormatTime';
+import FormatTime from '../utils/function/FormatTime';
 import useIsInvalidTime from '../weekend-out/hooks/useIsInvalidTime';
 
 const WeekendOut = () => {
