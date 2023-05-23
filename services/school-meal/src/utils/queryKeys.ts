@@ -1,3 +1,3 @@
 export const queryKeys = {
-    getTodaylMeal: (date: string) => `/${date}`
+    getMealList: (year: number, month: number) => `/?year=${year}&month=${month}`
 }

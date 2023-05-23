@@ -1,11 +1,17 @@
-import { useQuery } from 'react-query';
-import { queryKeys } from '../../utils/queryKeys';
-import dateFormat from '../../utils/function/dateFormat';
-import { getTodaylMeal } from '../api';
+import React from 'react';
+import dayjs from 'dayjs';
+import useMealList from './useMealList';
 
-const useTodayMeal = () => {
-    const todayMealKey = queryKeys.getTodaylMeal(dateFormat());
-    return useQuery(todayMealKey, getTodaylMeal);
+const useTodayMeal = (date?: string) => {
+    const getDate = dayjs(date);
+    getDate.format();
+
+    const year = getDate.get('year');
+    const month = getDate.get('month') + 1;
+    const TodayDate = getDate.format('YYYY-MM-DD');
+    const { data: mealList } = useMealList(year, month);
+    const TodyMeal = mealList?.meals.filter((item) => item.date === TodayDate)[0];
+    return TodyMeal;
 };
 
 export default useTodayMeal;

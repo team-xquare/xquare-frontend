@@ -1,6 +1,8 @@
 import emotionReset from 'emotion-reset';
 import { css } from '@emotion/react';
 
+
+
 export const globalStyles = css`
     * {
         font-family: 'Noto Sans KR', sans-serif !important;
@@ -9,7 +11,6 @@ export const globalStyles = css`
         -webkit-touch-callout: none;
         box-sizing: border-box;
     }
-
     *::-webkit-scrollbar {
         display: none;
     }
