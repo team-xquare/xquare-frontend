@@ -8,7 +8,6 @@ import MealCard from '../main/components/MealCard';
 import useTodayMeal from '../main/hook/useTodayMeal';
 import { formatTime } from '../utils/function/formatTime';
 import useDate from '../main/hook/useSetDate';
-import background from '../assets/background.png';
 
 const Home: NextPage = () => {
     const { currentDate, onNextClick, onPrevClick } = useDate();

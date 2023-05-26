@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import dayjs from 'dayjs';
 
 const useDate = () => {
-    const date = dayjs();
-    date.format();
-    const [number, setNumber] = useState(0);
+    const [currentDate, setCurrentDate] = useState(dayjs());
     const onPrevClick = () => {
-        setNumber((prev) => prev - 1);
+        setCurrentDate((prev) => prev.subtract(1, 'day'));
     };
     const onNextClick = () => {
-        setNumber((prev) => prev + 1);
+        setCurrentDate((prev) => prev.add(1, 'day'));
     };
-    const currentDate = date.add(number, 'day');
     return { currentDate, onPrevClick, onNextClick };
 };
 
