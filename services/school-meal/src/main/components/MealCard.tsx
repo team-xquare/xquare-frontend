@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import showFocusCard from '../../utils/function/showFocusCard';
-
-type mealTimeType = '아침' | '점심' | '저녁';
+import { MealTimeType } from '../type';
 
 interface MealCardProps {
-    mealTime: mealTimeType;
+    mealTime: MealTimeType;
     mealList?: string[];
     mealKcal?: string;
     todayDate: string;

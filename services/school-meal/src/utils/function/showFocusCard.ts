@@ -1,12 +1,10 @@
 import dayjs from 'dayjs';
+import { MealTimeType } from '../../main/type';
 
-type mealTimeType = '아침' | '점심' | '저녁';
-
-const showFocusCard = (mealTime: mealTimeType, todayDate: string) => {
+const showFocusCard = (mealTime: MealTimeType, todayDate: string) => {
     const currentDate = dayjs();
     const hour = currentDate.get('hour');
     let onFocus = false;
-    console.log(hour);
     switch (mealTime) {
         case '아침': {
             onFocus = 0 < hour && hour < 9;

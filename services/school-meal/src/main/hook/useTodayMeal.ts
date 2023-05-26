@@ -7,10 +7,10 @@ const useTodayMeal = (date?: string) => {
 
     const year = getDate.get('year');
     const month = getDate.get('month') + 1;
-    const TodayDate = getDate.format('YYYY-MM-DD');
+    const todayDate = getDate.format('YYYY-MM-DD');
     const { data: mealList } = useMealList(year, month);
-    const TodyMeal = mealList?.meals.find((item) => item.date === TodayDate);
-    return TodyMeal;
+    const todyMeal = mealList?.meals.find((item) => item.date === todayDate);
+    return todyMeal;
 };
 
 export default useTodayMeal;

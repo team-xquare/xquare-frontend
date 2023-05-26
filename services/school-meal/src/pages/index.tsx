@@ -11,7 +11,7 @@ import useDate from '../main/hook/useSetDate';
 
 const Home: NextPage = () => {
     const { currentDate, onNextClick, onPrevClick } = useDate();
-    const TodayMeal = useTodayMeal(currentDate.format());
+    const todayMeal = useTodayMeal(currentDate.format());
     const formatedDate = currentDate.format('YYYY-MM-DD');
     return (
         <Container>
@@ -27,20 +27,20 @@ const Home: NextPage = () => {
                 </SlideButton>
                 <MealCard
                     mealTime="아침"
-                    mealList={TodayMeal?.breakfast}
-                    mealKcal={TodayMeal?.breakfast_kcal}
+                    mealList={todayMeal?.breakfast}
+                    mealKcal={todayMeal?.breakfast_kcal}
                     todayDate={formatedDate}
                 />
                 <MealCard
                     mealTime="점심"
-                    mealList={TodayMeal?.lunch}
-                    mealKcal={TodayMeal?.lunch_kcal}
+                    mealList={todayMeal?.lunch}
+                    mealKcal={todayMeal?.lunch_kcal}
                     todayDate={formatedDate}
                 />
                 <MealCard
                     mealTime="저녁"
-                    mealList={TodayMeal?.dinner}
-                    mealKcal={TodayMeal?.dinner_kcal}
+                    mealList={todayMeal?.dinner}
+                    mealKcal={todayMeal?.dinner_kcal}
                     todayDate={formatedDate}
                 />
                 <SlideButton onClick={() => onNextClick()}>
