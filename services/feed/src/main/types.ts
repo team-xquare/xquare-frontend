@@ -26,3 +26,8 @@ export type FeedDto = {
     type: string;
     attachments_url: string[];
 };
+
+export interface FeedRequestParams {
+    feed_id: string;
+    content: string;
+}

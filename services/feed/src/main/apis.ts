@@ -1,6 +1,6 @@
 import { instance } from '../utils/axios';
 import { queryKeys } from '../utils/queryKeys';
-import { FeedDto, GetFeedListResponseDto } from './types';
+import { FeedDto, FeedRequestParams, GetFeedListResponseDto } from './types';
 
 export const getFeed = async (feedId: string) => {
     const feedListKey = queryKeys.getFeed(feedId);
@@ -24,4 +24,8 @@ export const deleteFeedLike = async (feedId: string) => {
 
 export const deleteFeed = async (feedId: string) => {
     return await instance.delete(`/${feedId}`);
+};
+
+export const postReportFeed = async (params: FeedRequestParams) => {
+    return await instance.post('/report', params);
 };

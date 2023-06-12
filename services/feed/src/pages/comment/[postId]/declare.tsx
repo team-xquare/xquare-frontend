@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 import { Body1, Subtitle4 } from '@semicolondsm/ui';
 import { sendBridgeEvent, useBridgeCallback } from '@shared/xbridge';
-
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import SelectInput from '../../../common/components/SelectInput';
+import useReportFeed from '../../../main/hooks/useReportFeed';
 
 const Declare = () => {
+    const router = useRouter();
+    const postId = router.query.postId as string;
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
     const [reason, setReason] = useState<string>('');
-
+    const { mutate: reportMutate } = useReportFeed();
+    
     useEffect(() => {
         sendBridgeEvent('isRightButtonEnabled', {
             isEnabled: !!reason && !isSubmit,
@@ -18,6 +22,7 @@ const Declare = () => {
     useBridgeCallback(
         'rightButtonTaped',
         () => {
+            reportMutate({ feed_id: postId, content: reason });
             setIsSubmit(true);
         },
         undefined,
