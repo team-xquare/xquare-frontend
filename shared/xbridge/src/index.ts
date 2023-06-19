@@ -7,7 +7,6 @@ type BridgeType =
     | 'imageDetail'
     | 'confirm'
     | 'error'
-    | 'success'
     | 'photoPicker'
     | 'actionSheet'
     | 'timePicker'
@@ -30,10 +29,6 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
         cancelText: string;
     };
     error: {
-        message: string;
-    };
-    success: {
-        title: string;
         message: string;
     };
     photoPicker: {};
