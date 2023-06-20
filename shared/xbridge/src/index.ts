@@ -11,7 +11,8 @@ type BridgeType =
     | 'actionSheet'
     | 'timePicker'
     | 'isRightButtonEnabled'
-    | 'periodPicker';
+    | 'periodPicker'
+    | 'success';
 
 type OneByOneBridgeType = 'confirm' | 'photoPicker' | 'actionSheet' | 'timePicker' | 'periodPicker';
 
@@ -41,6 +42,10 @@ interface XBridgeRequestData extends Record<BridgeType, unknown> {
     };
     periodPicker: {
         period?: number;
+    };
+    success: {
+        title: string;
+        message: string;
     };
 }
 

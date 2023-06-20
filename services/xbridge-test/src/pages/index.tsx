@@ -68,6 +68,11 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
         (e) => setSelectedPeriod(e.detail.period),
         { period: selectedPeriod },
     );
+
+    const testSuccess = sendBridgeEvent('success', {
+        title: 'success 브릿지 테스트에 성공하였습니다.',
+        message: '확인',
+    });
     return (
         <div>
             <XbridgeImage src="https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/resize/416/quality/80/optimize" />
@@ -117,6 +122,7 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testTimePicker}>타임 피커</Button>
             <div>선택된 교시: {selectedPeriod}</div>
             <Button onClick={testPeriodPicker}>교시 피커</Button>
+            <Button onClick={testSuccess}>success 버튼</Button>
         </div>
     );
 };
