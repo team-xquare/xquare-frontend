@@ -24,6 +24,6 @@ export const putStayStatus = async (param: StayStatus) => {
     await instance.put(queryKeys.getStayStatus(), param);
 };
 
-export const postWeekendMeal = async (param: WeekendMealParams) => {
-    await instance.post(queryKeys.getWeekMeal(), param);
+export const patchWeekendMeal = async (param: WeekendMealParams) => {
+    await instance.patch(queryKeys.getWeekMeal(), param);
 };
