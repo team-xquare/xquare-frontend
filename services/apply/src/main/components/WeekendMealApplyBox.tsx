@@ -12,7 +12,7 @@ const WeekendMealApplyBox = () => {
     const sendApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            detail.success && mutate({ apply: 'APPLY' });
+            detail.success && mutate({ status: 'APPLY' });
         },
         {
             message: '주말 급식을 신청하겠습니까?',
@@ -21,14 +21,14 @@ const WeekendMealApplyBox = () => {
         },
         ({ data }) => {
             const isSuccess = confirm(data.message);
-            isSuccess && mutate({ apply: 'APPLY' });
+            isSuccess && mutate({ status: 'APPLY' });
         },
     );
 
     const sendNotApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            detail.success && mutate({ apply: 'NOT_APPLY' });
+            detail.success && mutate({ status: 'NOT_APPLY' });
         },
         {
             message: '주말 급식 신청을 취소하겠습니까',
@@ -37,7 +37,7 @@ const WeekendMealApplyBox = () => {
         },
         ({ data }) => {
             const isSuccess = confirm(data.message);
-            isSuccess && mutate({ apply: 'NOT_APPLY' });
+            isSuccess && mutate({ status: 'NOT_APPLY' });
         },
     );
 
@@ -50,7 +50,7 @@ const WeekendMealApplyBox = () => {
                 <MealApplyButton
                     loading={isLoading}
                     size="sm"
-                    fill={weekendMealStatus?.applied === 'APPLY' ? 'purple' : 'border'}
+                    fill={weekendMealStatus?.status === 'APPLY' ? 'purple' : 'border'}
                     onClick={sendApplyConfirm}
                     //disabled={!weekendMealStatus}
                 >
@@ -59,7 +59,7 @@ const WeekendMealApplyBox = () => {
                 <MealApplyButton
                     loading={isLoading}
                     size="sm"
-                    fill={weekendMealStatus?.applied === 'NOT_APPLY' ? 'purple' : 'border'}
+                    fill={weekendMealStatus?.status === 'NOT_APPLY' ? 'purple' : 'border'}
                     onClick={sendNotApplyConfirm}
                     //disabled={!weekendMealStatus}
                 >

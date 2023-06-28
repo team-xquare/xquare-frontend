@@ -97,6 +97,12 @@ export type WeekendMealStu = {
     id: string;
     name: string;
     num: string;
+    status: string;
+};
+
+export type WeekendMealAll = {
+    response_students: WeekendMealStu[];
+    non_response_students: WeekendMealStu[];
 };
 
 export type PicnicStu = {

@@ -14,12 +14,12 @@ export interface StayStatus {
 }
 
 export interface WeekendMealParams {
-    apply: ApplyType;
+    status: ApplyType;
 }
 
 export interface WeekendMealStatus {
     title: string;
-    applied: ApplyType;
+    status: ApplyType;
 }
 
 // export interface = {"study_room": "e9c776b6-da7c-4f34-ab5c-6060cd4cb828"}

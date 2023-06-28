@@ -14,7 +14,7 @@ const useSetWeekendMeal = () => {
             if (previousStatus) {
                 queryClient.setQueryData<WeekendMealStatus>(weekendmealKey, {
                     ...previousStatus,
-                    applied: data.apply,
+                    status: data.status,
                 });
             }
             return { previousStatus };

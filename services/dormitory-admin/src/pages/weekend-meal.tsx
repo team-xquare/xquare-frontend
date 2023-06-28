@@ -32,7 +32,7 @@ const WeekendMeal = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data?.students.map((stu) => (
+                            {data?.response_students.map((stu) => (
                                 <TableRow
                                     cellSizes={cellSizes}
                                     style={{ padding: '8px 28px' }}
