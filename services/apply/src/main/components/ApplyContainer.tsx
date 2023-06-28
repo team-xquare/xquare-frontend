@@ -14,7 +14,7 @@ const ApplyContainer: FC<PropsWithChildren<ApplyContainerProps>> = ({
     title,
 }) => {
     return (
-        <FlexCol gap={12} fullWidth>
+        <FlexCol gap={12} fullWidth style={{ paddingRight: '16px' }}>
             <FlexCol gap={4}>
                 <Subtitle4>{title}</Subtitle4>
                 {subTitle && <Caption>{subTitle}</Caption>}

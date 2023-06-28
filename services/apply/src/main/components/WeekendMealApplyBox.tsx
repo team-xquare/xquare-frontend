@@ -46,26 +46,28 @@ const WeekendMealApplyBox = () => {
             <Botton>
                 {weekendMealStatus ? weekendMealStatus?.title : '지금은 신청기간이 아닙니다'}
             </Botton>
-            <FlexRow gap={10}>
-                <MealApplyButton
-                    loading={isLoading}
-                    size="sm"
-                    fill={weekendMealStatus?.status === 'APPLY' ? 'purple' : 'border'}
-                    onClick={sendApplyConfirm}
-                    //disabled={!weekendMealStatus}
-                >
-                    신청
-                </MealApplyButton>
-                <MealApplyButton
-                    loading={isLoading}
-                    size="sm"
-                    fill={weekendMealStatus?.status === 'NOT_APPLY' ? 'purple' : 'border'}
-                    onClick={sendNotApplyConfirm}
-                    //disabled={!weekendMealStatus}
-                >
-                    미신청
-                </MealApplyButton>
-            </FlexRow>
+            {weekendMealStatus && (
+                <FlexRow gap={10}>
+                    <MealApplyButton
+                        loading={isLoading}
+                        size="sm"
+                        fill={weekendMealStatus?.status === 'APPLY' ? 'purple' : 'border'}
+                        onClick={sendApplyConfirm}
+                        //disabled={!weekendMealStatus}
+                    >
+                        신청
+                    </MealApplyButton>
+                    <MealApplyButton
+                        loading={isLoading}
+                        size="sm"
+                        fill={weekendMealStatus?.status === 'NOT_APPLY' ? 'purple' : 'border'}
+                        onClick={sendNotApplyConfirm}
+                        //disabled={!weekendMealStatus}
+                    >
+                        미신청
+                    </MealApplyButton>
+                </FlexRow>
+            )}
         </MealApplyWrapper>
     );
 };
