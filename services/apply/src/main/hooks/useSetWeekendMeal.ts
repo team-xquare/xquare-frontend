@@ -1,20 +1,20 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axiosErrorTemplate from '../../utils/function/axiosErrorTemplate';
 import { queryKeys } from '../../utils/queryKeys';
-import { postWeekendMeal } from '../apis';
+import { patchWeekendMeal } from '../apis';
 import { WeekendMealStatus } from '../types';
 
 const useSetWeekendMeal = () => {
     const queryClient = useQueryClient();
     const weekendmealKey = queryKeys.getWeekMeal();
-    return useMutation(postWeekendMeal, {
+    return useMutation(patchWeekendMeal, {
         onMutate: async (data) => {
             await queryClient.cancelQueries(weekendmealKey);
             const previousStatus = queryClient.getQueryData<WeekendMealStatus>(weekendmealKey);
             if (previousStatus) {
                 queryClient.setQueryData<WeekendMealStatus>(weekendmealKey, {
                     ...previousStatus,
-                    applied: data.apply,
+                    status: data.status,
                 });
             }
             return { previousStatus };

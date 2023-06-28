@@ -15,7 +15,6 @@ import { prefetchWeekendMeal } from '../main/hooks/useWeekendMeal';
 import ridingIcon from '../assets/riding.png';
 import useGetWeekendOut from '../weekend-out/hooks/useGetWeekendOut';
 
-
 const Apply: NextPage = () => {
     const { data: stayList } = useStayList();
     const { data: stayStatus } = useStayStatus();
@@ -40,11 +39,11 @@ const Apply: NextPage = () => {
                         ))}
                     </WeekendStayWrapper>
                 </ApplyBox>
-                {/* {<ApplyBox
+                <ApplyBox
                     title="주말급식 신청"
                     subTitle="신청여부는 담임선생님께서 확인 후 전달돼요.">
                     <WeekendMealApplyBox />
-                </ApplyBox>} */}
+                </ApplyBox>
                 <ApplyBox title="추가 신청">
                     <AdditionalApplyItem
                         applyKind="교실 이동"

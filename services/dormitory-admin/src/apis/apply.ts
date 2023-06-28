@@ -6,7 +6,7 @@ import {
     SelectedPicnicType,
     Stay,
     StayCode,
-    WeekendMealStu,
+    WeekendMealAll,
 } from './types';
 import FileSaver from 'file-saver';
 import toast from 'react-hot-toast';
@@ -48,9 +48,7 @@ export const useStayExcel = () => {
 
 export const useWeekendMealList = () => {
     const fetcher = async () => {
-        const response = await applyInstance.get<{ students: WeekendMealStu[] }>(
-            '/admin/weekend-meal',
-        );
+        const response = await applyInstance.get<WeekendMealAll>('/admin/weekend-meal');
         return response.data;
     };
     return useQuery('/admin/weekend-meal', fetcher, {
@@ -91,7 +89,7 @@ export const usePicnicExcel = () => {
 export const useWeekendMealExcel = () => {
     const fetcher = async () => {
         try {
-            const { data } = await applyInstance.get('admin/weekend-meal/excel', {
+            const { data } = await applyInstance.get('admin/weekend-meal/all/excel', {
                 responseType: 'blob',
             });
             FileSaver.saveAs(data, `주말 급식 현황${new Date()}.xlsx`);
