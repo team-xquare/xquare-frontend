@@ -32,19 +32,21 @@ const WeekendMeal = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data?.response_students.map((stu) => (
-                                <TableRow
-                                    cellSizes={cellSizes}
-                                    style={{ padding: '8px 28px' }}
-                                    key={stu.id}>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{stu.num}</Body2>
-                                    </CustomTableCell>
-                                    <CustomTableCell scope="col" justify="center">
-                                        <Body2>{stu.name}</Body2>
-                                    </CustomTableCell>
-                                </TableRow>
-                            ))}
+                            {data?.response_students
+                                .filter((item) => item.status === 'APPLY')
+                                .map((stu) => (
+                                    <TableRow
+                                        cellSizes={cellSizes}
+                                        style={{ padding: '8px 28px' }}
+                                        key={stu.id}>
+                                        <CustomTableCell scope="col" justify="center">
+                                            <Body2>{stu.num}</Body2>
+                                        </CustomTableCell>
+                                        <CustomTableCell scope="col" justify="center">
+                                            <Body2>{stu.name}</Body2>
+                                        </CustomTableCell>
+                                    </TableRow>
+                                ))}
                         </TableBody>
                     </Table>
                 </ScrollBox>
