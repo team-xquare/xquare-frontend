@@ -15,7 +15,7 @@ const WeekendMealApplyBox = () => {
             detail.success && mutate({ status: 'APPLY' });
         },
         {
-            message: '주말 급식을 신청하겠습니까?',
+            message: '주말 급식을 신청 하겠습니까?',
             confirmText: '신청하기',
             cancelText: '다음에 하기',
         },
@@ -31,8 +31,8 @@ const WeekendMealApplyBox = () => {
             detail.success && mutate({ status: 'NOT_APPLY' });
         },
         {
-            message: '주말 급식 신청을 취소하겠습니까',
-            confirmText: '취소하기',
+            message: '주말 급식을 미신청 하겠습니까?',
+            confirmText: '미신청하기',
             cancelText: '다음에 하기',
         },
         ({ data }) => {
