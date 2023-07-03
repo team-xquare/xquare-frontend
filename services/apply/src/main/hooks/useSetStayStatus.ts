@@ -16,11 +16,12 @@ const useSetStayStatus = () => {
             queryClient.setQueryData(stayStatusKey, newStatus);
             return { previousStatus };
         },
-        // onSuccess: () => {
-        //     sendBridgeEvent('error', {
-        //         message: '잔류신청 변경에 성공하였습니다.',
-        //     });
-        // },
+        onSuccess: () => {
+            sendBridgeEvent('success', {
+                title: '안내',
+                message: '잔류신청이 변경되었습니다.',
+            });
+        },
         onError: (error, _, context) => {
             queryClient.setQueryData(stayStatusKey, context as StayStatus);
             axiosErrorTemplate(error, {

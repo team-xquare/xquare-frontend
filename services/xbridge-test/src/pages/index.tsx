@@ -120,8 +120,8 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button
                 onClick={() =>
                     sendBridgeEvent('success', {
-                        title: '브릿지 테스트에 성공하였습니다.',
-                        message: '확인',
+                        title: '성공',
+                        message: '브릿지 테스트에 성공하였습니다.',
                     })
                 }>
                 success 버튼
