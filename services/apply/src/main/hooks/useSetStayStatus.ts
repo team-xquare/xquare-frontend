@@ -24,9 +24,9 @@ const useSetStayStatus = () => {
         },
         onError: (error, _, context) => {
             queryClient.setQueryData(stayStatusKey, context as StayStatus);
-            axiosErrorTemplate(error, {
-                400: '외출 신청시간이 마감되었습니다. 사감실에 문의해주세요,',
-            });
+            sendBridgeEvent('error', {
+                message: '잔류신청이 마감되었습니다. 사감실에 문의해주세요.'
+            })
         },
         onSettled: () => {
             queryClient.invalidateQueries(stayStatusKey);
