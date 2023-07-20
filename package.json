@@ -28,5 +28,8 @@
         "{services,shared}/**/*.{js,ts,jsx,tsx}": [
             "prettier --write"
         ]
+    },
+    "installConfig": {
+        "hoistingLimits": "workspaces"
     }
 }

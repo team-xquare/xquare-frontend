@@ -1,1 +1,2 @@
-# xdesign-story
+# @service/xdesign-story
+xdesign-story

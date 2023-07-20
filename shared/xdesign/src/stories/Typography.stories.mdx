@@ -1,0 +1,42 @@
+import { Meta, Canvas, ArgsTable, Story } from '@storybook/addon-docs';
+import {
+    Title1,
+    Title2,
+    Title3,
+    Subtitle1,
+    Subtitle2,
+    Subtitle3,
+    Subtitle4,
+    Body1,
+    Body2,
+    Body3,
+    Botton,
+    Caption,
+} from '../components/typography';
+
+<Meta title="Components/Typography" component={Title1} />
+
+# Typography
+
+** Font :** Noto Sans KR
+
+** Weights :** 200(Light), 300(Regular), 400(Medium), 500(Bold)
+
+<Canvas>
+    <Story name="Typography">
+        <Title1>Title1</Title1>
+        <Title2>Title2</Title2>
+        <Title3>Title3</Title3>
+        <Subtitle1>Subtitle1</Subtitle1>
+        <Subtitle2>Subtitle2</Subtitle2>
+        <Subtitle3>Subtitle3</Subtitle3>
+        <Subtitle4>Subtitle4</Subtitle4>
+        <Body1>Body1</Body1>
+        <Body2>Body2</Body2>
+        <Body3>Body3</Body3>
+        <Botton>Botton</Botton>
+        <Caption>Caption</Caption>
+    </Story>
+</Canvas>
+
+<ArgsTable of={Title1} />
