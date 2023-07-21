@@ -1,13 +1,15 @@
-import type { StorybookConfig } from '@storybook/nextjs';
-const config: StorybookConfig = {
-    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+import path from 'path';
+
+const config = {
+    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
     addons: [
-        '@storybook/addon-links',
-        '@storybook/addon-essentials',
-        '@storybook/addon-interactions',
+        path.dirname(require.resolve(path.join('@storybook/addon-links', 'package.json'))),
+        path.dirname(require.resolve(path.join('@storybook/addon-essentials', 'package.json'))),
+        path.dirname(require.resolve(path.join('@storybook/addon-onboarding', 'package.json'))),
+        path.dirname(require.resolve(path.join('@storybook/addon-interactions', 'package.json'))),
     ],
     framework: {
-        name: '@storybook/nextjs',
+        name: path.dirname(require.resolve(path.join('@storybook/nextjs', 'package.json'))),
         options: {},
     },
     docs: {
