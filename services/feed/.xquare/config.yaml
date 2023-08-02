@@ -1,4 +1,5 @@
 config:
   name: feed
   service_type: fe
-  prefix: /feed
+  prefix: /feed 
+  port: 3000
