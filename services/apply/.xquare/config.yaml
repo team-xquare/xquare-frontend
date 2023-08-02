@@ -1,4 +1,4 @@
 config:
   name: apply
   service_type: fe
-  prefix: /apply
+  prefix: /apply 
