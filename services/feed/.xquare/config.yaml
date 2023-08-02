@@ -2,3 +2,4 @@ config:
   name: feed
   service_type: fe
   prefix: /feed
+  
