@@ -1,0 +1,5 @@
+config:
+  name: dormitory-admin
+  service_type: fe
+  host:
+    prod: admin.xquare.app

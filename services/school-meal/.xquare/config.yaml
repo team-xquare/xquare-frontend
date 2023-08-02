@@ -1,0 +1,4 @@
+config:
+  name: school-meal
+  service_type: fe
+  prefix: /school-meal
