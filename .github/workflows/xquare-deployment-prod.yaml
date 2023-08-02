@@ -6,6 +6,9 @@ on:
     paths:
       - "services/**"
 
+env:
+  SERVICE_TYPE: fe
+
 jobs:
   get-versioning:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -60,6 +63,22 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
     steps:
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@master
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Docker
+        run: docker login -u ${{ steps.ecr.outputs.username }} -p ${{ steps.ecr.outputs.password }} https://${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+
       - name: Get Service
         id: get_service
         run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
@@ -73,14 +92,24 @@ jobs:
         with:
           path: ${{ matrix.workspaces.location }}
 
-      - name: Deploy to xquare
-        uses: team-xquare/xquare-deployment-action@master 
+      - name: Docker Build 
+        run: yarn docker build @service/${{steps.get_service.outputs.SERVICE}} -t ${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
+      
+      - name: Docker Push
+        run: docker push ${{ secrets.AWS_SPECIFIC_URI }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{steps.get_service.outputs.SERVICE}}-${{env.SERVICE_TYPE}}:${{ steps.package-version.outputs.current-version}}
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
         with:
-          environment: prod
-          xquare_role_arn: ${{ secrets.XQUARE_ROLE_ARN }}
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          base_url: services/${{ steps.get_service.outputs.SERVICE }}
-          config_file_path: services/${{ steps.get_service.outputs.SERVICE }}/.xquare/config.yaml
+          token: ${{ secrets.GITOPS_DEPLOY_STAGE_TOKEN }}
+          repository: team-xquare/xquare-gitops-repo-production
+          event-type: update_image
+          client-payload: '{
+                          "ref": "${{ github.ref }}", 
+                          "version":  "${{ steps.package-version.outputs.current-version}}",
+                          "service_name": "${{steps.get_service.outputs.SERVICE}}",
+                          "service_type": "${{ env.SERVICE_TYPE }}"
+                          }'
       
       - name: Pull Commit 
         run: git pull
@@ -95,3 +124,4 @@ jobs:
           commit_user_name: XQUARE Frontend Bot
           commit_user_email: teamxquare@gmail.com
           commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
+
