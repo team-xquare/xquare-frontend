@@ -2,4 +2,4 @@ config:
   name: school-meal
   service_type: fe
   prefix: /school-meal
-  port: 3000
+  port: 3000 

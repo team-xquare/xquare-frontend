@@ -2,5 +2,5 @@ config:
   name: dormitory-admin
   service_type: fe
   port: 3000
-  host:
+  host: 
     prod: admin-tes.xquare.app 

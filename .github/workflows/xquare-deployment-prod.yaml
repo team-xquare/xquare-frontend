@@ -83,19 +83,10 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ${{ matrix.workspaces.location }}
-
-      - name: Deploy to xquare
-        uses: team-xquare/xquare-deployment-action@master 
-        with:
-          environment: prod
-          xquare_role_arn: ${{ secrets.XQUARE_ROLE_ARN }}
-          github_token: ${{ secrets.GHP_TOKEN }}
-          base_url: services/${{ steps.get_service.outputs.SERVICE }}
-          config_file_path: services/${{ steps.get_service.outputs.SERVICE }}/.xquare/config.yaml
-      
+    
       - name: Pull Commit 
         run: git pull
-    
+
       - name: Commit With Versioning
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -106,4 +97,15 @@ jobs:
           commit_user_name: XQUARE Frontend Bot
           commit_user_email: teamxquare@gmail.com
           commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
+        
+      - name: Deploy to xquare
+        uses: team-xquare/xquare-deployment-action@master 
+        with:
+          environment: prod
+          xquare_role_arn: ${{ secrets.XQUARE_ROLE_ARN }}
+          github_token: ${{ secrets.GHP_TOKEN }}
+          base_url: services/${{ steps.get_service.outputs.SERVICE }}
+          config_file_path: services/${{ steps.get_service.outputs.SERVICE }}/.xquare/config.yaml
+          yarn_docker_build: true
+          yarn_workspace: "@service/${{ steps.get_service.outputs.SERVICE }}"
 
