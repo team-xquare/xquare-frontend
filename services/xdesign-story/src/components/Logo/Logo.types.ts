@@ -1,6 +1,6 @@
-import type { StandardAttrProps } from '@/types/ComponentsProps';
+import { HTMLAttributes } from 'react';
 
-export interface LogoProps extends StandardAttrProps {
+export interface LogoProps extends HTMLAttributes<HTMLElement> {
     symbol?: boolean;
     wordmark?: boolean;
     height?: number;

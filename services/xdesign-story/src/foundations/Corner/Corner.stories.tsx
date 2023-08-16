@@ -14,7 +14,7 @@ export default meta;
 export const FontWeightTemplate = () => (
     <FlexCol gap={20}>
         {cornerList.map((corner) => (
-            <FlexRow gap={30}>
+            <FlexRow align="center" gap={30}>
                 <Rect radius={corner[0]} />
                 <FlexCol>
                     <Text userSelect="none" typograghy="Display" size="Small">

@@ -14,7 +14,7 @@ export default meta;
 export const FontWeightTemplate = () => (
     <FlexCol gap={80}>
         {elevationList.map((elevation) => (
-            <FlexRow gap={30}>
+            <FlexRow align="center" gap={30}>
                 <Rect elevation={elevation[0]} />
                 <FlexCol>
                     <Text userSelect="none" typograghy="Display" size="Small">

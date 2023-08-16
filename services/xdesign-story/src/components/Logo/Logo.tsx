@@ -13,14 +13,14 @@ export const Logo = ({
     ...props
 }: LogoProps) => {
     return (
-        <FlexRow {...props}>
+        <FlexRow align="center" {...props}>
             {symbol && <Symbol height={height} />}
             {symbol && wordmark && <Spacing height={height * 0.7} />}
             {serviceName
                 ? wordmark && (
                       <FlexCol justify="space-between">
                           <Wordmark height={height * 0.45} />
-                          <ServiceName height={height * 0.35}>{serviceName}</ServiceName>
+                          <ServiceName height={height * 0.3}>{serviceName}</ServiceName>
                       </FlexCol>
                   )
                 : wordmark && <Wordmark height={height * 0.7} />}

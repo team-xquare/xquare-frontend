@@ -2,9 +2,6 @@ import styled from '@emotion/styled';
 import { TextProps } from './Text.type';
 
 export const Text = ({
-    className,
-    id,
-    style,
     align,
     children,
     typograghy = 'Body',
@@ -18,9 +15,6 @@ export const Text = ({
 }: TextProps) => {
     return (
         <TextView
-            className={className}
-            id={id}
-            style={style}
             align={align}
             whiteSpace={whiteSpace}
             underline={underline}

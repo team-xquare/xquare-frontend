@@ -1,6 +1,6 @@
-import { OnClickProps, StandardAttrProps } from '@/types/ComponentsProps';
+import { HTMLAttributes } from 'react';
 
-export interface FlexProps extends StandardAttrProps, OnClickProps {
+export interface FlexProps extends HTMLAttributes<HTMLElement> {
     gap?: number;
     align?:
         | 'center'

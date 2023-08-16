@@ -1,7 +1,7 @@
 import { TypoGraphyType, FontSizeKeyType } from '@/foundations';
-import type { ChildrenProps, OnClickProps, StandardAttrProps } from '@/types/ComponentsProps';
+import { HTMLAttributes } from 'react';
 
-export interface TextProps extends ChildrenProps, StandardAttrProps {
+export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     align?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent' | 'inherit';
     typograghy?: TypoGraphyType;
     size?: FontSizeKeyType;
