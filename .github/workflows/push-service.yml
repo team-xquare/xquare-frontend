@@ -54,7 +54,7 @@ jobs:
 
       - name: diff-workspace
         id: set-matrix
-        run: echo "::set-output name=matrix::{\"workspaces\":[$(yarn changed list --git-range $(git rev-parse HEAD^) --json --exclude xquare-frontend --exclude @shared/xbridge --exclude @shared/xbridge | tr "\n" ",")]}"
+        run: echo "::set-output name=matrix::{\"workspaces\":[$(yarn changed list --git-range $(git rev-parse HEAD^) --json --exclude xquare-frontend --exclude @shared/xbridge --exclude @shared/xdesign | tr "\n" ",")]}"
 
   build:
     name: Build
