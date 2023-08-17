@@ -98,8 +98,8 @@ export const auto: Readonly<ColorTheme> = {
 
 export const light: Readonly<ColorTheme> = {
     scheme: {
-        white: '000000',
-        black: 'FFFFFF',
+        white: '#000000',
+        black: '#FFFFFF',
         /* primary */
         primary0: '#000000',
         primary10: '#1D0D33',
@@ -122,7 +122,7 @@ export const light: Readonly<ColorTheme> = {
         secondary30: '#332382',
         secondary40: '#4430A8',
         secondary50: '#563ECC',
-        secondary60: '#1D0D33',
+        secondary60: '#684DF0',
         secondary70: '#856FF3',
         secondary80: '#A191F6',
         secondary90: '#BEB3F9',
@@ -194,8 +194,8 @@ export const light: Readonly<ColorTheme> = {
 
 export const dark: Readonly<ColorTheme> = {
     scheme: {
-        white: '000000',
-        black: 'FFFFFF',
+        white: '#000000',
+        black: '#FFFFFF',
         /* primary */
         primary0: '#000000',
         primary10: '#1D0D33',
@@ -208,7 +208,7 @@ export const dark: Readonly<ColorTheme> = {
         primary80: '#BE93FC',
         primary90: '#D2B4FD',
         primary95: '#E6D5FE',
-        primary99: '#D2B4FD',
+        primary99: '#FAF6FF',
         primary100: '#FFFFFF',
 
         /* secondary */
@@ -218,7 +218,7 @@ export const dark: Readonly<ColorTheme> = {
         secondary30: '#332382',
         secondary40: '#4430A8',
         secondary50: '#563ECC',
-        secondary60: '#1D0D33',
+        secondary60: '#684DF0',
         secondary70: '#856FF3',
         secondary80: '#A191F6',
         secondary90: '#BEB3F9',
