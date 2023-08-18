@@ -1,4 +1,6 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
+import { StyledProvider } from '../src/style/StyledProvider';
 
 const preview: Preview = {
     parameters: {
@@ -10,6 +12,13 @@ const preview: Preview = {
             },
         },
     },
+    decorators: [
+        (Story) => (
+            <StyledProvider>
+                <Story />
+            </StyledProvider>
+        ),
+    ],
 };
 
 export default preview;
