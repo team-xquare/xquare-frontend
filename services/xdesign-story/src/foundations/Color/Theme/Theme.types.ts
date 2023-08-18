@@ -1,6 +1,27 @@
-export type Theme = Record<string, string>;
+export type ThemeKeyType =
+    | 'Primary'
+    | 'OnPrimary'
+    | 'PrimaryContainer'
+    | 'OnPrimaryContainer'
+    | 'Secondary'
+    | 'OnSecondary'
+    | 'SecondaryContainer'
+    | 'OnSecondaryContainer'
+    | 'Tertiary'
+    | 'OnTertiary'
+    | 'TertiaryContainer'
+    | 'OnTertiaryContainer'
+    | 'Error'
+    | 'OnError'
+    | 'ErrorContainer'
+    | 'OnErrorContainer'
+    | 'Background'
+    | 'OnBackground'
+    | 'Surface'
+    | 'OnSurface'
+    | 'SurfaceVariant'
+    | 'OnSurfaceVariant'
+    | 'Outline'
+    | 'OutlineVariant';
 
-export type ThemeType = {
-    light: Theme;
-    dark: Theme;
-};
+export type ThemeType = Record<ThemeKeyType, string>;
