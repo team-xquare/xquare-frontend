@@ -35,6 +35,5 @@ const Rect = styled.div<{ radius: CornerKeyType }>`
     width: 120px;
     height: 120px;
     border-radius: ${({ theme, radius }) => theme.corner[radius]}px;
-    // TODO 색상 컬러시스템으로 변경 필요
-    background-color: #9650fa;
+    background-color: ${({ theme }) => theme.color.Palette.primary60};
 `;

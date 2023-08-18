@@ -7,9 +7,12 @@ import {
     FontStyleType,
     CornerType,
     ElevationType,
+    color,
+    ColorType,
 } from '@/foundations';
 
 interface ThemeType {
+    color: ColorType;
     fontWeight: FontWeightType;
     fontStyle: FontStyleType;
     corner: CornerType;
@@ -17,6 +20,7 @@ interface ThemeType {
 }
 
 export const theme: ThemeType = {
+    color,
     fontWeight,
     fontStyle,
     corner,

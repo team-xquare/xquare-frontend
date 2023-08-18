@@ -35,8 +35,7 @@ const Rect = styled.div<{ elevation: ElevationKeyType }>`
     width: 120px;
     height: 120px;
     border-radius: 16px;
-    // TODO 색상 컬러시스템으로 변경 필요
-    background-color: #9650fa;
+    background-color: ${({ theme }) => theme.color.Palette.primary60};
     box-shadow: 0px 0px ${({ theme, elevation }) => theme.elevation[elevation]}px 0px
         rgba(0, 0, 0, 0.25);
 `;
