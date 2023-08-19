@@ -39,7 +39,7 @@ const SwitchContainer = styled.div<SwitchContainerProps>`
     }
 `;
 
-export const Switch = ({ isOn, onClick, isActive }: SwitchProps) => {
+export const Switch = ({ isOn = false, onClick, isActive = false }: SwitchProps) => {
     return (
         <SwitchContainer onClick={isActive ? onClick : () => {}} isActive={isActive}>
             <div className={`wrapper ${isOn ? 'switch--checked' : null}`} />
