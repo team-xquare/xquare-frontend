@@ -1,7 +1,7 @@
 {
     "name": "@service/school-meal",
     "description": "학교급식을 보여주는 웹사이트 입니다",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "private": true,
     "scripts": {
         "dev": "next dev",
