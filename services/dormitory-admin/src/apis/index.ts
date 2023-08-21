@@ -3,7 +3,7 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { customCookie } from '../libs/cookie';
 import toast from 'react-hot-toast';
 import router from 'next/router';
-import { UserToken } from './types';
+import { UserRefreshToken } from './types';
 // const testToken =
 //     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NmZhNTQ1YS00NjA1LTQyMjgtYWE5OS1iZTNjZTBhMGIzMjMiLCJyb2xlIjoiRE9SIiwiZXhwIjoxNjc3ODM3NTY1LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiRE9SIl19.Ltfdsw3i9ADqXByA3RceznBySN3A68JRoswUNj67_04';
 
@@ -56,7 +56,7 @@ instanceArr.map((instance) => {
                         const beforeRefresh = customCookie.get.refresh_token();
                         if (!beforeRefresh) throw error;
 
-                        const response = await axios.put<UserToken>(
+                        const response = await axios.put<UserRefreshToken>(
                             `${xquareBaseUrl}/users/login`,
                             {},
                             {
