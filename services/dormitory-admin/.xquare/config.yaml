@@ -3,4 +3,4 @@ config:
   service_type: fe
   port: 3000
   domain: 
-    prod: admin.xquare.app
+    prod: admin.xquare.app 

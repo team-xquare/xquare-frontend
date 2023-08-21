@@ -75,29 +75,6 @@ jobs:
         id: get_service
         run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
 
-      - name: Sync Package Version
-        run: yarn workspace @service/${{ steps.get_service.outputs.SERVICE }} version ${{ needs.get-versioning.outputs.type }}
-
-      - name: Get Package Version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
-        with:
-          path: ${{ matrix.workspaces.location }}
-    
-      - name: Pull Commit 
-        run: git pull
-
-      - name: Commit With Versioning
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "release(${{steps.get_service.outputs.SERVICE}}): ${{ steps.package-version.outputs.current-version }} [skip ci]"
-          branch: main
-          commit_options: '--no-verify --signoff'
-          repository: .
-          commit_user_name: XQUARE Frontend Bot
-          commit_user_email: teamxquare@gmail.com
-          commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
-
       - name: Get access key
         id: access_key
         run: |
@@ -123,3 +100,33 @@ jobs:
           yarn_docker_build: true
           yarn_workspace: "@service/${{ steps.get_service.outputs.SERVICE }}"
 
+
+  commit_version:
+    name: Commit version
+    needs: [get-diff-workspace, get-versioning]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
+    steps:
+      - name: Sync Package Version
+        run: yarn workspace @service/${{ steps.get_service.outputs.SERVICE }} version ${{ needs.get-versioning.outputs.type }}
+
+      - name: Get Package Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+        with:
+          path: ${{ matrix.workspaces.location }}
+    
+      - name: Pull Commit 
+        run: git pull
+
+      - name: Commit With Versioning
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "release(${{steps.get_service.outputs.SERVICE}}): ${{ steps.package-version.outputs.current-version }} [skip ci]"
+          branch: main
+          commit_options: '--no-verify --signoff'
+          repository: .
+          commit_user_name: XQUARE Frontend Bot
+          commit_user_email: teamxquare@gmail.com
+          commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
