@@ -97,12 +97,26 @@ jobs:
           commit_user_name: XQUARE Frontend Bot
           commit_user_email: teamxquare@gmail.com
           commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>
-        
+
+      - name: Get access key
+        id: access_key
+        run: |
+            service_name="${{steps.get_service.outputs.SERVICE}}"
+            if [[ $service_name == "apply" ]]; then
+              echo "ACCESS_KEY=${{ secrets.APPLY_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "dormitory-admin" ]]; then
+              echo "ACCESS_KEY=${{ secrets.DOMITORY_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "feed" ]]; then
+              echo "ACCESS_KEY=${{ secrets.FEED_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "school-meal" ]]; then
+              echo "ACCESS_KEY=${{ secrets.MEAL_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            fi
+
       - name: Deploy to xquare
         uses: team-xquare/xquare-deployment-action@master 
         with:
           environment: prod
-          xquare_role_arn: ${{ secrets.XQUARE_ROLE_ARN }}
+          access_key: ${{ steps.access_key.outputs.ACCESS_KEY }}
           github_token: ${{ secrets.GHP_TOKEN }}
           base_url: services/${{ steps.get_service.outputs.SERVICE }}
           config_file_path: services/${{ steps.get_service.outputs.SERVICE }}/.xquare/config.yaml
