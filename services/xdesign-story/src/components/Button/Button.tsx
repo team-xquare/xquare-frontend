@@ -1,17 +1,20 @@
+import React from 'react';
 import { ColorToken, Palette } from '@/foundations/Color/Palette';
 import { Icon } from '@/foundations/Icon';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ButtonVarientType, ButtonKindType, ButtonProps } from './Button.types';
 
-export const Button = ({ varient, kind, icon, children, ...props }: ButtonProps) => {
-    return (
-        <Layout varient={varient} kind={kind} {...props}>
-            {children}
-            <Icon iconName={icon} size={24} color={iconColor(kind, varient)} />
-        </Layout>
-    );
-};
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ varient, kind, icon, children, ...props }, ref) => {
+        return (
+            <Layout ref={ref} varient={varient} kind={kind} {...props}>
+                {children}
+                <Icon iconName={icon} size={24} color={iconColor(kind, varient)} />
+            </Layout>
+        );
+    },
+);
 
 export const Layout = styled.button<ButtonProps>`
     display: flex;
@@ -48,7 +51,6 @@ const kindVarient = (kind: ButtonKindType, varient: ButtonVarientType) => {
                 background-color: ${Palette[`${varient}100` as ColorToken]};
                 border: 1px solid ${Palette[`${varient}90` as ColorToken]};
                 &:active {
-                    color: ${Palette[`${varient}100` as ColorToken]};
                     background-color: ${Palette[`${varient}90` as ColorToken]};
                 }
             `;
@@ -73,7 +75,7 @@ const iconColor = (
         case 'outlined':
             return `${varient}60`;
         case 'text':
-            return `${varient}90`;
+            return `${varient}0`;
         default:
             return `${varient}100`;
     }

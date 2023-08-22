@@ -1,21 +1,23 @@
-import { ColorToken, Palette } from '@/foundations/Color/Palette';
+import { ColorToken } from '@/foundations/Color/Palette';
 import { lightTheme } from '@/foundations/Color/Theme';
 import { Icon } from '@/foundations/Icon';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import React from 'react';
 import { Layout } from '../Button';
-import { ButtonKindType } from '../Button.types';
 import { ChipKindType, ChipProps } from './Chip.types';
 
-export const Chip = ({ kind = 'filled', leftIcon, rightIcon, children, ...props }: ChipProps) => {
-    return (
-        <ChipLayout kind={kind} {...props}>
-            <Icon iconName={leftIcon} size={16} color={iconColor(kind)} />
-            {children}
-            <Icon iconName={rightIcon} size={16} color={iconColor(kind)} />
-        </ChipLayout>
-    );
-};
+export const Chip = React.forwardRef<HTMLButtonElement, ChipProps>(
+    ({ kind = 'filled', leftIcon, rightIcon, children, ...props }, ref) => {
+        return (
+            <ChipLayout kind={kind} ref={ref} {...props}>
+                <Icon iconName={leftIcon} size={16} color={iconColor(kind)} />
+                {children}
+                <Icon iconName={rightIcon} size={16} color={iconColor(kind)} />
+            </ChipLayout>
+        );
+    },
+);
 
 const ChipLayout = styled(Layout)<ChipProps>`
     padding: 4px;
