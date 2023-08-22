@@ -1,5 +1,5 @@
 import { Switch } from '.';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default {
     title: 'components/Switch',
@@ -8,17 +8,20 @@ export default {
 
 export const Default = () => {
     const [isOn1, setIsOn1] = useState<boolean>(false);
-    const [isOn2, setIsOn2] = useState<boolean>(false);
+    const ref = useRef<HTMLButtonElement | null>(null);
 
     return (
         <>
+            <h2>Switch</h2>
+            <br />
+
             <h3>{`${isOn1}`}</h3>
-            <Switch isOn={isOn1} onClick={() => setIsOn1(!isOn1)} isActive={true} />
+            <Switch isOn={isOn1} onClick={() => setIsOn1(!isOn1)} disabled={false} ref={ref} />
             <br />
             <h3>비활성화되었을 시 40%의 alpha 값을 가집니다.</h3>
-            <Switch isOn={isOn2} onClick={() => setIsOn2(!isOn2)} isActive={false} />
+            <Switch isOn={true} onClick={() => {}} disabled={true} />
             <br />
-            <Switch isOn={!isOn2} onClick={() => setIsOn2(!isOn2)} isActive={false} />
+            <Switch isOn={false} onClick={() => {}} disabled={true} />
         </>
     );
 };

@@ -8,5 +8,5 @@ export interface SwitchProps extends HTMLAttributes<HTMLElement> {
     onClick: () => void;
 
     /** 활성화/비활성화 여부 */
-    isActive: boolean;
+    disabled: boolean;
 }
