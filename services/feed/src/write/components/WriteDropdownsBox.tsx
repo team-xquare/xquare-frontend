@@ -39,7 +39,7 @@ const WriteDropdownBox = ({ setNewFeedInfo }: WriteDropdownBoxProps) => {
     }, [selectedCategory]);
 
     useEffect(() => {
-        setNewFeedInfo((state) => ({ ...state, type: selectedAuthority.authority }));
+        setNewFeedInfo((state) => ({ ...state, authorityType: selectedAuthority.authority }));
     }, [selectedAuthority]);
 
     useEffect(() => {
