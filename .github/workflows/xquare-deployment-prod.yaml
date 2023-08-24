@@ -108,6 +108,10 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
     steps:
+      - name: Get Service
+        id: get_service
+        run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
+    
       - name: Sync Package Version
         run: yarn workspace @service/${{ steps.get_service.outputs.SERVICE }} version ${{ needs.get-versioning.outputs.type }}
 
