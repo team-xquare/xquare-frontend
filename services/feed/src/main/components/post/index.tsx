@@ -25,7 +25,7 @@ const FeedPost = ({
     is_mine,
     like_count,
     profile,
-    type,
+    authority_type,
     categoryId,
 }: FeedPostProps) => {
     const { mutate: deleteMutate } = useDeleteFeed(feed_id, categoryId);
@@ -35,7 +35,7 @@ const FeedPost = ({
         confirmText: '삭제하기',
     });
 
-    const menuAction: Record<typeof actionSheetMenu[number], () => void> = {
+    const menuAction: Record<(typeof actionSheetMenu)[number], () => void> = {
         삭제하기: () => {
             deleteConfirm();
         },
@@ -47,14 +47,14 @@ const FeedPost = ({
             });
         },
     };
-
+    // console.log(`${type}`);
     return (
         <FlexCol fullWidth>
             <FeedPostContainer>
                 <PostHeaderContainer>
                     <PostProfile
                         createAt={created_at}
-                        name={`${name ? `${name}-` : ''}${type}`}
+                        name={`${name ? `${name}-` : ''}${authority_type}`}
                         profileSrc={profile}
                     />
 

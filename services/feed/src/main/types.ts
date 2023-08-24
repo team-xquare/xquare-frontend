@@ -9,7 +9,7 @@ export type FeedType = {
     like_count: number;
     name: string;
     profile: string;
-    type: string;
+    authority_type: string;
 };
 
 export interface GetFeedListResponseDto {
