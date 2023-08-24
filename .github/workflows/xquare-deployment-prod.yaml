@@ -108,6 +108,11 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
     steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+          
       - name: Get Service
         id: get_service
         run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
