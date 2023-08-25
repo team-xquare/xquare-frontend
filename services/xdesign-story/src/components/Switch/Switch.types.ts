@@ -1,6 +1,4 @@
-import { HTMLAttributes } from 'react';
-
-export interface SwitchProps extends HTMLAttributes<HTMLElement> {
+export interface SwitchProps {
     /** on/off 여부*/
     isOn: boolean;
 

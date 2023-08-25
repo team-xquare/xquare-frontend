@@ -1,14 +1,28 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import styled from '@emotion/styled';
+import { useRef, useState } from 'react';
 import { Switch } from '.';
 
-const meta: Meta<typeof Switch> = {
+export default {
     title: 'Components/Switch',
     component: Switch,
 };
 
-export default meta;
-type Story = StoryObj<typeof Switch>;
+const Background = styled.div`
+    display: flex;
+`;
 
-export const Default: Story = {
-    args: { disabled: false, isOn: false },
+export const Default: React.VFC = () => {
+    const [isOn, setIsOn] = useState<boolean>(false);
+    const ref = useRef(null);
+    const onClick = () => {
+        setIsOn(!isOn);
+    };
+
+    return (
+        <Background>
+            <Switch isOn={isOn} onClick={onClick} disabled={false} ref={ref} />
+            <Switch isOn={false} onClick={onClick} disabled={true} />
+            <Switch isOn={true} onClick={onClick} disabled={true} />
+        </Background>
+    );
 };

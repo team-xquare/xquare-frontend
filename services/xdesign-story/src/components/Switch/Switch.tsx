@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import { SwitchProps } from './Switch.types';
 
@@ -36,23 +36,20 @@ const SwitchContainer = styled.button<SwitchProps>`
     }
 `;
 
-export const Switch = React.forwardRef(function Switch(
-    props: SwitchProps,
-    ref: React.Ref<HTMLButtonElement> | null,
-) {
-    const handleClick = () => {
+export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(function Switch(props, ref) {
+    const handleContainerClick = () => {
         if (!props.disabled) {
             props.onClick();
+            if (typeof ref !== 'function') {
+                ref?.current?.click();
+            }
         }
     };
 
     return (
-        <SwitchContainer
-            ref={ref}
-            onClick={handleClick}
-            disabled={props.disabled}
-            isOn={props.isOn}>
+        <SwitchContainer onClick={handleContainerClick} disabled={props.disabled} isOn={props.isOn}>
             <div className="circle" />
+            <input type="checkbox" style={{ display: 'none' }} ref={ref} />
         </SwitchContainer>
     );
 });
