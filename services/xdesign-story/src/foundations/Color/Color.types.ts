@@ -1,5 +1,5 @@
-import { ColorToken, PaletteType } from './Palette';
-import { ThemeKeyType, ThemeType } from './Theme';
+import { PaletteType } from './Palette';
+import { ThemeType } from './Theme';
 
 export type ColorType = {
     Palette: PaletteType;

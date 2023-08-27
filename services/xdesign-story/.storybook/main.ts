@@ -7,6 +7,7 @@ const config = {
         path.dirname(require.resolve(path.join('@storybook/addon-essentials', 'package.json'))),
         path.dirname(require.resolve(path.join('@storybook/addon-onboarding', 'package.json'))),
         path.dirname(require.resolve(path.join('@storybook/addon-interactions', 'package.json'))),
+        path.dirname(require.resolve(path.join('storybook-dark-mode', 'package.json'))),
     ],
     framework: {
         name: path.dirname(require.resolve(path.join('@storybook/nextjs', 'package.json'))),

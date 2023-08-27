@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ColorToken } from '../Color/Palette';
+import { ThemeKeyType } from '../Color/Theme';
 import { icons } from './assets';
-import { FilledXquare } from './assets/FilledXquare';
 import { IconProps } from './Icon.types';
 
 export const Icon = ({ iconName, color = 'black', size = 48, ...props }: IconProps) => {
@@ -22,7 +22,13 @@ export const Icon = ({ iconName, color = 'black', size = 48, ...props }: IconPro
     );
 };
 
-const Svg = styled.svg<{ color?: ColorToken }>`
+const Svg = styled.svg<{ color?: ColorToken | ThemeKeyType }>`
     flex: 0 0 auto;
-    color: ${({ theme, color = 'black' }) => theme.color.Palette[color]};
+    color: ${({ theme, color = 'black' }) => {
+        if (typeof color === 'object' && 'Palette' in color) {
+            return theme.color.Palette[color];
+        } else if (typeof color === 'object' && 'ThemeKey' in color) {
+            return theme.themeColor[color];
+        }
+    }};
 `;

@@ -1,5 +1,5 @@
 import { ColorToken } from '@/foundations/Color/Palette';
-import { lightTheme } from '@/foundations/Color/Theme';
+import { ThemeKeyType, ThemeType } from '@/foundations/Color/Theme';
 import { Icon } from '@/foundations/Icon';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -25,36 +25,36 @@ const ChipLayout = styled(Layout)<ChipProps>`
     border-radius: 4px;
     ${({ theme }) => theme.fontStyle.Label.Medium};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
-    ${({ kind = 'filled' }) => kindVarient(kind)}
+    ${({ kind = 'filled', theme }) => kindVarient(kind, theme.themeColor)}
 `;
 
-const kindVarient = (kind: ChipKindType) => {
+const kindVarient = (kind: ChipKindType, themeColor: ThemeType) => {
     switch (kind) {
         case 'filled':
             return css`
-                color: ${lightTheme.OnSecondary};
-                background: ${lightTheme.Secondary};
+                color: ${themeColor.OnSecondary};
+                background: ${themeColor.Secondary};
             `;
         case 'outlined':
             return css`
-                color: ${lightTheme.Secondary};
-                background-color: ${lightTheme.OnSecondary};
-                border: 1px solid ${lightTheme.Secondary};
+                color: ${themeColor.Secondary};
+                background-color: ${themeColor.OnSecondary};
+                border: 1px solid ${themeColor.Secondary};
                 &:active {
-                    color: ${lightTheme.Secondary};
-                    background-color: ${lightTheme.SecondaryContainer};
+                    color: ${themeColor.Secondary};
+                    background-color: ${themeColor.SecondaryContainer};
                 }
             `;
     }
 };
 
-const iconColor = (kind: ChipKindType): ColorToken => {
+const iconColor = (kind: ChipKindType): ColorToken | ThemeKeyType => {
     switch (kind) {
         case 'filled':
-            return `secondary100`;
+            return `OnSecondary`;
         case 'outlined':
-            return `secondary60`;
+            return `Secondary`;
         default:
-            return `secondary100`;
+            return `OnSecondary`;
     }
 };

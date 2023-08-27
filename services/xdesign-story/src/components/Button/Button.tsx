@@ -4,6 +4,7 @@ import { Icon } from '@/foundations/Icon';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ButtonVarientType, ButtonKindType, ButtonProps } from './Button.types';
+import { ThemeType } from '@/foundations/Color/Theme';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ varient, kind, icon, children, ...props }, ref) => {
@@ -27,7 +28,8 @@ export const Layout = styled.button<ButtonProps>`
     padding: 12px 16px;
     ${({ theme }) => theme.fontStyle.Body.Large};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
-    ${({ kind = 'filled', varient = 'primary' }) => kindVarient(kind, varient)};
+    ${({ kind = 'filled', varient = 'primary', theme }) =>
+        kindVarient(kind, varient, theme.themeColor)};
     cursor: pointer;
     &:disabled {
         opacity: 0.4;
@@ -35,31 +37,31 @@ export const Layout = styled.button<ButtonProps>`
     }
 `;
 
-const kindVarient = (kind: ButtonKindType, varient: ButtonVarientType) => {
+const kindVarient = (kind: ButtonKindType, varient: ButtonVarientType, themeColor: ThemeType) => {
     switch (kind) {
         case 'filled':
             return css`
-                color: ${Palette[`${varient}100` as ColorToken]};
-                background-color: ${Palette[`${varient}60` as ColorToken]};
+                color: ${themeColor.OnPrimary};
+                background-color: ${themeColor.Primary};
                 &:active {
                     opacity: 0.9;
                 }
             `;
         case 'outlined':
             return css`
-                color: ${Palette[`${varient}60` as ColorToken]};
-                background-color: ${Palette[`${varient}100` as ColorToken]};
-                border: 1px solid ${Palette[`${varient}90` as ColorToken]};
+                color: ${themeColor.Primary};
+                background-color: ${themeColor.OnPrimary};
+                border: 1px solid ${themeColor.Primary};
                 &:active {
-                    background-color: ${Palette[`${varient}90` as ColorToken]};
+                    background-color: ${themeColor.PrimaryContainer};
                 }
             `;
         case 'text':
             return css`
-                color: ${Palette[`${varient}0` as ColorToken]};
+                color: ${themeColor.OnSurface};
                 background-color: transparent;
                 &:active {
-                    background-color: ${Palette[`${varient}90` as ColorToken]};
+                    background-color: ${themeColor.PrimaryContainer};
                 }
             `;
     }
