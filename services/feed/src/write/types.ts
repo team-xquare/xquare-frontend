@@ -12,5 +12,5 @@ export interface PostFeedResponse {
     title: string;
     content: string;
     category_id: string;
-    authorityType: string;
+    authority_type: string;
 }

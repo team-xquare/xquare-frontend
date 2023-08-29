@@ -16,14 +16,14 @@ const Write = () => {
         content: '',
         fileBase64Arr: [],
         title: '12345',
-        authorityType: '',
+        authority_type: '',
     });
 
     useEffect(() => {
         sendBridgeEvent('isRightButtonEnabled', {
-            isEnabled: !!newFeedInfo.content && !!newFeedInfo.authorityType,
+            isEnabled: !!newFeedInfo.content && !!newFeedInfo.authority_type,
         });
-    }, [!!newFeedInfo.content, !!newFeedInfo.authorityType]);
+    }, [!!newFeedInfo.content, !!newFeedInfo.authority_type]);
 
     const { mutate: addFeedMutate } = useAddFeed();
 
