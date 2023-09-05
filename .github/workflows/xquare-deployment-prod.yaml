@@ -1,0 +1,141 @@
+name: Xquare Deploy for Production
+on: 
+  push:
+    branches: 
+      - main
+    paths:
+      - "services/**"
+
+env:
+  SERVICE_TYPE: fe
+
+jobs:
+  get-versioning:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    outputs: 
+      type: ${{ steps.versioning.outputs.type }}
+    steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: Get Prefix By Commit 
+        id: get_commit_prefix
+        run: echo $(echo "${{ github.event.head_commit.message }}" | cut -d ":" -f 1 | cut -d "(" -f 1 | cut -d " " -f 1)
+
+      - name: Parse xquare-versioning.json
+        id: parse_xquare_versioning
+        run: |
+            content=`cat ./xquare-versioning.json`
+            content="${content//'%'/'%25'}"
+            content="${content//$'\n'/'%0A'}"
+            content="${content//$'\r'/'%0D'}"
+            echo "::set-output name=xquareVersioning::$content"
+
+      - name: Get Do Versioning
+        id: versioning
+        run: |
+            echo "::set-output name=type::${{ fromJson(steps.parse_xquare_versioning.outputs.xquareVersioning).commit.fix }}"
+
+
+  get-diff-workspace:
+    needs: get-versioning
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          fetch-depth: '2'
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: diff-workspace
+        id: set-matrix
+        run: echo "::set-output name=matrix::{\"workspaces\":[$(yarn changed list --git-range $(git rev-parse HEAD^) --json --exclude xquare-frontend --exclude @shared/xbridge | tr "\n" ",")]}"
+
+  build:
+    permissions:
+      id-token: write
+      contents: read
+    name: Build
+    needs: [get-diff-workspace, get-versioning]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
+    steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: Get Service
+        id: get_service
+        run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
+
+      - name: Get access key
+        id: access_key
+        run: |
+            service_name="${{steps.get_service.outputs.SERVICE}}"
+            if [[ $service_name == "apply" ]]; then
+              echo "ACCESS_KEY=${{ secrets.APPLY_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "dormitory-admin" ]]; then
+              echo "ACCESS_KEY=${{ secrets.DOMITORY_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "feed" ]]; then
+              echo "ACCESS_KEY=${{ secrets.FEED_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "school-meal" ]]; then
+              echo "ACCESS_KEY=${{ secrets.MEAL_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            fi
+
+      - name: Deploy to xquare
+        uses: team-xquare/xquare-deployment-action@master 
+        with:
+          environment: prod
+          access_key: ${{ steps.access_key.outputs.ACCESS_KEY }}
+          github_token: ${{ secrets.GHP_TOKEN }}
+          base_url: services/${{ steps.get_service.outputs.SERVICE }}
+          config_file_path: services/${{ steps.get_service.outputs.SERVICE }}/.xquare/config.yaml
+          yarn_docker_build: true
+          yarn_workspace: "@service/${{ steps.get_service.outputs.SERVICE }}"
+
+
+  commit_version:
+    name: Commit version
+    needs: [get-diff-workspace, get-versioning]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-diff-workspace.outputs.matrix) }}
+    steps:
+      - name: Check Out The Repository
+        uses: actions/checkout@v3
+        with: 
+          token: ${{ secrets.GHP_TOKEN }}
+          
+      - name: Get Service
+        id: get_service
+        run: echo ::set-output name=SERVICE::$(echo ${{ matrix.workspaces.name }} | cut -d / -f 2)
+    
+      - name: Sync Package Version
+        run: yarn workspace @service/${{ steps.get_service.outputs.SERVICE }} version ${{ needs.get-versioning.outputs.type }}
+
+      - name: Get Package Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+        with:
+          path: ${{ matrix.workspaces.location }}
+    
+      - name: Pull Commit 
+        run: git pull
+
+      - name: Commit With Versioning
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "release(${{steps.get_service.outputs.SERVICE}}): ${{ steps.package-version.outputs.current-version }} [skip ci]"
+          branch: main
+          commit_options: '--no-verify --signoff'
+          repository: .
+          commit_user_name: XQUARE Frontend Bot
+          commit_user_email: teamxquare@gmail.com
+          commit_author: XQUARE Frontend Bot <teamxquare@gmail.com>

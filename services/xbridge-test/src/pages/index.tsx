@@ -117,6 +117,15 @@ const Home: NextPage<{ accessToken: string; refreshToken: string }> = ({
             <Button onClick={testTimePicker}>타임 피커</Button>
             <div>선택된 교시: {selectedPeriod}</div>
             <Button onClick={testPeriodPicker}>교시 피커</Button>
+            <Button
+                onClick={() =>
+                    sendBridgeEvent('success', {
+                        title: '성공',
+                        message: '브릿지 테스트에 성공하였습니다.',
+                    })
+                }>
+                success 버튼
+            </Button>
         </div>
     );
 };

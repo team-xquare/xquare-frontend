@@ -1,0 +1,5 @@
+config: 
+  name: apply
+  service_type: fe
+  prefix: /apply
+  port: 3000

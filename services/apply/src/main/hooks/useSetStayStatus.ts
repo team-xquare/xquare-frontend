@@ -16,16 +16,17 @@ const useSetStayStatus = () => {
             queryClient.setQueryData(stayStatusKey, newStatus);
             return { previousStatus };
         },
-        // onSuccess: () => {
-        //     sendBridgeEvent('error', {
-        //         message: '잔류신청 변경에 성공하였습니다.',
-        //     });
-        // },
+        onSuccess: () => {
+            sendBridgeEvent('success', {
+                title: '안내',
+                message: '잔류신청이 변경되었습니다.',
+            });
+        },
         onError: (error, _, context) => {
             queryClient.setQueryData(stayStatusKey, context as StayStatus);
-            axiosErrorTemplate(error, {
-                400: '외출 신청시간이 마감되었습니다. 사감실에 문의해주세요,',
-            });
+            sendBridgeEvent('error', {
+                message: '잔류신청이 마감되었습니다. 사감실에 문의해주세요.'
+            })
         },
         onSettled: () => {
             queryClient.invalidateQueries(stayStatusKey);

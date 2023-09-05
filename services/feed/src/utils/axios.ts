@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const testToken = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMjE0YjRkYi1mNzIzLTRiNDMtYjRkNS0xYmI2N2VkODAyODkiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjc5MjQ0NzY3LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiVUtOIiwiU1RVIiwiU1RDIl19.l2n6_1xLe5QJqvtCLPEuxStV-UsNcLd8i9GBXXyHBig`;
+const testToken = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjMyNjEzMi0zMDM1LTM0MzctMmQzMy0zMDY1NjQyZDM0MzUiLCJyb2xlIjoiU1RVIiwiZXhwIjoxNjkyOTAxNTg2LCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiYXV0aG9yaXRpZXMiOlsiVUtOIiwiU1RVIl19.QOB2Vp1ZG0S9XGHm7BvHzsAwAkn0k6fJBdEY7Yjl9rQ`;
 export const instance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}/feeds`,
     timeout: 10000,

@@ -3,6 +3,7 @@ import { Botton, Button } from '@semicolondsm/ui';
 import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import useWeekendMeal from '../hooks/useWeekendMeal';
 import useSetWeekendMeal from '../hooks/useSetWeekendMeal';
+import { FlexRow } from '../../common/components/Flexbox';
 
 const WeekendMealApplyBox = () => {
     const { data: weekendMealStatus } = useWeekendMeal();
@@ -11,32 +12,32 @@ const WeekendMealApplyBox = () => {
     const sendApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            detail.success && mutate({ apply: true });
+            detail.success && mutate({ status: 'APPLY' });
         },
         {
-            message: '주말급식은 신청해야\n먹을 수 있어요',
+            message: '주말 급식을 신청 하겠습니까?',
             confirmText: '신청하기',
             cancelText: '다음에 하기',
         },
         ({ data }) => {
             const isSuccess = confirm(data.message);
-            isSuccess && mutate({ apply: true });
+            isSuccess && mutate({ status: 'APPLY' });
         },
     );
 
-    const sendCancelConfirm = useBridgeHandler(
+    const sendNotApplyConfirm = useBridgeHandler(
         'confirm',
         ({ detail }) => {
-            detail.success && mutate({ apply: false });
+            detail.success && mutate({ status: 'NOT_APPLY' });
         },
         {
-            message: '주말급식 신청을 취소하면\n먹을 수 없어요',
-            confirmText: '취소하기',
+            message: '주말 급식을 미신청 하겠습니까?',
+            confirmText: '미신청하기',
             cancelText: '다음에 하기',
         },
         ({ data }) => {
             const isSuccess = confirm(data.message);
-            isSuccess && mutate({ apply: false });
+            isSuccess && mutate({ status: 'NOT_APPLY' });
         },
     );
 
@@ -45,14 +46,28 @@ const WeekendMealApplyBox = () => {
             <Botton>
                 {weekendMealStatus ? weekendMealStatus?.title : '지금은 신청기간이 아닙니다'}
             </Botton>
-            <MealApplyButton
-                loading={isLoading}
-                size="sm"
-                fill={weekendMealStatus?.applied ? 'border' : 'purple'}
-                onClick={weekendMealStatus?.applied ? sendCancelConfirm : sendApplyConfirm}
-                disabled={!weekendMealStatus}>
-                {weekendMealStatus?.applied ? '취소하기' : '신청하기'}
-            </MealApplyButton>
+            {weekendMealStatus && (
+                <FlexRow gap={10}>
+                    <MealApplyButton
+                        loading={isLoading}
+                        size="sm"
+                        fill={weekendMealStatus?.status === 'APPLY' ? 'purple' : 'border'}
+                        onClick={sendApplyConfirm}
+                        //disabled={!weekendMealStatus}
+                    >
+                        신청
+                    </MealApplyButton>
+                    <MealApplyButton
+                        loading={isLoading}
+                        size="sm"
+                        fill={weekendMealStatus?.status === 'NOT_APPLY' ? 'purple' : 'border'}
+                        onClick={sendNotApplyConfirm}
+                        //disabled={!weekendMealStatus}
+                    >
+                        미신청
+                    </MealApplyButton>
+                </FlexRow>
+            )}
         </MealApplyWrapper>
     );
 };

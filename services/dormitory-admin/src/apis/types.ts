@@ -53,11 +53,18 @@ export interface UserLogin {
     password: string;
 }
 
-export interface UserToken {
+export interface UserLoginToken {
+    access_token: string;
+    access_token_expire_at: string;
+    refresh_token: string;
+    refresh_token_expire_at: string;
+    role: string;
+}
+
+export interface UserRefreshToken {
     access_token: string;
     refresh_token: string;
     expire_at: string;
-    role: string;
 }
 
 export interface Category {
@@ -97,6 +104,12 @@ export type WeekendMealStu = {
     id: string;
     name: string;
     num: string;
+    status: string;
+};
+
+export type WeekendMealAll = {
+    response_students: WeekendMealStu[];
+    non_response_students: WeekendMealStu[];
 };
 
 export type PicnicStu = {

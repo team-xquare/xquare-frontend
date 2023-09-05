@@ -16,8 +16,8 @@ export const postSignup = async ({
     const outingSignup = await axios.post(
         `${
             process.env.NODE_ENV === 'development'
-                ? 'https://stag-api.xquare.app'
-                : 'https://api.xquare.app'
+                ? 'https://stag-server.xquare.app'
+                : 'https://prod-server.xquare.app'
         }/users`,
         {
             verification_code,
