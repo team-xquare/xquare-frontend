@@ -5,14 +5,12 @@ import PostFooter from './PostFooter';
 import KababButton from '../../../common/components/KababButton';
 import ContentBox from '../../../common/components/ContentBox';
 import { ImageCountContainer } from '../../../common/components/image';
-import { sendBridgeEvent, useBridgeHandler } from '@shared/xbridge';
 import { FeedType } from '../../types';
-import useDeleteFeed from '../../hooks/useDeleteFeed';
+import useKebaButton from '../../../common/hooks/useKebaButton';
 interface FeedPostProps extends FeedType {
     categoryId: string;
 }
 //@todo props 바꾸기
-const actionSheetMenu = ['삭제하기', '신고하기'] as const;
 
 const FeedPost = ({
     attachments_url,
@@ -28,26 +26,11 @@ const FeedPost = ({
     authority_type,
     categoryId,
 }: FeedPostProps) => {
-    const { mutate: deleteMutate } = useDeleteFeed(feed_id, categoryId);
-    const deleteConfirm = useBridgeHandler('confirm', (e) => e.detail.success && deleteMutate(), {
-        message: '피드를 삭제하시겠습니까?',
-        cancelText: '취소하기',
-        confirmText: '삭제하기',
-    });
-
-    const menuAction: Record<(typeof actionSheetMenu)[number], () => void> = {
-        삭제하기: () => {
-            deleteConfirm();
-        },
-        신고하기: () => {
-            sendBridgeEvent('navigate', {
-                url: `/comment/${feed_id}/declare`,
-                title: '신고하기',
-                rightButtonText: '제출',
-            });
-        },
-    };
-    // console.log(`${type}`);
+    const { actionSheetMenu, menuAction } = useKebaButton(
+        `/comment/${feed_id}/declare`,
+        feed_id,
+        categoryId,
+    );
     return (
         <FlexCol fullWidth>
             <FeedPostContainer>

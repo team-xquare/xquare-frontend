@@ -24,5 +24,12 @@ export type FeedDto = {
     profile: string;
     name: string;
     type: string;
+    is_mine: boolean;
     attachments_url: string[];
+    category_id: string;
 };
+
+export interface FeedRequestParams {
+    feed_id: string;
+    content: string;
+}

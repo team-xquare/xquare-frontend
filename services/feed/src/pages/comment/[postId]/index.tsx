@@ -4,7 +4,6 @@ import { Body1 } from '@semicolondsm/ui';
 import { FlexCol, FlexRow } from '../../../common/components/Flexbox';
 import ContentProfile from '../../../comment/components/ContentDetail';
 import { useComment } from '../../../comment/hooks/useComment';
-import useFeedList from '../../../main/hooks/useFeedList';
 import { useRouter } from 'next/router';
 import SubmitTextarea from '../../../common/components/SubmitTextarea';
 import { useState } from 'react';
@@ -12,8 +11,8 @@ import useAddComments from '../../../comment/hooks/useAddComment';
 import { ImageCountContainer } from '../../../common/components/image';
 import { useScrollWithRef } from '../../../write/hooks/useScrollWithRef';
 import KababButton from '../../../common/components/KababButton';
-import { sendBridgeEvent } from '@shared/xbridge';
 import useFeed from '../../../main/hooks/useFeed';
+import useKebaButton from '../../../common/hooks/useKebaButton';
 
 const Comment = () => {
     const router = useRouter();
@@ -23,6 +22,11 @@ const Comment = () => {
     const { data: feedsData, isLoading } = useFeed(postId);
     const { mutate: addMutate } = useAddComments(postId);
     const { ref, isScroll } = useScrollWithRef();
+    const { actionSheetMenu, menuAction } = useKebaButton(
+        '/declare',
+        postId,
+        feedsData?.category_id ?? '',
+    );
 
     return (
         <>
@@ -35,8 +39,7 @@ const Comment = () => {
                         fullWidth
                         style={{
                             paddingRight: 16,
-                        }}
-                    >
+                        }}>
                         <ContentProfile
                             isScroll={isScroll}
                             createAt={feedsData?.created_at || ''}
@@ -44,14 +47,8 @@ const Comment = () => {
                             profileSrc={feedsData?.profile || ''}
                         />
                         <KababButton
-                            menu={['신고']}
-                            onClick={() =>
-                                sendBridgeEvent('navigate', {
-                                    title: '신고하기',
-                                    url: `/declare`,
-                                    rightButtonText: '제출',
-                                })
-                            }
+                            menu={feedsData.is_mine ? actionSheetMenu : ['신고하기']}
+                            onClick={(menu) => menuAction[menu]()}
                         />
                     </FlexRow>
 
