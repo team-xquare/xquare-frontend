@@ -13,7 +13,7 @@ const useKebaButton = (navUrl: string, feedId: string, categoryId: string) => {
 
     const menuAction: Record<(typeof actionSheetMenu)[number], () => void> = {
         삭제하기: () => {
-            categoryId && deleteConfirm();
+            deleteConfirm();
         },
         신고하기: () => {
             sendBridgeEvent('navigate', {
