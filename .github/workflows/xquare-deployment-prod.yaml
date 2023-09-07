@@ -87,6 +87,8 @@ jobs:
               echo "ACCESS_KEY=${{ secrets.FEED_ACCESS_KEY }}" >> $GITHUB_OUTPUT
             elif [[ $service_name == "school-meal" ]]; then
               echo "ACCESS_KEY=${{ secrets.MEAL_ACCESS_KEY }}" >> $GITHUB_OUTPUT
+            elif [[ $service_name == "xbridge-test " ]]; then
+              echo "ACCESS_KEY=${{ secrets.XBRIDGE_TEST_ACCESS_KEY }}" >> $GITHUB_OUTPUT
             fi
 
       - name: Deploy to xquare
