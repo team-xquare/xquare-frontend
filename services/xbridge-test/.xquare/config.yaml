@@ -2,4 +2,4 @@ config:
   name: xbridge-test
   service_type: fe
   prefix: /xbridge-test
-  port: 3000
+  port: 3000 
