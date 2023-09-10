@@ -35,7 +35,7 @@ const Write = () => {
         {
             cancelText: '취소하기',
             confirmText: '작성하기',
-            message: '게시물을 등록하시겠습니까?',
+            message: '대나무숲 규칙 위반 시 무통보 삭제될 수 있습니다.\n게시물을 등록하시겠습니까?',
         },
     );
 
