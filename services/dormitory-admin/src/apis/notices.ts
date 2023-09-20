@@ -1,3 +1,4 @@
+import { Authority } from './../../../feed/src/write/types';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { feedInstance, pointInstance } from '.';
 import { Category, Comment, Notice } from './types';
@@ -52,7 +53,7 @@ export const useAddNoticeMutation = () => {
             return await feedInstance.post('/', {
                 ...params,
                 category_id: noticeCategory.category_id,
-                type: 'DOD',
+                authority_type: 'DOD',
             });
         },
         {
