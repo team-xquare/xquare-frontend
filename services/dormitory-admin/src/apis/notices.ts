@@ -1,8 +1,8 @@
-import { Authority } from './../../../feed/src/write/types';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { feedInstance, pointInstance } from '.';
+import { feedInstance } from '.';
 import { Category, Comment, Notice } from './types';
 import toast from 'react-hot-toast';
+
 export const useNoticeQuery = () => {
     const fetcher = async (): Promise<Notice[]> => (await feedInstance.get('/writer')).data.feeds;
 
