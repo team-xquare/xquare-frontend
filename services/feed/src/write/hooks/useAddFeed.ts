@@ -21,7 +21,6 @@ const useAddFeed = () => {
         const postResponse = await postAddFeed(postAddParam);
         await postFeedImage(postResponse.data.feed_id, imageUrls.fileUrl);
     };
-
     return useMutation(addFeedRequest, {
         onError: (e: AxiosError) => {
             sendBridgeEvent('error', {
